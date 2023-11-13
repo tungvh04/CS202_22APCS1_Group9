@@ -1,0 +1,5 @@
+
+set (SOURCEFILES
+	Main.cpp
+	PARENT_SCOPE
+	)
