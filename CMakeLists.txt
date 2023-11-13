@@ -12,7 +12,8 @@ FetchContent_MakeAvailable(SFML)
 
 add_subdirectory(Source)
 
-add_executable(${PROJECT_NAME} Source/Main.cpp
+add_executable(${PROJECT_NAME}  Source/Main.cpp
+                                Source/SceneNode.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)
