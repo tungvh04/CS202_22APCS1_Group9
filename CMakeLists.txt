@@ -15,6 +15,7 @@ add_subdirectory(Source)
 add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/SceneNode.cpp
                                 Source/Entity.cpp
+                                Source/SpriteNode.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)
