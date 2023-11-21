@@ -16,6 +16,9 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/SceneNode.cpp
                                 Source/Entity.cpp
                                 Source/SpriteNode.cpp
+                                Source/Character.cpp
+                                Source/World.cpp
+                                Source/Game.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)
