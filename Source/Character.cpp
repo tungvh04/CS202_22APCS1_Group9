@@ -4,6 +4,9 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 
+#include <cmath>
+#include <iostream>
+
 Textures::ID toTextureID(Character::Type type) {
     switch (type) {
         case Character::Player:
@@ -28,4 +31,25 @@ unsigned int Character::getCategory() const {
         default:
             return Category::Object;
     }
+}
+
+void Character::pathRequest(sf::Vector2f direction) {
+    mPath.push(direction);
+}
+
+void Character::updateCurrent(sf::Time dt) {
+    std::cout << mPath.size() << '\n';
+    if (!mPath.empty()) {
+        sf::Vector2f direction = mPath.front();
+        sf::Vector2f movement = direction * dt.asSeconds();
+        float distanceLeft = distancePerCommand - distanceTravelled;
+        if (std::sqrt(movement.x * movement.x + movement.y * movement.y) > distanceLeft) {
+            movement = movement / std::sqrt(movement.x * movement.x + movement.y * movement.y) * distanceLeft;
+            distanceTravelled = 0;
+            mPath.pop();
+        }
+        distanceTravelled += std::sqrt(movement.x * movement.x + movement.y * movement.y);
+        move(movement);
+    }
+    move(getVelocity() * dt.asSeconds());
 }

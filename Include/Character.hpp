@@ -6,6 +6,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
+#include <queue>
 class Character : public Entity {
 public:
     enum Type {
@@ -13,8 +14,13 @@ public:
     };
     Character(Type type, const TextureHolder& textures);
     virtual unsigned int getCategory() const;
+    void pathRequest(sf::Vector2f direction);
 
 private:
+    std::queue<sf::Vector2f> mPath;
+    float distanceTravelled = 0;
+    const float distancePerCommand = 100.f;
+    virtual void updateCurrent(sf::Time dt);
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
     Type mType;

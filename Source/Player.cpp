@@ -11,7 +11,8 @@ struct CharacterMover {
     CharacterMover(float vx, float vy) : velocity(vx, vy) {}
 
     void operator() (Character& character, sf::Time) const {
-        character.accelerate(velocity);
+        // character.accelerate(velocity);
+        character.pathRequest(velocity);
     }
 
     sf::Vector2f velocity;
@@ -87,7 +88,8 @@ bool Player::isRealtimeAction(Action action) {
         case MoveRight:
         case MoveDown:
         case MoveUp:
-            return true;
+            //return true;
+            return false;
 
         default:
             return false;
