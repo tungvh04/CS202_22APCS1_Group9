@@ -20,6 +20,7 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/World.cpp
                                 Source/Game.cpp
                                 Source/Command.cpp
+                                Source/CommandQueue.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)
