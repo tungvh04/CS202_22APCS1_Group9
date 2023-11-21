@@ -1,3 +1,4 @@
+#include <Command.hpp>
 #include <SceneNode.hpp>
 #include <Foreach.hpp>
 
@@ -64,4 +65,16 @@ sf::Transform SceneNode::getWorldTransform() const {
         transform = node->getTransform() * transform;
 
     return transform;
+}
+
+void SceneNode::onCommand(const Command& command, sf::Time dt) {
+    if (command.category & getCategory())
+        command.action(*this, dt);
+
+    FOREACH(Ptr& child, mChildren)
+        child->onCommand(command, dt);
+}
+
+unsigned int SceneNode::getCategory() const {
+    return Category::Scene;
 }

@@ -20,3 +20,12 @@ Character::Character(Type type, const TextureHolder& textures) : mType(type), mS
 void Character::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(mSprite, states);
 }
+
+unsigned int Character::getCategory() const {
+    switch (mType) {
+        case Player:
+            return Category::PlayerCharacter;
+        default:
+            return Category::Object;
+    }
+}
