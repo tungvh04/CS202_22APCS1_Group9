@@ -16,6 +16,7 @@ Textures::ID toTextureID(Character::Type type) {
 }
 
 Character::Character(Type type, const TextureHolder& textures) : mType(type), mSprite(textures.get(toTextureID(type))) {
+    mSprite.scale(distancePerCommand / mSprite.getLocalBounds().width, distancePerCommand / mSprite.getLocalBounds().height);
     sf::FloatRect bounds = mSprite.getLocalBounds();
     mSprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
@@ -38,7 +39,7 @@ void Character::pathRequest(sf::Vector2f direction) {
 }
 
 void Character::updateCurrent(sf::Time dt) {
-    std::cout << mPath.size() << '\n';
+    // std::cout << mSprite.getGlobalBounds().width << ' ' << mSprite.getGlobalBounds().height << std::endl;
     if (!mPath.empty()) {
         sf::Vector2f direction = mPath.front();
         sf::Vector2f movement = direction * dt.asSeconds();

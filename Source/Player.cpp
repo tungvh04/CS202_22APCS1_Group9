@@ -2,6 +2,7 @@
 #include <CommandQueue.hpp>
 #include <Character.hpp>
 #include <Foreach.hpp>
+#include <Const.hpp>
 
 #include <map>
 #include <string>
@@ -74,7 +75,8 @@ sf::Keyboard::Key Player::getAssignedKey(Action action) const {
 }
 
 void Player::initializeActions() {
-    const float playerSpeed = 200.f;
+    // const float playerSpeed = 200.f;
+    const float playerSpeed = Constants::playerSpeed;
 
     mActionBinding[MoveLeft].action = derivedAction<Character>(CharacterMover(-playerSpeed, 0.f));
     mActionBinding[MoveRight].action = derivedAction<Character>(CharacterMover(+playerSpeed, 0.f));
