@@ -10,6 +10,7 @@ namespace Textures {
     enum ID {
         Player,
         Background,
+        TitleScreen,
     };
 }
 

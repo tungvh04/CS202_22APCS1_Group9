@@ -29,6 +29,7 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/Utility.cpp
                                 Source/ParallelTask.cpp
                                 Source/MenuState.cpp
+                                Source/PauseState.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)
