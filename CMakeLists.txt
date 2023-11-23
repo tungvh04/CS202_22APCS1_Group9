@@ -18,7 +18,6 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/SpriteNode.cpp
                                 Source/Character.cpp
                                 Source/World.cpp
-                                Source/Game.cpp
                                 Source/Command.cpp
                                 Source/CommandQueue.cpp
                                 Source/Player.cpp
@@ -30,6 +29,8 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/ParallelTask.cpp
                                 Source/MenuState.cpp
                                 Source/PauseState.cpp
+                                Source/TitleState.cpp
+                                Source/Application.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)
