@@ -25,6 +25,9 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/State.cpp
                                 Source/StateStack.cpp
                                 Source/GameState.cpp
+                                Source/LoadingState.cpp
+                                Source/Utility.cpp
+                                Source/ParallelTask.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)
