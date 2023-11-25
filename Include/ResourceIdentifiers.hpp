@@ -11,6 +11,12 @@ namespace Textures {
         Player,
         Background,
         TitleScreen,
+        Button,
+        ButtonTouch,
+        ButtonPressed,
+        Cat,
+        Cloud1,
+        Cloud2,
     };
 }
 

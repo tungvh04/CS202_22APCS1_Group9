@@ -6,14 +6,16 @@
 #include <GameState.hpp>
 #include <MenuState.hpp>
 #include <PauseState.hpp>
-
+#include <Const.hpp>
 const sf::Time Application::TimePerFrame = sf::seconds(1.f/60.f);
 
-Application::Application() : mWindow(sf::VideoMode(640, 480), "States", sf::Style::Close), mTextures(), mFonts(), mPlayer(), mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer)), mStatisticsText(), mStatisticsUpdateTime(), mStatisticsNumFrames(0) {
+Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Constants::WindowHeight), "States", sf::Style::Close), mTextures(), mFonts(), mPlayer(), mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer)), mStatisticsText(), mStatisticsUpdateTime(), mStatisticsNumFrames(0) {
     mWindow.setKeyRepeatEnabled(false);
 
     mFonts.load(Fonts::Main, "Media/Fonts/Sansation.ttf");
     mTextures.load(Textures::TitleScreen, "Media/Textures/TitleScreen.png");
+    mTextures.load(Textures::Cloud1, "Media/Textures/Cloud1.png");
+    mTextures.load(Textures::Cloud2, "Media/Textures/Cloud2.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Main));
     mStatisticsText.setPosition(5.f, 5.f);

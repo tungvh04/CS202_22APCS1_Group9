@@ -2,6 +2,8 @@
 #include <Utility.hpp>
 #include <Foreach.hpp>
 #include <ResourceHolder.hpp>
+#include <Const.hpp>
+#include <MovingObject.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
@@ -11,6 +13,14 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     sf::Font& font = context.fonts->get(Fonts::Main);
 
     mBackgroundSprite.setTexture(texture);
+    mBackgroundSprite.scale(Constants::WindowWidth / mBackgroundSprite.getGlobalBounds().width, Constants::WindowHeight / mBackgroundSprite.getGlobalBounds().height);
+    sf::Texture& cloudTexture = context.textures->get(Textures::Cloud1);
+    
+    std::unique_ptr<MovingObject> cloud(new MovingObject(cloudTexture));
+    cloud->setPosition(300, 200);
+    cloud->setVelocity(200, 0);
+    clouds.attachChild(std::move(cloud));
+    
 
     // A simple menu demonstration
     sf::Text playOption;
@@ -35,12 +45,15 @@ void MenuState::draw() {
 
     window.setView(window.getDefaultView());
     window.draw(mBackgroundSprite);
+    window.draw(clouds);
 
     FOREACH(const sf::Text& text, mOptions)
         window.draw(text);
 }
 
-bool MenuState::update(sf::Time) {
+bool MenuState::update(sf::Time dt) {
+    clouds.update(dt);
+    //Hàm check & setPoisition
     return true;
 }
 

@@ -2,7 +2,7 @@
 #define MENUSTATE_HPP
 
 #include <State.hpp>
-
+#include <SceneNode.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 
@@ -27,6 +27,8 @@ private:
 
     std::vector<sf::Text> mOptions;
     std::size_t mOptionIndex;
+    SceneNode clouds;
+
 };
 
 #endif // MENUSTATE_HPP
