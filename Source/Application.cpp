@@ -13,9 +13,17 @@ Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Const
     mWindow.setKeyRepeatEnabled(false);
 
     mFonts.load(Fonts::Main, "Media/Fonts/Sansation.ttf");
+    
     mTextures.load(Textures::TitleScreen, "Media/Textures/TitleScreen.png");
+    mTextures.load(Textures::Background, "Media/Textures/Background.png");
+    mTextures.load(Textures::Title, "Media/Textures/Title.png");
     mTextures.load(Textures::Cloud1, "Media/Textures/Cloud1.png");
     mTextures.load(Textures::Cloud2, "Media/Textures/Cloud2.png");
+    mTextures.load(Textures::Cloud3, "Media/Textures/Cloud3.png");
+    mTextures.load(Textures::Cat, "Media/Textures/Cat.png");
+    mTextures.load(Textures::Button, "Media/Textures/Button.png");
+    mTextures.load(Textures::ButtonTouch, "Media/Textures/ButtonTouch.png");
+    mTextures.load(Textures::ButtonPressed, "Media/Textures/ButtonPressed.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Main));
     mStatisticsText.setPosition(5.f, 5.f);
@@ -57,7 +65,6 @@ void Application::processInput() {
             mWindow.close();
     }
 }
-
 void Application::update(sf::Time dt) {
     mStateStack.update(dt);
 }

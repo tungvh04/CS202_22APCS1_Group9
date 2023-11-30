@@ -32,6 +32,9 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/TitleState.cpp
                                 Source/Application.cpp
                                 Source/MovingObject.cpp
+                                Source/Component.cpp
+                                Source/Button.cpp
+                                Source/Container.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)

@@ -1,10 +1,11 @@
 #include <Command.hpp>
 #include <SceneNode.hpp>
 #include <Foreach.hpp>
+#include <Const.hpp>
 
 #include <algorithm>
 #include <cassert>
-
+using namespace std;
 SceneNode::SceneNode() : mChildren(), mParent(nullptr) {}
 
 void SceneNode::attachChild(Ptr child) {
@@ -77,4 +78,14 @@ void SceneNode::onCommand(const Command& command, sf::Time dt) {
 
 unsigned int SceneNode::getCategory() const {
     return Category::Scene;
+}
+
+void SceneNode::outOfScreen(){
+    FOREACH(const Ptr& child, mChildren){
+        if (child->getPosition().x > Constants::WindowWidth){
+            float height = child->getPosition().y;
+            child->setPosition(sf::Vector2f(-100, height));
+        }
+
+    }
 }
