@@ -6,7 +6,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
 
-PauseState::PauseState(StateStack& stack, Context context) : State(stack, context), mBackgroundSprite(), mPausedText(), mInstructionText() {
+PauseState::PauseState(StateStack& stack, Context context) : State(stack, context), mBackgroundSprite(), mPausedText(), mGUIContainer() {
     sf::Font& font = context.fonts->get(Fonts::Main);
     sf::Vector2f viewSize = context.window->getView().getSize();
 
@@ -81,7 +81,6 @@ void PauseState::draw() {
 
     window.draw(backgroundShape);
     window.draw(mPausedText);
-    window.draw(mInstructionText);
     window.draw(mGUIContainer);
 }
 

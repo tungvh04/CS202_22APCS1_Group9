@@ -19,7 +19,6 @@ public:
 private:
     sf::Sprite mBackgroundSprite;
     sf::Text mPausedText;
-    sf::Text mInstructionText;
     GUI::Container mGUIContainer;
 };
 
