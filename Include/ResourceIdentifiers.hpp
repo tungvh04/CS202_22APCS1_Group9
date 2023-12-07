@@ -12,6 +12,7 @@ namespace Textures {
         Background,
         TitleScreen,
         Title,
+        HighScore,
         Button,
         ButtonTouch,
         ButtonPressed,
@@ -19,9 +20,20 @@ namespace Textures {
         Cloud1,
         Cloud2,
         Cloud3,
+        Key1,
+        Key2
     };
 }
-
+namespace SoundEffects {
+    enum ID {
+        Button,
+        Step,
+        Collison,
+        SpringTheme,
+        AutumnTheme,
+        WinterTheme
+    };
+}
 namespace Fonts {
     enum ID {
         Main,

@@ -28,7 +28,7 @@ private:
     sf::Sprite mBackgroundSprite;
     GUI::Container mGUIContainer;
     SceneNode clouds; 
-
+    
 };
 
 #endif // MENUSTATE_HPP
