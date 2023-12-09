@@ -95,14 +95,14 @@ void CarFactory::spawn() {
     if (delayCounter>0.0f) return;
     carList.resize(carList.size()+1);
     carList.back().setPos(spawnPoint);
-    carList.back().setBoundingBox(boundBox);
+    //carList.back().setBoundingBox(boundBox);
     carList.back().setTexture(tTexture);
     carList.back().setSpeed(speedRange);
     delayCounter=Rand(delayRange.x,delayRange.y);
 }
 
 void CarFactory::update(sf::Time dt) {
-    delayCounter-=dt;
+    delayCounter-=dt.asSeconds();
     for (int i=0;i<carList.size();i++) {
         carList[i].update(dt);
     }
@@ -120,7 +120,6 @@ CarFactoryManager::CarFactoryManager(sf::Vector2f _speedRange,sf::Vector2f _dela
     delayRange=_delayRange;
     if (delayRange.x>delayRange.y) std::swap(delayRange.x,delayRange.y);
     spawnPoint=_spawnPoint;
-    delayCounter=Rand(speedRange.x,speedRange.y);
     defaultPath="";
     targetHolder=nullptr;
     isTracked=false;

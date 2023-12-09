@@ -9,6 +9,8 @@
 #include <CommandQueue.hpp>
 #include <Command.hpp>
 #include <TileSystem.hpp>
+#include <Indexer.hpp>
+#include <Car.hpp>
 
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/Graphics/View.hpp>
@@ -45,6 +47,8 @@ private:
 
 private:
     TileBuilderRow tileManager;
+
+    Indexer stateController;
 
     sf::RenderWindow& mWindow;
     sf::View mWorldView;

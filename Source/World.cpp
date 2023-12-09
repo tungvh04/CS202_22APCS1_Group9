@@ -17,6 +17,7 @@ World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getD
     tileManager.setCentre(mSpawnPosition);
     tileManager.shiftY(Constants::initialShift);
     tileManager.buildTillFull();
+    stateController.setOrigin(mSpawnPosition);
     // Prepare the view
     mWorldView.setCenter(mSpawnPosition);
 }
@@ -25,6 +26,10 @@ void World::update(sf::Time dt) {
 
     //std::cout<<mPlayerCharacter->getPosition().x<<' '<<mPlayerCharacter->getPosition().y<<'\n';
     // Scroll the world, reset player velocity
+
+    //sf::Vector2i currentPos=stateController.getIndex(mPlayerCharacter->getPosition());
+    //std::cout<<currentPos.x<<' '<<currentPos.y<<'\n';
+
     mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
     mPlayerCharacter->setVelocity(0.f, 0.f);
 

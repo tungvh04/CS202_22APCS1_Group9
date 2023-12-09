@@ -36,6 +36,7 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/Object.cpp
                                 Source/TextureHolder.cpp
                                 Source/Car.cpp
+                                Source/Indexer.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)
