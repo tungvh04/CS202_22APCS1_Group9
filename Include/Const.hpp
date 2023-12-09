@@ -1,5 +1,6 @@
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
+#include <string>
 
 namespace Constants {
     constexpr static float playerSpeed = 200.f;
