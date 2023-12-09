@@ -13,6 +13,7 @@ namespace Textures {
         TitleScreen,
         Title,
         HighScore,
+        Character,
         Button,
         ButtonTouch,
         ButtonPressed,
@@ -21,7 +22,7 @@ namespace Textures {
         Cloud2,
         Cloud3,
         Key1,
-        Key2
+        Key2,
     };
 }
 namespace SoundEffects {

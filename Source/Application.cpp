@@ -3,6 +3,7 @@
 #include <State.hpp>
 #include <StateIdentifiers.hpp>
 #include <TitleState.hpp>
+#include <CharacterState.hpp>
 #include <GameState.hpp>
 #include <MenuState.hpp>
 #include <SettingState.hpp>
@@ -29,6 +30,7 @@ Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Const
     mTextures.load(Textures::Key1, "Media/Textures/Key1.png");
     mTextures.load(Textures::Key2, "Media/Textures/Key2.png");
     mTextures.load(Textures::HighScore, "Media/Textures/HighScore.png");
+    mTextures.load(Textures::Character, "Media/Textures/Character.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Main));
     mStatisticsText.setPosition(5.f, 5.f);
@@ -51,7 +53,6 @@ void Application::run() {
             processInput();
             update(TimePerFrame);
 
-            // Check inside this loop, because stack might be empty before update() call
             if (mStateStack.isEmpty())
                 mWindow.close();
         }
@@ -100,6 +101,7 @@ void Application::updateStatistics(sf::Time dt) {
 void Application::registerStates() {
     mStateStack.registerState<TitleState>(States::Title);
     mStateStack.registerState<MenuState>(States::Menu);
+    mStateStack.registerState<CharacterState>(States::Character);
     mStateStack.registerState<SettingState>(States::Setting);
     mStateStack.registerState<HighScoreState>(States::Score);
     mStateStack.registerState<GameState>(States::Game);

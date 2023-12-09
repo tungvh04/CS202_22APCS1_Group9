@@ -38,6 +38,7 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/Label.cpp
                                 Source/SettingState.cpp
                                 Source/HighScoreState.cpp
+                                Source/CharacterState.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)
