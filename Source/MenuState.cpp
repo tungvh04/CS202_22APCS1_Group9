@@ -54,7 +54,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
 	playButton->setCallback([this] ()
 	{
 		requestStackPop();
-		requestStackPush(States::Character);
+		requestStackPush(States::Game);
 	});
     auto scoreButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
     scoreButton->setPosition(800, 600);

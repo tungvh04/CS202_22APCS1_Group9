@@ -129,7 +129,7 @@ void CarFactoryManager::setPath(std::string path) {
     defaultPath=path;
 }
 
-void CarFactoryManager::setHolder(TextureHolder* holder) {
+void CarFactoryManager::setHolder(WorldTextureHolder* holder) {
     targetHolder=holder;
 }
 

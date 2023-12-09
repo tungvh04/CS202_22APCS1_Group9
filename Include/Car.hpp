@@ -45,7 +45,7 @@ private:
 
     std::string defaultPath;
 
-    TextureHolder* targetHolder=nullptr;
+    WorldTextureHolder* targetHolder=nullptr;
 
     std::deque<CarFactory> carTrackList;
 
@@ -54,7 +54,7 @@ public:
     CarFactoryManager(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint);
 
     void setPath(std::string path);
-    void setHolder(TextureHolder* target);
+    void setHolder(WorldTextureHolder* target);
     void setTrackingPoint(sf::Vector2f point);
     void push_back();
     void pop_front();

@@ -1,23 +1,23 @@
 #include <TextureHolder.hpp>
 
-TextureHolder::TextureHolder(std::string _path): path(_path) {
+WorldTextureHolder::WorldTextureHolder(std::string _path): path(_path) {
     
 }
 
-void TextureHolder::load(int id) {
+void WorldTextureHolder::load(int id) {
     container[id].loadFromFile(path+toString(id)+".png");
 }
 
-void TextureHolder::load(int l,int r) {
+void WorldTextureHolder::load(int l,int r) {
     for (int i=l;i<=r;i++) {
         load(i);
     }
 }
 
-void TextureHolder::setPath(std::string _path) {
+void WorldTextureHolder::setPath(std::string _path) {
     path=_path;
 }
 
-sf::Texture* TextureHolder::get(int id) {
+sf::Texture* WorldTextureHolder::get(int id) {
     return &container[id];
 }

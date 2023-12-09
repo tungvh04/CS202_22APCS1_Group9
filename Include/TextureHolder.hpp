@@ -12,13 +12,13 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
-class TextureHolder{
+class WorldTextureHolder{
 private:
     std::map<int,sf::Texture> container;
 
     std::string path;
 public:
-    TextureHolder(std::string _path);
+    WorldTextureHolder(std::string _path);
 
     void load(int id);
     void load(int l,int r); 
