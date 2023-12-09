@@ -12,7 +12,31 @@ FetchContent_MakeAvailable(SFML)
 
 add_subdirectory(Source)
 
-add_executable(${PROJECT_NAME} Source/Main.cpp
+add_executable(${PROJECT_NAME}  Source/Main.cpp
+                                Source/SceneNode.cpp
+                                Source/Entity.cpp
+                                Source/SpriteNode.cpp
+                                Source/Character.cpp
+                                Source/World.cpp
+                                Source/Command.cpp
+                                Source/CommandQueue.cpp
+                                Source/Player.cpp
+                                Source/State.cpp
+                                Source/StateStack.cpp
+                                Source/GameState.cpp
+                                Source/LoadingState.cpp
+                                Source/Utility.cpp
+                                Source/ParallelTask.cpp
+                                Source/MenuState.cpp
+                                Source/PauseState.cpp
+                                Source/TitleState.cpp
+                                Source/Application.cpp
+                                Source/TileSystem.cpp
+                                Source/CollisionBox.cpp 
+                                Source/Object.cpp
+                                Source/TextureHolder.cpp
+                                Source/Car.cpp
+                                Source/Indexer.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)
