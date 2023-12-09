@@ -39,7 +39,6 @@ void LoadingState::draw() {
 }
 
 bool LoadingState::update(sf::Time) {
-    // Update the progress bar from the remote task or finish it
     if (mLoadingTask.isFinished()) {
         requestStackPop();
         requestStackPush(States::Game);

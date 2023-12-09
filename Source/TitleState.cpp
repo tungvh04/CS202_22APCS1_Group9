@@ -1,12 +1,12 @@
 #include <TitleState.hpp>
 #include <Utility.hpp>
 #include <ResourceHolder.hpp>
-
+#include <Const.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 TitleState::TitleState(StateStack& stack, Context context) : State(stack, context), mText(), mShowText(true), mTextEffectTime(sf::Time::Zero) {
     mBackgroundSprite.setTexture(context.textures->get(Textures::TitleScreen));
-
+    mBackgroundSprite.scale(Constants::WindowWidth / mBackgroundSprite.getGlobalBounds().width, Constants::WindowHeight / mBackgroundSprite.getGlobalBounds().height);
     mText.setFont(context.fonts->get(Fonts::Main));
     mText.setString("Press any key to start");
     centerOrigin(mText);
@@ -34,7 +34,7 @@ bool TitleState::update(sf::Time dt) {
 
 bool TitleState::handleEvent(const sf::Event& event) {
     // If any key is pressed, trigger the next screen
-    if (event.type == sf::Event::KeyPressed) {
+    if (event.type == sf::Event::KeyReleased) {
         requestStackPop();
         requestStackPush(States::Menu);
     }

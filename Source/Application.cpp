@@ -3,17 +3,34 @@
 #include <State.hpp>
 #include <StateIdentifiers.hpp>
 #include <TitleState.hpp>
+#include <CharacterState.hpp>
 #include <GameState.hpp>
 #include <MenuState.hpp>
+#include <SettingState.hpp>
+#include <HighScoreState.hpp>
 #include <PauseState.hpp>
-
+#include <Const.hpp>
 const sf::Time Application::TimePerFrame = sf::seconds(1.f/60.f);
 
-Application::Application() : mWindow(sf::VideoMode(640, 480), "States", sf::Style::Close), mTextures(), mFonts(), mPlayer(), mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer)), mStatisticsText(), mStatisticsUpdateTime(), mStatisticsNumFrames(0) {
+Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Constants::WindowHeight), "States", sf::Style::Close), mTextures(), mFonts(), mPlayer(), mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer)), mStatisticsText(), mStatisticsUpdateTime(), mStatisticsNumFrames(0) {
     mWindow.setKeyRepeatEnabled(false);
 
     mFonts.load(Fonts::Main, "Media/Fonts/Sansation.ttf");
+    
     mTextures.load(Textures::TitleScreen, "Media/Textures/TitleScreen.png");
+    mTextures.load(Textures::Background, "Media/Textures/Background.png");
+    mTextures.load(Textures::Title, "Media/Textures/Title.png");
+    mTextures.load(Textures::Cloud1, "Media/Textures/Cloud1.png");
+    mTextures.load(Textures::Cloud2, "Media/Textures/Cloud2.png");
+    mTextures.load(Textures::Cloud3, "Media/Textures/Cloud3.png");
+    mTextures.load(Textures::Cat, "Media/Textures/Cat.png");
+    mTextures.load(Textures::Button, "Media/Textures/Button.png");
+    mTextures.load(Textures::ButtonTouch, "Media/Textures/ButtonTouch.png");
+    mTextures.load(Textures::ButtonPressed, "Media/Textures/ButtonPressed.png");
+    mTextures.load(Textures::Key1, "Media/Textures/Key1.png");
+    mTextures.load(Textures::Key2, "Media/Textures/Key2.png");
+    mTextures.load(Textures::HighScore, "Media/Textures/HighScore.png");
+    mTextures.load(Textures::Character, "Media/Textures/Character.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Main));
     mStatisticsText.setPosition(5.f, 5.f);
@@ -36,7 +53,6 @@ void Application::run() {
             processInput();
             update(TimePerFrame);
 
-            // Check inside this loop, because stack might be empty before update() call
             if (mStateStack.isEmpty())
                 mWindow.close();
         }
@@ -55,7 +71,6 @@ void Application::processInput() {
             mWindow.close();
     }
 }
-
 void Application::update(sf::Time dt) {
     mStateStack.update(dt);
 }
@@ -86,6 +101,9 @@ void Application::updateStatistics(sf::Time dt) {
 void Application::registerStates() {
     mStateStack.registerState<TitleState>(States::Title);
     mStateStack.registerState<MenuState>(States::Menu);
+    mStateStack.registerState<CharacterState>(States::Character);
+    mStateStack.registerState<SettingState>(States::Setting);
+    mStateStack.registerState<HighScoreState>(States::Score);
     mStateStack.registerState<GameState>(States::Game);
     mStateStack.registerState<PauseState>(States::Pause);
 }

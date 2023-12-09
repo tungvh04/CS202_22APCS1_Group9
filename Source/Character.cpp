@@ -41,6 +41,7 @@ void Character::pathRequest(sf::Vector2f direction) {
 void Character::updateCurrent(sf::Time dt) {
 
     // std::cout << mSprite.getGlobalBounds().width << ' ' << mSprite.getGlobalBounds().height << std::endl;
+    // std::cout << "Position: " << getPosition().x << ' ' << getPosition().y << std::endl;
     if (!mPath.empty()) {
         sf::Vector2f direction = mPath.front();
         move(direction*distancePerCommand);
@@ -53,19 +54,7 @@ void Character::updateCurrent(sf::Time dt) {
             distanceTravelled = 0;
             mPath.pop();
         }
-        distanceTravelled += std::sqrt(movement.x * movement.x + movement.y * movement.y);
-        */
-       if (float(movement.x + movement.y) >= distanceLeft) {
-            if (movement.x>0) {
-                movement.x=distanceLeft;
-            }
-            if (movement.y>0) {
-                movement.y=distanceLeft;
-            }
-            distanceTravelled = 0;
-            mPath.pop();
-        }
-        distanceTravelled += abs(movement.x+movement.y);
+        else distanceTravelled += std::sqrt(movement.x * movement.x + movement.y * movement.y);
         move(movement);
     }
     move(getVelocity() * dt.asSeconds());

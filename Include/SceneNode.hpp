@@ -24,7 +24,8 @@ public:
     Ptr detachChild(const SceneNode& node);
 
     void update(sf::Time dt);
-
+    void outOfScreen();
+    
     sf::Vector2f getWorldPosition() const;
     sf::Transform getWorldTransform() const;
 

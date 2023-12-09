@@ -2,7 +2,9 @@
 #define MENUSTATE_HPP
 
 #include <State.hpp>
-
+#include <SceneNode.hpp>
+#include <Container.hpp>
+#include <Button.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 
@@ -24,9 +26,9 @@ private:
 
 private:
     sf::Sprite mBackgroundSprite;
-
-    std::vector<sf::Text> mOptions;
-    std::size_t mOptionIndex;
+    GUI::Container mGUIContainer;
+    SceneNode clouds; 
+    
 };
 
 #endif // MENUSTATE_HPP
