@@ -1,25 +1,13 @@
-#ifndef COLLISIONBOX_HPP
-#define COLLISIONBOX_HPP
+#include <CollisionBox.hpp>
 
-#include <Entity.hpp>
-#include <Const.hpp>
-#include <Utility.hpp>
+bool BoundingBox::collide(sf::Vector2f x) {
+    return boundingBox.contains(x);
+}
 
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/Rect.hpp>
+bool BoundingBox::collide(BoundingBox &x) {
+    return boundingBox.intersects(x.boundingBox);
+}
 
-#include <iostream>
-#include <fstream>
-
-class BoundingBox{
-private:
-    sf::FloatRect boundingBox;
-
-public:
-    bool collide(sf::Vector2f x);
-    bool collide(sf::FloatRect x);
-};
-
-#endif //COLLISIONBOX_HPP
+void BoundingBox::setBoundingBox(sf::FloatRect x) {
+    boundingBox=x;
+}

@@ -4,6 +4,8 @@
 #include <Entity.hpp>
 #include <Const.hpp>
 #include <Utility.hpp>
+#include <CollisionBox.hpp>
+#include <Object.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -12,23 +14,12 @@
 #include <iostream>
 #include <fstream>
 
-class Tile{
+class Tile: public Object,BoundingBox{
 private:
-    sf::Vector2f pos;
-
-    sf::Texture* tTexture;
-    //int tTextureID;
-
-    sf::Sprite tObj;
 
 public:
     Tile();
     ~Tile();
-
-    void draw(sf::RenderWindow& window);
-    void setPos(sf::Vector2f _pos);
-    void setTexture(sf::Texture* _texture);
-    sf::Vector2f getPos();
 };
 
 class TileSystem{

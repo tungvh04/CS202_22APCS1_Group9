@@ -8,27 +8,6 @@ Tile::~Tile() {
 
 }
 
-void Tile::draw(sf::RenderWindow& window) {
-    tObj.setPosition(pos);
-    
-    window.draw(tObj);
-
-    //std::cout<<"Huh? "<<pos.x<<' '<<pos.y<<'\n';
-}
-
-void Tile::setPos(sf::Vector2f _pos) {
-    pos=_pos;
-
-    //std::cout<<"What? "<<_pos.x<<' '<<_pos.y<<'\n';
-}
-
-void Tile::setTexture(sf::Texture* _texture) {
-    tTexture=_texture;
-
-    tObj.setTexture(*_texture);
-    tObj.setTextureRect(sf::IntRect(pos.x,pos.y,Constants::GridSize,Constants::GridSize));
-}
-
 void TileSystem::load() {
     std::ifstream inpSize;
     inpSize.open("Media/Textures/Tile/Tile.txt");
@@ -96,10 +75,6 @@ void TileSystem::draw(sf::RenderWindow& window) {
         tileContainer[i]->draw(window);
         //std::cout<<i<<": "<<tileContainer[i]->getPos().x<<' '<<tileContainer[i]->getPos().y<<'\n';
     }
-}
-
-sf::Vector2f Tile::getPos() {
-    return pos;
 }
 
 TileBuilderRow::TileBuilderRow() {

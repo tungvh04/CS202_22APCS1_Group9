@@ -14,5 +14,7 @@ std::string toString(const T& value);
 void centerOrigin(sf::Sprite& sprite);
 void centerOrigin(sf::Text& text);
 
+float Rand(float l,float r);
+
 #include <Utility.inl>
 #endif // UTILITY_HPP
