@@ -8,11 +8,15 @@
 #include <Character.hpp>
 #include <CommandQueue.hpp>
 #include <Command.hpp>
+#include <TileSystem.hpp>
+#include <Indexer.hpp>
+#include <Car.hpp>
 
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/Graphics/View.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+#include <vector>
 #include <array>
 #include <queue>
 
@@ -42,6 +46,10 @@ private:
     };
 
 private:
+    TileBuilderRow tileManager;
+
+    Indexer stateController;
+
     sf::RenderWindow& mWindow;
     sf::View mWorldView;
     TextureHolder mTextures;
@@ -54,6 +62,11 @@ private:
     sf::Vector2f mSpawnPosition;
     float mScrollSpeed;
     Character* mPlayerCharacter;
+
+    std::vector<TextureHolder*> mTiles;
+    sf::Vector2f mOriginGrid;
+
+    int tileCnt;
 };
 
 #endif // WORLD_HPP

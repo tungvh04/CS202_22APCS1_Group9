@@ -9,6 +9,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 
 #include <vector>
+#include <deque>
 #include <memory>
 
 struct Command;
@@ -40,7 +41,7 @@ private:
     void drawChildren(sf::RenderTarget& target, sf::RenderStates states) const;
 
 
-    std::vector<Ptr> mChildren;
+    std::deque<Ptr> mChildren;
     SceneNode* mParent;
 
 };
