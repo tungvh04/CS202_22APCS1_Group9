@@ -40,7 +40,14 @@ namespace Fonts {
         Main,
     };
 }
-
+namespace TypeCharacter{
+    enum ID {
+        BlueDino,
+        GreenDino,
+        YellowDino,
+        RedDino
+    };
+}
 // Forward declaration and a few type definitions
 template <typename Resource, typename Identifier>
 class ResourceHolder;
