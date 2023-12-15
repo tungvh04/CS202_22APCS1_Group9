@@ -11,6 +11,7 @@
 #include <vector>
 #include <deque>
 #include <memory>
+#include <utility>
 
 struct Command;
 
@@ -19,7 +20,7 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 public:
     typedef std::unique_ptr<SceneNode> Ptr;
 
-    SceneNode();
+    explicit SceneNode(Category::Type category = Category::None);
     void attachChild(Ptr child);
     Ptr detachChild(const SceneNode& node);
 
@@ -31,6 +32,7 @@ public:
 
     void onCommand(const Command& command, sf::Time dt);
     virtual unsigned int getCategory() const;
+    virtual sf::FloatRect getBoundingRect() const;
 
 private:
     virtual void updateCurrent(sf::Time dt);
@@ -39,11 +41,12 @@ private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     void drawChildren(sf::RenderTarget& target, sf::RenderStates states) const;
+    void drawBoundingRect(sf::RenderTarget& target, sf::RenderStates states) const;
 
 
     std::deque<Ptr> mChildren;
     SceneNode* mParent;
-
+    Category::Type mDefaultCategory;
 };
 
 #endif // SCENENODE_HPP
