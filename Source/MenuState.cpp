@@ -20,6 +20,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     sf::Texture& catTexture = context.textures->get(Textures::Cat);
     sf::Texture& titleTexture = context.textures->get(Textures::Title);
 
+
     std::unique_ptr<MovingObject> cloud(new MovingObject(cloudTexture_1));
     cloud->setPosition(100, 50);
     cloud->setVelocity(150, 0);
@@ -41,38 +42,39 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     clouds.attachChild(std::move(cloud_2));
 
     std::unique_ptr<MovingObject> cat(new MovingObject(catTexture));
-    cat->setPosition(0, 910);
+    cat->setPosition(0, 1010);
+    
     cat->setVelocity(100, 0);
     clouds.attachChild(std::move(cat));
     
     // A simple menu demonstration
     auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	playButton->setPosition(800, 400);
-	playButton->setText("Play", 30);
+	playButton->setPosition(800, 500);
+	playButton->setText("Play", 40);
 	playButton->setCallback([this] ()
 	{
 		requestStackPop();
 		requestStackPush(States::Game);
 	});
     auto scoreButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-    scoreButton->setPosition(800, 500);
-    scoreButton->setText("High Score", 30);
+    scoreButton->setPosition(800, 600);
+    scoreButton->setText("High Score", 40);
     scoreButton->setCallback([this]()
     {
         requestStackPop();
         requestStackPush(States::Score);
     });
     auto settingButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-    settingButton->setPosition(800, 600);
-    settingButton->setText("Setting", 30);
+    settingButton->setPosition(800, 700);
+    settingButton->setText("Setting", 40);
     settingButton->setCallback([this]()
     {
         requestStackPop();
         requestStackPush(States::Setting);
     });
     auto exitButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-    exitButton->setPosition(800, 700);
-    exitButton->setText("Exit", 30);
+    exitButton->setPosition(800, 800);
+    exitButton->setText("Exit", 40);
     exitButton->setCallback([this]()
     {
         requestStackPop();
@@ -101,34 +103,6 @@ bool MenuState::update(sf::Time dt) {
 }
 
 bool MenuState::handleEvent(const sf::Event& event) {
-    // The demonstration menu logic
-    // if (event.type != sf::Event::KeyPressed)
-    //     return false;
-
-    // if (event.key.code == sf::Keyboard::Return) {
-    //     if (mOptionIndex == Play) {
-    //         requestStackPop();
-    //         requestStackPush(States::Game);
-    //     } else if (mOptionIndex == Exit) {
-    //         requestStackPop();
-    //     }
-    // } else if (event.key.code == sf::Keyboard::Up) {
-    //     // Decrement and wrap-around
-    //     if (mOptionIndex > 0)
-    //         mOptionIndex--;
-    //     else
-    //         mOptionIndex = mOptions.size() - 1;
-
-    //     updateOptionText();
-    // } else if (event.key.code == sf::Keyboard::Down) {
-    //     // Increment and wrap-around
-    //     if (mOptionIndex < mOptions.size() - 1)
-    //         mOptionIndex++;
-    //     else
-    //         mOptionIndex = 0;
-
-    //     updateOptionText();
-    // }
     mGUIContainer.handleEvent(event);
     return true;
 }

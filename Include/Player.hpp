@@ -16,7 +16,8 @@ public:
         MoveRight,
         MoveUp,
         MoveDown,
-        ActionCount
+        ActionCount,
+        Sound
     };
 
     Player();

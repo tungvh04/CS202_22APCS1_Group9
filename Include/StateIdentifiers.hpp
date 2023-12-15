@@ -13,7 +13,8 @@ namespace States
         Pause,
         Exit,
         Score,
-        Setting
+        Setting,
+        Character
     };
 }
 

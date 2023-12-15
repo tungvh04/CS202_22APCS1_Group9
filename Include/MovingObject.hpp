@@ -12,7 +12,6 @@ class MovingObject : public Entity{
 
     private:
         sf::Sprite mSprite;
-        // virtual void updateCurrent(sf::Time dt);
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 #endif

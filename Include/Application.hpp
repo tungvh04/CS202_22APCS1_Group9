@@ -4,6 +4,7 @@
 #include <ResourceHolder.hpp>
 #include <ResourceIdentifiers.hpp>
 #include <Player.hpp>
+#include <TileSystem.hpp>
 #include <StateStack.hpp>
 
 #include <SFML/System/Time.hpp>
@@ -25,6 +26,7 @@ private:
     void registerStates();
 
 private:
+
     static const sf::Time TimePerFrame;
 
     sf::RenderWindow mWindow;

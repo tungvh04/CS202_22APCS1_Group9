@@ -79,6 +79,7 @@ void Button::activate()
     // If we are not a toggle then deactivate the button since we are just momentarily activated.
 	if (!mIsToggle)
 		deactivate();
+		
 }
 
 void Button::deactivate()
