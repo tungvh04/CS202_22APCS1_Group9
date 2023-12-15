@@ -34,7 +34,7 @@ void Container::handleEvent(const sf::Event& event)
 	{
 		mChildren[mSelectedChild]->handleEvent(event);
 	}
-	else if (event.type == sf::Event::KeyReleased)
+	else if (event.type == sf::Event::KeyPressed)
 	{
 		if (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up)
 		{
