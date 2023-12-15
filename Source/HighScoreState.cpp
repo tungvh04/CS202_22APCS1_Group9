@@ -109,14 +109,4 @@ void HighScoreState::updateLabel()
 
 void HighScoreState::addButtonLabel(Player::Action action, float y, const std::string& text, Context context)
 {
-	// mBindingButtons[action] = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	// mBindingButtons[action]->setPosition(80.f, y);
-	// mBindingButtons[action]->setText(text, 30);
-	// mBindingButtons[action]->setToggle(true);
-
-	// mBindingLabels[action] = std::make_shared<GUI::Label>("", *context.fonts);
-	// mBindingLabels[action]->setPosition(300.f, y + 15.f);
-
-	// mGUIContainer.pack(mBindingButtons[action]);
-	// mGUIContainer.pack(mBindingLabels[action]);
 }
