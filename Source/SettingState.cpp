@@ -1,3 +1,4 @@
+#include <iostream>
 #include <SettingState.hpp>
 #include <Utility.hpp>
 #include <ResourceHolder.hpp>
@@ -23,7 +24,7 @@ SettingState::SettingState(StateStack& stack, Context context)
 	soundButton->setCallback([this]()
     {
         requestStackPop();
-        requestStackPush(States::Menu);
+        // requestStackPush(States::Menu);
     });
 
 	auto backButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
@@ -31,7 +32,8 @@ SettingState::SettingState(StateStack& stack, Context context)
 	backButton->setText("Back", 30);
 	backButton->setCallback([this]()
     {
-        requestStackPop();
+        // requestStackPop();
+		requestStateClear();
         requestStackPush(States::Menu);
     });
 

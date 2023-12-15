@@ -1,3 +1,4 @@
+#include <iostream>
 #include <PauseState.hpp>
 #include <Utility.hpp>
 #include <ResourceHolder.hpp>
@@ -29,7 +30,8 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     restartButton->setText("Restart", 30);
     restartButton->setCallback([this]()
     {
-        requestStackPop();
+        // requestStackPop();
+        requestStateClear();
         requestStackPush(States::Game);
     });
     auto settingButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
@@ -37,7 +39,10 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     settingButton->setText("Setting", 30);
     settingButton->setCallback([this]()
     {
-        requestStackPop();
+        // requestStackPop();
+        // Save later
+        requestStateClear();
+        requestStackPush(States::Menu);
         requestStackPush(States::Setting);
     });
     auto saveAndquitButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
