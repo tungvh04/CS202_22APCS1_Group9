@@ -39,6 +39,8 @@ void World::update(sf::Time dt) {
     }
     adaptPlayerVelocity();
 
+    handleCollisions();
+
     // Regular update step, adapt position (correct if outside view)
     mSceneGraph.update(dt);
     adaptPlayerPosition();
@@ -151,4 +153,20 @@ void World::adaptPlayerVelocity() {
 
     // Add scrolling velocity
     // mPlayerCharacter->accelerate(0.f, mScrollSpeed);
+}
+
+bool matchesCategories(SceneNode* node, Category::Type type) {
+    return (node->getCategory() & type) != 0;
+}
+
+void World::handleCollisions() {
+    std::set<SceneNode*> playerCollidingNodes;
+    mSceneGraph.checkNodeCollision(mPlayerCharacter->getBoundingRect(), playerCollidingNodes);
+    std::cout << "Player bounding rect: " << mPlayerCharacter->getBoundingRect().left << ' ' << mPlayerCharacter->getBoundingRect().top << ' ' << mPlayerCharacter->getBoundingRect().width << ' ' << mPlayerCharacter->getBoundingRect().height << '\n';
+    // std::cout << "Number of colliding nodes: " << playerCollidingNodes.size() << '\n';
+    for (auto node : playerCollidingNodes) {
+        if (matchesCategories(node, Category::Type::None)) {
+            std::cout << "Collision with none\n";
+        }
+    }
 }

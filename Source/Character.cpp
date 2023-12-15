@@ -78,3 +78,7 @@ void Character::updateCurrent(sf::Time dt) {
     }
     move(getVelocity() * dt.asSeconds());
 }
+sf::FloatRect Character::getBoundingRect() const
+{
+	return getWorldTransform().transformRect(mSprite.getGlobalBounds());
+}

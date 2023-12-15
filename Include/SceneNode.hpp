@@ -12,6 +12,7 @@
 #include <deque>
 #include <memory>
 #include <utility>
+#include <set>
 
 struct Command;
 
@@ -33,6 +34,9 @@ public:
     void onCommand(const Command& command, sf::Time dt);
     virtual unsigned int getCategory() const;
     virtual sf::FloatRect getBoundingRect() const;
+
+    bool collision(const sf::FloatRect& rect) const ;
+    void checkNodeCollision(const sf::FloatRect& rect, std::set<SceneNode*>& collisionNodes);
 
 private:
     virtual void updateCurrent(sf::Time dt);

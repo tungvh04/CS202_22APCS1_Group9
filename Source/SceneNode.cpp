@@ -1,7 +1,10 @@
+#include <iostream>
+
 #include <Command.hpp>
 #include <SceneNode.hpp>
 #include <Foreach.hpp>
 #include <Const.hpp>
+#include <Utility.hpp>
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -48,6 +51,8 @@ void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
     drawCurrent(target, states);
     drawChildren(target, states);
+
+    drawBoundingRect(target, states);
 }
 
 void SceneNode::drawCurrent(sf::RenderTarget&, sf::RenderStates) const {
@@ -97,6 +102,10 @@ sf::FloatRect SceneNode::getBoundingRect() const {
     return sf::FloatRect();
 }
 
+bool SceneNode::collision(const sf::FloatRect& rect) const {
+    return getBoundingRect().intersects(rect);
+}
+
 void SceneNode::drawBoundingRect(sf::RenderTarget& target, sf::RenderStates) const {
     sf::FloatRect rect = getBoundingRect();
 
@@ -108,4 +117,11 @@ void SceneNode::drawBoundingRect(sf::RenderTarget& target, sf::RenderStates) con
     shape.setOutlineThickness(1.f);
 
     target.draw(shape);
+}
+
+void SceneNode::checkNodeCollision(const sf::FloatRect& rect, std::set<SceneNode*>& collisionNodes) {
+    if (collision(rect))
+        collisionNodes.insert(this);
+    FOREACH(Ptr& child, mChildren)
+        child->checkNodeCollision(rect, collisionNodes);
 }
