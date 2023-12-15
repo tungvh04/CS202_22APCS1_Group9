@@ -35,6 +35,7 @@ unsigned int Character::getCategory() const {
 }
 
 void Character::pathRequest(sf::Vector2f direction) {
+    if (mPath.empty()) mGridPosition = getPosition();
     mPath.push(direction);
 }
 
@@ -46,12 +47,34 @@ void Character::updateCurrent(sf::Time dt) {
         sf::Vector2f movement = direction * dt.asSeconds();
         float distanceLeft = distancePerCommand - distanceTravelled;
         if (std::sqrt(movement.x * movement.x + movement.y * movement.y) > distanceLeft) {
-            movement = movement / std::sqrt(movement.x * movement.x + movement.y * movement.y) * distanceLeft;
+            // // movement = movement / std::sqrt(movement.x * movement.x + movement.y * movement.y) * distanceLeft;
+            // if (movement.x == 0) movement.y = distanceLeft;
+            // else if (movement.y == 0) movement.x = distanceLeft;
+            // else {
+                // float ratio = std::abs(movement.x / movement.y);
+                // movement.x = std::sqrt(distanceLeft * distanceLeft / (1 + ratio * ratio));
+                // movement.y = std::sqrt(distanceLeft * distanceLeft - movement.x * movement.x);
+            // }
+            // assert(std::sqrt(movement.x * movement.x + movement.y * movement.y) == distanceLeft);
+            // assert(movement.x == distanceLeft || movement.y == distanceLeft);
+            // std::cout << "Movement: " << movement.x << ' ' << movement.y << std::endl;
             distanceTravelled = 0;
+            if (movement.x == 0) movement.y = movement.y > 0 ? distancePerCommand : -distancePerCommand;
+            else if (movement.y == 0) movement.x = movement.x > 0 ? distancePerCommand : -distancePerCommand;
+            else {
+                float ratio = std::abs(movement.x / movement.y);
+                movement.x = movement.x > 0 ? std::sqrt(distanceLeft * distanceLeft / (1 + ratio * ratio)) : -std::sqrt(distanceLeft * distanceLeft / (1 + ratio * ratio));
+                movement.y = movement.y > 0 ? std::sqrt(distanceLeft * distanceLeft - movement.x * movement.x) : -std::sqrt(distanceLeft * distanceLeft - movement.x * movement.x);
+            }
+            mGridPosition += movement;
+            // std::cout << "Grid position: " << mGridPosition.x << ' ' << mGridPosition.y << std::endl;
+            setPosition(mGridPosition);
             mPath.pop();
         }
-        else distanceTravelled += std::sqrt(movement.x * movement.x + movement.y * movement.y);
-        move(movement);
+        else {
+            distanceTravelled += std::sqrt(movement.x * movement.x + movement.y * movement.y);
+            move(movement);
+        }
     }
     move(getVelocity() * dt.asSeconds());
 }

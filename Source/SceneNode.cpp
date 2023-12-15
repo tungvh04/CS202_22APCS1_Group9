@@ -3,10 +3,14 @@
 #include <Foreach.hpp>
 #include <Const.hpp>
 
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 using namespace std;
-SceneNode::SceneNode() : mChildren(), mParent(nullptr) {}
+SceneNode::SceneNode(Category::Type category) : mChildren(), mParent(nullptr), mDefaultCategory(category) {}
 
 void SceneNode::attachChild(Ptr child) {
     child->mParent = this;
@@ -77,7 +81,7 @@ void SceneNode::onCommand(const Command& command, sf::Time dt) {
 }
 
 unsigned int SceneNode::getCategory() const {
-    return Category::Scene;
+    return mDefaultCategory;
 }
 
 void SceneNode::outOfScreen(){
@@ -86,6 +90,22 @@ void SceneNode::outOfScreen(){
             float height = child->getPosition().y;
             child->setPosition(sf::Vector2f(-100, height));
         }
-
     }
+}
+
+sf::FloatRect SceneNode::getBoundingRect() const {
+    return sf::FloatRect();
+}
+
+void SceneNode::drawBoundingRect(sf::RenderTarget& target, sf::RenderStates) const {
+    sf::FloatRect rect = getBoundingRect();
+
+    sf::RectangleShape shape;
+    shape.setPosition(sf::Vector2f(rect.left, rect.top));
+    shape.setSize(sf::Vector2f(rect.width, rect.height));
+    shape.setFillColor(sf::Color::Transparent);
+    shape.setOutlineColor(sf::Color::Green);
+    shape.setOutlineThickness(1.f);
+
+    target.draw(shape);
 }
