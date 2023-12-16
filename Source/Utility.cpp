@@ -16,5 +16,11 @@ void centerOrigin(sf::Text& text) {
 }
 
 float Rand(float l,float r) {
-    return l + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(r-l)));
+    //return r;
+    return float(Rand(int(l*1000),int(r*1000)))/1000;
+}
+
+int Rand(int l,int r) {
+    //std::cout<<l<<" "<<r<<'\n';
+    return (rand()%(r-l+1))+l;
 }

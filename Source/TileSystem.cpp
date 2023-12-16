@@ -27,6 +27,18 @@ void TileSystem::load() {
         tTexture.push_back(tmp2);
         tTexture.back()=tmp;
         std::cout<<"Media/Textures/Tile/Tile"+toString(i)+".png"<<"\n";
+        inpSize.open("Media/Textures/Tile/Tile"+toString(i)+".txt");
+        std::string ignoreThis;
+        int _isRoad;
+        _isRoad=0;
+        ignoreThis="";
+        inpSize>>ignoreThis;
+        inpSize>>_isRoad;
+        TileState curTileState;
+        curTileState.setRoad(_isRoad);
+        std::cout<<"Is Road?: "<<ignoreThis<<' '<<_isRoad<<'\n';
+        tState.push_back(curTileState);
+        inpSize.close();
     }
 }
 
@@ -126,6 +138,16 @@ void TileBuilderRow::buildFrontRow() {
         tmp.x-=shiftAmount;
         addTile(tmp,ID);
     }
+    if (builder) {
+        std::cout<<"ID: "<<ID<<' '<<isRoad(ID)<<'\n';
+        //return;
+        if (isRoad(ID)) {
+            builder->buildFrontRow();
+        }
+        else {
+            builder->buildEmpty();
+        }
+    }
 }
 
 void TileBuilderRow::deleteBackRow() {
@@ -172,4 +194,25 @@ void TileBuilderRow::update(sf::Vector2f playerPos) {
         deleteBackRow();
         buildFrontRow();
     }
+}
+
+void TileBuilderRow::setController(Indexer* tmp) {
+    controller=tmp;
+}
+
+void TileBuilderRow::setFactory(CarFactoryManager* tmp) {
+    //std::cout<<"!--------------------------------------------------"<<'\n';
+    builder=tmp;
+}
+
+void TileState::setRoad(int x) {
+    _isRoad=x;
+}
+
+bool TileState::isRoad() {
+    return _isRoad;
+}
+
+bool TileSystem::isRoad(int id) {
+    return tState[id].isRoad();
 }

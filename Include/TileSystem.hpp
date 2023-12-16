@@ -6,6 +6,8 @@
 #include <Utility.hpp>
 #include <CollisionBox.hpp>
 #include <Object.hpp>
+#include <Indexer.hpp>
+#include <Car.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -22,9 +24,19 @@ public:
     ~Tile();
 };
 
+class TileState {
+private:
+    bool _isRoad;
+public:
+    void setRoad(int x);
+    
+    bool isRoad();
+};
+
 class TileSystem{
 private:
     std::vector<sf::Texture> tTexture;
+    std::vector<TileState> tState;
     std::deque<Tile*> tileContainer;
 
 public:
@@ -41,6 +53,8 @@ public:
     void pop_front();
     int getSize();
     int getIDSize();
+
+    bool isRoad(int id);
 };
 
 class TileBuilderRow: public TileSystem{
@@ -53,6 +67,9 @@ private:
     int rowCnt;
 
     float shiftAmount;
+
+    Indexer* controller=nullptr;
+    CarFactoryManager* builder=nullptr;
 
 public: 
     TileBuilderRow();
@@ -69,6 +86,8 @@ public:
     void setOrigin(sf::Vector2f _pos);
     void setCentre(sf::Vector2f _pos);
     void update(sf::Vector2f playerPos);
+    void setController(Indexer* tmp);
+    void setFactory(CarFactoryManager* tmp);
 };
 
 #endif //TILESYSTEM_HPP

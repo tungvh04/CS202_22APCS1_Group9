@@ -1,3 +1,4 @@
+//Likely going to be obselete
 #ifndef WORLD_BUILDER_HPP
 #define WORLD_BUILDER_HPP
 
@@ -21,10 +22,17 @@ private:
     TileBuilderRow* tileManager;
     CarFactoryManager* carMaker;
     Indexer* controlManager;
+
+    int curRow;
 public:
     WorldBuilder();
 
+    void setBuilder(TileBuilderRow* target);
+    void setFactory(CarFactoryManager* target);
+    void setIndexer(Indexer* target);
 
+    void update();
+    void buildFrontRow();
 };
 
 #endif //WORLD_BUILDER_HPP

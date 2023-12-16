@@ -1,7 +1,7 @@
 #ifndef TEXTURE_HOLDER_HPP
 #define TEXTURE_HOLDER_HPP
 
-#include <map>
+#include <vector>
 #include <iostream>
 #include <fstream>
 
@@ -14,18 +14,24 @@
 
 class WorldTextureHolder{
 private:
-    std::map<int,sf::Texture> container;
+    std::vector<sf::Texture> container;
 
     std::string path;
+    int carCnt;
 public:
+    WorldTextureHolder();
     WorldTextureHolder(std::string _path);
 
+    void load();
     void load(int id);
     void load(int l,int r); 
 
+    void setSize(int x);
     void setPath(std::string path);
 
+    sf::Texture* get();
     sf::Texture* get(int id);
+    sf::Texture* get(int l,int r);
 };
 
 #endif //TEXTURE_HOLDER_HPP

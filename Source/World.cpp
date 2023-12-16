@@ -16,8 +16,23 @@ World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getD
     tileManager.load();
     tileManager.setCentre(mSpawnPosition);
     tileManager.shiftY(Constants::initialShift);
-    tileManager.buildTillFull();
     stateController.setOrigin(mSpawnPosition);
+    
+    //Temp variable for testing
+    
+    sf::Vector2f speedRange(200,400);
+    sf::Vector2f delayRange(1,5);
+    
+    carTextureHolder.setPath(Constants::vehiclePath);
+    carTextureHolder.load();
+    carBuilder.init(speedRange,delayRange,mSpawnPosition);
+    carBuilder.setHolder(&carTextureHolder);
+    //carBuilder.buildTillFull();
+
+    tileManager.setFactory(&carBuilder);
+    
+    tileManager.buildTillFull();
+    
     // Prepare the view
     mWorldView.setCenter(mSpawnPosition);
 }
@@ -27,7 +42,7 @@ void World::update(sf::Time dt) {
     //std::cout<<mPlayerCharacter->getPosition().x<<' '<<mPlayerCharacter->getPosition().y<<'\n';
     // Scroll the world, reset player velocity
 
-    //sf::Vector2i currentPos=stateController.getIndex(mPlayerCharacter->getPosition());
+    sf::Vector2i currentPos=stateController.getIndex(mPlayerCharacter->getPosition());
     //std::cout<<currentPos.x<<' '<<currentPos.y<<'\n';
 
     mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
@@ -45,13 +60,16 @@ void World::update(sf::Time dt) {
 
     //Update Background depend on player position
     tileManager.update(mPlayerCharacter->getPosition());
+    carBuilder.update(mPlayerCharacter->getPosition());
+    carBuilder.update(dt);
 
     //std::cout<<mPlayerCharacter->getPosition().x<<" "<<mPlayerCharacter->getPosition().y<<" "<<'\n';
 }
 
-void World::draw() {
+void World::draw() { 
     mWindow.setView(mWorldView);
     tileManager.draw(mWindow);
+    carBuilder.draw(mWindow);
     mWindow.draw(mSceneGraph);
 }
 
