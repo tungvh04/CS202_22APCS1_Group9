@@ -11,11 +11,27 @@ CharacterState::CharacterState(StateStack &stack, Context context)
 , mGUIContainer()
 {
     mBackgroundSprite.setTexture(context.textures->get(Textures::Character));
-    addCharacterTexture("Dinosaur", "Blue");
+
+    addCharacterTexture("Dinosaur", "Blue", 24);
+    addBackGroudCharacterTexture("Dinosaur", "Blue");
+
+    addCharacterTexture("Dinosaur", "Green", 24);
+    addBackGroudCharacterTexture("Dinosaur", "Green");
+
+    addCharacterTexture("Dinosaur", "Yellow", 24);
+    addBackGroudCharacterTexture("Dinosaur", "Yellow");
+
+    addCharacterTexture("Dinosaur", "Red", 24);
+    addBackGroudCharacterTexture("Dinosaur", "Red");
 
     mCharacterSprite.setTexture(mCharacterTexture[0][0]);
     mCharacterSprite.setScale(10.0f, 10.0f);
     mCharacterSprite.setPosition(830, 500);
+
+
+    mBackgroundSpriteCharacter.setTexture(mBackgroundTextureCharacter[0]);
+    mBackgroundSpriteCharacter.setScale(0.9f, 0.9f);
+    mBackgroundSpriteCharacter.setPosition(740, 175);
 
     auto backButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	backButton->setPosition(70.f, 950.f);
@@ -25,14 +41,24 @@ CharacterState::CharacterState(StateStack &stack, Context context)
         requestStackPop();
         requestStackPush(States::Menu);
     });
+
+    auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	playButton->setPosition(740.f, 850.f);
+	playButton->setText("Play", 40);
+	playButton->setCallback([this]()
+    {
+        requestStackPop();
+        requestStackPush(States::Game);
+    });
     mGUIContainer.pack(backButton);
+    mGUIContainer.pack(playButton);
     
 }
-void CharacterState::addCharacterTexture(const std::string &nameCharacter, const std::string &color){
+void CharacterState::addCharacterTexture(const std::string &nameCharacter, const std::string &color, int numOfPicture){
     std::string nameFile = color + nameCharacter;
     std::vector<sf::Texture> frame;
-    for (int i = 1; i <= 13; i++){
-        sf::Texture texture;
+    sf::Texture texture;
+    for (int i = 1; i <= numOfPicture; i++){
         if (!texture.loadFromFile("Media/Textures/Characters/" + nameCharacter + "/" + nameFile + "_" + std::to_string(i) + ".png")) {
             std::cerr << "Error loading image frame" << i << ".png" << std::endl;
             return;
@@ -42,27 +68,47 @@ void CharacterState::addCharacterTexture(const std::string &nameCharacter, const
     mCharacterTexture.push_back(frame);
     return;
 }
+void CharacterState::addBackGroudCharacterTexture(const std::string &nameCharacter, const std::string &color){
+    std::string nameFile = color + nameCharacter;
+    sf::Texture texture;
+    if (!texture.loadFromFile("Media/Textures/Characters/" + nameCharacter + "/" + nameFile + "BG.png")) {
+        std::cerr << "Error loading BG image frame of " << nameFile << ".png" << std::endl;
+        return;
+    }
+    mBackgroundTextureCharacter.push_back(texture);
+    return;
+}
 void CharacterState::draw(){
     sf::RenderWindow& window = *getContext().window;
-
     window.setView(window.getDefaultView());
+
     window.draw(mBackgroundSprite);
+    window.draw(mBackgroundSpriteCharacter);
     window.draw(mCharacterSprite);
     window.draw(mGUIContainer);
 }
 bool CharacterState::handleEvent(const sf::Event& event){
+    if (event.type == sf::Event::KeyPressed){
+        if (event.key.code == sf::Keyboard::D || event.key.code == sf::Keyboard::Right){
+            if (typeCharacter < mBackgroundTextureCharacter.size() - 1){
+                typeCharacter++;
+            }
+        }
+        else if (event.key.code == sf::Keyboard::A || event.key.code == sf::Keyboard::Left){
+            if (typeCharacter > 0){
+                typeCharacter--;
+            }
+        }
+    }
     mGUIContainer.handleEvent(event);
     return true;
 }
 bool CharacterState::update(sf::Time dt){
-    sf::Time frameDuration = sf::seconds(0.5f);
-    sf::Time elapsed;
-    elapsed += dt;
-    while (elapsed >= frameDuration) {
-        elapsed -= frameDuration;
-        static size_t currentFrame = 0;
-        currentFrame = (currentFrame + 1) % mCharacterTexture[0].size();
-        mCharacterSprite.setTexture(mCharacterTexture[0][currentFrame]);
+    if (clock.getElapsedTime() >= frameTime){
+        mCharacterSprite.setTexture(mCharacterTexture[typeCharacter][currentFrame]);
+        if (++currentFrame >= mCharacterTexture[typeCharacter].size()) currentFrame = 0;
+        clock.restart();
     }
+    mBackgroundSpriteCharacter.setTexture(mBackgroundTextureCharacter[typeCharacter]);
     return true;
 }

@@ -37,6 +37,7 @@ private:
     void buildScene();
     void adaptPlayerPosition();
     void adaptPlayerVelocity();
+    void handleCollisions();
 
 private:
     enum Layer {

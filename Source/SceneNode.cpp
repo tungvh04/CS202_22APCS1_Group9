@@ -1,12 +1,19 @@
+#include <iostream>
+
 #include <Command.hpp>
 #include <SceneNode.hpp>
 #include <Foreach.hpp>
 #include <Const.hpp>
+#include <Utility.hpp>
+
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 using namespace std;
-SceneNode::SceneNode() : mChildren(), mParent(nullptr) {}
+SceneNode::SceneNode(Category::Type category) : mChildren(), mParent(nullptr), mDefaultCategory(category) {}
 
 void SceneNode::attachChild(Ptr child) {
     child->mParent = this;
@@ -44,6 +51,8 @@ void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
     drawCurrent(target, states);
     drawChildren(target, states);
+
+    drawBoundingRect(target, states);
 }
 
 void SceneNode::drawCurrent(sf::RenderTarget&, sf::RenderStates) const {
@@ -77,7 +86,7 @@ void SceneNode::onCommand(const Command& command, sf::Time dt) {
 }
 
 unsigned int SceneNode::getCategory() const {
-    return Category::Scene;
+    return mDefaultCategory;
 }
 
 void SceneNode::outOfScreen(){
@@ -86,6 +95,33 @@ void SceneNode::outOfScreen(){
             float height = child->getPosition().y;
             child->setPosition(sf::Vector2f(-100, height));
         }
-
     }
+}
+
+sf::FloatRect SceneNode::getBoundingRect() const {
+    return sf::FloatRect();
+}
+
+bool SceneNode::collision(const sf::FloatRect& rect) const {
+    return getBoundingRect().intersects(rect);
+}
+
+void SceneNode::drawBoundingRect(sf::RenderTarget& target, sf::RenderStates) const {
+    sf::FloatRect rect = getBoundingRect();
+
+    sf::RectangleShape shape;
+    shape.setPosition(sf::Vector2f(rect.left, rect.top));
+    shape.setSize(sf::Vector2f(rect.width, rect.height));
+    shape.setFillColor(sf::Color::Transparent);
+    shape.setOutlineColor(sf::Color::Green);
+    shape.setOutlineThickness(1.f);
+
+    target.draw(shape);
+}
+
+void SceneNode::checkNodeCollision(const sf::FloatRect& rect, std::set<SceneNode*>& collisionNodes) {
+    if (collision(rect))
+        collisionNodes.insert(this);
+    FOREACH(Ptr& child, mChildren)
+        child->checkNodeCollision(rect, collisionNodes);
 }
