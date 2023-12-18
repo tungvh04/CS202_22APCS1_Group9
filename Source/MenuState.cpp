@@ -22,27 +22,27 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
 
 
     std::unique_ptr<MovingObject> cloud(new MovingObject(cloudTexture_1));
-    cloud->setPosition(100, 50);
+    cloud->setPosition(250.5, 118.5);
     cloud->setVelocity(150, 0);
     clouds.attachChild(std::move(cloud));
     
     std::unique_ptr<MovingObject> title(new MovingObject(titleTexture));
-    title->setPosition(320, -50);
+    title->setPosition(965, 239);
     title->setVelocity(0, 0);
     clouds.attachChild(std::move(title));
 
     std::unique_ptr<MovingObject> cloud_1(new MovingObject(cloudTexture_2));
-    cloud_1->setPosition(1400, 350);
+    cloud_1->setPosition(1679.5, 418);
     cloud_1->setVelocity(200, 0);
     clouds.attachChild(std::move(cloud_1));
 
     std::unique_ptr<MovingObject> cloud_2(new MovingObject(cloudTexture_3));
-    cloud_2->setPosition(0, 170);
+    cloud_2->setPosition(128.5, 229);
     cloud_2->setVelocity(120, 0);
     clouds.attachChild(std::move(cloud_2));
 
     std::unique_ptr<MovingObject> cat(new MovingObject(catTexture));
-    cat->setPosition(0, 1010);
+    cat->setPosition(57.5, 1047);
     
     cat->setVelocity(100, 0);
     clouds.attachChild(std::move(cat));

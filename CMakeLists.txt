@@ -31,12 +31,10 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/PauseState.cpp
                                 Source/TitleState.cpp
                                 Source/Application.cpp
-                                Source/TileSystem.cpp
                                 Source/CollisionBox.cpp 
                                 Source/Object.cpp
                                 Source/TextureHolder.cpp
                                 Source/Car.cpp
-                                Source/Indexer.cpp
                                 Source/MovingObject.cpp
                                 Source/Component.cpp
                                 Source/Button.cpp
@@ -47,6 +45,7 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/CharacterState.cpp
                                 Source/Animation.cpp
                                 Source/GameOverState.cpp
+                                Source/TileManagement.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)

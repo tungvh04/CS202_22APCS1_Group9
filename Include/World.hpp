@@ -8,8 +8,8 @@
 #include <Character.hpp>
 #include <CommandQueue.hpp>
 #include <Command.hpp>
-#include <TileSystem.hpp>
-#include <Indexer.hpp>
+// #include <TileSystem.hpp>
+#include <TileManagement.hpp>
 #include <Car.hpp>
 
 #include <SFML/System/NonCopyable.hpp>
@@ -38,6 +38,8 @@ private:
     void adaptPlayerPosition();
     void adaptPlayerVelocity();
     void handleCollisions();
+    sf::FloatRect getBattlefieldBounds() const;
+    sf::FloatRect getViewBounds() const;
 
 private:
     enum Layer {
@@ -47,9 +49,8 @@ private:
     };
 
 private:
-    TileBuilderRow tileManager;
-
-    Indexer stateController;
+    // TileBuilderRow tileManager;
+    TileManager tileManager;
 
     sf::RenderWindow& mWindow;
     sf::View mWorldView;

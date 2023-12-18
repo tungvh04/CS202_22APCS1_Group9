@@ -12,12 +12,14 @@ World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getD
     loadTextures();
     buildScene();
 
-    tileManager.init();
-    tileManager.load();
-    tileManager.setCentre(mSpawnPosition);
-    tileManager.shiftY(Constants::initialShift);
-    tileManager.buildTillFull();
-    stateController.setOrigin(mSpawnPosition);
+    // tileManager.init();
+    // tileManager.load();
+    // tileManager.setCentre(mSpawnPosition);
+    // tileManager.shiftY(Constants::initialShift);
+    // tileManager.buildTillFull();
+    sf::Vector2f gridspawn = mSpawnPosition;
+    gridspawn.y += Constants::initialShift * Constants::GridSize;
+    tileManager = TileManager(gridspawn);
     // Prepare the view
     mWorldView.setCenter(mSpawnPosition);
 }
@@ -46,14 +48,16 @@ void World::update(sf::Time dt) {
     adaptPlayerPosition();
 
     //Update Background depend on player position
-    tileManager.update(mPlayerCharacter->getPosition());
+    // tileManager.update(mPlayerCharacter->getPosition());
+    tileManager.update(getBattlefieldBounds(), mTextures, dt);
 
     //std::cout<<mPlayerCharacter->getPosition().x<<" "<<mPlayerCharacter->getPosition().y<<" "<<'\n';
 }
 
 void World::draw() {
     mWindow.setView(mWorldView);
-    tileManager.draw(mWindow);
+    // tileManager.draw(mWindow);
+    mWindow.draw(tileManager);
     mWindow.draw(mSceneGraph);
 }
 
@@ -65,7 +69,9 @@ void World::loadTextures() {
     mTextures.load(Textures::Player, "Media/Textures/Eagle.png");
     //mTextures.load(Textures::Player, "Media/Textures/Tile/Tile"+toString(0)+".png");
     mTextures.load(Textures::Background, "Media/Textures/Desert.png");
-    
+    mTextures.load(Textures::Grass, "Media/Textures/Tile/Tile1.png");
+    mTextures.load(Textures::Sand, "Media/Textures/Tile/Tile2.png");
+    mTextures.load(Textures::Ice, "Media/Textures/Tile/Tile3.png");
 }
 
 void World::buildScene() {
@@ -162,11 +168,31 @@ bool matchesCategories(SceneNode* node, Category::Type type) {
 void World::handleCollisions() {
     std::set<SceneNode*> playerCollidingNodes;
     mSceneGraph.checkNodeCollision(mPlayerCharacter->getBoundingRect(), playerCollidingNodes);
-    std::cout << "Player bounding rect: " << mPlayerCharacter->getBoundingRect().left << ' ' << mPlayerCharacter->getBoundingRect().top << ' ' << mPlayerCharacter->getBoundingRect().width << ' ' << mPlayerCharacter->getBoundingRect().height << '\n';
+    tileManager.checkNodeCollision(mPlayerCharacter->getBoundingRect(), playerCollidingNodes);
+    // std::cout << "Player bounding rect: " << mPlayerCharacter->getBoundingRect().left << ' ' << mPlayerCharacter->getBoundingRect().top << ' ' << mPlayerCharacter->getBoundingRect().width << ' ' << mPlayerCharacter->getBoundingRect().height << '\n';
     // std::cout << "Number of colliding nodes: " << playerCollidingNodes.size() << '\n';
     for (auto node : playerCollidingNodes) {
-        if (matchesCategories(node, Category::Type::None)) {
-            std::cout << "Collision with none\n";
+        if (matchesCategories(node, Category::Grass)) {
+            std::cout << "Colliding with grass\n";
+        }
+        else if (matchesCategories(node, Category::Ice)) {
+            std::cout << "Colliding with ice\n";
+        }
+        else if (matchesCategories(node, Category::Sand)) {
+            std::cout << "Colliding with sand\n";
         }
     }
+}
+sf::FloatRect World::getViewBounds() const
+{
+	return sf::FloatRect(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
+}
+sf::FloatRect World::getBattlefieldBounds() const
+{
+	// Return view bounds + some area at top, where enemies spawn
+	sf::FloatRect bounds = getViewBounds();
+	bounds.top -= 100.f;
+	bounds.height += 100.f;
+
+	return bounds;
 }

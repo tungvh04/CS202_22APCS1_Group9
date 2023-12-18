@@ -6,9 +6,12 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 class MovingObject : public Entity{
     public:
-        explicit MovingObject(sf::Texture& mTexture);
-        MovingObject(sf::Texture& mTexture, sf::IntRect bound);
+        explicit MovingObject(const sf::Texture& mTexture);
+        MovingObject(const sf::Texture& mTexture, sf::IntRect bound);
 
+        void setTexture(const sf::Texture& mTexture);
+        virtual sf::FloatRect getBoundingRect() const;
+        sf::FloatRect getGlobalBounds() const;
 
     private:
         sf::Sprite mSprite;

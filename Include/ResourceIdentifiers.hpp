@@ -23,6 +23,9 @@ namespace Textures {
         Cloud3,
         Key1,
         Key2,
+        Grass,
+        Sand,
+        Ice,
     };
 }
 namespace SoundEffects {

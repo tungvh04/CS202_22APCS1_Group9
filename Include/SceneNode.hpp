@@ -38,6 +38,9 @@ public:
     bool collision(const sf::FloatRect& rect) const ;
     void checkNodeCollision(const sf::FloatRect& rect, std::set<SceneNode*>& collisionNodes);
 
+    virtual bool isDestroyed() const;
+    void removeWrecks();
+
 private:
     virtual void updateCurrent(sf::Time dt);
     void updateChildren(sf::Time dt);

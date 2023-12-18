@@ -125,3 +125,12 @@ void SceneNode::checkNodeCollision(const sf::FloatRect& rect, std::set<SceneNode
     FOREACH(Ptr& child, mChildren)
         child->checkNodeCollision(rect, collisionNodes);
 }
+bool SceneNode::isDestroyed() const {
+    return false;
+}
+void SceneNode::removeWrecks() {
+    auto wreckfieldBegin = std::remove_if(mChildren.begin(), mChildren.end(), std::mem_fn(&SceneNode::isDestroyed));
+    mChildren.erase(wreckfieldBegin, mChildren.end());
+
+    std::for_each(mChildren.begin(), mChildren.end(), std::mem_fn(&SceneNode::removeWrecks));
+}
