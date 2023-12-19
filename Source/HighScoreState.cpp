@@ -87,13 +87,13 @@ void HighScoreState::draw()
 
 bool HighScoreState::update(sf::Time)
 {
-	return true;
+	return false;
 }
 
 bool HighScoreState::handleEvent(const sf::Event& event)
 {
 	mGUIContainer.handleEvent(event);
-	return true;
+	return false;
 }
 
 void HighScoreState::updateLabel()
