@@ -38,32 +38,58 @@ Tile::Tile(Type type, const TextureHolder& textures) : mType(type), MovingObject
 }
 Tile::~Tile() {}
 
-SceneNode::Ptr TileManager::generateRow(Tile::Type type, const TextureHolder& textures) {
-    SceneNode::Ptr row(new SceneNode());
-    // row.get()->setPosition(spawnOrigin);
+
+
+TileRow::TileRow(std::vector<Tile::Type> types, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures) : getBattlefieldBounds(getBattlefieldBounds), mTextures(textures) {
+    generateRow(types);
+}
+void TileRow::update(sf::Time dt) {
+
+}
+void TileRow::generateRow(std::vector<Tile::Type> types) {
     for (int i = -Constants::TilesRenderedWide; i <= Constants::TilesRenderedWide; i++) {
-        SceneNode::Ptr tile(new Tile(type, textures));
+        int type = rand() % types.size();
+        SceneNode::Ptr tile(new Tile(types[type], *mTextures));
         tile.get()->setPosition(i * Constants::GridSize, 0);
-        row.get()->attachChild(std::move(tile));
+        attachChild(std::move(tile));
     }
-    return std::move(row);
 }
 
-TileManager::TileManager() : mSpawnOrigin(0, 0), mTiles(new SceneNode()) {
+sf::FloatRect TileRow::getBoundingRect() const {
+    sf::Vector2f position = getWorldPosition();
+    position.x -= Constants::GridSize * Constants::TilesRenderedWide;
+    position.y -= Constants::GridSize / 2;
+    sf::FloatRect rect(position.x, position.y, Constants::GridSize * Constants::TilesRenderedWide * 2, Constants::GridSize);
+    return rect;
+}
+
+bool TileRow::isDestroyed() const {
+    return !getBattlefieldBounds().intersects(getBoundingRect());
+}
+
+
+TileManager::TileManager(std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures) : mSpawnOrigin(0, 0), getBattlefieldBounds(getBattlefieldBounds), mTextures(textures) {
     // mTiles.get()->setPosition(mSpawnOrigin);
 }
 
-TileManager::TileManager(sf::Vector2f spawnOrigin) : mSpawnOrigin(spawnOrigin), mTiles(new SceneNode()) {
+// TileManager::TileManager() : mSpawnOrigin(0, 0), mTiles(new SceneNode()) {
+    // // mTiles.get()->setPosition(mSpawnOrigin);
+// }
+
+TileManager::TileManager(sf::Vector2f spawnOrigin, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures) : mSpawnOrigin(spawnOrigin), getBattlefieldBounds(getBattlefieldBounds), mTextures(textures) {
     // mTiles.get()->setPosition(mSpawnOrigin);
 }
+// TileManager::TileManager(sf::Vector2f spawnOrigin) : mSpawnOrigin(spawnOrigin), mTiles(new SceneNode()) {
+    // // mTiles.get()->setPosition(mSpawnOrigin);
+// }
 
-void TileManager::update(sf::FloatRect viewBounds, const TextureHolder& mTextures, const sf::Time& dt) {
-    // std::cout << "Spawned row at " << mSpawnOrigin.x << ' ' << mSpawnOrigin.y << '\n';
+void TileManager::updateCurrent(sf::Time dt) {
+    sf::FloatRect viewBounds = getBattlefieldBounds();
     while (mSpawnOrigin.y > viewBounds.top) {
         int type = rand() % 3;
-        SceneNode::Ptr row = generateRow(static_cast<Tile::Type>(type), mTextures);
+        SceneNode::Ptr row(new TileRow(std::vector<Tile::Type>(1, static_cast<Tile::Type>(type)), getBattlefieldBounds, mTextures));
         row.get()->setPosition(mSpawnOrigin);
-        mTiles.get()->attachChild(std::move(row));
+        attachChild(std::move(row));
         mSpawnOrigin.y -= Constants::GridSize;
     }
     Command command;
@@ -73,15 +99,20 @@ void TileManager::update(sf::FloatRect viewBounds, const TextureHolder& mTexture
             tile.destroy();
         }
     });
-    mTiles.get()->onCommand(command, dt);
-    mTiles.get()->removeWrecks();
+    // mTiles.get()->onCommand(command, dt);
+    // mTiles.get()->removeWrecks();
+    onCommand(command, dt);
+    removeWrecks();
 }
 
-void TileManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    // std::cout << "Drawing tiles\n";
-    target.draw(*mTiles, states);
-}
+// void TileManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    // // std::cout << "Drawing tiles\n";
+    // target.draw(*mTiles, states);
+// }
 
-void TileManager::checkNodeCollision(sf::FloatRect rect, std::set<SceneNode*>& collisionNodes) {
-    mTiles.get()->checkNodeCollision(rect, collisionNodes);
+// void TileManager::checkNodeCollision(sf::FloatRect rect, std::set<SceneNode*>& collisionNodes) {
+    // mTiles.get()->checkNodeCollision(rect, collisionNodes);
+// }
+void TileManager::setSpawnOrigin(sf::Vector2f spawnOrigin) {
+    mSpawnOrigin = spawnOrigin;
 }

@@ -9,6 +9,10 @@
 #include <ResourceHolder.hpp>
 #include <Category.hpp>
 #include <Command.hpp>
+#include <functional>
+
+
+#include <vector>
 
 class Tile : public MovingObject {
 public:
@@ -28,17 +32,28 @@ private:
     bool isDestroy = false;
 };
 
-class TileManager : public sf::Drawable {
+class TileRow : public SceneNode {
 public:
-    TileManager();
-    explicit TileManager(sf::Vector2f spawnOrigin);
-    void update(sf::FloatRect viewBounds, const TextureHolder& mTextures, const sf::Time& dt);
-    void checkNodeCollision(sf::FloatRect rect, std::set<SceneNode*>& collisionNodes);
+    TileRow(std::vector<Tile::Type> types, std::function<sf::FloatRect()> getBoundingRect, TextureHolder* textures);
+    void update(sf::Time dt);
+    sf::FloatRect getBoundingRect() const;
+    bool isDestroyed() const;
 private:
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-    SceneNode::Ptr generateRow(Tile::Type type, const TextureHolder& textures);
+    std::function<sf::FloatRect()> getBattlefieldBounds;
+    TextureHolder* mTextures;
+    void generateRow(std::vector<Tile::Type> types);
+};
+
+class TileManager : public SceneNode {
+public:
+    TileManager(std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures);
+    TileManager(sf::Vector2f spawnOrigin, std::function<sf::FloatRect()> getBoundingRect, TextureHolder* textures);
+    void updateCurrent(sf::Time dt);
+    void setSpawnOrigin(sf::Vector2f spawnOrigin);
+private:
     sf::Vector2f mSpawnOrigin;
-    SceneNode::Ptr mTiles;
+    std::function<sf::FloatRect()> getBattlefieldBounds;
+    TextureHolder* mTextures;
 };
 
 #endif // TILEMANAGEMENT_HPP

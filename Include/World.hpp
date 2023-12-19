@@ -50,7 +50,9 @@ private:
 
 private:
     // TileBuilderRow tileManager;
-    TileManager tileManager;
+    // TileManager tileManager;
+    // TileManager mTileManager;
+    TileManager* mTileManager;
 
     sf::RenderWindow& mWindow;
     sf::View mWorldView;

@@ -19,7 +19,8 @@ World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getD
     // tileManager.buildTillFull();
     sf::Vector2f gridspawn = mSpawnPosition;
     gridspawn.y += Constants::initialShift * Constants::GridSize;
-    tileManager = TileManager(gridspawn);
+    // tileManager = TileManager(gridspawn);
+    // mTileManager.setSpawnOrigin(gridspawn);
     // Prepare the view
     mWorldView.setCenter(mSpawnPosition);
 }
@@ -49,7 +50,7 @@ void World::update(sf::Time dt) {
 
     //Update Background depend on player position
     // tileManager.update(mPlayerCharacter->getPosition());
-    tileManager.update(getBattlefieldBounds(), mTextures, dt);
+    // mTileManager.update(dt);
 
     //std::cout<<mPlayerCharacter->getPosition().x<<" "<<mPlayerCharacter->getPosition().y<<" "<<'\n';
 }
@@ -57,7 +58,8 @@ void World::update(sf::Time dt) {
 void World::draw() {
     mWindow.setView(mWorldView);
     // tileManager.draw(mWindow);
-    mWindow.draw(tileManager);
+    // mWindow.draw(tileManager);
+    // mWindow.draw(mTileManager);
     mWindow.draw(mSceneGraph);
 }
 
@@ -97,6 +99,11 @@ void World::buildScene() {
     */
 
     // Grid making
+
+    sf::Vector2f gridspawn = mSpawnPosition;
+    gridspawn.y += Constants::initialShift * Constants::GridSize;
+    SceneNode::Ptr grid(new TileManager(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures));
+    mSceneLayers[Background]->attachChild(std::move(grid));
 
     
     mOriginGrid = mSpawnPosition;
@@ -168,7 +175,7 @@ bool matchesCategories(SceneNode* node, Category::Type type) {
 void World::handleCollisions() {
     std::set<SceneNode*> playerCollidingNodes;
     mSceneGraph.checkNodeCollision(mPlayerCharacter->getBoundingRect(), playerCollidingNodes);
-    tileManager.checkNodeCollision(mPlayerCharacter->getBoundingRect(), playerCollidingNodes);
+    // mTileManager.checkNodeCollision(mPlayerCharacter->getBoundingRect(), playerCollidingNodes);
     // std::cout << "Player bounding rect: " << mPlayerCharacter->getBoundingRect().left << ' ' << mPlayerCharacter->getBoundingRect().top << ' ' << mPlayerCharacter->getBoundingRect().width << ' ' << mPlayerCharacter->getBoundingRect().height << '\n';
     // std::cout << "Number of colliding nodes: " << playerCollidingNodes.size() << '\n';
     for (auto node : playerCollidingNodes) {
