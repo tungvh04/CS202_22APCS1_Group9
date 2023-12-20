@@ -16,8 +16,8 @@ public:
         MoveRight,
         MoveUp,
         MoveDown,
+        Sound,
         ActionCount,
-        Sound
     };
 
     enum MissionStatus {

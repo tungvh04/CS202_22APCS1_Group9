@@ -5,7 +5,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 namespace GUI{
-Label::Label(const std::string &text, const FontHolder &fonts) : mText(text, fonts.get(Fonts::Main), 16)
+Label::Label(const std::string &text, const FontHolder &fonts) : mText(text, fonts.get(Fonts::Main), 40)
 {
 }
 bool Label::isSelectable() const
@@ -23,5 +23,9 @@ void Label::draw(sf::RenderTarget &target, sf::RenderStates states) const
 void Label::setText(const std::string& text)
 {
 	mText.setString(text);
+}
+void Label::setColor(const sf::Color& color)
+{
+    mText.setFillColor(color);
 }
 }

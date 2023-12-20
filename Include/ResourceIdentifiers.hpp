@@ -23,6 +23,8 @@ namespace Textures {
         Cloud3,
         Key1,
         Key2,
+        Sound1,
+        Sound2
     };
 }
 namespace SoundEffects {

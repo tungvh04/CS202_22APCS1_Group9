@@ -2,7 +2,6 @@
 #define UTILITY_HPP
 
 #include <sstream>
-
 namespace sf {
     class Sprite;
     class Text;

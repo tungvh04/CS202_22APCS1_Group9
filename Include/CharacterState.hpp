@@ -35,9 +35,10 @@ class CharacterState : public State{
         std::vector<std::vector<sf::Texture>> mCharacterTexture;
         std::vector<sf::Texture> mBackgroundTextureCharacter;
 
-        int typeCharacter = TypeCharacter::ID::RedDino;
+        int typeCharacter = TypeCharacter::ID::BlueDino;
         int currentFrame = 0;
         sf::Clock clock;
         sf::Time frameTime = sf::seconds(0.1f);
+        Animation vehicle;
 };
 #endif

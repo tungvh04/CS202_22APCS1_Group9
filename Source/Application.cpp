@@ -30,7 +30,9 @@ Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Const
     mTextures.load(Textures::Key1, "Media/Textures/Key1.png");
     mTextures.load(Textures::Key2, "Media/Textures/Key2.png");
     mTextures.load(Textures::HighScore, "Media/Textures/HighScore.png");
-    mTextures.load(Textures::Character, "Media/Textures/Character.png");
+    mTextures.load(Textures::Character, "Media/Textures/Character.png");    
+    mTextures.load(Textures::Sound1, "Media/Textures/Sound1.png"); 
+    mTextures.load(Textures::Sound2, "Media/Textures/Sound2.png"); 
 
     mStatisticsText.setFont(mFonts.get(Fonts::Main));
     mStatisticsText.setPosition(5.f, 5.f);

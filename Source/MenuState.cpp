@@ -61,6 +61,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     scoreButton->setText("High Score", 40);
     scoreButton->setCallback([this]()
     {
+        requestStackPop();
         requestStackPush(States::Score);
     });
     auto settingButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
@@ -68,7 +69,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     settingButton->setText("Setting", 40);
     settingButton->setCallback([this]()
     {
-        // requestStackPop();
+        requestStackPop();
         requestStackPush(States::Setting);
     });
     auto exitButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);

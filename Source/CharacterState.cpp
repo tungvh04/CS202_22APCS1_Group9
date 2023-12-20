@@ -20,9 +20,13 @@ CharacterState::CharacterState(StateStack &stack, Context context)
 
     addCharacterTexture("Dinosaur", "Yellow", 24);
     addBackGroudCharacterTexture("Dinosaur", "Yellow");
+    
 
     addCharacterTexture("Dinosaur", "Red", 24);
     addBackGroudCharacterTexture("Dinosaur", "Red");
+
+    addCharacterTexture("Frog", "Yellow", 11);
+    addBackGroudCharacterTexture("Frog", "Yellow");
 
     mCharacterSprite.setTexture(mCharacterTexture[0][0]);
     mCharacterSprite.setScale(10.0f, 10.0f);
@@ -52,7 +56,16 @@ CharacterState::CharacterState(StateStack &stack, Context context)
     });
     mGUIContainer.pack(backButton);
     mGUIContainer.pack(playButton);
-    
+
+    sf::Texture vehi;
+    vehi.loadFromFile("Media/image1x1.png");
+
+    vehicle.setTexture(vehi);
+    vehicle.setFrameSize(sf::Vector2i(100, 100));
+    vehicle.setNumFrames(12);
+    vehicle.setDuration(sf::seconds(1.0f));
+    vehicle.setRepeating(true);
+    vehicle.setPosition(100, 100);
 }
 void CharacterState::addCharacterTexture(const std::string &nameCharacter, const std::string &color, int numOfPicture){
     std::string nameFile = color + nameCharacter;
@@ -85,6 +98,7 @@ void CharacterState::draw(){
     window.draw(mBackgroundSprite);
     window.draw(mBackgroundSpriteCharacter);
     window.draw(mCharacterSprite);
+    window.draw(vehicle);
     window.draw(mGUIContainer);
 }
 bool CharacterState::handleEvent(const sf::Event& event){
@@ -104,6 +118,7 @@ bool CharacterState::handleEvent(const sf::Event& event){
     return true;
 }
 bool CharacterState::update(sf::Time dt){
+    vehicle.update(dt);
     if (clock.getElapsedTime() >= frameTime){
         mCharacterSprite.setTexture(mCharacterTexture[typeCharacter][currentFrame]);
         if (++currentFrame >= mCharacterTexture[typeCharacter].size()) currentFrame = 0;
