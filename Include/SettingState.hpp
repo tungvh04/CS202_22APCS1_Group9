@@ -36,5 +36,6 @@ class SettingState : public State{
         bool isSettingSound = false;
         float volume = 10;
         sf::CircleShape circle;
+        sf::Text mVolume;
 };
 #endif

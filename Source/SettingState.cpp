@@ -11,6 +11,9 @@ SettingState::SettingState(StateStack& stack, Context context)
 , mGUIContainer()
 {
 	mBackgroundSprite.setTexture(context.textures->get(Textures::Background));
+    mVolume.setFont(context.fonts->get(Fonts::Main));
+    mVolume.setCharacterSize(40);
+    mVolume.setFillColor(sf::Color::Black);
 
     float weight = 768*(1 - 0.1*volume);
     mSound1.setTexture(context.textures->get(Textures::Sound1));
@@ -56,8 +59,10 @@ void SettingState::draw()
     if (isSettingSound == true){
         window.draw(mSound1);
         window.draw(mSound2);
+      
         window.draw(circle);
     }
+    window.draw(mVolume);
 	window.draw(mGUIContainer);
 }
 
@@ -70,8 +75,7 @@ bool SettingState::handleEvent(const sf::Event& event)
 {
 	bool isKeyBinding = false;
 	
-	// Iterate through all key binding buttons to see if they are being pressed, waiting for the user to enter a key
-	for (std::size_t action = 0; action < Player::ActionCount - 1; ++action)
+    for (std::size_t action = 0; action < Player::ActionCount - 1; ++action)
 	{
 		if (mBindingButtons[action]->isActive())
 		{
@@ -85,7 +89,10 @@ bool SettingState::handleEvent(const sf::Event& event)
 		}
 	}
     if (mBindingButtons[Player::Sound]->isActive()){
+        isKeyBinding = true;
         isSettingSound = true;
+        mVolume.setPosition(500 + 76.8*volume - 23, 550);
+        mVolume.setString(toString(10*volume) + "%");
         if (event.type == sf::Event::KeyPressed){
             if (event.key.code == sf::Keyboard::Right)
             {
@@ -98,11 +105,15 @@ bool SettingState::handleEvent(const sf::Event& event)
                 //Change sound of system...
             }
             else if (event.key.code == sf::Keyboard::Return){
-                std::cout << volume << '\n';
                 mBindingButtons[Player::Sound]->deactivate();
+                mVolume.setString(toString(10*volume) + "%");
+                mVolume.setPosition(500.f, 615.f);
                 isSettingSound = false;
                 return true;
             }
+            mVolume.setPosition(500 + 76.8*volume - 23, 550);
+            mVolume.setString(toString(10*volume) + "%");
+            
             circle.setPosition(500 + 76.8*volume - 23, 615);
             mSound2.setScale(1 - 0.1* volume, 1);
             mSound2.setPosition(500 + 0.1*volume*768, 620);
