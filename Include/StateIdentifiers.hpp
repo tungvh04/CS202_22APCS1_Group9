@@ -14,7 +14,8 @@ namespace States
         Exit,
         Score,
         Setting,
-        Character
+        Character,
+        Credit
     };
 }
 

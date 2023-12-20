@@ -14,6 +14,7 @@ namespace Textures {
         Title,
         HighScore,
         Character,
+        Credit,
         Button,
         ButtonTouch,
         ButtonPressed,

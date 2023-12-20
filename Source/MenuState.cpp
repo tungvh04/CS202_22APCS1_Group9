@@ -72,8 +72,18 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
         requestStackPop();
         requestStackPush(States::Setting);
     });
+
+    auto creditButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    creditButton->setPosition(800, 800);
+    creditButton->setText("Credit", 40);
+    creditButton->setCallback([this]()
+    {
+        requestStackPop();
+        requestStackPush(States::Credit);
+    });
+
     auto exitButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-    exitButton->setPosition(800, 800);
+    exitButton->setPosition(800, 900);
     exitButton->setText("Exit", 40);
     exitButton->setCallback([this]()
     {
@@ -84,6 +94,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     mGUIContainer.pack(playButton);
     mGUIContainer.pack(scoreButton);
     mGUIContainer.pack(settingButton);
+    mGUIContainer.pack(creditButton);
     mGUIContainer.pack(exitButton);
 }
 

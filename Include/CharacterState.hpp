@@ -39,6 +39,5 @@ class CharacterState : public State{
         int currentFrame = 0;
         sf::Clock clock;
         sf::Time frameTime = sf::seconds(0.1f);
-        Animation vehicle;
 };
 #endif
