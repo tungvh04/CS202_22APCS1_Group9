@@ -48,6 +48,7 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/Animation.cpp
                                 Source/GameOverState.cpp
                                 Source/CreditState.cpp
+                                Source/DataTables.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)

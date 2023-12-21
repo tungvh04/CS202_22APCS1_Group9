@@ -7,7 +7,6 @@
 #include <CollisionBox.hpp>
 #include <Object.hpp>
 #include <Indexer.hpp>
-#include <Car.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -69,7 +68,6 @@ private:
     float shiftAmount;
 
     Indexer* controller=nullptr;
-    CarFactoryManager* builder=nullptr;
 
 public: 
     TileBuilderRow();
@@ -87,7 +85,6 @@ public:
     void setCentre(sf::Vector2f _pos);
     void update(sf::Vector2f playerPos);
     void setController(Indexer* tmp);
-    void setFactory(CarFactoryManager* tmp);
 };
 
 #endif //TILESYSTEM_HPP

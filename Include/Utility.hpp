@@ -16,5 +16,9 @@ void centerOrigin(sf::Text& text);
 float Rand(float l,float r);
 int Rand(int l,int r);
 
+float			toDegree(float radian);
+float			toRadian(float degree);
+
+
 #include <Utility.inl>
 #endif // UTILITY_HPP

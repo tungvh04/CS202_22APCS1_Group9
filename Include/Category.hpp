@@ -9,6 +9,7 @@ namespace Category
         Scene = 1 << 0,
         PlayerCharacter = 1 << 1,
         Object = 1 << 2,
+        Car = 1 << 3,
     };
 }
 

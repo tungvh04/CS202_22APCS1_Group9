@@ -20,17 +20,6 @@ World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getD
     
     //Temp variable for testing
     
-    sf::Vector2f speedRange(200,400);
-    sf::Vector2f delayRange(1,5);
-    
-    carTextureHolder.setPath(Constants::vehiclePath);
-    carTextureHolder.load();
-    carBuilder.init(speedRange,delayRange,mSpawnPosition);
-    carBuilder.setHolder(&carTextureHolder);
-    //carBuilder.buildTillFull();
-
-    tileManager.setFactory(&carBuilder);
-    
     tileManager.buildTillFull();
     
     // Prepare the view
@@ -62,16 +51,11 @@ void World::update(sf::Time dt) {
 
     //Update Background depend on player position
     tileManager.update(mPlayerCharacter->getPosition());
-    carBuilder.update(mPlayerCharacter->getPosition());
-    carBuilder.update(dt);
-
-    //std::cout<<mPlayerCharacter->getPosition().x<<" "<<mPlayerCharacter->getPosition().y<<" "<<'\n';
 }
 
 void World::draw() { 
     mWindow.setView(mWorldView);
     tileManager.draw(mWindow);
-    carBuilder.draw(mWindow);
     mWindow.draw(mSceneGraph);
 }
 
@@ -81,7 +65,6 @@ CommandQueue& World::getCommandQueue() {
 
 void World::loadTextures() {
     mTextures.load(Textures::Player, "Media/Textures/Eagle.png");
-    //mTextures.load(Textures::Player, "Media/Textures/Tile/Tile"+toString(0)+".png");
     mTextures.load(Textures::Background, "Media/Textures/Desert.png");
     
 }
@@ -95,49 +78,7 @@ void World::buildScene() {
         mSceneGraph.attachChild(std::move(layer));
     }
 
-    /*
-    // Prepare the tiled background
-    sf::Texture& texture = mTextures.get(Textures::Background);
-    sf::IntRect textureRect(mWorldBounds);
-    texture.setRepeated(true);
-
-    
-    // Add the background sprite to the scene
-    std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
-    backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
-    mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
-    */
-
-    // Grid making
-
-    
     mOriginGrid = mSpawnPosition;
-
-    //Making top left of grid origin
-    //mOriginGrid.x-=Constants::GridSize*0.5f;
-    //mOriginGrid.y-=Constants::GridSize*0.5f;
-
-    //mOriginGrid.y-=Constants::GridSize*((Constants::TilesRenderedHeight+1)/2);
-    //mOriginGrid.x-=Constants::GridSize*((Constants::TilesRenderedWide+1)/2);
-
-    /*
-    std::cout<<tileCnt<<'\n';
-    
-    for (int i=1;i<=Constants::TilesRenderedHeight;i++) {
-        //Prepare grid
-        int tmp=rand()%tileCnt;
-        sf::Texture& texture = mTiles[tmp]->get(Textures::Background);
-        //sf::IntRect textureRect(mOriginGrid.x,mOriginGrid.y,mOriginGrid.x+Constants::GridSize*(Constants::TilesRenderedWide),mOriginGrid.y+Constants::GridSize);
-        sf::IntRect textureRect(mOriginGrid.x,mOriginGrid.y,mOriginGrid.x+Constants::GridSize,mOriginGrid.y+Constants::GridSize);
-        //texture.setRepeated(true);
-        
-        std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
-        backgroundSprite->setPosition(textureRect.left, textureRect.top);
-        mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
-
-        mOriginGrid.y+=Constants::GridSize;
-    }
-    */
     // Add player's character
 
     std::unique_ptr<Character> player(new Character(Character::Player, mTextures));

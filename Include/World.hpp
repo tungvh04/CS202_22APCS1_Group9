@@ -49,9 +49,6 @@ private:
 private:
     TileBuilderRow tileManager;
 
-    CarFactoryManager carBuilder;
-    WorldTextureHolder carTextureHolder;
-
     Indexer stateController;
 
     sf::RenderWindow& mWindow;

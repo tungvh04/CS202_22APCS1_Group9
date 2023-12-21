@@ -138,16 +138,6 @@ void TileBuilderRow::buildFrontRow() {
         tmp.x-=shiftAmount;
         addTile(tmp,ID);
     }
-    if (builder) {
-        std::cout<<"ID: "<<ID<<' '<<isRoad(ID)<<'\n';
-        //return;
-        if (isRoad(ID)) {
-            builder->buildFrontRow();
-        }
-        else {
-            builder->buildEmpty();
-        }
-    }
 }
 
 void TileBuilderRow::deleteBackRow() {
@@ -198,11 +188,6 @@ void TileBuilderRow::update(sf::Vector2f playerPos) {
 
 void TileBuilderRow::setController(Indexer* tmp) {
     controller=tmp;
-}
-
-void TileBuilderRow::setFactory(CarFactoryManager* tmp) {
-    //std::cout<<"!--------------------------------------------------"<<'\n';
-    builder=tmp;
 }
 
 void TileState::setRoad(int x) {

@@ -25,7 +25,9 @@ namespace Textures {
         Key1,
         Key2,
         Sound1,
-        Sound2
+        Sound2,
+        SlowCar,
+        FastCar
     };
 }
 namespace SoundEffects {
