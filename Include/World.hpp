@@ -38,6 +38,11 @@ private:
     void adaptPlayerPosition();
     void adaptPlayerVelocity();
     void handleCollisions();
+    void spawnEnemies();
+    sf::FloatRect getViewBounds() const;
+	sf::FloatRect getBattlefieldBounds() const;
+    void World::addEnemy(Car::Type type, float relX, float relY);
+    void World::addEnemies();
 
 private:
     enum Layer {
@@ -45,6 +50,16 @@ private:
         Air,
         LayerCount
     };
+
+    struct SpawnPoint {
+		SpawnPoint(Car::Type type, float x, float y): type(type), x(x), y(y){
+		
+        }
+
+		Car::Type type;
+		float x;
+		float y;
+	};
 
 private:
     TileBuilderRow tileManager;
@@ -68,6 +83,9 @@ private:
     sf::Vector2f mOriginGrid;
 
     int tileCnt;
+
+    std::vector<SpawnPoint> mEnemySpawnPoints;
+	std::vector<Car*> mActiveEnemies;
 };
 
 #endif // WORLD_HPP
