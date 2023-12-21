@@ -41,8 +41,8 @@ private:
     void spawnEnemies();
     sf::FloatRect getViewBounds() const;
 	sf::FloatRect getBattlefieldBounds() const;
-    void World::addEnemy(Car::Type type, float relX, float relY);
-    void World::addEnemies();
+    // void World::addEnemy(Car::Type type, float relX, float relY);
+    // void World::addEnemies();
 
 private:
     enum Layer {
