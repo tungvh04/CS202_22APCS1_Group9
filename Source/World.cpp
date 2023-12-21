@@ -186,6 +186,9 @@ void World::handleCollisions() {
     // std::cout << "Player bounding rect: " << mPlayerCharacter->getBoundingRect().left << ' ' << mPlayerCharacter->getBoundingRect().top << ' ' << mPlayerCharacter->getBoundingRect().width << ' ' << mPlayerCharacter->getBoundingRect().height << '\n';
     // std::cout << "Number of colliding nodes: " << playerCollidingNodes.size() << '\n';
     for (auto node : playerCollidingNodes) {
+        if (matchesCategories(node, Category::Car)) {
+            std::cout << "Colliding with car\n";
+        }
         // if (matchesCategories(node, Category::Grass)) {
             // std::cout << "Colliding with grass\n";
         // }

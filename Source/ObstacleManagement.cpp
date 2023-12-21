@@ -27,7 +27,7 @@ bool Obstacle::isDestroyed() const {
 
 
 Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::FloatRect()> getBattlefieldBounds) : mType(type), MovingObject(textures.get(toTextureID(type))), getBattlefieldBounds(getBattlefieldBounds) {
-    std::cout << "Texture loaded is " << toTextureID(type) << std::endl;
+    // std::cout << "Texture loaded is " << toTextureID(type) << std::endl;
     scale(Constants::GridSize / getGlobalBounds().width, Constants::GridSize / getGlobalBounds().height);
 }
 
