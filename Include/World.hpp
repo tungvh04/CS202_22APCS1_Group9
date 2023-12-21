@@ -10,6 +10,7 @@
 #include <Command.hpp>
 // #include <TileSystem.hpp>
 #include <TileManagement.hpp>
+#include <GameObject.hpp>
 #include <Car.hpp>
 
 #include <SFML/System/NonCopyable.hpp>

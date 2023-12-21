@@ -17,8 +17,8 @@ World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getD
     // tileManager.setCentre(mSpawnPosition);
     // tileManager.shiftY(Constants::initialShift);
     // tileManager.buildTillFull();
-    sf::Vector2f gridspawn = mSpawnPosition;
-    gridspawn.y += Constants::initialShift * Constants::GridSize;
+    // sf::Vector2f gridspawn = mSpawnPosition;
+    // gridspawn.y += Constants::initialShift * Constants::GridSize;
     // tileManager = TileManager(gridspawn);
     // mTileManager.setSpawnOrigin(gridspawn);
     // Prepare the view
@@ -74,6 +74,7 @@ void World::loadTextures() {
     mTextures.load(Textures::Grass, "Media/Textures/Tile/Tile1.png");
     mTextures.load(Textures::Sand, "Media/Textures/Tile/Tile2.png");
     mTextures.load(Textures::Ice, "Media/Textures/Tile/Tile3.png");
+    mTextures.load(Textures::Car, "Media/Textures/Tile/Tile0.png");
 }
 
 void World::buildScene() {
@@ -100,11 +101,17 @@ void World::buildScene() {
 
     // Grid making
 
+    // sf::Vector2f gridspawn = mSpawnPosition;
+    // gridspawn.y += Constants::initialShift * Constants::GridSize;
+    // SceneNode::Ptr grid(new TileManager(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures));
+    // mSceneLayers[Background]->attachChild(std::move(grid));
+
+
     sf::Vector2f gridspawn = mSpawnPosition;
     gridspawn.y += Constants::initialShift * Constants::GridSize;
-    SceneNode::Ptr grid(new TileManager(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures));
+    // SceneNode::Ptr grid(GameObject(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures));
+    SceneNode::Ptr grid(new GameObject(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures));
     mSceneLayers[Background]->attachChild(std::move(grid));
-
     
     mOriginGrid = mSpawnPosition;
 
@@ -179,15 +186,15 @@ void World::handleCollisions() {
     // std::cout << "Player bounding rect: " << mPlayerCharacter->getBoundingRect().left << ' ' << mPlayerCharacter->getBoundingRect().top << ' ' << mPlayerCharacter->getBoundingRect().width << ' ' << mPlayerCharacter->getBoundingRect().height << '\n';
     // std::cout << "Number of colliding nodes: " << playerCollidingNodes.size() << '\n';
     for (auto node : playerCollidingNodes) {
-        if (matchesCategories(node, Category::Grass)) {
-            std::cout << "Colliding with grass\n";
-        }
-        else if (matchesCategories(node, Category::Ice)) {
-            std::cout << "Colliding with ice\n";
-        }
-        else if (matchesCategories(node, Category::Sand)) {
-            std::cout << "Colliding with sand\n";
-        }
+        // if (matchesCategories(node, Category::Grass)) {
+            // std::cout << "Colliding with grass\n";
+        // }
+        // else if (matchesCategories(node, Category::Ice)) {
+            // std::cout << "Colliding with ice\n";
+        // }
+        // else if (matchesCategories(node, Category::Sand)) {
+            // std::cout << "Colliding with sand\n";
+        // }
     }
 }
 sf::FloatRect World::getViewBounds() const

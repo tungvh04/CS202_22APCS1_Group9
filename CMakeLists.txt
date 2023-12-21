@@ -46,6 +46,8 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/Animation.cpp
                                 Source/GameOverState.cpp
                                 Source/TileManagement.cpp
+                                Source/ObstacleManagement.cpp
+                                Source/GameObject.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)

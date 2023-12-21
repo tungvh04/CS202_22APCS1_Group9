@@ -43,9 +43,6 @@ Tile::~Tile() {}
 TileRow::TileRow(std::vector<Tile::Type> types, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures) : getBattlefieldBounds(getBattlefieldBounds), mTextures(textures) {
     generateRow(types);
 }
-void TileRow::update(sf::Time dt) {
-
-}
 void TileRow::generateRow(std::vector<Tile::Type> types) {
     for (int i = -Constants::TilesRenderedWide; i <= Constants::TilesRenderedWide; i++) {
         int type = rand() % types.size();
@@ -84,25 +81,25 @@ TileManager::TileManager(sf::Vector2f spawnOrigin, std::function<sf::FloatRect()
 // }
 
 void TileManager::updateCurrent(sf::Time dt) {
-    sf::FloatRect viewBounds = getBattlefieldBounds();
-    while (mSpawnOrigin.y > viewBounds.top) {
-        int type = rand() % 3;
-        SceneNode::Ptr row(new TileRow(std::vector<Tile::Type>(1, static_cast<Tile::Type>(type)), getBattlefieldBounds, mTextures));
-        row.get()->setPosition(mSpawnOrigin);
-        attachChild(std::move(row));
-        mSpawnOrigin.y -= Constants::GridSize;
-    }
-    Command command;
-    command.category = Category::Tile;
-    command.action = derivedAction<Tile>([this, viewBounds, dt](Tile& tile, sf::Time) {
-        if (!viewBounds.intersects(tile.getBoundingRect())) {
-            tile.destroy();
-        }
-    });
-    // mTiles.get()->onCommand(command, dt);
-    // mTiles.get()->removeWrecks();
-    onCommand(command, dt);
-    removeWrecks();
+    // sf::FloatRect viewBounds = getBattlefieldBounds();
+    // while (mSpawnOrigin.y > viewBounds.top) {
+        // int type = rand() % 3;
+        // SceneNode::Ptr row(new TileRow(std::vector<Tile::Type>(1, static_cast<Tile::Type>(type)), getBattlefieldBounds, mTextures));
+        // row.get()->setPosition(mSpawnOrigin);
+        // attachChild(std::move(row));
+        // mSpawnOrigin.y -= Constants::GridSize;
+    // }
+    // Command command;
+    // command.category = Category::Tile;
+    // command.action = derivedAction<Tile>([this, viewBounds, dt](Tile& tile, sf::Time) {
+        // if (!viewBounds.intersects(tile.getBoundingRect())) {
+            // tile.destroy();
+        // }
+    // });
+    // // mTiles.get()->onCommand(command, dt);
+    // // mTiles.get()->removeWrecks();
+    // onCommand(command, dt);
+    // removeWrecks();
 }
 
 // void TileManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {

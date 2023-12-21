@@ -13,6 +13,8 @@ namespace Category
         Grass = 1 << 4,
         Sand = 1 << 5,
         Ice = 1 << 6,
+        Obstacle = 1 << 7,
+        Car = 1 << 8,
     };
 }
 

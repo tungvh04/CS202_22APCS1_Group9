@@ -26,6 +26,7 @@ namespace Textures {
         Grass,
         Sand,
         Ice,
+        Car,
     };
 }
 namespace SoundEffects {

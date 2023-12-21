@@ -42,6 +42,7 @@ void Character::pathRequest(sf::Vector2f direction) {
 void Character::updateCurrent(sf::Time dt) {
     // std::cout << mSprite.getGlobalBounds().width << ' ' << mSprite.getGlobalBounds().height << std::endl;
     // std::cout << "Position: " << getPosition().x << ' ' << getPosition().y << std::endl;
+    // std::cout << "The player position is " << getWorldPosition().x << ',' << getWorldPosition().y << std::endl;
     if (!mPath.empty()) {
         sf::Vector2f direction = mPath.front();
         sf::Vector2f movement = direction * dt.asSeconds();
