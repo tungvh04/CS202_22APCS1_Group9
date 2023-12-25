@@ -34,7 +34,6 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/CollisionBox.cpp 
                                 Source/Object.cpp
                                 Source/TextureHolder.cpp
-                                Source/Car.cpp
                                 Source/MovingObject.cpp
                                 Source/Component.cpp
                                 Source/Button.cpp
@@ -49,7 +48,6 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/ObstacleManagement.cpp
                                 Source/GameObject.cpp
                                 Source/CreditState.cpp
-                                Source/DataTables.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)

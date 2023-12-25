@@ -21,7 +21,7 @@ void World::update(sf::Time dt) {
     //std::cout<<mPlayerCharacter->getPosition().x<<' '<<mPlayerCharacter->getPosition().y<<'\n';
     // Scroll the world, reset player velocity
 
-    sf::Vector2i currentPos=stateController.getIndex(mPlayerCharacter->getPosition());
+    // sf::Vector2i currentPos=stateController.getIndex(mPlayerCharacter->getPosition());
     //std::cout<<currentPos.x<<' '<<currentPos.y<<'\n';
 
     mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
