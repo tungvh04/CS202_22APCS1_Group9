@@ -16,6 +16,9 @@ void Object::update(sf::Time dt) {
 
 void Object::draw(sf::RenderWindow& window) {
     tObj.setPosition(pos);
+    tObj.setTexture(*tTexture);
+
+    //std::cout<<"Object drawed!!!";
     
     window.draw(tObj);
 
@@ -38,7 +41,7 @@ void Object::shiftPos(sf::Vector2f _pos) {
 void Object::setTexture(sf::Texture* _texture) {
     tTexture=_texture;
 
-    tObj.setTexture(*_texture);
+    tObj.setTexture(*tTexture);
     tObj.setTextureRect(sf::IntRect(pos.x,pos.y,Constants::GridSize,Constants::GridSize));
 }
 

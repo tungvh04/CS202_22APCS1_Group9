@@ -14,6 +14,7 @@ namespace Textures {
         Title,
         HighScore,
         Character,
+        Credit,
         Button,
         ButtonTouch,
         ButtonPressed,
@@ -27,6 +28,8 @@ namespace Textures {
         Sand,
         Ice,
         Car,
+        Sound1,
+        Sound2,
     };
 }
 namespace SoundEffects {

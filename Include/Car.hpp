@@ -1,66 +1,46 @@
 #ifndef CAR_HPP
 #define CAR_HPP
 
-#include <Object.hpp>
-#include <TextureHolder.hpp>
-#include <deque>
+#include <Entity.hpp>
+#include <Command.hpp>
+#include <ResourceIdentifiers.hpp>
+#include <CommandQueue.hpp>
 
-class Car : public Object,BoundingBox {
-private:
+#include <SFML/Graphics/Sprite.hpp>
 
 
-public:
-    Car();
-    ~Car();
+class Car : public Entity
+{
+	public:
+		enum Type
+		{
+			SlowCar,
+            FastCar,
+            TypeCount
+		};
+
+
+	public:
+		Car(Type type, const TextureHolder& textures);
+
+		virtual unsigned int getCategory() const;
+		virtual sf::FloatRect getBoundingRect() const;
+		virtual bool isMarkedForRemoval() const;
+		float getMaxSpeed() const;
+
+	private:
+		virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+		virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
+		void updateMovementPattern(sf::Time dt);
+
+
+	private:
+		Type mType;
+		sf::Sprite mSprite;
+		bool mIsMarkedForRemoval;
+
+        float mTravelledDistance;
+		std::size_t	mDirectionIndex;
 };
 
-class CarFactory {
-private:
-    sf::Vector2f speedRange,delayRange,spawnPoint;
-
-    float delayCounter;
-
-    sf::Texture* tTexture;
-
-    std::vector<Car> carList;
-public:
-    CarFactory(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint);
-    /*
-    CarFactory(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint,int id);
-    CarFactory(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint,std::string _path);
-    CarFactory(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint,std::string _path,int id);
-    CarFactory(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint,TextureHolder* _targetHolder);
-    CarFactory(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint,TextureHolder* _targetHolder,int id); 
-    */
-    //void setTexture(int id);
-    void setTexture(sf::Texture* _texture);
-    void spawn();
-    void update(sf::Time dt);
-    void draw(sf::RenderWindow& window);
-};
-
-class CarFactoryManager {
-private:
-    sf::Vector2f speedRange,delayRange,spawnPoint,trackingPoint;
-
-    std::string defaultPath;
-
-    WorldTextureHolder* targetHolder=nullptr;
-
-    std::deque<CarFactory> carTrackList;
-
-    bool isTracked;
-public:
-    CarFactoryManager(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint);
-
-    void setPath(std::string path);
-    void setHolder(WorldTextureHolder* target);
-    void setTrackingPoint(sf::Vector2f point);
-    void push_back();
-    void pop_front();
-    void shiftSpawn(sf::Vector2f dv);
-    void shiftTrack(sf::Vector2f dv);
-    void update(sf::Time dt);
-};
-
-#endif //CAR_HPP
+#endif // CAR_HPP

@@ -12,15 +12,6 @@ World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getD
     loadTextures();
     buildScene();
 
-    // tileManager.init();
-    // tileManager.load();
-    // tileManager.setCentre(mSpawnPosition);
-    // tileManager.shiftY(Constants::initialShift);
-    // tileManager.buildTillFull();
-    // sf::Vector2f gridspawn = mSpawnPosition;
-    // gridspawn.y += Constants::initialShift * Constants::GridSize;
-    // tileManager = TileManager(gridspawn);
-    // mTileManager.setSpawnOrigin(gridspawn);
     // Prepare the view
     mWorldView.setCenter(mSpawnPosition);
 }
@@ -30,7 +21,7 @@ void World::update(sf::Time dt) {
     //std::cout<<mPlayerCharacter->getPosition().x<<' '<<mPlayerCharacter->getPosition().y<<'\n';
     // Scroll the world, reset player velocity
 
-    //sf::Vector2i currentPos=stateController.getIndex(mPlayerCharacter->getPosition());
+    sf::Vector2i currentPos=stateController.getIndex(mPlayerCharacter->getPosition());
     //std::cout<<currentPos.x<<' '<<currentPos.y<<'\n';
 
     mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
@@ -48,14 +39,9 @@ void World::update(sf::Time dt) {
     mSceneGraph.update(dt);
     adaptPlayerPosition();
 
-    //Update Background depend on player position
-    // tileManager.update(mPlayerCharacter->getPosition());
-    // mTileManager.update(dt);
-
-    //std::cout<<mPlayerCharacter->getPosition().x<<" "<<mPlayerCharacter->getPosition().y<<" "<<'\n';
 }
 
-void World::draw() {
+void World::draw() { 
     mWindow.setView(mWorldView);
     // tileManager.draw(mWindow);
     // mWindow.draw(tileManager);
@@ -69,7 +55,6 @@ CommandQueue& World::getCommandQueue() {
 
 void World::loadTextures() {
     mTextures.load(Textures::Player, "Media/Textures/Eagle.png");
-    //mTextures.load(Textures::Player, "Media/Textures/Tile/Tile"+toString(0)+".png");
     mTextures.load(Textures::Background, "Media/Textures/Desert.png");
     mTextures.load(Textures::Grass, "Media/Textures/Tile/Tile1.png");
     mTextures.load(Textures::Sand, "Media/Textures/Tile/Tile2.png");
@@ -114,32 +99,6 @@ void World::buildScene() {
     mSceneLayers[Background]->attachChild(std::move(grid));
     
     mOriginGrid = mSpawnPosition;
-
-    //Making top left of grid origin
-    //mOriginGrid.x-=Constants::GridSize*0.5f;
-    //mOriginGrid.y-=Constants::GridSize*0.5f;
-
-    //mOriginGrid.y-=Constants::GridSize*((Constants::TilesRenderedHeight+1)/2);
-    //mOriginGrid.x-=Constants::GridSize*((Constants::TilesRenderedWide+1)/2);
-
-    /*
-    std::cout<<tileCnt<<'\n';
-    
-    for (int i=1;i<=Constants::TilesRenderedHeight;i++) {
-        //Prepare grid
-        int tmp=rand()%tileCnt;
-        sf::Texture& texture = mTiles[tmp]->get(Textures::Background);
-        //sf::IntRect textureRect(mOriginGrid.x,mOriginGrid.y,mOriginGrid.x+Constants::GridSize*(Constants::TilesRenderedWide),mOriginGrid.y+Constants::GridSize);
-        sf::IntRect textureRect(mOriginGrid.x,mOriginGrid.y,mOriginGrid.x+Constants::GridSize,mOriginGrid.y+Constants::GridSize);
-        //texture.setRepeated(true);
-        
-        std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
-        backgroundSprite->setPosition(textureRect.left, textureRect.top);
-        mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
-
-        mOriginGrid.y+=Constants::GridSize;
-    }
-    */
     // Add player's character
 
     std::unique_ptr<Character> player(new Character(Character::Player, mTextures));

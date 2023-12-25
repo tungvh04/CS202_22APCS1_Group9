@@ -24,8 +24,6 @@ class HighScoreState : public State{
 	private:
 		sf::Sprite mBackgroundSprite;
 		GUI::Container mGUIContainer;
-		// std::array<GUI::Button::Ptr, Player::ActionCount> mBindingButtons;
-		// std::array<GUI::Label::Ptr, Player::ActionCount> mBindingLabels;
         std::array<std::pair<double, std::string>, 3> highScore;
 };
 #endif

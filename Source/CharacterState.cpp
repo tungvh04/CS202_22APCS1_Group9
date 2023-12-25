@@ -20,10 +20,10 @@ CharacterState::CharacterState(StateStack &stack, Context context)
 
     addCharacterTexture("Dinosaur", "Yellow", 24);
     addBackGroudCharacterTexture("Dinosaur", "Yellow");
-
+    
     addCharacterTexture("Dinosaur", "Red", 24);
     addBackGroudCharacterTexture("Dinosaur", "Red");
-
+    
     mCharacterSprite.setTexture(mCharacterTexture[0][0]);
     mCharacterSprite.setScale(10.0f, 10.0f);
     mCharacterSprite.setPosition(830, 500);
@@ -52,7 +52,6 @@ CharacterState::CharacterState(StateStack &stack, Context context)
     });
     mGUIContainer.pack(backButton);
     mGUIContainer.pack(playButton);
-    
 }
 void CharacterState::addCharacterTexture(const std::string &nameCharacter, const std::string &color, int numOfPicture){
     std::string nameFile = color + nameCharacter;

@@ -49,6 +49,16 @@ private:
         LayerCount
     };
 
+    struct SpawnPoint {
+		SpawnPoint(Car::Type type, float x, float y): type(type), x(x), y(y){
+		
+        }
+
+		Car::Type type;
+		float x;
+		float y;
+	};
+
 private:
     // TileBuilderRow tileManager;
     // TileManager tileManager;
@@ -72,6 +82,9 @@ private:
     sf::Vector2f mOriginGrid;
 
     int tileCnt;
+
+    std::vector<SpawnPoint> mEnemySpawnPoints;
+	std::vector<Car*> mActiveEnemies;
 };
 
 #endif // WORLD_HPP

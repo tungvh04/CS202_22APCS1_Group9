@@ -14,6 +14,7 @@ class Label : public Component
         Label(const std::string& text, const FontHolder& fonts);
         virtual bool isSelectable() const;
         void setText(const std::string& text);
+        void setColor(const sf::Color& color);
         virtual void handleEvent(const sf::Event& event);
     private:
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;

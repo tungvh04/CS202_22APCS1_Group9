@@ -25,3 +25,8 @@ void Entity::accelerate(float vx, float vy) {
 void Entity::updateCurrent(sf::Time dt) {
     move(mVelocity * dt.asSeconds());
 }
+
+void Entity::updateCurrent(sf::Time dt, CommandQueue&)
+{	
+	move(mVelocity * dt.asSeconds());
+}

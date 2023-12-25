@@ -1,153 +1,77 @@
 #include <Car.hpp>
+#include <DataTables.hpp>
+#include <CommandQueue.hpp>
+#include <ResourceHolder.hpp>
+#include <Utility.hpp>
 
-Car::Car() {
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
 
+#include <cmath>
+
+namespace
+{
+	const std::vector<CarData> Table = initializeCarData();
 }
 
-Car::~Car() {
-
+Car::Car(Type type, const TextureHolder& textures): mType(type), mSprite(textures.get(Table[type].texture)), mIsMarkedForRemoval(false), mTravelledDistance(0.f), mDirectionIndex(0)
+{
+	centerOrigin(mSprite);
 }
 
-CarFactory::CarFactory(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint) {
-    speedRange=_speedRange;
-    //if (speedRange.x>speedRange.y) std::swap(speedRange.x,speedRange.y);
-    delayRange=_delayRange;
-    if (delayRange.x>delayRange.y) std::swap(delayRange.x,delayRange.y);
-    spawnPoint=_spawnPoint;
-    delayCounter=Rand(speedRange.x,speedRange.y);
-    //defaultPath="";
-    //targetHolder=nullptr;
-}
-/*
-CarFactory::CarFactory(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint,int id) {
-    speedRange=_speedRange;
-    //if (speedRange.x>speedRange.y) std::swap(speedRange.x,speedRange.y);
-    delayRange=_delayRange;
-    if (delayRange.x>delayRange.y) std::swap(delayRange.x,delayRange.y);
-    spawnPoint=_spawnPoint;
-    delayCounter=Rand(speedRange.x,speedRange.y);
-    defaultPath="";
-    targetHolder=nullptr;
-    setTexture(id);
+void Car::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	target.draw(mSprite, states);
 }
 
-CarFactory::CarFactory(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint,std::string _path) {
-    speedRange=_speedRange;
-    //if (speedRange.x>speedRange.y) std::swap(speedRange.x,speedRange.y);
-    delayRange=_delayRange;
-    if (delayRange.x>delayRange.y) std::swap(delayRange.x,delayRange.y);
-    spawnPoint=_spawnPoint;
-    delayCounter=Rand(speedRange.x,speedRange.y);
-    targetHolder=nullptr;
-    defaultPath=_path;
+void Car::updateCurrent(sf::Time dt, CommandQueue& commands)
+{
+
+	// Update enemy movement pattern; apply velocity
+	updateMovementPattern(dt);
+	Entity::updateCurrent(dt, commands);
 }
 
-CarFactory::CarFactory(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint,std::string _path,int id) {
-    speedRange=_speedRange;
-    //if (speedRange.x>speedRange.y) std::swap(speedRange.x,speedRange.y);
-    delayRange=_delayRange;
-    if (delayRange.x>delayRange.y) std::swap(delayRange.x,delayRange.y);
-    spawnPoint=_spawnPoint;
-    delayCounter=Rand(speedRange.x,speedRange.y);
-    defaultPath=_path;
-    targetHolder=nullptr;
-    setTexture(id);
+unsigned int Car::getCategory() const
+{
+	return Category::Car;
 }
 
-CarFactory::CarFactory(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint,TextureHolder* _targetHolder) {
-    speedRange=_speedRange;
-    //if (speedRange.x>speedRange.y) std::swap(speedRange.x,speedRange.y);
-    delayRange=_delayRange;
-    if (delayRange.x>delayRange.y) std::swap(delayRange.x,delayRange.y);
-    spawnPoint=_spawnPoint;
-    delayCounter=Rand(speedRange.x,speedRange.y);
-    targetHolder=_targetHolder;
-    defaultPath="";
+sf::FloatRect Car::getBoundingRect() const
+{
+	return getWorldTransform().transformRect(mSprite.getGlobalBounds());
 }
 
-CarFactory::CarFactory(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint,TextureHolder* _targetHolder,int id) {
-    speedRange=_speedRange;
-    //if (speedRange.x>speedRange.y) std::swap(speedRange.x,speedRange.y);
-    delayRange=_delayRange;
-    if (delayRange.x>delayRange.y) std::swap(delayRange.x,delayRange.y);
-    spawnPoint=_spawnPoint;
-    delayCounter=Rand(speedRange.x,speedRange.y);
-    targetHolder=_targetHolder;
-    defaultPath="";
-    setTexture(id);
-}
-*/
-/*
-void CarFactory::setTexture(int id) {
-    if(defaultPath=="") {
-        if (targetHolder) {
-            tTexture=targetHolder->get(id);
-        }
-    }
-}
-*/
-
-void CarFactory::setTexture(sf::Texture* _texture) {
-    tTexture=_texture;
+bool Car::isMarkedForRemoval() const
+{
+	return mIsMarkedForRemoval;
 }
 
-void CarFactory::spawn() {
-    if (delayCounter>0.0f) return;
-    carList.resize(carList.size()+1);
-    carList.back().setPos(spawnPoint);
-    //carList.back().setBoundingBox(boundBox);
-    carList.back().setTexture(tTexture);
-    carList.back().setSpeed(speedRange);
-    delayCounter=Rand(delayRange.x,delayRange.y);
+float Car::getMaxSpeed() const
+{
+	return Table[mType].speed;
 }
 
-void CarFactory::update(sf::Time dt) {
-    delayCounter-=dt.asSeconds();
-    for (int i=0;i<carList.size();i++) {
-        carList[i].update(dt);
-    }
-}
+void Car::updateMovementPattern(sf::Time dt)
+{
+	// Enemy airplane: Movement pattern
+	const std::vector<Direction>& directions = Table[mType].directions;
+	if (!directions.empty())
+	{
+		// Moved long enough in current direction: Change direction
+		if (mTravelledDistance > directions[mDirectionIndex].distance)
+		{
+			mDirectionIndex = (mDirectionIndex + 1) % directions.size();
+			mTravelledDistance = 0.f;
+		}
 
-void CarFactory::draw(sf::RenderWindow& window) {
-    for (int i=0;i<carList.size();i++) {
-        carList[i].draw(window);
-    }
-}
+		// Compute velocity from direction
+		float radians = toRadian(directions[mDirectionIndex].angle + 90.f);
+		float vx = getMaxSpeed() * std::cos(radians);
+		float vy = getMaxSpeed() * std::sin(radians);
 
-CarFactoryManager::CarFactoryManager(sf::Vector2f _speedRange,sf::Vector2f _delayRange,sf::Vector2f _spawnPoint) {
-    speedRange=_speedRange;
-    //if (speedRange.x>speedRange.y) std::swap(speedRange.x,speedRange.y);
-    delayRange=_delayRange;
-    if (delayRange.x>delayRange.y) std::swap(delayRange.x,delayRange.y);
-    spawnPoint=_spawnPoint;
-    defaultPath="";
-    targetHolder=nullptr;
-    isTracked=false;
-}
+		setVelocity(vx, vy);
 
-void CarFactoryManager::setPath(std::string path) {
-    defaultPath=path;
-}
-
-void CarFactoryManager::setHolder(WorldTextureHolder* holder) {
-    targetHolder=holder;
-}
-
-void CarFactoryManager::setTrackingPoint(sf::Vector2f _point) {
-    trackingPoint=_point;
-}
-void CarFactoryManager::push_back() {
-    carTrackList.emplace_back(speedRange,delayRange,spawnPoint);
-}
-
-void CarFactoryManager::pop_front() {
-    carTrackList.pop_front();
-}
-
-void CarFactoryManager::shiftSpawn(sf::Vector2f dv) {
-    spawnPoint+=dv;
-}
-
-void CarFactoryManager::shiftTrack(sf::Vector2f dv) {
-    trackingPoint+=dv;
+		mTravelledDistance += getMaxSpeed() * dt.asSeconds();
+	}
 }
