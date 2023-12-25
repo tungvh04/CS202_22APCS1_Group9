@@ -18,6 +18,8 @@ class Obstacle : public MovingObject {
 public:
     enum Type {
         Car,
+        Car1,
+        TypeCount,
     };
     virtual unsigned int getCategory() const;
     Obstacle(Type type, const TextureHolder& textures, std::function<sf::FloatRect()> getBattlefieldBounds);
@@ -31,16 +33,16 @@ private:
 
 class ObstacleRow : public Entity {
 public:
-    ObstacleRow(sf::Vector2f rowSpeed, std::vector<Obstacle::Type> types, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures);
+    ObstacleRow(std::vector<Obstacle::Type> types, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures);
     virtual void updateCurrent(sf::Time dt);
     sf::FloatRect getBoundingRect() const;
     bool isDestroyed() const;
 private:
     std::function<sf::FloatRect()> getBattlefieldBounds;
     TextureHolder* mTextures;
-    std::vector<Obstacle::Type> mTypes;
+    // std::vector<Obstacle::Type> mTypes;
+    Obstacle::Type mType;
     void generateRow();
-    sf::Time mTimeBetweenSpawn = sf::seconds(1);
     sf::Time mTimeToSpawn = sf::seconds(0);
 };
 

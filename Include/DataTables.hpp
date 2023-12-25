@@ -6,26 +6,18 @@
 
 #include <ResourceIdentifiers.hpp>
 
+#include <ObstacleManagement.hpp>
+#include <TileManagement.hpp>
+
 #include <vector>
 #include <functional>
 
-struct Direction
-{
-	Direction(float angle, float distance): angle(angle), distance(distance) {
-	
-    }
-
-	float angle;
-	float distance;
-};
-
-struct CarData{
-    float speed;
+struct ObstacleData {
+    sf::Vector2f speed;
     Textures::ID texture;
-
-    std::vector<Direction> directions;
+    sf::Time minTime, maxTime;
 };
 
-std::vector<CarData> initializeCarData();
+std::vector<ObstacleData> initializeObstacleData();
 
 #endif //DATATABLE_HPP

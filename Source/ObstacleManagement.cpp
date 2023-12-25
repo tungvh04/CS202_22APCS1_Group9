@@ -1,9 +1,14 @@
 #include <iostream>
 
 #include <ObstacleManagement.hpp>
+#include <DataTables.hpp>
 
+namespace ObstacleDataTables {
+    const std::vector<ObstacleData> data = initializeObstacleData();
+};
 
 Textures::ID toTextureID(Obstacle::Type type) {
+    return ObstacleDataTables::data[type].texture;
     switch (type) {
         case Obstacle::Car:
             return Textures::Car;
@@ -15,6 +20,8 @@ Textures::ID toTextureID(Obstacle::Type type) {
 unsigned int Obstacle::getCategory() const {
     switch (mType) {
         case Car:
+            return Category::Car | Category::Obstacle;
+        case Car1:
             return Category::Car | Category::Obstacle;
         default:
             throw std::runtime_error("Invalid obstacle type");
@@ -33,8 +40,13 @@ Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::F
 
 Obstacle::~Obstacle() {}
 
-ObstacleRow::ObstacleRow(sf::Vector2f rowSpeed, std::vector<Obstacle::Type> types, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures) : getBattlefieldBounds(getBattlefieldBounds), mTextures(textures), mTypes(types) {
-    setVelocity(rowSpeed);
+ObstacleRow::ObstacleRow(std::vector<Obstacle::Type> types, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures) : getBattlefieldBounds(getBattlefieldBounds), mTextures(textures) {
+    if (types.empty()) {
+        mType = Obstacle::Type::TypeCount;
+        return;
+    }
+    mType = types[rand() % types.size()];
+    setVelocity(ObstacleDataTables::data[mType].speed);
     generateRow();
 }
 
@@ -60,7 +72,7 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
     // Entity::updateCurrent(dt);
     // std::cout << "This row is at " << getPosition().y << std::endl;
     move(getVelocity() * dt.asSeconds());
-    if (mTypes.empty()) {
+    if (mType == Obstacle::Type::TypeCount) {
         return;
     }
     if (mTimeToSpawn <= sf::Time::Zero) {
@@ -68,13 +80,24 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
         if (!isSpawn) {
             return;
         }
-        int type = rand() % mTypes.size();
-        SceneNode::Ptr obstacle(new Obstacle(mTypes[type], *mTextures, getBattlefieldBounds));
+        SceneNode::Ptr obstacle(new Obstacle(mType, *mTextures, getBattlefieldBounds));
         float leftBound = getBattlefieldBounds().left - getPosition().x;
-        obstacle->move(leftBound, 0);
-        // std::cout << "Spawing obstacle at " << getWorldPosition().y << '\n';
+        float rightBound = getBattlefieldBounds().left + getBattlefieldBounds().width - getPosition().x;
+        // obstacle->move(leftBound, 0);
+        if (getVelocity().x > 0) {
+            obstacle->setPosition(leftBound, 0);
+        }
+        else {
+            obstacle->setPosition(rightBound, 0);
+        }
         attachChild(std::move(obstacle));
-        mTimeToSpawn = mTimeBetweenSpawn;
+        sf::Time minTime = ObstacleDataTables::data[mType].minTime;
+        sf::Time maxTime = ObstacleDataTables::data[mType].maxTime;
+        sf::Time deltaTime = maxTime - minTime;
+        int randTime = rand() % (int)deltaTime.asMilliseconds();
+        sf::Time randomTime = sf::milliseconds(randTime);
+        randomTime += minTime;
+        mTimeToSpawn = randomTime;
     }
     else mTimeToSpawn -= dt;
 }

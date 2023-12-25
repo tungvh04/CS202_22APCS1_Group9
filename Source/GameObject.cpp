@@ -12,7 +12,7 @@ const std::vector<std::vector<Tile::Type>> RowObject::initilizeTileTypes() {
 }
 
 const std::vector<std::vector<Obstacle::Type>> RowObject::initilizeObstacleTypes() {
-    std::vector<Obstacle::Type> road = {Obstacle::Car};
+    std::vector<Obstacle::Type> road = {Obstacle::Car, Obstacle::Car1};
     std::vector<Obstacle::Type> none = {};
     std::vector<std::vector<Obstacle::Type>> obstacleTypes = {none, road, none};
     // return {none, road, none};
@@ -41,7 +41,8 @@ void GameObject::updateCurrent(sf::Time dt) {
     while (mSpawnOrigin.y > battlefieldBounds.top) {
         int rowType = rand() % RowObject::TypeCount;
         SceneNode::Ptr tileRow(new TileRow(mTileTypes[rowType], getBattlefieldBounds, mTextures));
-        SceneNode::Ptr obstacleRow(new ObstacleRow(sf::Vector2f(200, 0), mObstacleTypes[rowType], getBattlefieldBounds, mTextures));
+        // SceneNode::Ptr obstacleRow(new ObstacleRow(sf::Vector2f(200, 0), mObstacleTypes[rowType], getBattlefieldBounds, mTextures));
+        SceneNode::Ptr obstacleRow(new ObstacleRow(mObstacleTypes[rowType], getBattlefieldBounds, mTextures));
         tileRow.get()->setPosition(mSpawnOrigin);
         obstacleRow.get()->setPosition(mSpawnOrigin);
         mTiles->attachChild(std::move(tileRow));

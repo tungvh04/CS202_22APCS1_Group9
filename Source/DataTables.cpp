@@ -1,26 +1,21 @@
 #include <DataTables.hpp>
-#include <Car.hpp>
 
 // For std::bind() placeholders _1, _2, ...
 using namespace std::placeholders;
 
-std::vector<CarData> initializeCarData()
+std::vector<ObstacleData> initializeObstacleData()
 {
-	std::vector<CarData> data(Car::TypeCount);
+	std::vector<ObstacleData> data(Obstacle::Type::TypeCount);
 
-	data[Car::FastCar].speed = 80.f;
-	data[Car::FastCar].texture = Textures::FastCar;
-	data[Car::FastCar].directions.push_back(Direction(+45.f, 80.f));
-	data[Car::FastCar].directions.push_back(Direction(-45.f, 160.f));
-	data[Car::FastCar].directions.push_back(Direction(+45.f, 80.f));
+	data[Obstacle::Type::Car].speed = sf::Vector2f(100.f, 0.f);
+	data[Obstacle::Type::Car].texture = Textures::ID::Car;
+	data[Obstacle::Type::Car].minTime = sf::seconds(5);
+	data[Obstacle::Type::Car].maxTime = sf::seconds(10);
 
-	data[Car::SlowCar].speed = 50.f;
-	data[Car::SlowCar].texture = Textures::SlowCar;
-	data[Car::SlowCar].directions.push_back(Direction(+45.f,  50.f));
-	data[Car::SlowCar].directions.push_back(Direction(  0.f,  50.f));
-	data[Car::SlowCar].directions.push_back(Direction(-45.f, 100.f));
-	data[Car::SlowCar].directions.push_back(Direction(  0.f,  50.f));
-	data[Car::SlowCar].directions.push_back(Direction(+45.f,  50.f));
+	data[Obstacle::Type::Car1].speed = sf::Vector2f(-100.f, 0.f);
+	data[Obstacle::Type::Car1].texture = Textures::ID::Car;
+	data[Obstacle::Type::Car1].minTime = sf::seconds(4);
+	data[Obstacle::Type::Car1].maxTime = sf::seconds(8);
 
 	return data;
 }
