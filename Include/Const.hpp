@@ -4,7 +4,7 @@
 
 namespace Constants {
     constexpr static float playerSpeed = 200.f;
-    constexpr static float GridSize = 46.f;
+    constexpr static float GridSize = 92.f;
     constexpr static float BorderDistance = 40.f;
     constexpr static int TilesRenderedHeight = 25;
     constexpr static int TilesRenderedWide = 30;
