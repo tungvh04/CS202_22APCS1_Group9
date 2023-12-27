@@ -14,6 +14,7 @@ namespace Textures {
         Title,
         HighScore,
         Character,
+        Map,
         Credit,
         Button,
         ButtonTouch,
@@ -30,6 +31,9 @@ namespace Textures {
         Car,
         Sound1,
         Sound2,
+        Autumn,
+        Spring,
+        Winter
     };
 }
 namespace SoundEffects {
@@ -53,10 +57,17 @@ namespace TypeCharacter{
         GreenDino,
         YellowDino,
         RedDino,
+        BlueFrog,
+        GreenFrog,
         YellowFrog,
-        PinkHero,
-        WhiteHero,
-        BlueHero
+        PinkFrog
+    };
+}
+namespace TypeMap{
+    enum ID {
+        Spring,
+        Autumn,
+        Winter
     };
 }
 // Forward declaration and a few type definitions

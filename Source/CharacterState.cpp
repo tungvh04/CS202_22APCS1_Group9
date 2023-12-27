@@ -25,24 +25,27 @@ CharacterState::CharacterState(StateStack &stack, Context context)
     addCharacterTexture("Dinosaur", "Red", 24);
     addBackGroudCharacterTexture("Dinosaur", "Red");
 
-    addCharacterTexture("Hero", "Pink", 8);
-    addBackGroudCharacterTexture("Hero", "Pink");
+    addCharacterTexture("Frog", "Blue", 11);
+    addBackGroudCharacterTexture("Frog", "Blue");
 
-    addCharacterTexture("Hero", "White", 8);
-    addBackGroudCharacterTexture("Hero", "White");
+    addCharacterTexture("Frog", "Green", 11);
+    addBackGroudCharacterTexture("Frog", "Green");
 
-    addCharacterTexture("Hero", "Blue", 8);
-    addBackGroudCharacterTexture("Hero", "Blue");
+    addCharacterTexture("Frog", "Yellow", 11);
+    addBackGroudCharacterTexture("Frog", "Yellow");
+
+    addCharacterTexture("Frog", "Pink", 11);
+    addBackGroudCharacterTexture("Frog", "Pink");
 
     mName.setFillColor(sf::Color::Black);
     mName.setCharacterSize(40);
     mName.setOutlineThickness(0.5);
     mName.setFont(context.fonts->get(Fonts::Main));
     mName.setPosition(830, 200);
+    
     mName.setString(listName[0]);
 
     mCharacterSprite.setTexture(mCharacterTexture[0][0]);
-    mCharacterSprite.setScale(10.0f, 10.0f);
     mCharacterSprite.setPosition(830, 500);
 
     mBackgroundSpriteCharacter.setTexture(mBackgroundTextureCharacter[0]);
@@ -59,12 +62,12 @@ CharacterState::CharacterState(StateStack &stack, Context context)
     });
 
     auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	playButton->setPosition(740.f, 850.f);
-	playButton->setText("Play", 40);
+	playButton->setPosition(1540.f, 950.f);
+	playButton->setText("Next", 40);
 	playButton->setCallback([this]()
     {
         requestStackPop();
-        requestStackPush(States::Game);
+        requestStackPush(States::Map);
     });
     mGUIContainer.pack(backButton);
     mGUIContainer.pack(playButton);
@@ -80,7 +83,7 @@ void CharacterState::addCharacterTexture(const std::string &nameCharacter, const
             return;
         }
         
-        frame.push_back(resizeTexture(texture, sf::Vector2u(24, 24)));
+        frame.push_back(resizeTexture(texture, sf::Vector2u(240, 240)));
     }
     mCharacterTexture.push_back(frame);
     return;

@@ -15,6 +15,7 @@ namespace States
         Score,
         Setting,
         Character,
+        Map,
         Credit
     };
 }

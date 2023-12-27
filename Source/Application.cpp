@@ -4,6 +4,7 @@
 #include <StateIdentifiers.hpp>
 #include <TitleState.hpp>
 #include <CharacterState.hpp>
+#include <MapState.hpp>
 #include <GameState.hpp>
 #include <MenuState.hpp>
 #include <SettingState.hpp>
@@ -31,10 +32,14 @@ Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Const
     mTextures.load(Textures::Key1, "Media/Textures/Key1.png");
     mTextures.load(Textures::Key2, "Media/Textures/Key2.png");
     mTextures.load(Textures::HighScore, "Media/Textures/HighScore.png");
-    mTextures.load(Textures::Character, "Media/Textures/Character.png");   
+    mTextures.load(Textures::Character, "Media/Textures/Character.png");
+    mTextures.load(Textures::Map, "Media/Textures/Map.png"); 
     mTextures.load(Textures::Credit,"Media/Textures/Credit.png"); 
     mTextures.load(Textures::Sound1, "Media/Textures/Sound1.png"); 
     mTextures.load(Textures::Sound2, "Media/Textures/Sound2.png");
+    mTextures.load(Textures::Winter, "Media/Textures/Winter.png");
+    mTextures.load(Textures::Autumn, "Media/Textures/Autumn.png");
+    mTextures.load(Textures::Spring, "Media/Textures/Spring.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Main));
     mStatisticsText.setPosition(5.f, 5.f);
@@ -106,6 +111,7 @@ void Application::registerStates() {
     mStateStack.registerState<TitleState>(States::Title);
     mStateStack.registerState<MenuState>(States::Menu);
     mStateStack.registerState<CharacterState>(States::Character);
+    mStateStack.registerState<MapState>(States::Map);
     mStateStack.registerState<SettingState>(States::Setting);
     mStateStack.registerState<CreditState>(States::Credit);
     mStateStack.registerState<HighScoreState>(States::Score);
