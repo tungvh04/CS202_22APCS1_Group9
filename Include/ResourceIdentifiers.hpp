@@ -52,7 +52,11 @@ namespace TypeCharacter{
         BlueDino,
         GreenDino,
         YellowDino,
-        RedDino
+        RedDino,
+        YellowFrog,
+        PinkHero,
+        WhiteHero,
+        BlueHero
     };
 }
 // Forward declaration and a few type definitions

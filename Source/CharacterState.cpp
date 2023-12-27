@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Image.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
 CharacterState::CharacterState(StateStack &stack, Context context)
@@ -23,11 +24,26 @@ CharacterState::CharacterState(StateStack &stack, Context context)
     
     addCharacterTexture("Dinosaur", "Red", 24);
     addBackGroudCharacterTexture("Dinosaur", "Red");
-    
+
+    addCharacterTexture("Hero", "Pink", 8);
+    addBackGroudCharacterTexture("Hero", "Pink");
+
+    addCharacterTexture("Hero", "White", 8);
+    addBackGroudCharacterTexture("Hero", "White");
+
+    addCharacterTexture("Hero", "Blue", 8);
+    addBackGroudCharacterTexture("Hero", "Blue");
+
+    mName.setFillColor(sf::Color::Black);
+    mName.setCharacterSize(40);
+    mName.setOutlineThickness(0.5);
+    mName.setFont(context.fonts->get(Fonts::Main));
+    mName.setPosition(830, 200);
+    mName.setString(listName[0]);
+
     mCharacterSprite.setTexture(mCharacterTexture[0][0]);
     mCharacterSprite.setScale(10.0f, 10.0f);
     mCharacterSprite.setPosition(830, 500);
-
 
     mBackgroundSpriteCharacter.setTexture(mBackgroundTextureCharacter[0]);
     mBackgroundSpriteCharacter.setScale(0.9f, 0.9f);
@@ -55,6 +71,7 @@ CharacterState::CharacterState(StateStack &stack, Context context)
 }
 void CharacterState::addCharacterTexture(const std::string &nameCharacter, const std::string &color, int numOfPicture){
     std::string nameFile = color + nameCharacter;
+    listName.push_back(color + " " + nameCharacter);
     std::vector<sf::Texture> frame;
     sf::Texture texture;
     for (int i = 1; i <= numOfPicture; i++){
@@ -62,7 +79,8 @@ void CharacterState::addCharacterTexture(const std::string &nameCharacter, const
             std::cerr << "Error loading image frame" << i << ".png" << std::endl;
             return;
         }
-        frame.push_back(texture);
+        
+        frame.push_back(resizeTexture(texture, sf::Vector2u(24, 24)));
     }
     mCharacterTexture.push_back(frame);
     return;
@@ -83,6 +101,7 @@ void CharacterState::draw(){
 
     window.draw(mBackgroundSprite);
     window.draw(mBackgroundSpriteCharacter);
+    window.draw(mName);
     window.draw(mCharacterSprite);
     window.draw(mGUIContainer);
 }
@@ -104,10 +123,36 @@ bool CharacterState::handleEvent(const sf::Event& event){
 }
 bool CharacterState::update(sf::Time dt){
     if (clock.getElapsedTime() >= frameTime){
+
+        mName.setString(listName[typeCharacter]);
         mCharacterSprite.setTexture(mCharacterTexture[typeCharacter][currentFrame]);
         if (++currentFrame >= mCharacterTexture[typeCharacter].size()) currentFrame = 0;
         clock.restart();
     }
     mBackgroundSpriteCharacter.setTexture(mBackgroundTextureCharacter[typeCharacter]);
     return true;
+}
+sf::Texture CharacterState::resizeTexture(const sf::Texture& originalTexture, const sf::Vector2u& targetSize) {
+
+    sf::Image originalImage = originalTexture.copyToImage();
+    sf::Image resizedImage;
+    resizedImage.create(targetSize.x, targetSize.y, sf::Color::Transparent);
+
+    float xScale = static_cast<float>(targetSize.x) / originalImage.getSize().x;
+    float yScale = static_cast<float>(targetSize.y) / originalImage.getSize().y;
+
+    for (unsigned int x = 0; x < targetSize.x; ++x) {
+        for (unsigned int y = 0; y < targetSize.y; ++y) {
+            unsigned int origX = static_cast<unsigned int>(x / xScale);
+            unsigned int origY = static_cast<unsigned int>(y / yScale);
+
+            sf::Color pixelColor = originalImage.getPixel(origX, origY);
+            resizedImage.setPixel(x, y, pixelColor);
+        }
+    }
+
+    sf::Texture resizedTexture;
+    resizedTexture.loadFromImage(resizedImage);
+    resizedTexture.setSmooth(false);
+    return resizedTexture;
 }

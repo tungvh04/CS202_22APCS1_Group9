@@ -21,6 +21,7 @@ class CharacterState : public State{
         virtual void draw();
         virtual bool update(sf::Time dt);
         virtual bool handleEvent(const sf::Event& event);
+        sf::Texture resizeTexture(const sf::Texture& originalTexture, const sf::Vector2u& targetSize);
     private:
         void updateLabel(){};
         void addCharacterTexture(const std::string &nameCharacter, const std::string &color, int numOfPicture);
@@ -30,13 +31,16 @@ class CharacterState : public State{
         sf::Sprite mBackgroundSprite;
         sf::Sprite mCharacterSprite;
         sf::Sprite mBackgroundSpriteCharacter;
+        sf::Text mName;
 
 		GUI::Container mGUIContainer;
         std::vector<std::vector<sf::Texture>> mCharacterTexture;
         std::vector<sf::Texture> mBackgroundTextureCharacter;
-
+        std::vector<std::string> listName;
+        
         int typeCharacter = TypeCharacter::ID::BlueDino;
         int currentFrame = 0;
+        const float sizeOrigin = 240;
         sf::Clock clock;
         sf::Time frameTime = sf::seconds(0.1f);
 };
