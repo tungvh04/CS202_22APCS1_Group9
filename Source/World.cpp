@@ -59,7 +59,8 @@ void World::loadTextures() {
     mTextures.load(Textures::Grass, "Media/Textures/Tile/Tile1.png");
     mTextures.load(Textures::Sand, "Media/Textures/Tile/Tile2.png");
     mTextures.load(Textures::Ice, "Media/Textures/Tile/Tile3.png");
-    mTextures.load(Textures::Car, "Media/Textures/Tile/Tile0.png");
+    mTextures.load(Textures::Car, "Media/Textures/Vehicle/Truck.png");
+    mTextures.load(Textures::Road, "Media/Textures/Tile/Tile4.png");
 }
 
 void World::buildScene() {

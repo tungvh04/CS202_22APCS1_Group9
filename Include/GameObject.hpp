@@ -10,9 +10,10 @@ namespace RowObject {
 
 
     enum Type {
-        Road,
+        Sand,
         Grass,
         Ice,
+        Road,
         TypeCount,
     };
 

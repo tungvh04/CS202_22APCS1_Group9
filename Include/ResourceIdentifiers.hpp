@@ -34,6 +34,7 @@ namespace Textures {
         Autumn,
         Spring,
         Winter,
+        Road,
     };
 }
 namespace SoundEffects {
