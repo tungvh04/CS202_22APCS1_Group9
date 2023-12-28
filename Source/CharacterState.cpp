@@ -2,6 +2,7 @@
 #include <Utility.hpp>
 #include <ResourceHolder.hpp>
 #include <iostream>
+#include <Const.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Image.hpp>
@@ -42,7 +43,6 @@ CharacterState::CharacterState(StateStack &stack, Context context)
     mName.setOutlineThickness(0.5);
     mName.setFont(context.fonts->get(Fonts::Main));
     mName.setPosition(830, 200);
-    
     mName.setString(listName[0]);
 
     mCharacterSprite.setTexture(mCharacterTexture[0][0]);
@@ -133,8 +133,15 @@ bool CharacterState::update(sf::Time dt){
         clock.restart();
     }
     mBackgroundSpriteCharacter.setTexture(mBackgroundTextureCharacter[typeCharacter]);
+
+    sf::FloatRect textBounds = mName.getLocalBounds();
+    mName.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
+    mName.setPosition(mBackgroundSpriteCharacter.getPosition().x + mBackgroundSpriteCharacter.getGlobalBounds().width / 2.0f,
+    mBackgroundSpriteCharacter.getPosition().y + mBackgroundSpriteCharacter.getGlobalBounds().height / 2.0f - 200);
+    
     return true;
 }
+//Function resize the texture
 sf::Texture CharacterState::resizeTexture(const sf::Texture& originalTexture, const sf::Vector2u& targetSize) {
 
     sf::Image originalImage = originalTexture.copyToImage();

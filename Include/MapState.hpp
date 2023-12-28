@@ -2,6 +2,7 @@
 #define MAP_HPP
 
 #include <State.hpp>
+#include <Entity.hpp>
 #include <Player.hpp>
 #include <Container.hpp>
 #include <Button.hpp>
@@ -15,7 +16,7 @@
 
 #include <vector>
 #include <array>
-class MapState : public State{
+class MapState : public State, Entity{
     public:
         MapState(StateStack &stack, Context context);
         virtual void draw();

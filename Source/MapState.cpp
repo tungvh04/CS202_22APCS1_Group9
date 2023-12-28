@@ -16,8 +16,6 @@ MapState::MapState(StateStack &stack, Context context)
     mMap.setPosition(470, 100);
     mMap.setScale(0.8, 0.8);
     mMap.setTexture(listMap[0]);
-    
-
 
     auto backButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	backButton->setPosition(70.f, 950.f);

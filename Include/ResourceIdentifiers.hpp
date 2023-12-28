@@ -33,7 +33,7 @@ namespace Textures {
         Sound2,
         Autumn,
         Spring,
-        Winter
+        Winter,
     };
 }
 namespace SoundEffects {
