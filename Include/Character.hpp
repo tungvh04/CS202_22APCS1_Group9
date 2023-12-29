@@ -18,6 +18,7 @@ public:
     virtual unsigned int getCategory() const;
     void pathRequest(sf::Vector2f direction);
     virtual sf::FloatRect getBoundingRect() const;
+    virtual bool isMarkedForRemoval() const;
 
 private:
     std::queue<sf::Vector2f> mPath;

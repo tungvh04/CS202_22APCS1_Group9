@@ -53,6 +53,16 @@ CommandQueue& World::getCommandQueue() {
     return mCommandQueue;
 }
 
+bool World::hasAlivePlayer() const
+{
+	return !mPlayerCharacter->isMarkedForRemoval();
+}
+
+bool World::hasPlayerReachedEnd() const
+{
+	return !mWorldBounds.contains(mPlayerCharacter->getPosition());
+}
+
 void World::loadTextures() {
     mTextures.load(Textures::Player, "Media/Textures/Eagle.png");
     mTextures.load(Textures::Background, "Media/Textures/Desert.png");

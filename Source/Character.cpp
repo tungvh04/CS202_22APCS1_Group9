@@ -83,3 +83,9 @@ sf::FloatRect Character::getBoundingRect() const
 {
 	return getWorldTransform().transformRect(mSprite.getGlobalBounds());
 }
+
+bool Character::isMarkedForRemoval() const
+{
+	//return isDestroyed() && (mExplosion.isFinished() || !mShowExplosion);
+    return false;
+}
