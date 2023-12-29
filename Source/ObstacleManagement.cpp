@@ -29,6 +29,8 @@ unsigned int Obstacle::getCategory() const {
             return Category::Stone | Category::Obstacle;
         case Train:
             return Category::Car | Category::Obstacle;
+        case Train1:
+            return Category::Car | Category::Obstacle;
         default:
             throw std::runtime_error("Invalid obstacle type");
     }

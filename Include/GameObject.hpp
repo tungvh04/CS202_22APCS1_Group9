@@ -14,6 +14,7 @@ namespace RowObject {
         Grass,
         Ice,
         Road,
+        Rail,
         TypeCount,
     };
 

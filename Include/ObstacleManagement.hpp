@@ -21,6 +21,7 @@ public:
         Car1,
         Stone,
         Train,
+        Train1,
         TypeCount,
     };
     virtual unsigned int getCategory() const;
