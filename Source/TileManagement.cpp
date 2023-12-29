@@ -13,6 +13,8 @@ Textures::ID toTextureID(Tile::Type type) {
             return Textures::Ice;
         case Tile::Road:
             return Textures::Road;
+        case Tile::Rail:
+            return Textures::Rail;
         default:
             throw std::runtime_error("Invalid tile type");
     }
@@ -27,6 +29,8 @@ unsigned int Tile::getCategory() const {
             return Category::Ice | Category::Tile;
         case Road:
             return Category::Road | Category::Tile;
+        case Rail:
+            return Category::Rail | Category::Tile;
         default:
             throw std::runtime_error("Invalid tile type");
     }

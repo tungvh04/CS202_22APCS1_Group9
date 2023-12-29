@@ -21,5 +21,12 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Car1].minTime = sf::seconds(4);
 	data[Obstacle::Type::Car1].maxTime = sf::seconds(8);
 
+	data[Obstacle::Type::Train].speed = sf::Vector2f(1000.f, 0.f);
+	data[Obstacle::Type::Train].scaleX = false;
+	data[Obstacle::Type::Train].scaleY = true;
+	data[Obstacle::Type::Train].texture = Textures::ID::Train;
+	data[Obstacle::Type::Train].minTime = sf::seconds(4);
+	data[Obstacle::Type::Train].maxTime = sf::seconds(8);
+
 	return data;
 }

@@ -7,15 +7,17 @@ const std::vector<std::vector<Tile::Type>> RowObject::initilizeTileTypes() {
     std::vector<Tile::Type> sand = {Tile::Sand};
     std::vector<Tile::Type> ice = {Tile::Ice};
     std::vector<Tile::Type> road = {Tile::Road};
-    std::vector<std::vector<Tile::Type>> tileTypes = {grass, sand, ice, road};
+    std::vector<Tile::Type> rail = {Tile::Rail};
+    std::vector<std::vector<Tile::Type>> tileTypes = {grass, sand, ice, road, rail};
     // return {grass, road, ice};
     return tileTypes;
 }
 
 const std::vector<std::vector<Obstacle::Type>> RowObject::initilizeObstacleTypes() {
     std::vector<Obstacle::Type> road = {Obstacle::Car, Obstacle::Car1};
+    std::vector<Obstacle::Type> rail = {Obstacle::Train};
     std::vector<Obstacle::Type> none = {};
-    std::vector<std::vector<Obstacle::Type>> obstacleTypes = {none, none, none, road};
+    std::vector<std::vector<Obstacle::Type>> obstacleTypes = {none, none, none, road, rail};
     // return {none, road, none};
     return obstacleTypes;
 }

@@ -16,6 +16,7 @@ namespace Category
         Road = 1 << 7,
         Obstacle = 1 << 8,
         Car = 1 << 9,
+        Rail = 1 << 10,
     };
 }
 

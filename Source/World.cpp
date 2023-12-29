@@ -8,7 +8,7 @@
 #include <fstream>
 #include <iostream>
 
-World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getDefaultView()), mTextures(), mSceneGraph(), mSceneLayers(), mWorldBounds(0.f, 0.f, /*mWorldView.getSize().x*/ 200000.f, 200000.f), mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f), mScrollSpeed(-50.f), mPlayerCharacter(nullptr) {
+World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getDefaultView()), mTextures(), mSceneGraph(), mSceneLayers(), mWorldBounds(0.f, 0.f, /*mWorldView.getSize().x*/ 200000.f, 200000.f), mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f), mScrollSpeed(Constants::scrollSpeed), mPlayerCharacter(nullptr) {
     loadTextures();
     buildScene();
 
@@ -61,6 +61,8 @@ void World::loadTextures() {
     mTextures.load(Textures::Ice, "Media/Textures/Tile/Tile3.png");
     mTextures.load(Textures::Car, "Media/Textures/Vehicle/Truck.png");
     mTextures.load(Textures::Road, "Media/Textures/Tile/Tile4.png");
+    mTextures.load(Textures::Rail, "Media/Textures/Tile/Rail.png");
+    mTextures.load(Textures::Train, "Media/Textures/Vehicle/Train.png");
 }
 
 void World::buildScene() {
