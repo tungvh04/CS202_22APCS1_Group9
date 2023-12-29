@@ -106,6 +106,8 @@ void World::buildScene() {
     mPlayerCharacter = player.get();
     mPlayerCharacter->setPosition(mSpawnPosition);
     mSceneLayers[Air]->attachChild(std::move(player));
+
+    mPlayerCharacter->setWorldSceneGraph(&mSceneGraph);
 }
 
 void World::adaptPlayerPosition() {

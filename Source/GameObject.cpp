@@ -15,7 +15,9 @@ const std::vector<std::vector<Tile::Type>> RowObject::initilizeTileTypes() {
 const std::vector<std::vector<Obstacle::Type>> RowObject::initilizeObstacleTypes() {
     std::vector<Obstacle::Type> road = {Obstacle::Car, Obstacle::Car1};
     std::vector<Obstacle::Type> none = {};
-    std::vector<std::vector<Obstacle::Type>> obstacleTypes = {none, none, none, road};
+    std::vector<Obstacle::Type> grass = {Obstacle::Stone};
+    std::vector<std::vector<Obstacle::Type>> obstacleTypes = {none, grass, none, road};
+    // std::vector<std::vector<Obstacle::Type>> obstacleTypes = {none, none, none, road};
     // return {none, road, none};
     return obstacleTypes;
 }

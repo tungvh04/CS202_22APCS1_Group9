@@ -19,16 +19,25 @@ public:
     void pathRequest(sf::Vector2f direction);
     virtual sf::FloatRect getBoundingRect() const;
 
+    void setWorldSceneGraph(SceneNode* worldSceneGraph);
+
 private:
     std::queue<sf::Vector2f> mPath;
-    float distanceTravelled = 0;
-    const float distancePerCommand = Constants::GridSize;
+    const float mStep = Constants::GridSize;
     virtual void updateCurrent(sf::Time dt);
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+
+    bool predictMovement(sf::Vector2f direction);
 
     Type mType;
     sf::Sprite mSprite;
     sf::Vector2f mGridPosition;
+
+    bool mIsMoving = false;
+    sf::Vector2f mMovement;
+    float mDistanceTravelled = 0.f;
+
+    SceneNode* worldSceneGraph;
 };
 
 

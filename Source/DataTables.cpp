@@ -21,5 +21,13 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Car1].minTime = sf::seconds(4);
 	data[Obstacle::Type::Car1].maxTime = sf::seconds(8);
 
+
+	data[Obstacle::Type::Stone].scaleX = true;
+	data[Obstacle::Type::Stone].scaleY = true;
+	data[Obstacle::Type::Stone].texture = Textures::ID::Road;
+	data[Obstacle::Type::Stone].minDistance = 4;
+	data[Obstacle::Type::Stone].maxDistance = 7;
+
+
 	return data;
 }

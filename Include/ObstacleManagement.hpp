@@ -19,6 +19,7 @@ public:
     enum Type {
         Car,
         Car1,
+        Stone,
         TypeCount,
     };
     virtual unsigned int getCategory() const;

@@ -16,6 +16,7 @@ namespace Category
         Road = 1 << 7,
         Obstacle = 1 << 8,
         Car = 1 << 9,
+        Stone = 1 << 10,
     };
 }
 
