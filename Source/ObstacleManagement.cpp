@@ -28,7 +28,7 @@ unsigned int Obstacle::getCategory() const {
         case Stone:
             return Category::Stone | Category::Obstacle;
         case Island:
-            return Category::Island | Category::Obstacle;
+            return Category::Island | Category::Grass;
         case Train:
             return Category::Car | Category::Obstacle;
         case Train1:
