@@ -16,7 +16,8 @@ namespace States
         Setting,
         Character,
         Map,
-        Credit
+        Credit,
+        GameOver
     };
 }
 

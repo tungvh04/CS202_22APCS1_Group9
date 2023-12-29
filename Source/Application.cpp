@@ -12,6 +12,7 @@
 #include <CreditState.hpp>
 #include <PauseState.hpp>
 #include <Const.hpp>
+#include <GameOverState.hpp>
 const sf::Time Application::TimePerFrame = sf::seconds(1.f/60.f);
 
 Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Constants::WindowHeight), "States", sf::Style::Close), mTextures(), mFonts(), mPlayer(), mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer)), mStatisticsText(), mStatisticsUpdateTime(), mStatisticsNumFrames(0) {
@@ -117,4 +118,5 @@ void Application::registerStates() {
     mStateStack.registerState<HighScoreState>(States::Score);
     mStateStack.registerState<GameState>(States::Game);
     mStateStack.registerState<PauseState>(States::Pause);
+    mStateStack.registerState<GameOverState>(States::GameOver);
 }

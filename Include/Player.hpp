@@ -21,7 +21,8 @@ public:
     };
 
     enum MissionStatus {
-		MissionRunning,
+        MissionRunning,
+        MissionSuccess,
 		MissionFailure
 	};
 

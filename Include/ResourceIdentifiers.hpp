@@ -35,6 +35,8 @@ namespace Textures {
         Spring,
         Winter,
         Road,
+        Rail,
+        Train,
     };
 }
 namespace SoundEffects {
