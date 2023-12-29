@@ -21,6 +21,8 @@ public:
     virtual bool isMarkedForRemoval() const;
 
     void setWorldSceneGraph(SceneNode* worldSceneGraph);
+    void destroy();
+    virtual bool isDestroyed() const;
 
 private:
     std::queue<sf::Vector2f> mPath;
@@ -39,6 +41,8 @@ private:
     float mDistanceTravelled = 0.f;
 
     SceneNode* worldSceneGraph;
+
+    bool mIsDestroyed = false;
 };
 
 

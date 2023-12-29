@@ -92,7 +92,8 @@ sf::FloatRect Character::getBoundingRect() const
 bool Character::isMarkedForRemoval() const
 {
 	//return isDestroyed() && (mExplosion.isFinished() || !mShowExplosion);
-    return false;
+    // return false;
+    return isDestroyed();
 }
 
 void Character::setWorldSceneGraph(SceneNode* worldSceneGraph) {
@@ -127,4 +128,13 @@ bool Character::predictMovement(sf::Vector2f direction) {
         }
     }
     return true;
+}
+
+void Character::destroy() {
+    // std::cout << "Character destroyed\n";
+    mIsDestroyed = true;
+}
+
+bool Character::isDestroyed() const {
+    return mIsDestroyed;
 }
