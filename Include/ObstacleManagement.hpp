@@ -20,6 +20,7 @@ public:
         Car,
         Car1,
         Stone,
+        Island,
         Train,
         Train1,
         TypeCount,

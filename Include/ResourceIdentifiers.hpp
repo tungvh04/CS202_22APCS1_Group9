@@ -37,6 +37,7 @@ namespace Textures {
         Road,
         Rail,
         Train,
+        Island,
     };
 }
 namespace SoundEffects {

@@ -18,7 +18,8 @@ const std::vector<std::vector<Obstacle::Type>> RowObject::initilizeObstacleTypes
     std::vector<Obstacle::Type> rail = {Obstacle::Train};
     std::vector<Obstacle::Type> none = {};
     std::vector<Obstacle::Type> grass = {Obstacle::Stone};
-    std::vector<std::vector<Obstacle::Type>> obstacleTypes = {none, grass, none, road, rail};
+    std::vector<Obstacle::Type> ice = {Obstacle::Island};
+    std::vector<std::vector<Obstacle::Type>> obstacleTypes = {grass, none, ice, road, rail};
     // return {none, road, none};
     return obstacleTypes;
 }
