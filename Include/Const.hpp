@@ -14,6 +14,12 @@ namespace Constants {
     const std::string vehiclePath = "Media/Textures/Vehicle/";
     constexpr static float WindowHeight = 1080;
     constexpr static float WindowWidth = 1920;
+    constexpr static float battlefieldBoundsHeightOffset = 800.f;
+    constexpr static float battlefieldBoundsWidthOffset = 800.f;
+
+    //Vehicle speed
+    constexpr static float carSpeed = 150.f;
+    constexpr static float trainSpeed = 1500.f;
 }
 
 #endif // CONSTANTS_HPP
