@@ -20,6 +20,7 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Car1].texture = Textures::ID::Car;
 	data[Obstacle::Type::Car1].minTime = sf::seconds(4);
 	data[Obstacle::Type::Car1].maxTime = sf::seconds(8);
+	data[Obstacle::Type::Car1].flipHorizontal = true;
 
 	data[Obstacle::Type::Stone].scaleX = true;
 	data[Obstacle::Type::Stone].scaleY = true;
@@ -32,8 +33,8 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Island].texture = Textures::ID::Island;
 	data[Obstacle::Type::Island].minDistance = 4;
 	data[Obstacle::Type::Island].maxDistance = 7;
-	data[Obstacle::Type::Island].killByTime = true;
-	data[Obstacle::Type::Island].killTime = sf::seconds(4);
+	//data[Obstacle::Type::Island].killByTime = true;
+	//data[Obstacle::Type::Island].killTime = sf::seconds(4);
 
 	data[Obstacle::Type::TrafficLight].scaleX = true;
 	data[Obstacle::Type::TrafficLight].scaleY = true;
@@ -52,6 +53,7 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Train1].texture = Textures::ID::Train;
 	data[Obstacle::Type::Train1].minTime = sf::seconds(Constants::trainCycleTimeLowerBound);
 	data[Obstacle::Type::Train1].maxTime = sf::seconds(Constants::trainCycleTimeUpperBound);
+	data[Obstacle::Type::Car1].flipHorizontal = true;
 
 	return data;
 }

@@ -47,6 +47,9 @@ bool Obstacle::isDestroyed() const {
 
 
 Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::FloatRect()> getBattlefieldBounds) : mType(type), MovingObject(textures.get(toTextureID(type))), getBattlefieldBounds(getBattlefieldBounds) {
+    rotate(ObstacleDataTables::data[type].rotateAngle);
+    if (ObstacleDataTables::data[type].flipHorizontal) flipHorizontal();
+    if (ObstacleDataTables::data[type].flipVertical) flipVertical();
     // std::cout << "Texture loaded is " << toTextureID(type) << std::endl;
     if (ObstacleDataTables::data[type].scaleX) {
         if (ObstacleDataTables::data[type].scaleY) {

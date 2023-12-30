@@ -19,6 +19,8 @@ struct ObstacleData {
     int minDistance, maxDistance;
     bool scaleX,scaleY;
     bool killByTime = false;
+    float rotateAngle = 0;
+    bool flipVertical,flipHorizontal = 0;
 };
 
 std::vector<ObstacleData> initializeObstacleData();
