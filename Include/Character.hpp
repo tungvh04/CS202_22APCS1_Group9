@@ -19,12 +19,22 @@ public:
     void pathRequest(sf::Vector2f direction);
     virtual sf::FloatRect getBoundingRect() const;
     virtual bool isMarkedForRemoval() const;
+    void clearState();
+    void setWater();
+    void setIsland();
+    bool deadOnWater();
 
     void setWorldSceneGraph(SceneNode* worldSceneGraph);
     void destroy();
     virtual bool isDestroyed() const;
 
 private:
+    //State hell
+    
+    bool onWater;
+    bool onIsland;
+
+
     std::queue<sf::Vector2f> mPath;
     const float mStep = Constants::GridSize;
     virtual void updateCurrent(sf::Time dt);

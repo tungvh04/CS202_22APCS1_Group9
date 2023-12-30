@@ -138,3 +138,21 @@ void Character::destroy() {
 bool Character::isDestroyed() const {
     return mIsDestroyed;
 }
+
+void Character::setWater() {
+    onWater=true;
+}
+
+void Character::setIsland() {
+    onIsland=true;
+}
+
+bool Character::deadOnWater() {
+    if (onWater&&!onIsland) return true;
+    return false;
+}
+
+void Character::clearState() {
+    onWater=false;
+    onIsland=false;
+}
