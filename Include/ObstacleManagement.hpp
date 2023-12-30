@@ -23,8 +23,10 @@ public:
         Island,
         Train,
         Train1,
+        TrafficLight,
         TypeCount,
     };
+    
     virtual unsigned int getCategory() const;
     Obstacle(Type type, const TextureHolder& textures, std::function<sf::FloatRect()> getBattlefieldBounds);
     ~Obstacle();

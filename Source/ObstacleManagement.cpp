@@ -39,6 +39,9 @@ unsigned int Obstacle::getCategory() const {
 }
 
 bool Obstacle::isDestroyed() const {
+    if (killByTime) {
+        return killTime.asSeconds()<0;
+    }
     return !getBattlefieldBounds().intersects(getBoundingRect());
 }
 
@@ -61,7 +64,10 @@ Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::F
             //scale(Constants::GridSize / getGlobalBounds().width, Constants::GridSize / getGlobalBounds().height);
         }
     }
-    
+    if (ObstacleDataTables::data[type].killByTime) {
+        killByTime=true;
+        killTime=ObstacleDataTables::data[type].killTime;
+    }
 }
 
 Obstacle::~Obstacle() {}

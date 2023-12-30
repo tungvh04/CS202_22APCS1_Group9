@@ -15,9 +15,10 @@
 struct ObstacleData {
     sf::Vector2f speed;
     Textures::ID texture;
-    sf::Time minTime, maxTime;
+    sf::Time minTime, maxTime, killTime;
     int minDistance, maxDistance;
     bool scaleX,scaleY;
+    bool killByTime = false;
 };
 
 std::vector<ObstacleData> initializeObstacleData();
