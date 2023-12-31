@@ -73,6 +73,9 @@ void World::loadTextures() {
     mTextures.load(Textures::Road, "Media/Textures/Tile/Tile4.png");
     mTextures.load(Textures::Rail, "Media/Textures/Tile/Rail.png");
     mTextures.load(Textures::Train, "Media/Textures/Vehicle/Train.png");
+    mTextures.load(Textures::Stone, "Media/Textures/Vehicle/Stone.png");
+    mTextures.load(Textures::Water, "Media/Textures/Tile/Tile5.png");
+    mTextures.load(Textures::Leaf, "Media/Textures/Vehicle/Leaf.png");
 }
 
 void World::buildScene() {
@@ -161,7 +164,7 @@ void World::handleCollisions() {
     // std::cout << "Number of colliding nodes: " << playerCollidingNodes.size() << '\n';
     for (auto node : playerCollidingNodes) {
         if (matchesCategories(node, Category::Obstacle)) {
-            std::cout << "Colliding with obstacle\n";
+            // std::cout << "Colliding with obstacle\n";
             Command command;
             command.category = Category::PlayerCharacter;
             command.action = derivedAction<Character>([](Character& c, sf::Time) { c.destroy(); });

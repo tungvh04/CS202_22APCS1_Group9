@@ -28,6 +28,7 @@ namespace Textures {
         Grass,
         Sand,
         Ice,
+        Water,
         Car,
         Sound1,
         Sound2,
@@ -37,6 +38,9 @@ namespace Textures {
         Road,
         Rail,
         Train,
+        Stone,
+        Car1,
+        Leaf
     };
 }
 namespace SoundEffects {

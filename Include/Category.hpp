@@ -18,6 +18,8 @@ namespace Category
         Car = 1 << 9,
         Rail = 1 << 10,
         Stone = 1 << 11,
+        Water = 1 << 12,
+        Leaf = 1 << 13
     };
 }
 

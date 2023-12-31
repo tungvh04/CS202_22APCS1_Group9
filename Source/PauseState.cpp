@@ -110,5 +110,5 @@ bool PauseState::handleEvent(const sf::Event& event) {
 
     return false;*/
     mGUIContainer.handleEvent(event);
-    return true;
+    return false;
 }

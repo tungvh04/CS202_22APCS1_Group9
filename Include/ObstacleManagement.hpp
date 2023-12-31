@@ -22,6 +22,7 @@ public:
         Stone,
         Train,
         Train1,
+        Water,
         TypeCount,
     };
     virtual unsigned int getCategory() const;

@@ -21,9 +21,9 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Car1].minTime = sf::seconds(4);
 	data[Obstacle::Type::Car1].maxTime = sf::seconds(8);
 
-	data[Obstacle::Type::Stone].scaleX = true;
+	data[Obstacle::Type::Stone].scaleX = false;
 	data[Obstacle::Type::Stone].scaleY = true;
-	data[Obstacle::Type::Stone].texture = Textures::ID::Road;
+	data[Obstacle::Type::Stone].texture = Textures::ID::Stone;
 	data[Obstacle::Type::Stone].minDistance = 4;
 	data[Obstacle::Type::Stone].maxDistance = 7;
 
@@ -40,6 +40,13 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Train1].texture = Textures::ID::Train;
 	data[Obstacle::Type::Train1].minTime = sf::seconds(4);
 	data[Obstacle::Type::Train1].maxTime = sf::seconds(8);
+
+	data[Obstacle::Type::Water].speed = sf::Vector2f(-Constants::carSpeed, 0.f);
+	data[Obstacle::Type::Water].scaleX = false;
+	data[Obstacle::Type::Water].scaleY = true;
+	data[Obstacle::Type::Water].texture = Textures::ID::Water;
+	data[Obstacle::Type::Water].minTime = sf::seconds(4);
+	data[Obstacle::Type::Water].maxTime = sf::seconds(8);
 
 	return data;
 }
