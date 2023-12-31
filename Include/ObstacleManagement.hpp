@@ -20,11 +20,13 @@ public:
         Car,
         Car1,
         Stone,
+        Island,
         Train,
         Train1,
-        Water,
+        TrafficLight,
         TypeCount,
     };
+    
     virtual unsigned int getCategory() const;
     Obstacle(Type type, const TextureHolder& textures, std::function<sf::FloatRect()> getBattlefieldBounds);
     ~Obstacle();

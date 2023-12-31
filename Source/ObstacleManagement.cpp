@@ -29,6 +29,8 @@ unsigned int Obstacle::getCategory() const {
             return Category::Car | Category::Obstacle;
         case Stone:
             return Category::Stone | Category::Obstacle;
+        case Island:
+            return Category::Island | Category::Grass;
         case Train:
             return Category::Car | Category::Obstacle;
         case Train1:
@@ -41,11 +43,17 @@ unsigned int Obstacle::getCategory() const {
 }
 
 bool Obstacle::isDestroyed() const {
+    if (killByTime) {
+        return killTime.asSeconds()<0;
+    }
     return !getBattlefieldBounds().intersects(getBoundingRect());
 }
 
 
 Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::FloatRect()> getBattlefieldBounds) : mType(type), MovingObject(textures.get(toTextureID(type))), getBattlefieldBounds(getBattlefieldBounds) {
+    rotate(ObstacleDataTables::data[type].rotateAngle);
+    if (ObstacleDataTables::data[type].flipHorizontal) flipHorizontal();
+    if (ObstacleDataTables::data[type].flipVertical) flipVertical();
     // std::cout << "Texture loaded is " << toTextureID(type) << std::endl;
     if (ObstacleDataTables::data[type].scaleX) {
         if (ObstacleDataTables::data[type].scaleY) {
@@ -63,7 +71,10 @@ Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::F
             //scale(Constants::GridSize / getGlobalBounds().width, Constants::GridSize / getGlobalBounds().height);
         }
     }
-    
+    if (ObstacleDataTables::data[type].killByTime) {
+        killByTime=true;
+        killTime=ObstacleDataTables::data[type].killTime;
+    }
 }
 
 Obstacle::~Obstacle() {}

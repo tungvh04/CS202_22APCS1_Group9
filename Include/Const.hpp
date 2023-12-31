@@ -3,7 +3,7 @@
 #include <string>
 
 namespace Constants {
-    constexpr static float playerSpeed = 200.f;
+    constexpr static float playerSpeed = 500.f;
     constexpr static float GridSize = 80.f;
     constexpr static float scrollSpeed = -100.f;
     constexpr static float BorderDistance = 40.f;
@@ -20,6 +20,13 @@ namespace Constants {
     //Vehicle speed
     constexpr static float carSpeed = 150.f;
     constexpr static float trainSpeed = 1500.f;
+
+    //Vehicle spawn cycle
+    constexpr static float trainCycleTimeLowerBound = 6.f;
+    constexpr static float trainCycleTimeUpperBound = 8.f;
+    
+    constexpr static float carCycleTimeLowerBound = 6.f;
+    constexpr static float carCycleTimeUpperBound = 6.f;
 }
 
 #endif // CONSTANTS_HPP

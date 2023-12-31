@@ -8,7 +8,6 @@ namespace RowObject {
     const static std::vector<std::vector<Tile::Type>> initilizeTileTypes();
     const static std::vector<std::vector<Obstacle::Type>> initilizeObstacleTypes();
 
-
     enum Type {
         Sand,
         Grass,

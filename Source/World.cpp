@@ -73,9 +73,7 @@ void World::loadTextures() {
     mTextures.load(Textures::Road, "Media/Textures/Tile/Tile4.png");
     mTextures.load(Textures::Rail, "Media/Textures/Tile/Rail.png");
     mTextures.load(Textures::Train, "Media/Textures/Vehicle/Train.png");
-    mTextures.load(Textures::Stone, "Media/Textures/Vehicle/Stone.png");
-    mTextures.load(Textures::Water, "Media/Textures/Tile/Tile5.png");
-    mTextures.load(Textures::Leaf, "Media/Textures/Vehicle/Leaf.png");
+    mTextures.load(Textures::Island, "Media/Textures/Leaf.png");
 }
 
 void World::buildScene() {
@@ -169,6 +167,12 @@ void World::handleCollisions() {
             command.category = Category::PlayerCharacter;
             command.action = derivedAction<Character>([](Character& c, sf::Time) { c.destroy(); });
             mCommandQueue.push(command);
+        }
+        if (matchesCategories(node, Category::Ice)) {
+            // setWater()
+        }
+        if (matchesCategories(node, Category::Island)) {
+            // setIsland()
         }
         // if (matchesCategories(node, Category::Car)) {
             // std::cout << "Colliding with car\n";

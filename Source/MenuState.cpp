@@ -49,12 +49,20 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     
     // A simple menu demonstration
     auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	playButton->setPosition(800, 500);
+	playButton->setPosition(800, 400);
 	playButton->setText("Play", 40);
 	playButton->setCallback([this] ()
 	{
 		requestStackPop();
 		requestStackPush(States::Character);
+	});
+    auto loadButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	loadButton->setPosition(800, 500);
+	loadButton->setText("Load Game", 40);
+	loadButton->setCallback([this] ()
+	{
+		requestStackPop();
+		requestStackPush(States::Game);
 	});
     auto scoreButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
     scoreButton->setPosition(800, 600);
@@ -92,6 +100,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     });
 
     mGUIContainer.pack(playButton);
+    mGUIContainer.pack(loadButton);
     mGUIContainer.pack(scoreButton);
     mGUIContainer.pack(settingButton);
     mGUIContainer.pack(creditButton);

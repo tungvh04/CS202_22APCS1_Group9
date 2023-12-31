@@ -13,6 +13,9 @@ public:
     void accelerate(float vx, float vy);
     sf::Vector2f getVelocity() const;
     
+    sf::Time killTime;
+    bool killByTime;
+
 protected:
     virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
 
