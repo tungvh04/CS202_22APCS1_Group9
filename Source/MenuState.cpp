@@ -65,8 +65,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
 	{
         gameLevel.load();
 		requestStackPop();
-        //requestStackPush(States::CountDown);
-		requestStackPush(States::Game);
+        requestStackPush(States::CountDown);
 	});
     auto scoreButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
     scoreButton->setPosition(800, 600);
