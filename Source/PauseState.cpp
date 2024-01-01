@@ -7,6 +7,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
 
+#include <GameLevel.hpp>
+
 PauseState::PauseState(StateStack& stack, Context context) : State(stack, context), mBackgroundSprite(), mPausedText(), mGUIContainer() {
     sf::Font& font = context.fonts->get(Fonts::Main);
     sf::Vector2f viewSize = context.window->getView().getSize();
@@ -31,6 +33,7 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     restartButton->setCallback([this]()
     {
         // requestStackPop();
+        gameLevel.restart();
         requestStateClear();
         requestStackPush(States::Game);
     });
@@ -50,6 +53,7 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     saveAndquitButton->setText("Save and Quit", 30);
     saveAndquitButton->setCallback([this]()
     {
+        gameLevel.save();
         requestStackPop();
         requestStackPush(States::Exit);
     });
@@ -58,6 +62,7 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     menuButton->setText("Return to Main Menu", 30);
     menuButton->setCallback([this]()
     {
+        gameLevel.save();
         requestStateClear();
         requestStackPush(States::Menu);
     });

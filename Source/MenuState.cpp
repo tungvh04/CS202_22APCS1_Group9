@@ -4,6 +4,7 @@
 #include <ResourceHolder.hpp>
 #include <Const.hpp>
 #include <MovingObject.hpp>
+#include <GameLevel.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
@@ -53,6 +54,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
 	playButton->setText("Play", 40);
 	playButton->setCallback([this] ()
 	{
+        gameLevel.restart();
 		requestStackPop();
 		requestStackPush(States::Character);
 	});
@@ -61,6 +63,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
 	loadButton->setText("Load Game", 40);
 	loadButton->setCallback([this] ()
 	{
+        gameLevel.load();
 		requestStackPop();
 		requestStackPush(States::Game);
 	});

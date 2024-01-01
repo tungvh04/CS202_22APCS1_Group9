@@ -43,4 +43,8 @@ float GameLevel::getSpeedMultiplier() const {
     return (mLevel - 1) * 0.2 + 1;
 }
 
+void GameLevel::restart() {
+    mLevel = 1;
+}
+
 GameLevel gameLevel;

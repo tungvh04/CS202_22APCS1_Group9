@@ -2,6 +2,7 @@
 #include <Utility.hpp>
 #include <Player.hpp>
 #include <ResourceHolder.hpp>
+#include <GameLevel.hpp>
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -47,6 +48,7 @@ bool GameOverState::update(sf::Time dt)
 	mElapsedTime += dt;
 	if (mElapsedTime > sf::seconds(3))
 	{
+		gameLevel.restart();
 		requestStateClear();
 		requestStackPush(States::Menu);
 	}

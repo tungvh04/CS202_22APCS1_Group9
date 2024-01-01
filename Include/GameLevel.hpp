@@ -16,6 +16,7 @@ public:
     void setLevel(int level);
     float getSpeedMultiplier() const;
     void nextLevel();
+    void restart();
 private:
     int mLevel;
 };

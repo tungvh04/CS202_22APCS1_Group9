@@ -30,7 +30,7 @@ namespace Constants {
     constexpr static float carCycleTimeLowerBound = 6.f;
     constexpr static float carCycleTimeUpperBound = 6.f;
 
-    const std::string savePath = "Media/Save/save.txt";
+    const std::string savePath = "Media/save.txt";
 }
 
 #endif // CONSTANTS_HPP
