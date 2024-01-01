@@ -15,12 +15,13 @@
 struct ObstacleData {
     sf::Vector2f speed;
     Textures::ID texture;
-    sf::Time minTime, maxTime, killTime;
+    sf::Time minTime, maxTime, killTime, groupDelayTime;
     int minDistance, maxDistance;
     bool scaleX,scaleY;
     bool killByTime = false;
     float rotateAngle = 0;
     bool flipVertical,flipHorizontal = 0;
+    int groupSpawnAmount;
 };
 
 std::vector<ObstacleData> initializeObstacleData();
