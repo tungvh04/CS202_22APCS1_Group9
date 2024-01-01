@@ -23,7 +23,9 @@ public:
         Island,
         Train,
         Train1,
-        TrafficLight,
+        TrafficLightRed,
+        TrafficLightYellow,
+        TrafficLightGreen,
         TypeCount,
     };
     

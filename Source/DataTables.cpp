@@ -36,10 +36,6 @@ std::vector<ObstacleData> initializeObstacleData()
 	//data[Obstacle::Type::Island].killByTime = true;
 	//data[Obstacle::Type::Island].killTime = sf::seconds(4);
 
-	data[Obstacle::Type::TrafficLight].scaleX = true;
-	data[Obstacle::Type::TrafficLight].scaleY = true;
-	data[Obstacle::Type::TrafficLight].texture = Textures::ID::Road;
-
 	data[Obstacle::Type::Train].speed = sf::Vector2f(Constants::trainSpeed, 0.f);
 	data[Obstacle::Type::Train].scaleX = false;
 	data[Obstacle::Type::Train].scaleY = true;
@@ -53,7 +49,19 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Train1].texture = Textures::ID::Train;
 	data[Obstacle::Type::Train1].minTime = sf::seconds(Constants::trainCycleTimeLowerBound);
 	data[Obstacle::Type::Train1].maxTime = sf::seconds(Constants::trainCycleTimeUpperBound);
-	data[Obstacle::Type::Car1].flipHorizontal = true;
+	data[Obstacle::Type::Train1].flipHorizontal = true;
 
+	data[Obstacle::Type::TrafficLightRed].scaleX = false;
+	data[Obstacle::Type::TrafficLightRed].scaleY = false;
+	data[Obstacle::Type::TrafficLightRed].texture = Textures::ID::TrafficLightRed;
+	
+	data[Obstacle::Type::TrafficLightGreen].scaleX = false;
+	data[Obstacle::Type::TrafficLightGreen].scaleY = false;
+	data[Obstacle::Type::TrafficLightGreen].texture = Textures::ID::TrafficLightGreen;
+	
+	data[Obstacle::Type::TrafficLightYellow].scaleX = false;
+	data[Obstacle::Type::TrafficLightYellow].scaleY = false;
+	data[Obstacle::Type::TrafficLightYellow].texture = Textures::ID::TrafficLightYellow;
+	
 	return data;
 }

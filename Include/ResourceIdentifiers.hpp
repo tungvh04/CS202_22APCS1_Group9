@@ -39,6 +39,9 @@ namespace Textures {
         Train,
         Island,
         Stone,
+        TrafficLightRed,
+        TrafficLightGreen,
+        TrafficLightYellow,
     };
 }
 namespace SoundEffects {

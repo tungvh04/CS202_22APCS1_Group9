@@ -13,8 +13,9 @@ public:
     void accelerate(float vx, float vy);
     sf::Vector2f getVelocity() const;
     
-    sf::Time killTime;
-    bool killByTime;
+    void setKillTime(sf::Time dt);
+    bool isKillByTime() const;
+    sf::Time getKillTime() const;
 
 protected:
     virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
@@ -23,6 +24,9 @@ private:
     virtual void updateCurrent(sf::Time dt);
 
     sf::Vector2f mVelocity;
+
+    sf::Time killTime;
+    bool killByTime;
 };
 
 #endif // ENTITY_HPP

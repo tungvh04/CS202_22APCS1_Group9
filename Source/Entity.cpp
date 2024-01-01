@@ -44,3 +44,15 @@ void Entity::updateCurrent(sf::Time dt, CommandQueue&)
     }
 	move(mVelocity * dt.asSeconds());
 }
+
+void Entity::setKillTime(sf::Time dt) {
+    killTime=dt;
+}
+
+bool Entity::isKillByTime() const {
+    return killByTime;
+}
+
+sf::Time Entity::getKillTime() const {
+    return killTime;
+}
