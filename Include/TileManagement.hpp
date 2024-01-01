@@ -22,7 +22,7 @@ public:
         Ice,
         Road,
         Rail,
-        Leaf
+        Leaf,
     };
     virtual unsigned int getCategory() const;
     Tile(Type type, const TextureHolder& textures);

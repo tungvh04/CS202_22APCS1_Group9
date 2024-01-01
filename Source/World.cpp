@@ -74,6 +74,7 @@ void World::loadTextures() {
     mTextures.load(Textures::Rail, "Media/Textures/Tile/Rail.png");
     mTextures.load(Textures::Train, "Media/Textures/Vehicle/Train.png");
     mTextures.load(Textures::Island, "Media/Textures/Leaf.png");
+    mTextures.load(Textures::Stone, "Media/Textures/Vehicle/Stone.png");
 }
 
 void World::buildScene() {

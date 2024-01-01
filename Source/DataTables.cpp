@@ -55,12 +55,5 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Train1].maxTime = sf::seconds(Constants::trainCycleTimeUpperBound);
 	data[Obstacle::Type::Car1].flipHorizontal = true;
 
-	data[Obstacle::Type::Water].speed = sf::Vector2f(-Constants::carSpeed, 0.f);
-	data[Obstacle::Type::Water].scaleX = false;
-	data[Obstacle::Type::Water].scaleY = true;
-	data[Obstacle::Type::Water].texture = Textures::ID::Water;
-	data[Obstacle::Type::Water].minTime = sf::seconds(4);
-	data[Obstacle::Type::Water].maxTime = sf::seconds(8);
-
 	return data;
 }

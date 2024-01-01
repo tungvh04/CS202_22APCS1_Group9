@@ -8,8 +8,7 @@ const std::vector<std::vector<Tile::Type>> RowObject::initilizeTileTypes() {
     std::vector<Tile::Type> ice = {Tile::Ice};
     std::vector<Tile::Type> road = {Tile::Road};
     std::vector<Tile::Type> rail = {Tile::Rail};
-    std::vector<Tile::Type> leaf = {Tile::Leaf};
-    std::vector<std::vector<Tile::Type>> tileTypes = {grass, sand, ice, road, rail, leaf};
+    std::vector<std::vector<Tile::Type>> tileTypes = {grass, sand, ice, road, rail};
     // return {grass, road, ice};
     return tileTypes;
 }
