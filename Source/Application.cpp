@@ -13,6 +13,8 @@
 #include <PauseState.hpp>
 #include <Const.hpp>
 #include <GameOverState.hpp>
+
+#include <GameLevel.hpp>
 const sf::Time Application::TimePerFrame = sf::seconds(1.f/60.f);
 
 Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Constants::WindowHeight), "States", sf::Style::Close), mTextures(), mFonts(), mPlayer(), mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer)), mStatisticsText(), mStatisticsUpdateTime(), mStatisticsNumFrames(0) {
@@ -92,6 +94,14 @@ void Application::render() {
 
     mWindow.setView(mWindow.getDefaultView());
     mWindow.draw(mStatisticsText);
+
+    // sf::Text text;
+    // text.setFont(mFonts.get(Fonts::Main));
+    // text.setPosition(10.f, 10.f);
+    // text.setCharacterSize(20u);
+    // text.setString("Level: " + std::to_string(gameLevel.getLevel()));
+
+    // mWindow.draw(text);
 
     mWindow.display();
 }

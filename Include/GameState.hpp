@@ -19,6 +19,7 @@ public:
 private:
     World mWorld;
     Player& mPlayer;
+    sf::Text mLevelText;
 };
 
 #endif // GAMESTATE_HPP

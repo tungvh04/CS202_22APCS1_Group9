@@ -2,6 +2,8 @@
 #define CONSTANTS_HPP
 #include <string>
 
+#include <SFML/System/Time.hpp>
+
 namespace Constants {
     constexpr static float playerSpeed = 500.f;
     constexpr static float GridSize = 80.f;
@@ -27,6 +29,8 @@ namespace Constants {
     
     constexpr static float carCycleTimeLowerBound = 6.f;
     constexpr static float carCycleTimeUpperBound = 6.f;
+
+    const std::string savePath = "Media/Save/save.txt";
 }
 
 #endif // CONSTANTS_HPP

@@ -3,6 +3,8 @@
 #include <ObstacleManagement.hpp>
 #include <DataTables.hpp>
 
+
+#include <GameLevel.hpp>
 namespace ObstacleDataTables {
     const std::vector<ObstacleData> data = initializeObstacleData();
 };
@@ -81,7 +83,9 @@ ObstacleRow::ObstacleRow(std::vector<Obstacle::Type> types, std::function<sf::Fl
         return;
     }
     mType = types[rand() % types.size()];
-    setVelocity(ObstacleDataTables::data[mType].speed);
+    sf::Vector2f velocity = ObstacleDataTables::data[mType].speed;
+    velocity *= gameLevel.getSpeedMultiplier();
+    setVelocity(velocity);
     generateRow();
 }
 
@@ -89,20 +93,17 @@ void ObstacleRow::generateRow() {
     if (mType == Obstacle::Type::TypeCount) {
         return;
     }
-    if (ObstacleDataTables::data[mType].maxDistance == 0) return;
-    int delta = 0;
+    if (ObstacleDataTables::data[mType].maxDistance == 0 || ObstacleDataTables::data[mType].minDistance == 0) return;
+    int delta = rand() % ObstacleDataTables::data[mType].maxDistance;
     for (int i = -Constants::TilesRenderedWide; i <= Constants::TilesRenderedWide; i++) {
         // int type = rand() % types.size();
         // SceneNode::Ptr tile(new Tile(types[type], *mTextures));
         // tile.get()->setPosition(i * Constants::GridSize, 0);
         // attachChild(std::move(tile));
         if (delta == 0) {
-            int isGenerate = rand() % 2;
-            if (isGenerate) {
-                SceneNode::Ptr obstacle(new Obstacle(mType, *mTextures, getBattlefieldBounds));
-                obstacle.get()->setPosition(i * Constants::GridSize, 0);
-                attachChild(std::move(obstacle));
-            }
+            SceneNode::Ptr obstacle(new Obstacle(mType, *mTextures, getBattlefieldBounds));
+            obstacle.get()->setPosition(i * Constants::GridSize, 0);
+            attachChild(std::move(obstacle));
             delta = ObstacleDataTables::data[mType].minDistance + rand() % (ObstacleDataTables::data[mType].maxDistance - ObstacleDataTables::data[mType].minDistance);
         }
         else delta--;

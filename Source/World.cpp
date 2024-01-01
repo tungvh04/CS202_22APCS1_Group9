@@ -8,6 +8,8 @@
 #include <fstream>
 #include <iostream>
 
+#include <GameLevel.hpp>
+
 World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getDefaultView()), mTextures(), mSceneGraph(), mSceneLayers(), mWorldBounds(0.f, 0.f, /*mWorldView.getSize().x*/ 200000.f, 200000.f), mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f), mScrollSpeed(Constants::scrollSpeed), mPlayerCharacter(nullptr) {
     loadTextures();
     buildScene();
@@ -24,7 +26,7 @@ void World::update(sf::Time dt) {
     // sf::Vector2i currentPos=stateController.getIndex(mPlayerCharacter->getPosition());
     //std::cout<<currentPos.x<<' '<<currentPos.y<<'\n';
 
-    mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
+    mWorldView.move(0.f, mScrollSpeed * dt.asSeconds() * gameLevel.getSpeedMultiplier());
     mPlayerCharacter->setVelocity(0.f, 0.f);
 
     // Forward commands to scene graph, adapt velocity (scrolling, diagonal correction)
@@ -38,6 +40,16 @@ void World::update(sf::Time dt) {
     // Regular update step, adapt position (correct if outside view)
     mSceneGraph.update(dt);
     adaptPlayerPosition();
+
+    // Update level
+    mLevelTime += dt;
+    if (mLevelTime.asSeconds() >= 10) {
+        mLevelTime = sf::Time::Zero;
+        gameLevel.nextLevel();
+        // std::cout << "Level: " << gameLevel.getLevel() << '\n';
+        // std::cout << "Time per level: " << Constants::timePerLevel << '\n';
+        // std::cout << "Level time: " << mLevelTime.asSeconds() << '\n';
+    }
 
 }
 
