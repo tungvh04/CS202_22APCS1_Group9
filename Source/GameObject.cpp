@@ -35,6 +35,16 @@ GameObject::GameObject(sf::Vector2f spawnOrigin, std::function<sf::FloatRect()> 
     SceneNode::Ptr obstacleRow(new SceneNode);
     mObstacles = obstacleRow.get();
     attachChild(std::move(obstacleRow));
+    initialGenerate();
+}
+
+void GameObject::initialGenerate() {
+    for (int i = 0; i <= Constants::initialShift; i++) {
+        SceneNode::Ptr tileRow(new TileRow(mTileTypes[RowObject::Grass], getBattlefieldBounds, mTextures));
+        tileRow.get()->setPosition(mSpawnOrigin);
+        mTiles->attachChild(std::move(tileRow));
+        mSpawnOrigin.y -= Constants::GridSize;
+    }
 }
 
 void GameObject::setSpawnOrigin(sf::Vector2f spawnOrigin) {
