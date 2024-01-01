@@ -17,7 +17,8 @@ namespace States
         Character,
         Map,
         Credit,
-        GameOver
+        GameOver,
+        CountDown
     };
 }
 

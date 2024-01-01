@@ -23,7 +23,7 @@ GameOverState::GameOverState(StateStack& stack, Context context)
 	else
 		mGameOverText.setString("CONGRATULATIONS! YOU'VE PASSED THIS LEVEL");
 
-	mGameOverText.setCharacterSize(70);
+	mGameOverText.setCharacterSize(100);
 	centerOrigin(mGameOverText);
 	mGameOverText.setPosition(0.5f * windowSize.x, 0.4f * windowSize.y);
 }
