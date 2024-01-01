@@ -7,7 +7,7 @@
 #include <SFML/Graphics/View.hpp>
 #include <cmath>
 
-CountDown::CountDown(StateStack& stack, Context context)
+CountDownState::CountDownState(StateStack& stack, Context context)
     : State(stack, context)
     , mCountdownText()
     , mCountdownTime(sf::seconds(3))
@@ -26,7 +26,7 @@ CountDown::CountDown(StateStack& stack, Context context)
     mCountdownText.setPosition(0.5f * windowSize.x, 0.4f * windowSize.y);
 }
 
-bool CountDown::update(sf::Time dt)
+bool CountDownState::update(sf::Time dt)
 {
     if (mCountdownTime > sf::Time::Zero)
     {
@@ -53,7 +53,7 @@ bool CountDown::update(sf::Time dt)
     return false;
 }
 
-void CountDown::draw()
+void CountDownState::draw()
 {
     sf::RenderWindow& window = *getContext().window;
     window.setView(window.getDefaultView());
@@ -67,12 +67,12 @@ void CountDown::draw()
     window.draw(mCountdownText);
 }
 
-bool CountDown::handleEvent(const sf::Event&)
+bool CountDownState::handleEvent(const sf::Event&)
 {
     return false;
 }
 
-void CountDown::updateCountdownUI()
+void CountDownState::updateCountdownUI()
 {
     // Calculate the remaining seconds in the countdown
     int seconds = static_cast<int>(std::ceil(mCountdownTime.asSeconds()));
@@ -81,7 +81,7 @@ void CountDown::updateCountdownUI()
     updateUIWithCountdown(seconds);
 }
 
-void CountDown::updateUIWithCountdown(int seconds)
+void CountDownState::updateUIWithCountdown(int seconds)
 {
     // Clear previous UI
     clearUI();
@@ -94,7 +94,7 @@ void CountDown::updateUIWithCountdown(int seconds)
     }
 }
 
-void CountDown::drawCountdownText(int seconds)
+void CountDownState::drawCountdownText(int seconds)
 {
     // Set the text to display the countdown
     mCountdownText.setString(std::to_string(seconds));
@@ -103,7 +103,7 @@ void CountDown::drawCountdownText(int seconds)
     window.draw(mCountdownText);
 }
 
-void CountDown::clearUI()
+void CountDownState::clearUI()
 {
     sf::RenderWindow& window = *getContext().window;
     window.clear();

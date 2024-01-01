@@ -8,10 +8,10 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-class CountDown : public State
+class CountDownState : public State
 {
 public:
-    CountDown(StateStack& stack, Context context);
+    CountDownState(StateStack& stack, Context context);
     bool update(sf::Time dt) override;
     void draw() override;
     bool handleEvent(const sf::Event&) override;
