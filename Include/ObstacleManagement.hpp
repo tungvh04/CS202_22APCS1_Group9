@@ -61,6 +61,7 @@ private:
     int groupSpawnLeft;
     int groupSpawnSize;
     sf::Time randomTimeGroup;
+    bool hasSpawned = false;
 };
 
 #endif // OBSTACLEMANAGEMENT_HPP

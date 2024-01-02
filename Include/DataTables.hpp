@@ -15,7 +15,7 @@
 struct ObstacleData {
     sf::Vector2f speed;
     Textures::ID texture;
-    sf::Time minTime, maxTime, killTime, groupDelayTime;
+    sf::Time minTime, maxTime, killTime, groupDelayTime,passTime;
     int minDistance, maxDistance;
     bool scaleX,scaleY;
     bool killByTime = false;

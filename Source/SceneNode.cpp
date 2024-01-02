@@ -155,6 +155,7 @@ SceneNode* SceneNode::getParent() {
 }
 
 void SceneNode::setKillTime(sf::Time dt) {
+    killByTime=true;
     killTime=dt;
 }
 
