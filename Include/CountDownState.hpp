@@ -21,6 +21,7 @@ private:
     void updateUIWithCountdown(int seconds);
     void drawCountdownText(int seconds);
     void clearUI();
+    void updateUIForGo();
 
 private:
     sf::Text mCountdownText;

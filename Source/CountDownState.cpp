@@ -10,19 +10,19 @@
 CountDownState::CountDownState(StateStack& stack, Context context)
     : State(stack, context)
     , mCountdownText()
-    , mCountdownTime(sf::seconds(3))
+    , mCountdownTime(sf::seconds(4))
     , mElapsedTime(sf::Time::Zero)
 {
     sf::Font& font = context.fonts->get(Fonts::Main);
     sf::Vector2f windowSize(context.window->getSize());
 
     mCountdownText.setFont(font);
-    mCountdownText.setCharacterSize(100);
+    mCountdownText.setCharacterSize(200);
 
     // Customize the appearance of the countdown text
     mCountdownText.setFillColor(sf::Color::White);
     centerOrigin(mCountdownText);
-    mCountdownText.setPosition(0.5f * windowSize.x, 0.4f * windowSize.y);
+    mCountdownText.setPosition(0.48f * windowSize.x, 0.35f * windowSize.y);
 }
 
 bool CountDownState::update(sf::Time dt)
@@ -50,7 +50,7 @@ void CountDownState::draw()
 
     // Create dark, semitransparent background
     sf::RectangleShape backgroundShape;
-    backgroundShape.setFillColor(sf::Color(0, 0, 0, 150));
+    backgroundShape.setFillColor(sf::Color(0, 255, 0, 150));
     backgroundShape.setSize(window.getView().getSize());
 
     window.draw(backgroundShape);
@@ -77,19 +77,25 @@ void CountDownState::updateUIWithCountdown(int seconds)
     clearUI();
 
     // Display the countdown
-    if (seconds > 0)
+    if (seconds > 1)
     {
         // Draw the countdown on the screen
         drawCountdownText(seconds);
+    }
+    else
+    {
+        //Signal the start
+        updateUIForGo();
     }
 }
 
 void CountDownState::drawCountdownText(int seconds)
 {
     // Set the text to display the countdown
-    mCountdownText.setString(std::to_string(seconds));
-    sf::RenderWindow& window = *getContext().window;
+    mCountdownText.setString(std::to_string(seconds-1));
+    
     // Draw the countdown text
+    sf::RenderWindow& window = *getContext().window;
     window.draw(mCountdownText);
 }
 
@@ -97,4 +103,17 @@ void CountDownState::clearUI()
 {
     sf::RenderWindow& window = *getContext().window;
     window.clear();
+}
+
+void CountDownState::updateUIForGo()
+{
+    mCountdownText.setString("GO");
+    centerOrigin(mCountdownText);
+
+    sf::Vector2f windowSize = getContext().window->getView().getSize();
+
+    mCountdownText.setPosition(0.5f * windowSize.x, 0.48f * windowSize.y);
+
+    sf::RenderWindow& window = *getContext().window;
+    window.draw(mCountdownText);
 }
