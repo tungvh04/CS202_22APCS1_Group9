@@ -89,6 +89,7 @@ Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::F
 }
 
 Obstacle::~Obstacle() {
+    /*
     if (Type::TrafficLightGreen==mType) {
         std::cout<<"Green Light destroy at "<<getPosition().x<<' '<<getPosition().y<<'\n';
     }
@@ -101,6 +102,7 @@ Obstacle::~Obstacle() {
     if (Type::Car==mType) {
         std::cout<<"Car destroy at "<<getPosition().x<<' '<<getPosition().y<<'\n';
     }
+    */
 }
 
 ObstacleRow::ObstacleRow(std::vector<Obstacle::Type> types, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures) : getBattlefieldBounds(getBattlefieldBounds), mTextures(textures) {
@@ -199,9 +201,6 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
                 lightObstacle->setPosition(lightRightBound, 0);
             }
             lightObstacle->setKillTime(sf::milliseconds(int(randomTimeGroup.asMilliseconds())*groupSpawnLeft)+mTimeToSpawn+sf::seconds(Constants::trafficLightKillDelay));
-            std::cout<<"Traffic light red spawn at "<<lightObstacle->getPosition().x<<' '<<lightObstacle->getPosition().y<<" for "<<lightObstacle->getKillTime().asMilliseconds()<<" ms. Each vehicle spawn after "<<randomTimeGroup.asMilliseconds()<<" ms for "<<groupSpawnSize<<" vehicles."<<'\n';
-                
-            //std::cout<<"Traffic light red spawn at "<<lightObstacle->getPosition().x<<' '<<lightObstacle->getPosition().y<<" for "<<lightObstacle->getKillTime().asMilliseconds()<<" ms."<<'\n';
             attachChild(std::move(lightObstacle));
             //-------------------------------------------------
         }
@@ -255,8 +254,6 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
                     lightObstacle->setPosition(lightRightBound, 0);
                 }
                 lightObstacle->setKillTime(mTimeToWait+sf::seconds(Constants::trafficLightKillDelay));
-                std::cout<<"Traffic light green spawn at "<<lightObstacle->getPosition().x<<' '<<lightObstacle->getPosition().y<<" for "<<lightObstacle->getKillTime().asMilliseconds()<<" ms. Each vehicle spawn after "<<randomTimeGroup.asMilliseconds()<<" ms for "<<groupSpawnSize<<" vehicles."<<'\n';
-                //std::cout<<"Traffic light green spawn at "<<lightObstacle->getPosition().x<<' '<<lightObstacle->getPosition().y<<'\n';
                 attachChild(std::move(lightObstacle));
                 //---------------------------------------------
                 groupSpawnLeft = ObstacleDataTables::data[mType].groupSpawnAmount;
