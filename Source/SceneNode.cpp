@@ -47,6 +47,7 @@ void SceneNode::updateChildren(sf::Time dt) {
 }
 
 void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    if (isHide()) return;
     states.transform *= getTransform();
 
     drawCurrent(target, states);
@@ -135,4 +136,20 @@ void SceneNode::removeWrecks() {
     mChildren.erase(wreckfieldBegin, mChildren.end());
 
     std::for_each(mChildren.begin(), mChildren.end(), std::mem_fn(&SceneNode::removeWrecks));
+}
+
+void SceneNode::hide() {
+    isHideFlag = true;
+}
+
+void SceneNode::show() {
+    isHideFlag = false;
+}
+
+bool SceneNode::isHide() const {
+    return isHideFlag;
+}
+
+SceneNode* SceneNode::getParent() {
+    return mParent;
 }

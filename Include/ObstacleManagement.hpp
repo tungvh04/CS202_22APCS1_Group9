@@ -9,6 +9,8 @@
 #include <ResourceHolder.hpp>
 #include <Category.hpp>
 #include <Command.hpp>
+#include <Foreach.hpp>
+
 #include <functional>
 
 
@@ -33,6 +35,8 @@ public:
     Obstacle(Type type, const TextureHolder& textures, std::function<sf::FloatRect()> getBattlefieldBounds);
     ~Obstacle();
     virtual bool isDestroyed() const;
+
+    Type getType();
 private:
     // virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     Type mType;
@@ -52,6 +56,10 @@ private:
     Obstacle::Type mType;
     void generateRow();
     sf::Time mTimeToSpawn = sf::seconds(0);
+    sf::Time mTimeToWait = sf::seconds(0);
+
+    int groupSpawnLeft;
+    int groupSpawnSize;
 };
 
 #endif // OBSTACLEMANAGEMENT_HPP

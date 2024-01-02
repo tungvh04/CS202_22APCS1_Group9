@@ -23,7 +23,7 @@ void World::update(sf::Time dt) {
     //std::cout<<mPlayerCharacter->getPosition().x<<' '<<mPlayerCharacter->getPosition().y<<'\n';
     // Scroll the world, reset player velocity
 
-    // sf::Vector2i currentPos=stateController.getIndex(mPlayerCharacter->getPosition());
+    //sf::Vector2i currentPos=stateController.getIndex(mPlayerCharacter->getPosition());
     //std::cout<<currentPos.x<<' '<<currentPos.y<<'\n';
 
     mWorldView.move(0.f, mScrollSpeed * dt.asSeconds() * gameLevel.getSpeedMultiplier());
@@ -88,8 +88,8 @@ void World::loadTextures() {
     mTextures.load(Textures::Island, "Media/Textures/Leaf.png");
     mTextures.load(Textures::Stone, "Media/Textures/Vehicle/Stone.png");
     mTextures.load(Textures::TrafficLightGreen, "Media/Textures/TrafficLightGreen.png");
-    mTextures.load(Textures::TrafficLightRed, "Media/Textures/TrafficLightGreen.png");
-    mTextures.load(Textures::TrafficLightYellow, "Media/Textures/TrafficLightGreen.png");
+    mTextures.load(Textures::TrafficLightRed, "Media/Textures/TrafficLightRed.png");
+    mTextures.load(Textures::TrafficLightYellow, "Media/Textures/TrafficLightYellow.png");
 }
 
 void World::buildScene() {

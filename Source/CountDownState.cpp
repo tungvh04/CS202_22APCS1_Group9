@@ -17,7 +17,6 @@ CountDownState::CountDownState(StateStack& stack, Context context)
     sf::Vector2f windowSize(context.window->getSize());
 
     mCountdownText.setFont(font);
-    mCountdownText.setString("LOADING GAME...");
     mCountdownText.setCharacterSize(100);
 
     // Customize the appearance of the countdown text
@@ -37,16 +36,7 @@ bool CountDownState::update(sf::Time dt)
         if (mCountdownTime <= sf::Time::Zero)
         {
             requestStackPop();
-        }
-    }
-    else
-    {
-        // If countdown is done, return to menu after 3 seconds
-        mElapsedTime += dt;
-        if (mElapsedTime > sf::seconds(3))
-        {
-            requestStateClear();
-            requestStackPush(States::Menu);
+            requestStackPush(States::Game);
         }
     }
 

@@ -41,6 +41,15 @@ public:
     virtual bool isDestroyed() const;
     void removeWrecks();
 
+    void hide();
+    void show();
+    bool isHide() const;
+
+    SceneNode* getParent();
+
+protected:
+    std::deque<Ptr> mChildren;
+
 private:
     virtual void updateCurrent(sf::Time dt);
     void updateChildren(sf::Time dt);
@@ -50,10 +59,10 @@ private:
     void drawChildren(sf::RenderTarget& target, sf::RenderStates states) const;
     void drawBoundingRect(sf::RenderTarget& target, sf::RenderStates states) const;
 
-
-    std::deque<Ptr> mChildren;
     SceneNode* mParent;
     Category::Type mDefaultCategory;
+
+    bool isHideFlag = false;
 };
 
 #endif // SCENENODE_HPP

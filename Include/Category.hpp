@@ -19,6 +19,9 @@ namespace Category
         Rail = 1 << 10,
         Stone = 1 << 11,
         Island = 1 << 12,
+        TrafficLightRed = 1 << 13,
+        TrafficLightGreen = 1 << 14,
+        TrafficLightYellow = 1 << 15,
     };
 }
 

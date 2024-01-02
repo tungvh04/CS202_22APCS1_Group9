@@ -22,6 +22,7 @@ struct ObstacleData {
     float rotateAngle = 0;
     bool flipVertical,flipHorizontal = 0;
     int groupSpawnAmount;
+    float spawnOffset = 0;
 };
 
 std::vector<ObstacleData> initializeObstacleData();
