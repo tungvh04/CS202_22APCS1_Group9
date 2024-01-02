@@ -52,6 +52,7 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/MapState.cpp
                                 Source/GameLevel.cpp
                                 Source/CountDownState.cpp
+                                Source/SavingState.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)

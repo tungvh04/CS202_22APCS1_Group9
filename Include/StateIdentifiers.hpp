@@ -18,7 +18,8 @@ namespace States
         Map,
         Credit,
         GameOver,
-        CountDown
+        CountDown,
+        Saving,
     };
 }
 
