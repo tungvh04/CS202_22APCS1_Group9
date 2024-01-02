@@ -5,6 +5,7 @@
 #include <Const.hpp>
 #include <MovingObject.hpp>
 #include <GameLevel.hpp>
+#include <MusicPlayer.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
@@ -108,6 +109,8 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     mGUIContainer.pack(settingButton);
     mGUIContainer.pack(creditButton);
     mGUIContainer.pack(exitButton);
+
+    context.music->play(Music::MenuTheme);
 }
 
 void MenuState::draw() {
