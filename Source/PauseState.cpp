@@ -55,7 +55,7 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     {
         gameLevel.save();
         requestStackPop();
-        requestStackPush(States::Exit);
+        requestStackPush(States::Title);
     });
     auto menuButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
     menuButton->setPosition(800, 700);
