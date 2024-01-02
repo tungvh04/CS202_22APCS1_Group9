@@ -38,7 +38,7 @@ unsigned int Obstacle::getCategory() const {
         case Stone:
             return Category::Stone | Category::Obstacle;
         case Island:
-            return Category::Island;
+            return Category::Island | Category::Obstacle;
         case Train:
             return Category::Car | Category::Obstacle;
         case Train1:
@@ -135,7 +135,7 @@ void ObstacleRow::generateRow() {
     if (mType == Obstacle::Type::TypeCount) {
         return;
     }
-    if (ObstacleDataTables::data[mType].maxDistance == 0 || ObstacleDataTables::data[mType].minDistance == 0) return;
+    if (ObstacleDataTables::data[mType].maxDistance == 0 && ObstacleDataTables::data[mType].minDistance == 0) return;
     int delta = rand() % ObstacleDataTables::data[mType].maxDistance;
     for (int i = -Constants::TilesRenderedWide; i <= Constants::TilesRenderedWide; i++) {
         // int type = rand() % types.size();

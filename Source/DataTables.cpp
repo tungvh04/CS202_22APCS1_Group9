@@ -38,8 +38,8 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Island].scaleX = true;
 	data[Obstacle::Type::Island].scaleY = true;
 	data[Obstacle::Type::Island].texture = Textures::ID::Island;
-	data[Obstacle::Type::Island].minDistance = 4;
-	data[Obstacle::Type::Island].maxDistance = 7;
+	data[Obstacle::Type::Island].minDistance = 0;
+	data[Obstacle::Type::Island].maxDistance = 2;
 	//data[Obstacle::Type::Island].killByTime = true;
 	//data[Obstacle::Type::Island].killTime = sf::seconds(4);
 

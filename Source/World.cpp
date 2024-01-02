@@ -80,12 +80,12 @@ void World::loadTextures() {
     mTextures.load(Textures::Background, "Media/Textures/Desert.png");
     mTextures.load(Textures::Grass, "Media/Textures/Tile/Tile1.png");
     mTextures.load(Textures::Sand, "Media/Textures/Tile/Tile2.png");
-    mTextures.load(Textures::Ice, "Media/Textures/Tile/Tile3.png");
+    mTextures.load(Textures::Ice, "Media/Textures/Tile/IceWithLeaf.png");
     mTextures.load(Textures::Car, "Media/Textures/Vehicle/Truck.png");
     mTextures.load(Textures::Road, "Media/Textures/Tile/Tile4.png");
     mTextures.load(Textures::Rail, "Media/Textures/Tile/Rail.png");
     mTextures.load(Textures::Train, "Media/Textures/Vehicle/Train.png");
-    mTextures.load(Textures::Island, "Media/Textures/Leaf.png");
+    mTextures.load(Textures::Island, "Media/Textures/Tile/Tile3.png");
     mTextures.load(Textures::Stone, "Media/Textures/Vehicle/Stone.png");
     mTextures.load(Textures::TrafficLightGreen, "Media/Textures/TrafficLightGreen.png");
     mTextures.load(Textures::TrafficLightRed, "Media/Textures/TrafficLightRed.png");
