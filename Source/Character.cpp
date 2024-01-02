@@ -153,9 +153,11 @@ bool Character::predictMovement(sf::Vector2f direction) {
 
 void Character::destroy() {
     // std::cout << "Character destroyed\n";
-    mIsDestroyed = true;
-    mShowDeath = true;
-    mDeath.restart();
+    if (!mIsDestroyed) {
+        mIsDestroyed = true;
+        mShowDeath = true;
+        mDeath.restart();
+    }
 }
 
 bool Character::isDestroyed() const {

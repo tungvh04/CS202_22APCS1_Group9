@@ -26,7 +26,7 @@ void World::update(sf::Time dt) {
     //sf::Vector2i currentPos=stateController.getIndex(mPlayerCharacter->getPosition());
     //std::cout<<currentPos.x<<' '<<currentPos.y<<'\n';
 
-    mWorldView.move(0.f, mScrollSpeed * dt.asSeconds() * gameLevel.getSpeedMultiplier());
+    if (!mPlayerCharacter->isDestroyed()) mWorldView.move(0.f, mScrollSpeed * dt.asSeconds() * gameLevel.getSpeedMultiplier());
     mPlayerCharacter->setVelocity(0.f, 0.f);
 
     // Forward commands to scene graph, adapt velocity (scrolling, diagonal correction)
