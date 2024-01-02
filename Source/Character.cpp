@@ -18,6 +18,14 @@ Textures::ID toTextureID(Character::Type type) {
 }
 
 Character::Character(Type type, const TextureHolder& textures) : mType(type), mSprite(textures.get(toTextureID(type))) {
+    // sf::Texture death;
+    // death.loadFromFile("Media/Textures/death.png");
+    // mDeath.setTexture(death);
+
+    // mDeath.setFrameSize(sf::Vector2i(256, 256));
+    // mDeath.setNumFrames(8);
+    // mDeath.setDuration(sf::seconds(1));
+
     mSprite.scale(mStep / mSprite.getLocalBounds().width, mStep / mSprite.getLocalBounds().height);
     sf::FloatRect bounds = mSprite.getLocalBounds();
     mSprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
@@ -25,6 +33,7 @@ Character::Character(Type type, const TextureHolder& textures) : mType(type), mS
 }
 
 void Character::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
+    // if (isDestroyed()) target.draw(mDeath, states);
     target.draw(mSprite, states);
 }
 
@@ -44,6 +53,10 @@ void Character::pathRequest(sf::Vector2f direction) {
 }
 
 void Character::updateCurrent(sf::Time dt) {
+    // if (isDestroyed()){
+    //     mDeath.update(dt);
+    //     return;
+    // }
     if (!mIsMoving) {
         mGridPosition = getPosition();
         if (!mPath.empty()) {
@@ -157,4 +170,6 @@ bool Character::deadOnWater() {
 void Character::clearState() {
     onWater=false;
     onIsland=false;
+}
+void Character::updateRollAnimation(){
 }

@@ -40,10 +40,12 @@ private:
     const float mStep = Constants::GridSize;
     virtual void updateCurrent(sf::Time dt);
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+    void updateRollAnimation();
 
     bool predictMovement(sf::Vector2f direction);
     
-    
+    // Animation mDeath;
+
     Type mType;
     sf::Sprite mSprite;
     sf::Vector2f mGridPosition;
