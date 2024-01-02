@@ -20,5 +20,6 @@ class CreditState : public State{
 		sf::Sprite mBackgroundSprite;
 		GUI::Container mGUIContainer;
         std::array<sf::Text, 5> mCredit;
+        sf::Text mIntroductionText;
 };
 #endif //CREDITSTATE_HPP

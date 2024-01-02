@@ -9,12 +9,12 @@ HighScoreState::HighScoreState(StateStack& stack, Context context)
 , mGUIContainer()
 {
 	//Example
-	highScore[0].first = 123.5;
+	highScore[0].first = 234;
 	highScore[0].second = "Winter";
-	highScore[1].first = 123.5;
+	highScore[1].first = 220;
 	highScore[1].second = "Autumn";
-	highScore[2].first = 123.5;
-	highScore[2].second = "Dinasaur";
+	highScore[2].first = 123;
+	highScore[2].second = "Spring";
 
 	mBackgroundSprite.setTexture(context.textures->get(Textures::HighScore));
 	

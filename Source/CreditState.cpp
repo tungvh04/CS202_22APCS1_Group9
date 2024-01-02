@@ -10,6 +10,13 @@ CreditState::CreditState(StateStack& stack, Context context)
 {
 	mBackgroundSprite.setTexture(context.textures->get(Textures::Credit));
 
+    // Create a text object for the introduction line
+    mIntroductionText.setFont(context.fonts->get(Fonts::Main));
+    mIntroductionText.setCharacterSize(60);
+    mIntroductionText.setFillColor(sf::Color::Black);
+    mIntroductionText.setString("Our Team");
+    mIntroductionText.setPosition(850, 250);
+
     for (int i = 0; i < 5; i++){
         mCredit[i].setFillColor(sf::Color::Black);
         mCredit[i].setFont(context.fonts->get(Fonts::Main));
@@ -38,6 +45,7 @@ void CreditState::draw()
 	sf::RenderWindow& window = *getContext().window;
 
 	window.draw(mBackgroundSprite);
+    window.draw(mIntroductionText);
     for (int i = 0; i < 5; i++) window.draw(mCredit[i]);
 	window.draw(mGUIContainer);
 }
