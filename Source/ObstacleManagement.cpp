@@ -198,7 +198,7 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
                 //lightObstacle->setPosition(Constants::lightOffsetRight,  0);
                 lightObstacle->setPosition(lightRightBound, 0);
             }
-            lightObstacle->setKillTime(sf::milliseconds(int(randomTimeGroup.asMilliseconds())*groupSpawnLeft)+mTimeToSpawn);
+            lightObstacle->setKillTime(sf::milliseconds(int(randomTimeGroup.asMilliseconds())*groupSpawnLeft)+mTimeToSpawn+sf::seconds(Constants::trafficLightKillDelay));
             std::cout<<"Traffic light red spawn at "<<lightObstacle->getPosition().x<<' '<<lightObstacle->getPosition().y<<" for "<<lightObstacle->getKillTime().asMilliseconds()<<" ms. Each vehicle spawn after "<<randomTimeGroup.asMilliseconds()<<" ms for "<<groupSpawnSize<<" vehicles."<<'\n';
                 
             //std::cout<<"Traffic light red spawn at "<<lightObstacle->getPosition().x<<' '<<lightObstacle->getPosition().y<<" for "<<lightObstacle->getKillTime().asMilliseconds()<<" ms."<<'\n';
@@ -254,7 +254,7 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
                     //lightObstacle->setPosition(Constants::lightOffsetRight,  0);
                     lightObstacle->setPosition(lightRightBound, 0);
                 }
-                lightObstacle->setKillTime(mTimeToWait);
+                lightObstacle->setKillTime(mTimeToWait+sf::seconds(Constants::trafficLightKillDelay));
                 std::cout<<"Traffic light green spawn at "<<lightObstacle->getPosition().x<<' '<<lightObstacle->getPosition().y<<" for "<<lightObstacle->getKillTime().asMilliseconds()<<" ms. Each vehicle spawn after "<<randomTimeGroup.asMilliseconds()<<" ms for "<<groupSpawnSize<<" vehicles."<<'\n';
                 //std::cout<<"Traffic light green spawn at "<<lightObstacle->getPosition().x<<' '<<lightObstacle->getPosition().y<<'\n';
                 attachChild(std::move(lightObstacle));
