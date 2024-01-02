@@ -4,6 +4,7 @@
 #include <Entity.hpp>
 #include <ResourceIdentifiers.hpp>
 #include <Const.hpp>
+#include <Animation.hpp>
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -41,7 +42,8 @@ private:
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
     bool predictMovement(sf::Vector2f direction);
-
+    
+    
     Type mType;
     sf::Sprite mSprite;
     sf::Vector2f mGridPosition;
