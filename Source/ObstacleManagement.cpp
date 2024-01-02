@@ -89,6 +89,7 @@ Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::F
 }
 
 Obstacle::~Obstacle() {
+    /*
     if (Type::TrafficLightGreen==mType) {
         std::cout<<"Green Light destroy at "<<getPosition().x<<' '<<getPosition().y<<'\n';
     }
@@ -101,6 +102,7 @@ Obstacle::~Obstacle() {
     if (Type::Car==mType) {
         std::cout<<"Car destroy at "<<getPosition().x<<' '<<getPosition().y<<'\n';
     }
+    */
 }
 
 ObstacleRow::ObstacleRow(std::vector<Obstacle::Type> types, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures) : getBattlefieldBounds(getBattlefieldBounds), mTextures(textures) {
@@ -114,6 +116,15 @@ ObstacleRow::ObstacleRow(std::vector<Obstacle::Type> types, std::function<sf::Fl
         groupSpawnSize=1;
     }
     groupSpawnLeft = groupSpawnSize;
+    sf::Time minTime = ObstacleDataTables::data[mType].minTime;
+    sf::Time maxTime = ObstacleDataTables::data[mType].maxTime;
+    if (minTime!=maxTime) {
+        sf::Time deltaTime = maxTime - minTime;
+        int randTime = rand() % (int)deltaTime.asMilliseconds();
+        sf::Time randomTime = sf::milliseconds(randTime);
+        randomTime += minTime;
+        randomTimeGroup = randomTime;
+    }
     sf::Vector2f velocity = ObstacleDataTables::data[mType].speed;
     velocity *= gameLevel.getSpeedMultiplier();
     setVelocity(velocity);
@@ -175,24 +186,25 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
         return;
     }
     if (mTimeToWait <= sf::Time::Zero) {
-        if (mTimeToSpawn <= sf::Time::Zero) {
-            if (groupSpawnLeft == ObstacleDataTables::data[mType].groupSpawnAmount) {
-                //Red light spawn here
-                SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightRed, *mTextures, getBattlefieldBounds));
-                float lightLeftBound = getBattlefieldBounds().left + Constants::lightOffset - getPosition().x ;
-                float lightRightBound = getBattlefieldBounds().left + getBattlefieldBounds().width - Constants::lightOffset - getPosition().x ;
-                if (getVelocity().x > 0) {
-                    //lightObstacle->setPosition(Constants::lightOffsetLeft, 0);
-                    lightObstacle->setPosition(lightLeftBound, 0);
-                }
-                else if (getVelocity().x < 0) {
-                    //lightObstacle->setPosition(Constants::lightOffsetRight,  0);
-                    lightObstacle->setPosition(lightRightBound, 0);
-                }
-                std::cout<<"Traffic light red spawn at "<<lightObstacle->getPosition().x<<' '<<lightObstacle->getPosition().y<<'\n';
-                attachChild(std::move(lightObstacle));
-                //-------------------------------------------------
+        if (!hasSpawned) {
+            hasSpawned=true;
+            //Red light spawn here
+            SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightRed, *mTextures, getBattlefieldBounds));
+            float lightLeftBound = getBattlefieldBounds().left + Constants::lightOffset - getPosition().x ;
+            float lightRightBound = getBattlefieldBounds().left + getBattlefieldBounds().width - Constants::lightOffset - getPosition().x ;
+            if (getVelocity().x > 0) {
+                //lightObstacle->setPosition(Constants::lightOffsetLeft, 0);
+                lightObstacle->setPosition(lightLeftBound, 0);
             }
+            else if (getVelocity().x < 0) {
+                //lightObstacle->setPosition(Constants::lightOffsetRight,  0);
+                lightObstacle->setPosition(lightRightBound, 0);
+            }
+            lightObstacle->setKillTime(sf::milliseconds(int(randomTimeGroup.asMilliseconds())*groupSpawnLeft)+mTimeToSpawn+sf::seconds(Constants::trafficLightKillDelay));
+            attachChild(std::move(lightObstacle));
+            //-------------------------------------------------
+        }
+        if (mTimeToSpawn <= sf::Time::Zero) {
             bool isSpawn = rand() % 5;
             if (!isSpawn) {
                 return;
@@ -211,15 +223,23 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
                 obstacle->setPosition(rightBound, 0);
             }
             attachChild(std::move(obstacle));
+            /*
             sf::Time minTime = ObstacleDataTables::data[mType].minTime;
             sf::Time maxTime = ObstacleDataTables::data[mType].maxTime;
             sf::Time deltaTime = maxTime - minTime;
             int randTime = rand() % (int)deltaTime.asMilliseconds();
             sf::Time randomTime = sf::milliseconds(randTime);
             randomTime += minTime;
-            mTimeToSpawn = randomTime;
+            */
             groupSpawnLeft--;
             if (groupSpawnLeft==0) {
+                sf::Time minTime = ObstacleDataTables::data[mType].minTime;
+                sf::Time maxTime = ObstacleDataTables::data[mType].maxTime;
+                sf::Time deltaTime = maxTime - minTime;
+                int randTime = rand() % (int)deltaTime.asMilliseconds();
+                sf::Time randomTime = sf::milliseconds(randTime);
+                randomTime += minTime;
+                randomTimeGroup = randomTime;
                 mTimeToWait = ObstacleDataTables::data[mType].groupDelayTime;
                 //Spawn green light here
                 SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightGreen, *mTextures, getBattlefieldBounds));
@@ -233,11 +253,13 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
                     //lightObstacle->setPosition(Constants::lightOffsetRight,  0);
                     lightObstacle->setPosition(lightRightBound, 0);
                 }
-                std::cout<<"Traffic light green spawn at "<<lightObstacle->getPosition().x<<' '<<lightObstacle->getPosition().y<<'\n';
+                lightObstacle->setKillTime(mTimeToWait+sf::seconds(Constants::trafficLightKillDelay));
                 attachChild(std::move(lightObstacle));
                 //---------------------------------------------
                 groupSpawnLeft = ObstacleDataTables::data[mType].groupSpawnAmount;
+                hasSpawned=false;
             }
+            mTimeToSpawn = randomTimeGroup;
         }
         else mTimeToSpawn -= dt;
     }

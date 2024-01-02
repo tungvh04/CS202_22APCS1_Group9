@@ -16,6 +16,7 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Car].groupDelayTime = sf::seconds(5);
 	data[Obstacle::Type::Car].groupSpawnAmount = 2;
 	data[Obstacle::Type::Car].spawnOffset = 700.f;
+	data[Obstacle::Type::Car].passTime = sf::seconds(Constants::WindowWidth/Constants::trainSpeed);
 
 	data[Obstacle::Type::Car1].speed = sf::Vector2f(-Constants::carSpeed, 0.f);
 	data[Obstacle::Type::Car1].scaleX = false;
@@ -26,6 +27,7 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Car1].flipHorizontal = true;
 	data[Obstacle::Type::Car1].groupDelayTime = sf::seconds(5);
 	data[Obstacle::Type::Car1].groupSpawnAmount = 3;
+	data[Obstacle::Type::Car1].passTime = sf::seconds(Constants::WindowWidth/Constants::trainSpeed);
 
 	data[Obstacle::Type::Stone].scaleX = false;
 	data[Obstacle::Type::Stone].scaleY = true;
@@ -49,6 +51,7 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Train].maxTime = sf::seconds(Constants::trainCycleTimeUpperBound);
 	data[Obstacle::Type::Train].groupDelayTime = sf::seconds(5);
 	data[Obstacle::Type::Train].groupSpawnAmount = 1;
+	data[Obstacle::Type::Train].passTime = sf::seconds(Constants::WindowWidth/Constants::trainSpeed);
 
 	data[Obstacle::Type::Train1].speed = sf::Vector2f(-Constants::trainSpeed, 0.f);
 	data[Obstacle::Type::Train1].scaleX = false;
@@ -59,6 +62,7 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Train1].flipHorizontal = true;
 	data[Obstacle::Type::Train1].groupDelayTime = sf::seconds(5);
 	data[Obstacle::Type::Train1].groupSpawnAmount = 1;
+	data[Obstacle::Type::Train1].passTime = sf::seconds(Constants::WindowWidth/Constants::trainSpeed);
 
 	data[Obstacle::Type::TrafficLightRed].scaleX = false;
 	data[Obstacle::Type::TrafficLightRed].scaleY = true;

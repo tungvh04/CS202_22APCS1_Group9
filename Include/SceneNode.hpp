@@ -45,10 +45,17 @@ public:
     void show();
     bool isHide() const;
 
+    void setKillTime(sf::Time dt);
+    bool isKillByTime() const;
+    sf::Time getKillTime() const;
+
     SceneNode* getParent();
 
 protected:
     std::deque<Ptr> mChildren;
+
+    sf::Time killTime;
+    bool killByTime = false;
 
 private:
     virtual void updateCurrent(sf::Time dt);

@@ -153,3 +153,16 @@ bool SceneNode::isHide() const {
 SceneNode* SceneNode::getParent() {
     return mParent;
 }
+
+void SceneNode::setKillTime(sf::Time dt) {
+    killByTime=true;
+    killTime=dt;
+}
+
+bool SceneNode::isKillByTime() const {
+    return killByTime;
+}
+
+sf::Time SceneNode::getKillTime() const {
+    return killTime;
+}

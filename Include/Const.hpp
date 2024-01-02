@@ -7,7 +7,7 @@
 namespace Constants {
     constexpr static float playerSpeed = 500.f;
     constexpr static float GridSize = 80.f;
-    constexpr static float scrollSpeed = -00.f;
+    constexpr static float scrollSpeed = -100.f;
     constexpr static float BorderDistance = 40.f;
     constexpr static int TilesRenderedHeight = 25;
     constexpr static int TilesRenderedWide = 30;
@@ -18,6 +18,8 @@ namespace Constants {
     constexpr static float WindowWidth = 1920;
     constexpr static float battlefieldBoundsHeightOffset = 800.f;
     constexpr static float battlefieldBoundsWidthOffset = 800.f;
+
+    constexpr static float trafficLightKillDelay = 0.1f;
 
     constexpr static float lightOffset = 900.f;
     constexpr static float lightOffsetLeft = 100.f;
