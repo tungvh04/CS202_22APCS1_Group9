@@ -53,7 +53,6 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     saveAndquitButton->setText("Save and Quit", 30);
     saveAndquitButton->setCallback([this]()
     {
-        gameLevel.save();
         requestStackPop();
         requestStackPush(States::Saving);
     });

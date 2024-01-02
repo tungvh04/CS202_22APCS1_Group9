@@ -18,7 +18,7 @@ SavingState::SavingState(StateStack& stack, Context context)
 	sf::Vector2f windowSize(context.window->getSize());
 
 	mSavingText.setFont(font);
-    mSavingText.setString("SAVING... PLEASE DON'T BREAK ANYTHING");
+    mSavingText.setString("SAVING... \nPLEASE DON'T BREAK ANYTHING");
 	mSavingText.setCharacterSize(100);
 	centerOrigin(mSavingText);
 	mSavingText.setPosition(0.5f * windowSize.x, 0.4f * windowSize.y);
@@ -41,6 +41,7 @@ void SavingState::draw()
 bool SavingState::update(sf::Time dt)
 {
 	// Show state for 3 seconds, after return to menu
+	gameLevel.save();
 	mElapsedTime += dt;
 	if (mElapsedTime > sf::seconds(3))
 	{
