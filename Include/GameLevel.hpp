@@ -13,12 +13,13 @@ public:
     void load();
     void save();
     int getLevel() const;
-    void setLevel(int level);
     float getSpeedMultiplier() const;
-    void nextLevel();
     void restart();
+    void incrementScore(float score);
+    void setScore(float score);
+    float getScore() const;
 private:
-    int mLevel;
+    float mScore;
 };
 
 extern GameLevel gameLevel;
