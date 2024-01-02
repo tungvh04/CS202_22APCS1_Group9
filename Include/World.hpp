@@ -89,7 +89,6 @@ private:
     std::vector<SpawnPoint> mEnemySpawnPoints;
 	std::vector<Car*> mActiveEnemies;
 
-    sf::Time mLevelTime;
 };
 
 #endif // WORLD_HPP

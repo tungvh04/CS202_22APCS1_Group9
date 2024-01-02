@@ -6,45 +6,48 @@ GameLevel::GameLevel() {
     load();
 }
 
-void GameLevel::nextLevel() {
-    mLevel++;
-}
-
 void GameLevel::load() {
     std::ifstream file(Constants::savePath);
     if (file.is_open()) {
         std::string line;
         std::getline(file, line);
-        mLevel = std::stoi(line);
+        mScore = std::stoi(line);
         file.close();
     }
     else {
-        mLevel = 1;
+        mScore = 0;
     }
 }
 
 void GameLevel::save() {
     std::ofstream file(Constants::savePath);
     if (file.is_open()) {
-        file << mLevel;
+        file << mScore;
         file.close();
     }
 }
 
 int GameLevel::getLevel() const {
-    return mLevel;
+    int level = mScore / 1000;
+    return level <= 1 ? 1 : level;
 }
 
-void GameLevel::setLevel(int level) {
-    mLevel = level;
-}
 
 float GameLevel::getSpeedMultiplier() const {
-    return (mLevel - 1) * 0.2 + 1;
+    return (getLevel() - 1) * 0.2 + 1;
 }
 
 void GameLevel::restart() {
-    mLevel = 1;
+    mScore = 0;
+}
+void GameLevel::incrementScore(float score) {
+    mScore += score;
+}
+void GameLevel::setScore(float score) {
+    mScore = score;
+}
+float GameLevel::getScore() const {
+    return mScore;
 }
 
 GameLevel gameLevel;

@@ -40,8 +40,10 @@ bool GameState::update(sf::Time dt) {
     CommandQueue& commands = mWorld.getCommandQueue();
     mPlayer.handleRealtimeInput(commands);
 
-    int level = gameLevel.getLevel();
-    std::string levelString = "Level: " + std::to_string(level);
+    // int level = gameLevel.getLevel();
+    // std::string levelString = "Level: " + std::to_string(level);
+    int level = gameLevel.getScore();
+    std::string levelString = "Score: " + std::to_string(level);
     mLevelText.setString(levelString);
 
     return true;

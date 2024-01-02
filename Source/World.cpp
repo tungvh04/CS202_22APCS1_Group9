@@ -42,14 +42,7 @@ void World::update(sf::Time dt) {
     adaptPlayerPosition();
 
     // Update level
-    mLevelTime += dt;
-    if (mLevelTime.asSeconds() >= 10) {
-        mLevelTime = sf::Time::Zero;
-        gameLevel.nextLevel();
-        // std::cout << "Level: " << gameLevel.getLevel() << '\n';
-        // std::cout << "Time per level: " << Constants::timePerLevel << '\n';
-        // std::cout << "Level time: " << mLevelTime.asSeconds() << '\n';
-    }
+    gameLevel.incrementScore(dt.asSeconds() * Constants::ScorePerSecond);
 
 }
 
