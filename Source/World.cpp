@@ -90,6 +90,7 @@ void World::loadTextures() {
     mTextures.load(Textures::TrafficLightGreen, "Media/Textures/TrafficLightGreen.png");
     mTextures.load(Textures::TrafficLightRed, "Media/Textures/TrafficLightRed.png");
     mTextures.load(Textures::TrafficLightYellow, "Media/Textures/TrafficLightYellow.png");
+    mTextures.load(Textures::Death, "Media/Textures/death.png");
 }
 
 void World::buildScene() {

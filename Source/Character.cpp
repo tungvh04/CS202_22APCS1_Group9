@@ -19,12 +19,17 @@ Textures::ID toTextureID(Character::Type type) {
 
 Character::Character(Type type, const TextureHolder& textures) : mType(type), mSprite(textures.get(toTextureID(type))) {
     // sf::Texture death;
+    // sf::Texture* death = new sf::Texture();
     // death.loadFromFile("Media/Textures/death.png");
     // mDeath.setTexture(death);
+    mDeath.setTexture(textures.get(Textures::Death));
 
-    // mDeath.setFrameSize(sf::Vector2i(256, 256));
-    // mDeath.setNumFrames(8);
-    // mDeath.setDuration(sf::seconds(1));
+    mDeath.setFrameSize(sf::Vector2i(16, 16));
+    mDeath.setNumFrames(8);
+    mDeath.setDuration(sf::seconds(1));
+
+    mDeath.setOrigin(mDeath.getLocalBounds().width / 2.f, mDeath.getLocalBounds().height / 2.f);
+    mDeath.scale(mStep / mDeath.getLocalBounds().width, mStep / mDeath.getLocalBounds().height);
 
     mSprite.scale(mStep / mSprite.getLocalBounds().width, mStep / mSprite.getLocalBounds().height);
     sf::FloatRect bounds = mSprite.getLocalBounds();
@@ -33,8 +38,8 @@ Character::Character(Type type, const TextureHolder& textures) : mType(type), mS
 }
 
 void Character::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
-    // if (isDestroyed()) target.draw(mDeath, states);
-    target.draw(mSprite, states);
+    if (isDestroyed()) target.draw(mDeath, states);
+    else target.draw(mSprite, states);
 }
 
 unsigned int Character::getCategory() const {
@@ -47,16 +52,15 @@ unsigned int Character::getCategory() const {
 }
 
 void Character::pathRequest(sf::Vector2f direction) {
-    // if (mPath.empty()) mGridPosition = getPosition();
     if (mPath.size() < 2)
         mPath.push(direction);
 }
 
 void Character::updateCurrent(sf::Time dt) {
-    // if (isDestroyed()){
-    //     mDeath.update(dt);
-    //     return;
-    // }
+    if (isDestroyed()){
+        mDeath.update(dt);
+        return;
+    }
     if (!mIsMoving) {
         mGridPosition = getPosition();
         if (!mPath.empty()) {
@@ -108,6 +112,8 @@ bool Character::isMarkedForRemoval() const
 {
 	//return isDestroyed() && (mExplosion.isFinished() || !mShowExplosion);
     // return false;
+	return isDestroyed() && (mDeath.isFinished() || !mShowDeath);
+    return false;
     return isDestroyed();
 }
 
@@ -148,6 +154,8 @@ bool Character::predictMovement(sf::Vector2f direction) {
 void Character::destroy() {
     // std::cout << "Character destroyed\n";
     mIsDestroyed = true;
+    mShowDeath = true;
+    mDeath.restart();
 }
 
 bool Character::isDestroyed() const {

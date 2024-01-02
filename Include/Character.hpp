@@ -44,13 +44,14 @@ private:
 
     bool predictMovement(sf::Vector2f direction);
     
-    // Animation mDeath;
+    Animation mDeath;
 
     Type mType;
     sf::Sprite mSprite;
     sf::Vector2f mGridPosition;
 
     bool mIsMoving = false;
+    bool mShowDeath = false;
     sf::Vector2f mMovement;
     float mDistanceTravelled = 0.f;
 
