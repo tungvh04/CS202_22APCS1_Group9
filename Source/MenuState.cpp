@@ -50,7 +50,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     clouds.attachChild(std::move(cat));
     
     // A simple menu demonstration
-    auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto playButton = std::make_shared<GUI::Button>(context);
 	playButton->setPosition(800, 400);
 	playButton->setText("Play", 40);
 	playButton->setCallback([this] ()
@@ -59,7 +59,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
 		requestStackPop();
 		requestStackPush(States::Character);
 	});
-    auto loadButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto loadButton = std::make_shared<GUI::Button>(context);
 	loadButton->setPosition(800, 500);
 	loadButton->setText("Load Game", 40);
 	loadButton->setCallback([this] ()
@@ -68,7 +68,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
 		requestStackPop();
         requestStackPush(States::CountDown);
 	});
-    auto scoreButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto scoreButton = std::make_shared<GUI::Button>(context);
     scoreButton->setPosition(800, 600);
     scoreButton->setText("High Score", 40);
     scoreButton->setCallback([this]()
@@ -76,7 +76,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
         requestStackPop();
         requestStackPush(States::Score);
     });
-    auto settingButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto settingButton = std::make_shared<GUI::Button>(context);
     settingButton->setPosition(800, 700);
     settingButton->setText("Setting", 40);
     settingButton->setCallback([this]()
@@ -85,7 +85,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
         requestStackPush(States::Setting);
     });
 
-    auto creditButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto creditButton = std::make_shared<GUI::Button>(context);
     creditButton->setPosition(800, 800);
     creditButton->setText("Credit", 40);
     creditButton->setCallback([this]()
@@ -94,7 +94,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
         requestStackPush(States::Credit);
     });
 
-    auto exitButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto exitButton = std::make_shared<GUI::Button>(context);
     exitButton->setPosition(800, 900);
     exitButton->setText("Exit", 40);
     exitButton->setCallback([this]()

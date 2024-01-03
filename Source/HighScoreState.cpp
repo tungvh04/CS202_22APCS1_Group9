@@ -18,49 +18,49 @@ HighScoreState::HighScoreState(StateStack& stack, Context context)
 
 	mBackgroundSprite.setTexture(context.textures->get(Textures::HighScore));
 	
-	auto scoreTop1 = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto scoreTop1 = std::make_shared<GUI::Button>(context);
 	scoreTop1->setPosition(650.f, 440.f);
 	scoreTop1->setText(toString(highScore[0].first), 40);
 	scoreTop1->setCallback([this]()
     {
     });
 
-	auto mapTop1 = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto mapTop1 = std::make_shared<GUI::Button>(context);
 	mapTop1->setPosition(1050.f, 440.f);
 	mapTop1->setText(highScore[0].second, 40);
 	mapTop1->setCallback([this]()
     {
     });
 
-	auto scoreTop2 = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto scoreTop2 = std::make_shared<GUI::Button>(context);
 	scoreTop2->setPosition(650.f, 600.f);
 	scoreTop2->setText(toString(highScore[1].first), 40);
 	scoreTop2->setCallback([this]()
     {
     });
 
-	auto mapTop2 = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto mapTop2 = std::make_shared<GUI::Button>(context);
 	mapTop2->setPosition(1050.f, 600.f);
 	mapTop2->setText(highScore[1].second, 40);
 	mapTop2->setCallback([this]()
     {
     });
 
-	auto scoreTop3 = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto scoreTop3 = std::make_shared<GUI::Button>(context);
 	scoreTop3->setPosition(650.f, 760.f);
 	scoreTop3->setText(toString(highScore[2].first), 40);
 	scoreTop3->setCallback([this]()
     {
     });
 
-	auto mapTop3 = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto mapTop3 = std::make_shared<GUI::Button>(context);
 	mapTop3->setPosition(1050.f, 760.f);
 	mapTop3->setText(highScore[2].second, 40);
 	mapTop3->setCallback([this]()
     {
     });
 
-	auto backButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto backButton = std::make_shared<GUI::Button>(context);
 	backButton->setPosition(70.f, 950.f);
 	backButton->setText("Back", 40);
 	backButton->setCallback([this]()

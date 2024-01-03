@@ -21,14 +21,14 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     mPausedText.setPosition(0.5f * viewSize.x, 0.2f * viewSize.y);
 
     //Pause Menu
-    auto continueButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto continueButton = std::make_shared<GUI::Button>(context);
 	continueButton->setPosition(800, 300);
 	continueButton->setText("Continue", 30);
 	continueButton->setCallback([this] ()
 	{
 		requestStackPop();
 	});
-    auto restartButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto restartButton = std::make_shared<GUI::Button>(context);
     restartButton->setPosition(800, 400);
     restartButton->setText("Restart", 30);
     restartButton->setCallback([this]()
@@ -38,7 +38,7 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
         requestStateClear();
         requestStackPush(States::Game);
     });
-    auto settingButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto settingButton = std::make_shared<GUI::Button>(context);
     settingButton->setPosition(800, 500);
     settingButton->setText("Setting", 30);
     settingButton->setCallback([this]()
@@ -49,7 +49,7 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
         requestStackPush(States::Menu);
         requestStackPush(States::Setting);
     });
-    auto saveAndquitButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto saveAndquitButton = std::make_shared<GUI::Button>(context);
     saveAndquitButton->setPosition(800, 600);
     saveAndquitButton->setText("Save and Quit", 30);
     saveAndquitButton->setCallback([this]()
@@ -57,7 +57,7 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
         requestStackPop();
         requestStackPush(States::Saving);
     });
-    auto menuButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto menuButton = std::make_shared<GUI::Button>(context);
     menuButton->setPosition(800, 700);
     menuButton->setText("Return to Main Menu", 30);
     menuButton->setCallback([this]()

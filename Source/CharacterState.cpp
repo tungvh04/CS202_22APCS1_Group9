@@ -52,7 +52,7 @@ CharacterState::CharacterState(StateStack &stack, Context context)
     mBackgroundSpriteCharacter.setScale(0.9f, 0.9f);
     mBackgroundSpriteCharacter.setPosition(740, 175);
 
-    auto backButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto backButton = std::make_shared<GUI::Button>(context);
 	backButton->setPosition(70.f, 950.f);
 	backButton->setText("Back", 40);
 	backButton->setCallback([this]()
@@ -61,7 +61,7 @@ CharacterState::CharacterState(StateStack &stack, Context context)
         requestStackPush(States::Menu);
     });
 
-    auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto playButton = std::make_shared<GUI::Button>(context);
 	playButton->setPosition(1540.f, 950.f);
 	playButton->setText("Next", 40);
 	playButton->setCallback([this]()

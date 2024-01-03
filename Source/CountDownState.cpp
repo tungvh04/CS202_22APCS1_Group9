@@ -13,6 +13,8 @@ CountDownState::CountDownState(StateStack& stack, Context context)
     , mCountdownTime(sf::seconds(4))
     , mElapsedTime(sf::Time::Zero)
 {
+    mBackground.setTexture(context.textures->get(Textures::Countdown));
+
     sf::Font& font = context.fonts->get(Fonts::Main);
     sf::Vector2f windowSize(context.window->getSize());
 
@@ -49,11 +51,12 @@ void CountDownState::draw()
     window.setView(window.getDefaultView());
 
     // Create dark, semitransparent background
-    sf::RectangleShape backgroundShape;
-    backgroundShape.setFillColor(sf::Color(0, 255, 0, 150));
-    backgroundShape.setSize(window.getView().getSize());
+    // sf::RectangleShape backgroundShape;
+    // backgroundShape.setFillColor(sf::Color(0, 255, 0, 150));
+    // backgroundShape.setSize(window.getView().getSize();
 
-    window.draw(backgroundShape);
+    // window.draw(backgroundShape);
+    window.draw(mBackground);
     window.draw(mCountdownText);
 }
 

@@ -19,13 +19,20 @@ Textures::ID toTextureID(Character::Type type) {
 
 Character::Character(Type type, const TextureHolder& textures) : mType(type), mSprite(textures.get(toTextureID(type))) {
     mDeath.setTexture(textures.get(Textures::Death));
+    mMoving.setTexture(textures.get(Textures::UpPlayer));
 
     mDeath.setFrameSize(sf::Vector2i(16, 16));
     mDeath.setNumFrames(8);
     mDeath.setDuration(sf::seconds(1));
 
+    mMoving.setFrameSize(sf::Vector2i(16, 16));
+    mMoving.setNumFrames(8);
+    mMoving.setDuration(sf::seconds(0.2));
+
     mDeath.setOrigin(mDeath.getLocalBounds().width / 2.f, mDeath.getLocalBounds().height / 2.f);
     mDeath.scale(mStep / mDeath.getLocalBounds().width, mStep / mDeath.getLocalBounds().height);
+    mMoving.setOrigin(mMoving.getLocalBounds().width / 2.f, mMoving.getLocalBounds().height / 2.f);
+    mMoving.scale(mStep / mMoving.getLocalBounds().width, mStep / mMoving.getLocalBounds().height);
 
     mSprite.scale(mStep / mSprite.getLocalBounds().width, mStep / mSprite.getLocalBounds().height);
     sf::FloatRect bounds = mSprite.getLocalBounds();
@@ -35,7 +42,11 @@ Character::Character(Type type, const TextureHolder& textures) : mType(type), mS
 
 void Character::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
     if (isDestroyed()) target.draw(mDeath, states);
-    else target.draw(mSprite, states);
+    else {
+        target.draw(mMoving, states);
+        // target.draw(mSprite, states);
+        
+    }
 }
 
 unsigned int Character::getCategory() const {
@@ -57,7 +68,7 @@ void Character::updateCurrent(sf::Time dt) {
         mDeath.update(dt);
         return;
     }
-    if (!mIsMoving) {
+    if (!mIsMoving) {;
         mGridPosition = getPosition();
         if (!mPath.empty()) {
             sf::Vector2f direction = mPath.front();
@@ -68,8 +79,14 @@ void Character::updateCurrent(sf::Time dt) {
             mMovement = direction;
             mIsMoving = true;
         }
+        
     }
+    mMoving.update(dt);
     if (mIsMoving) {
+        if (mMoving.isFinished()){
+            mMoving.restart();
+            return;
+        }
         sf::Vector2f movement = mMovement * dt.asSeconds();
         if (mDistanceTravelled + abs(movement.x) > mStep) {
             mDistanceTravelled = 0.f;

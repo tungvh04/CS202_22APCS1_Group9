@@ -1,10 +1,10 @@
-
 #ifndef BOOK_BUTTON_HPP
 #define BOOK_BUTTON_HPP
 
 #include <Component.hpp>
 #include <ResourceIdentifiers.hpp>
 #include <ResourceHolder.hpp>
+#include <State.hpp>
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -14,6 +14,7 @@
 #include <memory>
 #include <functional>
 
+class SoundPlayer;
 
 namespace GUI
 {
@@ -24,7 +25,7 @@ class Button : public Component
         typedef std::function<void()> Callback;
 
 	public:
-		Button(const FontHolder& fonts, const TextureHolder& textures);
+		Button(State::Context context);
         void setCallback(Callback callback);
         void setText(const std::string& text);
         void setText(const std::string&text, unsigned int sizeText);
@@ -50,6 +51,7 @@ class Button : public Component
         sf::Sprite mSprite;
         sf::Text mText;
         bool mIsToggle;
+        SoundPlayer& mSounds;
 };
 
 }

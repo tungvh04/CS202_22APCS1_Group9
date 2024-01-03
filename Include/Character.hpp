@@ -53,7 +53,8 @@ private:
     bool predictMovement(sf::Vector2f direction);
     
     Animation mDeath;
-
+    Animation mMoving;
+    
     Type mType;
     sf::Sprite mSprite;
     sf::Vector2f mGridPosition;

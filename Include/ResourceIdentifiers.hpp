@@ -4,6 +4,7 @@
 namespace sf {
     class Texture;
     class Font;
+    class SoundBuffer;
 }
 
 namespace Textures {
@@ -14,6 +15,7 @@ namespace Textures {
         Title,
         HighScore,
         Character,
+        Countdown,
         Map,
         Credit,
         Button,
@@ -44,7 +46,10 @@ namespace Textures {
         TrafficLightYellow,
         Death,
         Water,
-        Raft
+        Raft,
+        UpPlayer,
+        LeftPlayer,
+        RightPlayer,
     };
 }
 namespace SoundEffects {
@@ -96,5 +101,6 @@ class ResourceHolder;
 
 typedef ResourceHolder<sf::Texture, Textures::ID> TextureHolder;
 typedef ResourceHolder<sf::Font, Fonts::ID> FontHolder;
+typedef ResourceHolder<sf::SoundBuffer, SoundEffects::ID> SoundBufferHolder;
 
 #endif // RESOURCEIDENTIFIERS_HPP

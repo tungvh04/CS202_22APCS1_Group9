@@ -21,7 +21,7 @@
 #include <GameLevel.hpp>
 const sf::Time Application::TimePerFrame = sf::seconds(1.f/60.f);
 
-Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Constants::WindowHeight), "States", sf::Style::Close), mTextures(), mFonts(), mPlayer(), mMusic(), mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic)), mStatisticsText(), mStatisticsUpdateTime(), mStatisticsNumFrames(0) {
+Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Constants::WindowHeight), "States", sf::Style::Close), mTextures(), mFonts(), mPlayer(), mMusic(), mSounds(), mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic, mSounds)), mStatisticsText(), mStatisticsUpdateTime(), mStatisticsNumFrames(0) {
     mWindow.setKeyRepeatEnabled(false);
 
     mFonts.load(Fonts::Main, "Media/Fonts/Sansation.ttf");
@@ -40,6 +40,7 @@ Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Const
     mTextures.load(Textures::Key2, "Media/Textures/Key2.png");
     mTextures.load(Textures::HighScore, "Media/Textures/HighScore.png");
     mTextures.load(Textures::Character, "Media/Textures/Character.png");
+    mTextures.load(Textures::Countdown, "Media/Textures/Countdown.png");
     mTextures.load(Textures::Map, "Media/Textures/Map.png"); 
     mTextures.load(Textures::Credit,"Media/Textures/Credit.png"); 
     mTextures.load(Textures::Sound1, "Media/Textures/Sound1.png"); 

@@ -54,6 +54,7 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/CountDownState.cpp
                                 Source/SavingState.cpp
                                 Source/MusicPlayer.cpp
+                                Source/SoundPlayer.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)

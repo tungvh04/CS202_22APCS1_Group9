@@ -4,10 +4,10 @@
 #include <ResourceHolder.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <iostream>
+
 SettingState::SettingState(StateStack& stack, Context context)
 : State(stack, context)
-, mSoundButton(*context.fonts, *context.textures)
+, mSoundButton(context)
 , mGUIContainer()
 {
 	mBackgroundSprite.setTexture(context.textures->get(Textures::Background));
@@ -39,7 +39,7 @@ SettingState::SettingState(StateStack& stack, Context context)
 	mSoundButton.setPosition(80.f, 600.f);
 	mSoundButton.setText("Sound", 30);
 
-	auto backButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto backButton = std::make_shared<GUI::Button>(context);
 	backButton->setPosition(80.f, 700.f);
 	backButton->setText("Back", 30);
 	backButton->setCallback([this]()
@@ -141,7 +141,7 @@ void SettingState::updateLabel()
 
 void SettingState::addButtonLabel(Player::Action action, float y, const std::string& text, Context context)
 {
-	mBindingButtons[action] = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mBindingButtons[action] = std::make_shared<GUI::Button>(context);
 	mBindingButtons[action]->setPosition(80.f, y);
 	mBindingButtons[action]->setText(text, 30);
 	mBindingButtons[action]->setToggle(true);

@@ -1,5 +1,6 @@
 #include <Button.hpp>
 #include <Utility.hpp>
+#include <SoundPlayer.hpp>
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
@@ -9,14 +10,15 @@
 namespace GUI
 {
 
-Button::Button(const FontHolder& fonts, const TextureHolder& textures)
+Button::Button(State::Context context)
 : mCallback()
-, mNormalTexture(textures.get(Textures::Button))
-, mSelectedTexture(textures.get(Textures::ButtonTouch))
-, mPressedTexture(textures.get(Textures::ButtonPressed))
+, mNormalTexture(context.textures->get(Textures::Button))
+, mSelectedTexture(context.textures->get(Textures::ButtonTouch))
+, mPressedTexture(context.textures->get(Textures::ButtonPressed))
 , mSprite()
-, mText("", fonts.get(Fonts::Main), 16)
+, mText("", context.fonts->get(Fonts::Main), 16)
 , mIsToggle(false)
+, mSounds(*context.sounds)
 {
 	mSprite.setTexture(mNormalTexture);
 
@@ -79,6 +81,8 @@ void Button::activate()
     // If we are not a toggle then deactivate the button since we are just momentarily activated.
 	if (!mIsToggle)
 		deactivate();
+
+	mSounds.play(SoundEffects::Button);
 		
 }
 
