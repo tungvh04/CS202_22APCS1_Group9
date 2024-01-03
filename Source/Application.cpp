@@ -40,6 +40,7 @@ Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Const
     mTextures.load(Textures::Key2, "Media/Textures/Key2.png");
     mTextures.load(Textures::HighScore, "Media/Textures/HighScore.png");
     mTextures.load(Textures::Character, "Media/Textures/Character.png");
+    mTextures.load(Textures::Countdown, "Media/Textures/Countdown.png");
     mTextures.load(Textures::Map, "Media/Textures/Map.png"); 
     mTextures.load(Textures::Credit,"Media/Textures/Credit.png"); 
     mTextures.load(Textures::Sound1, "Media/Textures/Sound1.png"); 
