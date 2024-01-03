@@ -18,10 +18,6 @@ Textures::ID toTextureID(Character::Type type) {
 }
 
 Character::Character(Type type, const TextureHolder& textures) : mType(type), mSprite(textures.get(toTextureID(type))) {
-    // sf::Texture death;
-    // sf::Texture* death = new sf::Texture();
-    // death.loadFromFile("Media/Textures/death.png");
-    // mDeath.setTexture(death);
     mDeath.setTexture(textures.get(Textures::Death));
 
     mDeath.setFrameSize(sf::Vector2i(16, 16));

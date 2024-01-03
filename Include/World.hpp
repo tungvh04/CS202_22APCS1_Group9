@@ -80,7 +80,7 @@ private:
     sf::Vector2f mSpawnPosition;
     float mScrollSpeed;
     Character* mPlayerCharacter;
-
+    
     std::vector<TextureHolder*> mTiles;
     sf::Vector2f mOriginGrid;
 

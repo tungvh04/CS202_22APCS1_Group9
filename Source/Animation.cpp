@@ -131,7 +131,9 @@ void Animation::update(sf::Time dt)
 		}
 	}
 
+
 	mSprite.setTextureRect(textureRect);
+	
 }
 
 void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const

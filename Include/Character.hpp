@@ -14,6 +14,14 @@ class Character : public Entity {
 public:
     enum Type {
         Player,
+        BlueDino,
+        GreenDino,
+        YellowDino,
+        RedDino,
+        BlueFrog,
+        GreenFrog,
+        YellowFrog,
+        PinkFrog
     };
     Character(Type type, const TextureHolder& textures);
     virtual unsigned int getCategory() const;

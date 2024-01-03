@@ -16,10 +16,10 @@ const std::vector<std::vector<Tile::Type>> RowObject::initilizeTileTypes() {
 const std::vector<std::vector<Obstacle::Type>> RowObject::initilizeObstacleTypes() {
     std::vector<Obstacle::Type> road = {Obstacle::Car, Obstacle::Car1};
     std::vector<Obstacle::Type> rail = {Obstacle::Train, Obstacle::Train1};
-    std::vector<Obstacle::Type> none = {};
+    std::vector<Obstacle::Type> sand = {Obstacle::Car};
     std::vector<Obstacle::Type> grass = {Obstacle::Stone};
     std::vector<Obstacle::Type> ice = {Obstacle::Island};
-    std::vector<std::vector<Obstacle::Type>> obstacleTypes = {grass, none, ice, road, rail};
+    std::vector<std::vector<Obstacle::Type>> obstacleTypes = {grass, sand, ice, road, rail};
     // return {none, road, none};
     return obstacleTypes;
 }
