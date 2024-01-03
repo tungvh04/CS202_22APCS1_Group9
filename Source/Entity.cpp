@@ -23,5 +23,24 @@ void Entity::accelerate(float vx, float vy) {
 }
 
 void Entity::updateCurrent(sf::Time dt) {
+    if (killByTime) {
+        killTime-=dt;
+        if (killTime.asSeconds()<0) {
+            //kill here
+            return;
+        }
+    }
     move(mVelocity * dt.asSeconds());
+}
+
+void Entity::updateCurrent(sf::Time dt, CommandQueue&)
+{	
+    if (killByTime) {
+        killTime-=dt;
+        if (killTime.asSeconds()<0) {
+            //kill here
+            return;
+        }
+    }
+	move(mVelocity * dt.asSeconds());
 }

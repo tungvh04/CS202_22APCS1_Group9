@@ -8,8 +8,9 @@
 #include <Character.hpp>
 #include <CommandQueue.hpp>
 #include <Command.hpp>
-#include <TileSystem.hpp>
-#include <Indexer.hpp>
+// #include <TileSystem.hpp>
+#include <TileManagement.hpp>
+#include <GameObject.hpp>
 #include <Car.hpp>
 
 #include <SFML/System/NonCopyable.hpp>
@@ -32,11 +33,17 @@ public:
 
     CommandQueue& getCommandQueue();
 
+    bool 	hasAlivePlayer() const;
+	bool 	hasPlayerReachedEnd() const;
+    
 private:
     void loadTextures();
     void buildScene();
     void adaptPlayerPosition();
     void adaptPlayerVelocity();
+    void handleCollisions();
+    sf::FloatRect getBattlefieldBounds() const;
+    sf::FloatRect getViewBounds() const;
 
 private:
     enum Layer {
@@ -45,10 +52,21 @@ private:
         LayerCount
     };
 
-private:
-    TileBuilderRow tileManager;
+    struct SpawnPoint {
+		SpawnPoint(Car::Type type, float x, float y): type(type), x(x), y(y){
+		
+        }
 
-    Indexer stateController;
+		Car::Type type;
+		float x;
+		float y;
+	};
+
+private:
+    // TileBuilderRow tileManager;
+    // TileManager tileManager;
+    // TileManager mTileManager;
+    TileManager* mTileManager;
 
     sf::RenderWindow& mWindow;
     sf::View mWorldView;
@@ -62,11 +80,15 @@ private:
     sf::Vector2f mSpawnPosition;
     float mScrollSpeed;
     Character* mPlayerCharacter;
-
+    
     std::vector<TextureHolder*> mTiles;
     sf::Vector2f mOriginGrid;
 
     int tileCnt;
+
+    std::vector<SpawnPoint> mEnemySpawnPoints;
+	std::vector<Car*> mActiveEnemies;
+
 };
 
 #endif // WORLD_HPP

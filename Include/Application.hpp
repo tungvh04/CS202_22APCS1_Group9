@@ -4,12 +4,14 @@
 #include <ResourceHolder.hpp>
 #include <ResourceIdentifiers.hpp>
 #include <Player.hpp>
-#include <TileSystem.hpp>
+// #include <TileSystem.hpp>
 #include <StateStack.hpp>
+#include <MusicPlayer.hpp>
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
+
 
 class Application {
 public:
@@ -32,6 +34,7 @@ private:
     TextureHolder mTextures;
     FontHolder mFonts;
     Player mPlayer;
+    MusicPlayer mMusic;
 
     StateStack mStateStack;
 

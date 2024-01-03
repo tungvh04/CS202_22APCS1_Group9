@@ -2,32 +2,115 @@
 #include <Utility.hpp>
 #include <Foreach.hpp>
 #include <ResourceHolder.hpp>
+#include <Const.hpp>
+#include <MovingObject.hpp>
+#include <GameLevel.hpp>
+#include <MusicPlayer.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/View.hpp>
 
-MenuState::MenuState(StateStack& stack, Context context) : State(stack, context), mOptions(), mOptionIndex(0) {
-    sf::Texture& texture = context.textures->get(Textures::TitleScreen);
-    sf::Font& font = context.fonts->get(Fonts::Main);
-
+MenuState::MenuState(StateStack& stack, Context context) : State(stack, context), mGUIContainer() {
+    sf::Texture& texture = context.textures->get(Textures::Background);
     mBackgroundSprite.setTexture(texture);
+    mBackgroundSprite.scale(Constants::WindowWidth / mBackgroundSprite.getGlobalBounds().width, Constants::WindowHeight / mBackgroundSprite.getGlobalBounds().height);
+    
+    //Animation
+    sf::Texture& cloudTexture_1 = context.textures->get(Textures::Cloud1);
+    sf::Texture& cloudTexture_2 = context.textures->get(Textures::Cloud2);
+    sf::Texture& cloudTexture_3 = context.textures->get(Textures::Cloud3);
+    sf::Texture& catTexture = context.textures->get(Textures::Cat);
+    sf::Texture& titleTexture = context.textures->get(Textures::Title);
 
+
+    std::unique_ptr<MovingObject> cloud(new MovingObject(cloudTexture_1));
+    cloud->setPosition(250.5, 118.5);
+    cloud->setVelocity(150, 0);
+    clouds.attachChild(std::move(cloud));
+    
+    std::unique_ptr<MovingObject> title(new MovingObject(titleTexture));
+    title->setPosition(965, 239);
+    title->setVelocity(0, 0);
+    clouds.attachChild(std::move(title));
+
+    std::unique_ptr<MovingObject> cloud_1(new MovingObject(cloudTexture_2));
+    cloud_1->setPosition(1679.5, 418);
+    cloud_1->setVelocity(200, 0);
+    clouds.attachChild(std::move(cloud_1));
+
+    std::unique_ptr<MovingObject> cloud_2(new MovingObject(cloudTexture_3));
+    cloud_2->setPosition(128.5, 229);
+    cloud_2->setVelocity(120, 0);
+    clouds.attachChild(std::move(cloud_2));
+
+    std::unique_ptr<MovingObject> cat(new MovingObject(catTexture));
+    cat->setPosition(57.5, 1047);
+    
+    cat->setVelocity(100, 0);
+    clouds.attachChild(std::move(cat));
+    
     // A simple menu demonstration
-    sf::Text playOption;
-    playOption.setFont(font);
-    playOption.setString("Play");
-    centerOrigin(playOption);
-    playOption.setPosition(context.window->getView().getSize() / 2.f);
-    mOptions.push_back(playOption);
+    auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	playButton->setPosition(800, 400);
+	playButton->setText("Play", 40);
+	playButton->setCallback([this] ()
+	{
+        gameLevel.restart();
+		requestStackPop();
+		requestStackPush(States::Character);
+	});
+    auto loadButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	loadButton->setPosition(800, 500);
+	loadButton->setText("Load Game", 40);
+	loadButton->setCallback([this] ()
+	{
+        gameLevel.load();
+		requestStackPop();
+        requestStackPush(States::CountDown);
+	});
+    auto scoreButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    scoreButton->setPosition(800, 600);
+    scoreButton->setText("High Score", 40);
+    scoreButton->setCallback([this]()
+    {
+        requestStackPop();
+        requestStackPush(States::Score);
+    });
+    auto settingButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    settingButton->setPosition(800, 700);
+    settingButton->setText("Setting", 40);
+    settingButton->setCallback([this]()
+    {
+        requestStackPop();
+        requestStackPush(States::Setting);
+    });
 
-    sf::Text exitOption;
-    exitOption.setFont(font);
-    exitOption.setString("Exit");
-    centerOrigin(exitOption);
-    exitOption.setPosition(playOption.getPosition() + sf::Vector2f(0.f, 30.f));
-    mOptions.push_back(exitOption);
+    auto creditButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    creditButton->setPosition(800, 800);
+    creditButton->setText("Credit", 40);
+    creditButton->setCallback([this]()
+    {
+        requestStackPop();
+        requestStackPush(States::Credit);
+    });
 
-    updateOptionText();
+    auto exitButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    exitButton->setPosition(800, 900);
+    exitButton->setText("Exit", 40);
+    exitButton->setCallback([this]()
+    {
+        requestStackPop();
+        requestStackPush(States::Exit);
+    });
+
+    mGUIContainer.pack(playButton);
+    mGUIContainer.pack(loadButton);
+    mGUIContainer.pack(scoreButton);
+    mGUIContainer.pack(settingButton);
+    mGUIContainer.pack(creditButton);
+    mGUIContainer.pack(exitButton);
+
+    context.music->play(Music::MenuTheme);
 }
 
 void MenuState::draw() {
@@ -35,56 +118,17 @@ void MenuState::draw() {
 
     window.setView(window.getDefaultView());
     window.draw(mBackgroundSprite);
-
-    FOREACH(const sf::Text& text, mOptions)
-        window.draw(text);
+    window.draw(clouds);
+    window.draw(mGUIContainer);
 }
 
-bool MenuState::update(sf::Time) {
+bool MenuState::update(sf::Time dt) {
+    clouds.update(dt);
+    clouds.outOfScreen();
     return true;
 }
 
 bool MenuState::handleEvent(const sf::Event& event) {
-    // The demonstration menu logic
-    if (event.type != sf::Event::KeyPressed)
-        return false;
-
-    if (event.key.code == sf::Keyboard::Return) {
-        if (mOptionIndex == Play) {
-            requestStackPop();
-            requestStackPush(States::Game);
-        } else if (mOptionIndex == Exit) {
-            requestStackPop();
-        }
-    } else if (event.key.code == sf::Keyboard::Up) {
-        // Decrement and wrap-around
-        if (mOptionIndex > 0)
-            mOptionIndex--;
-        else
-            mOptionIndex = mOptions.size() - 1;
-
-        updateOptionText();
-    } else if (event.key.code == sf::Keyboard::Down) {
-        // Increment and wrap-around
-        if (mOptionIndex < mOptions.size() - 1)
-            mOptionIndex++;
-        else
-            mOptionIndex = 0;
-
-        updateOptionText();
-    }
-
+    mGUIContainer.handleEvent(event);
     return true;
-}
-
-void MenuState::updateOptionText() {
-    if (mOptions.empty())
-        return;
-
-    // White all texts
-    FOREACH(sf::Text& text, mOptions)
-        text.setColor(sf::Color::White);
-
-    // Red the selected text
-    mOptions[mOptionIndex].setColor(sf::Color::Red);
 }

@@ -10,7 +10,16 @@ namespace States
         Menu,
         Game,
         Loading,
-        Pause
+        Pause,
+        Exit,
+        Score,
+        Setting,
+        Character,
+        Map,
+        Credit,
+        GameOver,
+        CountDown,
+        Saving,
     };
 }
 

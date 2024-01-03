@@ -16,8 +16,15 @@ public:
         MoveRight,
         MoveUp,
         MoveDown,
-        ActionCount
+        Sound,
+        ActionCount,
     };
+
+    enum MissionStatus {
+        MissionRunning,
+        MissionSuccess,
+		MissionFailure
+	};
 
     Player();
 
@@ -27,12 +34,16 @@ public:
     void assignKey(Action action, sf::Keyboard::Key key);
     sf::Keyboard::Key getAssignedKey(Action action) const;
 
+    void setMissionStatus(MissionStatus status);
+	MissionStatus getMissionStatus() const;
+
 private:
     void initializeActions();
     static bool isRealtimeAction(Action action);
 private:
     std::map<sf::Keyboard::Key, Action> mKeyBinding;
     std::map<Action, Command> mActionBinding;
+    MissionStatus mCurrentMissionStatus;
 };
 
 #endif // PLAYER_HPP

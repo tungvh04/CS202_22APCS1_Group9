@@ -8,16 +8,12 @@
 #include <fstream>
 #include <iostream>
 
-World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getDefaultView()), mTextures(), mSceneGraph(), mSceneLayers(), mWorldBounds(0.f, 0.f, /*mWorldView.getSize().x*/ 200000.f, 200000.f), mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f), mScrollSpeed(-50.f), mPlayerCharacter(nullptr) {
+#include <GameLevel.hpp>
+
+World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getDefaultView()), mTextures(), mSceneGraph(), mSceneLayers(), mWorldBounds(0.f, 0.f, /*mWorldView.getSize().x*/ 200000.f, 200000.f), mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f), mScrollSpeed(Constants::scrollSpeed), mPlayerCharacter(nullptr) {
     loadTextures();
     buildScene();
 
-    tileManager.init();
-    tileManager.load();
-    tileManager.setCentre(mSpawnPosition);
-    tileManager.shiftY(Constants::initialShift);
-    tileManager.buildTillFull();
-    stateController.setOrigin(mSpawnPosition);
     // Prepare the view
     mWorldView.setCenter(mSpawnPosition);
 }
@@ -30,7 +26,7 @@ void World::update(sf::Time dt) {
     //sf::Vector2i currentPos=stateController.getIndex(mPlayerCharacter->getPosition());
     //std::cout<<currentPos.x<<' '<<currentPos.y<<'\n';
 
-    mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
+    if (!mPlayerCharacter->isDestroyed()) mWorldView.move(0.f, mScrollSpeed * dt.asSeconds() * gameLevel.getSpeedMultiplier());
     mPlayerCharacter->setVelocity(0.f, 0.f);
 
     // Forward commands to scene graph, adapt velocity (scrolling, diagonal correction)
@@ -39,19 +35,22 @@ void World::update(sf::Time dt) {
     }
     adaptPlayerVelocity();
 
+    handleCollisions();
+
     // Regular update step, adapt position (correct if outside view)
     mSceneGraph.update(dt);
     adaptPlayerPosition();
 
-    //Update Background depend on player position
-    tileManager.update(mPlayerCharacter->getPosition());
+    // Update level
+    gameLevel.incrementScore(dt.asSeconds() * Constants::ScorePerSecond);
 
-    //std::cout<<mPlayerCharacter->getPosition().x<<" "<<mPlayerCharacter->getPosition().y<<" "<<'\n';
 }
 
-void World::draw() {
+void World::draw() { 
     mWindow.setView(mWorldView);
-    tileManager.draw(mWindow);
+    // tileManager.draw(mWindow);
+    // mWindow.draw(tileManager);
+    // mWindow.draw(mTileManager);
     mWindow.draw(mSceneGraph);
 }
 
@@ -59,11 +58,32 @@ CommandQueue& World::getCommandQueue() {
     return mCommandQueue;
 }
 
+bool World::hasAlivePlayer() const
+{
+	return !mPlayerCharacter->isMarkedForRemoval();
+}
+
+bool World::hasPlayerReachedEnd() const
+{
+	return !mWorldBounds.contains(mPlayerCharacter->getPosition());
+}
+
 void World::loadTextures() {
     mTextures.load(Textures::Player, "Media/Textures/Eagle.png");
-    //mTextures.load(Textures::Player, "Media/Textures/Tile/Tile"+toString(0)+".png");
     mTextures.load(Textures::Background, "Media/Textures/Desert.png");
-    
+    mTextures.load(Textures::Grass, "Media/Textures/Tile/Tile1.png");
+    mTextures.load(Textures::Sand, "Media/Textures/Tile/Tile2.png");
+    mTextures.load(Textures::Ice, "Media/Textures/Vehicle/Raft.png");
+    mTextures.load(Textures::Car, "Media/Textures/Vehicle/Truck.png");
+    mTextures.load(Textures::Road, "Media/Textures/Tile/Tile4.png");
+    mTextures.load(Textures::Rail, "Media/Textures/Tile/Rail.png");
+    mTextures.load(Textures::Train, "Media/Textures/Vehicle/Train.png");
+    mTextures.load(Textures::Island, "Media/Textures/Tile/Tile5.png");
+    mTextures.load(Textures::Stone, "Media/Textures/Vehicle/Stone.png");
+    mTextures.load(Textures::TrafficLightGreen, "Media/Textures/TrafficLightGreen.png");
+    mTextures.load(Textures::TrafficLightRed, "Media/Textures/TrafficLightRed.png");
+    mTextures.load(Textures::TrafficLightYellow, "Media/Textures/TrafficLightYellow.png");
+    mTextures.load(Textures::Death, "Media/Textures/death.png");
 }
 
 void World::buildScene() {
@@ -90,40 +110,27 @@ void World::buildScene() {
 
     // Grid making
 
+    // sf::Vector2f gridspawn = mSpawnPosition;
+    // gridspawn.y += Constants::initialShift * Constants::GridSize;
+    // SceneNode::Ptr grid(new TileManager(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures));
+    // mSceneLayers[Background]->attachChild(std::move(grid));
+
+
+    sf::Vector2f gridspawn = mSpawnPosition;
+    gridspawn.y += Constants::initialShift * Constants::GridSize;
+    // SceneNode::Ptr grid(GameObject(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures));
+    SceneNode::Ptr grid(new GameObject(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures));
+    mSceneLayers[Background]->attachChild(std::move(grid));
     
     mOriginGrid = mSpawnPosition;
-
-    //Making top left of grid origin
-    //mOriginGrid.x-=Constants::GridSize*0.5f;
-    //mOriginGrid.y-=Constants::GridSize*0.5f;
-
-    //mOriginGrid.y-=Constants::GridSize*((Constants::TilesRenderedHeight+1)/2);
-    //mOriginGrid.x-=Constants::GridSize*((Constants::TilesRenderedWide+1)/2);
-
-    /*
-    std::cout<<tileCnt<<'\n';
-    
-    for (int i=1;i<=Constants::TilesRenderedHeight;i++) {
-        //Prepare grid
-        int tmp=rand()%tileCnt;
-        sf::Texture& texture = mTiles[tmp]->get(Textures::Background);
-        //sf::IntRect textureRect(mOriginGrid.x,mOriginGrid.y,mOriginGrid.x+Constants::GridSize*(Constants::TilesRenderedWide),mOriginGrid.y+Constants::GridSize);
-        sf::IntRect textureRect(mOriginGrid.x,mOriginGrid.y,mOriginGrid.x+Constants::GridSize,mOriginGrid.y+Constants::GridSize);
-        //texture.setRepeated(true);
-        
-        std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
-        backgroundSprite->setPosition(textureRect.left, textureRect.top);
-        mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
-
-        mOriginGrid.y+=Constants::GridSize;
-    }
-    */
     // Add player's character
 
     std::unique_ptr<Character> player(new Character(Character::Player, mTextures));
     mPlayerCharacter = player.get();
     mPlayerCharacter->setPosition(mSpawnPosition);
     mSceneLayers[Air]->attachChild(std::move(player));
+
+    mPlayerCharacter->setWorldSceneGraph(&mSceneGraph);
 }
 
 void World::adaptPlayerPosition() {
@@ -151,4 +158,58 @@ void World::adaptPlayerVelocity() {
 
     // Add scrolling velocity
     // mPlayerCharacter->accelerate(0.f, mScrollSpeed);
+}
+
+bool matchesCategories(SceneNode* node, Category::Type type) {
+    return (node->getCategory() & type) != 0;
+}
+
+void World::handleCollisions() {
+    std::set<SceneNode*> playerCollidingNodes;
+    mSceneGraph.checkNodeCollision(mPlayerCharacter->getBoundingRect(), playerCollidingNodes);
+    // mTileManager.checkNodeCollision(mPlayerCharacter->getBoundingRect(), playerCollidingNodes);
+    // std::cout << "Player bounding rect: " << mPlayerCharacter->getBoundingRect().left << ' ' << mPlayerCharacter->getBoundingRect().top << ' ' << mPlayerCharacter->getBoundingRect().width << ' ' << mPlayerCharacter->getBoundingRect().height << '\n';
+    // std::cout << "Number of colliding nodes: " << playerCollidingNodes.size() << '\n';
+    for (auto node : playerCollidingNodes) {
+        if (matchesCategories(node, Category::Obstacle)) {
+            // std::cout << "Colliding with obstacle\n";
+            Command command;
+            command.category = Category::PlayerCharacter;
+            command.action = derivedAction<Character>([](Character& c, sf::Time) { c.destroy(); });
+            mCommandQueue.push(command);
+        }
+        if (matchesCategories(node, Category::Ice)) {
+            // setWater()
+        }
+        if (matchesCategories(node, Category::Island)) {
+            // setIsland()
+        }
+        // if (matchesCategories(node, Category::Car)) {
+            // std::cout << "Colliding with car\n";
+        // }
+        // if (matchesCategories(node, Category::Grass)) {
+            // std::cout << "Colliding with grass\n";
+        // }
+        // else if (matchesCategories(node, Category::Ice)) {
+            // std::cout << "Colliding with ice\n";
+        // }
+        // else if (matchesCategories(node, Category::Sand)) {
+            // std::cout << "Colliding with sand\n";
+        // }
+    }
+}
+sf::FloatRect World::getViewBounds() const
+{
+	return sf::FloatRect(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
+}
+sf::FloatRect World::getBattlefieldBounds() const
+{
+	// Return view bounds + some area at top, where enemies spawn
+	sf::FloatRect bounds = getViewBounds();
+	bounds.top -= Constants::battlefieldBoundsHeightOffset;
+	bounds.height += Constants::battlefieldBoundsHeightOffset*2;
+    bounds.left -= Constants::battlefieldBoundsWidthOffset;
+	bounds.width += Constants::battlefieldBoundsWidthOffset*2;
+
+	return bounds;
 }
