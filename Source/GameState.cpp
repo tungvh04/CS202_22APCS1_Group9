@@ -1,6 +1,6 @@
 #include <GameState.hpp>
-
 #include <GameLevel.hpp>
+#include <MusicPlayer.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -12,6 +12,7 @@ GameState::GameState(StateStack& stack, Context context) : State(stack, context)
     mLevelText.setPosition(5.f, 20.f);
     mLevelText.setCharacterSize(50);
     // mLevelText.setString("Level: " + std::to_string(gameLevel.getLevel()));
+    context.music->play(Music::MissionTheme);
 }
 
 void GameState::draw() {

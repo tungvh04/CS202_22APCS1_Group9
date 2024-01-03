@@ -53,9 +53,11 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/GameLevel.cpp
                                 Source/CountDownState.cpp
                                 Source/SavingState.cpp
+                                Source/MusicPlayer.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics)
+target_link_libraries(${PROJECT_NAME} PRIVATE sfml-audio)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 include_directories(Media)
 include_directories(Include)
