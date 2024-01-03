@@ -27,6 +27,7 @@ private:
     sf::Text mCountdownText;
     sf::Time mCountdownTime;
     sf::Time mElapsedTime;
+    sf::Sprite mBackground;
 };
 
 #endif // COUNTDOWNSTATE_HPP

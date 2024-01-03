@@ -15,6 +15,7 @@ namespace Textures {
         Title,
         HighScore,
         Character,
+        Countdown,
         Map,
         Credit,
         Button,
