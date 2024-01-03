@@ -19,18 +19,18 @@ SoundPlayer::SoundPlayer()
 : mSoundBuffers()
 , mSounds()
 {
-	mSoundBuffers.load(SoundEffect::Button,	"Media/Sound/Button.mp3");
+	mSoundBuffers.load(SoundEffects::Button,	"Media/Sound/Button.mp3");
 
 	// Listener points towards the screen (default in SFML)
 	sf::Listener::setDirection(0.f, 0.f, -1.f);
 }
 
-void SoundPlayer::play(SoundEffect::ID effect)
+void SoundPlayer::play(SoundEffects::ID effect)
 {
 	play(effect, getListenerPosition());
 }
 
-void SoundPlayer::play(SoundEffect::ID effect, sf::Vector2f position)
+void SoundPlayer::play(SoundEffects::ID effect, sf::Vector2f position)
 {
 	mSounds.push_back(sf::Sound());
 	sf::Sound& sound = mSounds.back();

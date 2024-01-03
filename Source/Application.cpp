@@ -21,7 +21,7 @@
 #include <GameLevel.hpp>
 const sf::Time Application::TimePerFrame = sf::seconds(1.f/60.f);
 
-Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Constants::WindowHeight), "States", sf::Style::Close), mTextures(), mFonts(), mPlayer(), mMusic(), mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic)), mStatisticsText(), mStatisticsUpdateTime(), mStatisticsNumFrames(0) {
+Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Constants::WindowHeight), "States", sf::Style::Close), mTextures(), mFonts(), mPlayer(), mMusic(), mSounds(), mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic, mSounds)), mStatisticsText(), mStatisticsUpdateTime(), mStatisticsNumFrames(0) {
     mWindow.setKeyRepeatEnabled(false);
 
     mFonts.load(Fonts::Main, "Media/Fonts/Sansation.ttf");

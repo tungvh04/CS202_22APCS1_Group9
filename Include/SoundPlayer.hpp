@@ -17,8 +17,8 @@ class SoundPlayer : private sf::NonCopyable
 	public:
 		SoundPlayer();
 
-		void play(SoundEffect::ID effect);
-		void play(SoundEffect::ID effect, sf::Vector2f position);
+		void play(SoundEffects::ID effect);
+		void play(SoundEffects::ID effect, sf::Vector2f position);
 
 		void removeStoppedSounds();
 		void setListenerPosition(sf::Vector2f position);

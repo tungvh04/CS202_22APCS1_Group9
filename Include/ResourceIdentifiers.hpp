@@ -4,6 +4,7 @@
 namespace sf {
     class Texture;
     class Font;
+    class SoundBuffer;
 }
 
 namespace Textures {
@@ -99,5 +100,6 @@ class ResourceHolder;
 
 typedef ResourceHolder<sf::Texture, Textures::ID> TextureHolder;
 typedef ResourceHolder<sf::Font, Fonts::ID> FontHolder;
+typedef ResourceHolder<sf::SoundBuffer, SoundEffects::ID> SoundBufferHolder;
 
 #endif // RESOURCEIDENTIFIERS_HPP
