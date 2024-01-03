@@ -69,6 +69,7 @@ bool World::hasPlayerReachedEnd() const
 }
 
 void World::loadTextures() {
+    
     mTextures.load(Textures::Player, "Media/Textures/Eagle.png");
     mTextures.load(Textures::Background, "Media/Textures/Desert.png");
     mTextures.load(Textures::Grass, "Media/Textures/Tile/Tile1.png");
@@ -84,6 +85,7 @@ void World::loadTextures() {
     mTextures.load(Textures::TrafficLightRed, "Media/Textures/TrafficLightRed.png");
     mTextures.load(Textures::TrafficLightYellow, "Media/Textures/TrafficLightYellow.png");
     mTextures.load(Textures::Death, "Media/Textures/death.png");
+    mTextures.load(Textures::UpPlayer, "Media/Textures/moveUp.png");
 }
 
 void World::buildScene() {

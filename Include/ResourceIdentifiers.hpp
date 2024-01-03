@@ -44,7 +44,10 @@ namespace Textures {
         TrafficLightYellow,
         Death,
         Water,
-        Raft
+        Raft,
+        UpPlayer,
+        LeftPlayer,
+        RightPlayer,
     };
 }
 namespace SoundEffects {
