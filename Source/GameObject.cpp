@@ -8,7 +8,14 @@ const std::vector<std::vector<Tile::Type>> RowObject::initilizeTileTypes() {
     std::vector<Tile::Type> ice = {Tile::Ice};
     std::vector<Tile::Type> road = {Tile::Road};
     std::vector<Tile::Type> rail = {Tile::Rail};
-    std::vector<std::vector<Tile::Type>> tileTypes = {grass, sand, ice, road, rail};
+    std::vector<Tile::Type> grass2 = {Tile::Grass};
+    std::vector<Tile::Type> sand2 = {Tile::Sand};
+    std::vector<Tile::Type> sand3 = {Tile::Sand};
+    std::vector<Tile::Type> grass3 = {Tile::Grass};
+    std::vector<Tile::Type> grass4 = {Tile::Grass};
+    std::vector<Tile::Type> road2 = {Tile::Road};
+    std::vector<Tile::Type> rail2 = {Tile::Rail};
+    std::vector<std::vector<Tile::Type>> tileTypes = {grass, sand, ice, road, rail, grass2, sand2, sand3, grass3, grass4, road2, rail2};
     // return {grass, road, ice};
     return tileTypes;
 }
@@ -16,10 +23,17 @@ const std::vector<std::vector<Tile::Type>> RowObject::initilizeTileTypes() {
 const std::vector<std::vector<Obstacle::Type>> RowObject::initilizeObstacleTypes() {
     std::vector<Obstacle::Type> road = {Obstacle::Car, Obstacle::Car1};
     std::vector<Obstacle::Type> rail = {Obstacle::Train, Obstacle::Train1};
-    std::vector<Obstacle::Type> sand = {Obstacle::Car};
+    std::vector<Obstacle::Type> sand = {};
     std::vector<Obstacle::Type> grass = {Obstacle::Stone};
     std::vector<Obstacle::Type> ice = {Obstacle::Island};
-    std::vector<std::vector<Obstacle::Type>> obstacleTypes = {grass, sand, ice, road, rail};
+    std::vector<Obstacle::Type> grass2 = {Obstacle::Stone};
+    std::vector<Obstacle::Type> sand2 = {};
+    std::vector<Obstacle::Type> sand3 = {};
+    std::vector<Obstacle::Type> grass3 = {};
+    std::vector<Obstacle::Type> grass4 = {};
+    std::vector<Obstacle::Type> road2 = {Obstacle::Car, Obstacle::Car1};
+    std::vector<Obstacle::Type> rail2 = {Obstacle::Train, Obstacle::Train1};
+    std::vector<std::vector<Obstacle::Type>> obstacleTypes = {grass, sand, ice, road, rail, grass2, sand2, sand3, grass3, grass4, road2, rail2};
     // return {none, road, none};
     return obstacleTypes;
 }
@@ -66,6 +80,10 @@ void GameObject::updateCurrent(sf::Time dt) {
     sf::FloatRect battlefieldBounds = getBattlefieldBounds();
     while (mSpawnOrigin.y > battlefieldBounds.top) {
         int rowType = rand() % RowObject::TypeCount;
+        while (rowType==last) {
+            rowType = rand() % RowObject::TypeCount;
+        }
+        last=rowType;
         SceneNode::Ptr tileRow(new TileRow(mTileTypes[rowType], getBattlefieldBounds, mTextures));
         // SceneNode::Ptr obstacleRow(new ObstacleRow(sf::Vector2f(200, 0), mObstacleTypes[rowType], getBattlefieldBounds, mTextures));
         SceneNode::Ptr obstacleRow(new ObstacleRow(mObstacleTypes[rowType], getBattlefieldBounds, mTextures));

@@ -14,6 +14,13 @@ namespace RowObject {
         Ice,
         Road,
         Rail,
+        Grass2,
+        Sand2,
+        Sand3,
+        Grass3,
+        Grass4,
+        Road2,
+        Rail2,
         TypeCount,
     };
 
@@ -25,6 +32,8 @@ public:
     virtual void updateCurrent(sf::Time dt);
     void setSpawnOrigin(sf::Vector2f spawnOrigin);
 private:
+    int last = -1;
+
     void initialGenerate();
     sf::Vector2f mSpawnOrigin;
     std::function<sf::FloatRect()> getBattlefieldBounds;
