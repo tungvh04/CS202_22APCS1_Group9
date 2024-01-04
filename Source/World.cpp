@@ -62,6 +62,13 @@ void World::draw() {
         mWindow.setView(mWindow.getDefaultView());
         mWindow.draw(overlay);
     }
+    if (mPlayerCharacter->isBurning()) {
+        sf::Sprite overlay(mTextures.get(Textures::ID::Burning));
+        overlay.setPosition(0,0);
+        overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
+        mWindow.setView(mWindow.getDefaultView());
+        mWindow.draw(overlay);
+    }
     //mWindow.setView();
 
 }
@@ -122,7 +129,7 @@ void World::loadTextures() {
     mTextures.load(Textures::SlowDown, "Media/Textures/SlowDown.png");
     mTextures.load(Textures::Freezing, "Media/Textures/freezeScreenOverlay.png");
     mTextures.load(Textures::IceCream, "Media/Textures/IceCream.png");
-    
+    mTextures.load(Textures::Burning, "Media/Textures/Burning.png");
 }
 
 void World::buildScene() {

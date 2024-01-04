@@ -303,6 +303,10 @@ bool Character::isFreezing() {
     return getTemperature()<Constants::freezeLimit;
 }
 
+bool Character::isBurning() {
+    return getTemperature()>Constants::burningLimit;
+}
+
 float Character::getTemperature() {
     return temperature;
 }
