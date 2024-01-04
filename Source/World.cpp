@@ -149,6 +149,14 @@ void World::buildScene() {
 }
 
 void World::adaptPlayerPosition() {
+    if (!mPlayerCharacter->getBoundingRect().intersects(getViewBounds())) {
+        Command command;
+        command.category = Category::PlayerCharacter;
+        command.action = derivedAction<Character>([](Character& c, sf::Time) { c.destroy(); });
+        CommandQueue& commands = getCommandQueue();
+        commands.push(command);
+        return;
+    }
     return;
     // Keep player's position inside the screen bounds, at least borderDistance units from the border
     sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
