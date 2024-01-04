@@ -43,8 +43,7 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     settingButton->setText("Setting", 30);
     settingButton->setCallback([this]()
     {
-        // requestStackPop();
-        // Save later
+        gameLevel.save();
         requestStateClear();
         requestStackPush(States::Menu);
         requestStackPush(States::Setting);
@@ -54,6 +53,7 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     saveAndquitButton->setText("Save and Quit", 30);
     saveAndquitButton->setCallback([this]()
     {
+        gameLevel.save();
         requestStackPop();
         requestStackPush(States::Saving);
     });

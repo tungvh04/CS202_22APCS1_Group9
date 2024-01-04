@@ -65,7 +65,10 @@ namespace Textures {
         BlueFrogDeath,
         GreenFrogDeath,
         YellowFrogDeath,
-        PinkFrogDeath
+        PinkFrogDeath,
+        SlowDown,
+        SpeedUp,
+        Freezing,
     };
 }
 namespace SoundEffects {

@@ -5,7 +5,7 @@
 #include <SFML/System/Time.hpp>
 
 namespace Constants {
-    constexpr static float playerSpeed = 500.f;
+    constexpr static float playerSpeed = 600.f;
     constexpr static float GridSize = 80.f;
     constexpr static float scrollSpeed = -100.f;
     constexpr static float BorderDistance = 40.f;
@@ -39,6 +39,11 @@ namespace Constants {
     const std::string savePath = "Media/save.txt";
 
     constexpr static float ScorePerSecond = 10.f;
+
+    constexpr static float TemperatureSlope = 40000.f;
+
+    constexpr static float freezeLimit = 0.f;
+    constexpr static float defaultTemperatureSpring = 24.f;
 }
 
 #endif // CONSTANTS_HPP

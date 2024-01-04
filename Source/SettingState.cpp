@@ -93,16 +93,25 @@ bool SettingState::handleEvent(const sf::Event& event)
         isSettingSound = true;
         mVolume.setPosition(500 + 76.8*volume - 23, 550);
         mVolume.setString(toString(10*volume) + "%");
+        MusicPlayer& myMusic = *getContext().music;
         if (event.type == sf::Event::KeyPressed){
             if (event.key.code == sf::Keyboard::Right)
             {
-                if (volume < 10) volume++;
-                //Change sound of system...
+                if (volume < 10)
+                {
+                    volume++;
+                    float newVol = myMusic.getVolume() + 4.f;
+                    myMusic.setVolume(newVol);
+                }
             }
             else if (event.key.code == sf::Keyboard::Left)
             {
-                if (volume >= 1) volume--;
-                //Change sound of system...
+                if (volume >= 1)
+                {
+                    volume--;
+                    float newVol = myMusic.getVolume() - 4.f;
+                    myMusic.setVolume(newVol);
+                }
             }
             else if (event.key.code == sf::Keyboard::Return){
                 mBindingButtons[Player::Sound]->deactivate();

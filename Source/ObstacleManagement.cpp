@@ -24,6 +24,10 @@ Textures::ID toTextureID(Obstacle::Type type) {
             return Textures::TrafficLightRed;
         case Obstacle::TrafficLightYellow:
             return Textures::TrafficLightYellow;
+        case Obstacle::SlowDown:
+            return Textures::SlowDown;
+        case Obstacle::SpeedUp:
+            return Textures::SpeedUp;
         default:
             throw std::runtime_error("Invalid obstacle type");
     }
@@ -49,6 +53,10 @@ unsigned int Obstacle::getCategory() const {
             return Category::TrafficLightRed;
         case TrafficLightYellow:
             return Category::TrafficLightYellow;
+        case SlowDown:
+            return Category::SlowDown;
+        case SpeedUp:
+            return Category::SpeedUp;
         default:
             throw std::runtime_error("Invalid obstacle type");
     }
@@ -188,8 +196,8 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
     if (mTimeToWait <= sf::Time::Zero) {
         if (!hasSpawned) {
             hasSpawned=true;
-            //Red light spawn here
-            SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightRed, *mTextures, getBattlefieldBounds));
+            //Green light spawn here
+            SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightGreen, *mTextures, getBattlefieldBounds));
             float lightLeftBound = getBattlefieldBounds().left + Constants::lightOffset - getPosition().x ;
             float lightRightBound = getBattlefieldBounds().left + getBattlefieldBounds().width - Constants::lightOffset - getPosition().x ;
             if (getVelocity().x > 0) {
@@ -242,7 +250,7 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
                 randomTimeGroup = randomTime;
                 mTimeToWait = ObstacleDataTables::data[mType].groupDelayTime;
                 //Spawn green light here
-                SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightGreen, *mTextures, getBattlefieldBounds));
+                SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightRed, *mTextures, getBattlefieldBounds));
                 float lightLeftBound = getBattlefieldBounds().left - getPosition().x + Constants::lightOffset;
                 float lightRightBound = getBattlefieldBounds().left + getBattlefieldBounds().width - Constants::lightOffset - getPosition().x ;
                 if (getVelocity().x > 0) {

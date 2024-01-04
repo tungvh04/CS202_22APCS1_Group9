@@ -176,7 +176,7 @@ void Character::updateCurrent(sf::Time dt) {
             mMoving.restart();
             return;
         }
-        sf::Vector2f movement = mMovement * dt.asSeconds();
+        sf::Vector2f movement = mMovement * dt.asSeconds() * speedMult;
         if (mDistanceTravelled + abs(movement.x) > mStep) {
             mDistanceTravelled = 0.f;
             mIsMoving = false;
@@ -204,6 +204,7 @@ void Character::updateCurrent(sf::Time dt) {
             move(movement);
         }
     }
+    updateTemperature(dt);
 }
 sf::FloatRect Character::getBoundingRect() const
 {
@@ -284,4 +285,40 @@ void Character::clearState() {
     onIsland=false;
 }
 void Character::updateRollAnimation(){
+}
+
+void Character::setSpeedMult(float x) {
+    speedMult=x;
+}
+
+void Character::setFreezing() {
+    isCold=true;
+}
+
+void Character::notFreezing() {
+    isCold=false;
+}
+
+bool Character::isFreezing() {
+    return getTemperature()<Constants::freezeLimit;
+}
+
+float Character::getTemperature() {
+    return temperature;
+}
+
+void Character::shiftTemperature(float offset) {
+    temperature+=offset;
+}
+
+void Character::setTemperature(float value) {
+    temperature=value;
+}
+
+void Character::setDefaultTemperature(float value) {
+    defaultTemperature=value;
+}
+
+void Character::updateTemperature(sf::Time dt) {
+    temperature-=(temperature-defaultTemperature)*(dt.asMilliseconds()/(dt.asMilliseconds()+Constants::TemperatureSlope));
 }
