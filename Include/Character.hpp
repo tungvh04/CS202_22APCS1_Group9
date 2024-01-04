@@ -50,6 +50,7 @@ public:
     float getTemperature();
     void shiftTemperature(float offset);
     void setTemperature(float value);
+    void setDefaultTemperature(float value);
     void updateTemperature(sf::Time dt);
 
 private:

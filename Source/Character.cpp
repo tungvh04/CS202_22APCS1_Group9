@@ -123,6 +123,7 @@ void Character::updateCurrent(sf::Time dt) {
             move(movement);
         }
     }
+    updateTemperature(dt);
 }
 sf::FloatRect Character::getBoundingRect() const
 {
@@ -233,6 +234,10 @@ void Character::setTemperature(float value) {
     temperature=value;
 }
 
+void Character::setDefaultTemperature(float value) {
+    defaultTemperature=value;
+}
+
 void Character::updateTemperature(sf::Time dt) {
-    temperature+=(temperature-defaultTemperature)*(dt.asMilliseconds()/(dt.asMilliseconds()+Constants::TemperatureSlope));
+    temperature-=(temperature-defaultTemperature)*(dt.asMilliseconds()/(dt.asMilliseconds()+Constants::TemperatureSlope));
 }

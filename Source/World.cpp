@@ -142,6 +142,7 @@ void World::buildScene() {
     std::unique_ptr<Character> player(new Character(Character::Player, mTextures));
     mPlayerCharacter = player.get();
     mPlayerCharacter->setPosition(mSpawnPosition);
+    mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureSpring);
     mSceneLayers[Air]->attachChild(std::move(player));
 
     mPlayerCharacter->setWorldSceneGraph(&mSceneGraph);
