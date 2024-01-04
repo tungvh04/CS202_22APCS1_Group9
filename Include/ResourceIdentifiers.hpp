@@ -113,7 +113,8 @@ namespace Music
 	{
 		MenuTheme,
 		MissionTheme,
-        GameOverTheme
+        GameOverTheme,
+        CountDownTheme
 	};
 }
 // Forward declaration and a few type definitions
