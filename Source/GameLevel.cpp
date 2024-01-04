@@ -28,7 +28,7 @@ void GameLevel::save() {
 }
 
 int GameLevel::getLevel() const {
-    int level = mScore / 1000;
+    int level = mScore / 100;
     return level <= 1 ? 1 : level;
 }
 
