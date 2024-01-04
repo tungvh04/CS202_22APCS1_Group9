@@ -19,6 +19,8 @@ World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getD
 }
 
 void World::update(sf::Time dt) {
+    std::cout<<"Player temperature: "<<mPlayerCharacter->getTemperature()<<'\n';
+    mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureSpring);
 
     //std::cout<<mPlayerCharacter->getPosition().x<<' '<<mPlayerCharacter->getPosition().y<<'\n';
     // Scroll the world, reset player velocity
@@ -56,6 +58,7 @@ void World::draw() {
     if (mPlayerCharacter->isFreezing()) {
         sf::Sprite overlay(mTextures.get(Textures::ID::Freezing));
         overlay.setPosition(0,0);
+        overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
         mWindow.setView(mWindow.getDefaultView());
         mWindow.draw(overlay);
     }
@@ -118,6 +121,8 @@ void World::loadTextures() {
     mTextures.load(Textures::SpeedUp, "Media/Textures/SpeedUp.png");
     mTextures.load(Textures::SlowDown, "Media/Textures/SlowDown.png");
     mTextures.load(Textures::Freezing, "Media/Textures/freezeScreenOverlay.png");
+    mTextures.load(Textures::IceCream, "Media/Textures/IceCream.png");
+    
 }
 
 void World::buildScene() {
@@ -155,16 +160,15 @@ void World::buildScene() {
     // SceneNode::Ptr grid(GameObject(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures));
     SceneNode::Ptr grid(new GameObject(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures));
     mSceneLayers[Background]->attachChild(std::move(grid));
-    
     mOriginGrid = mSpawnPosition;
     // Add player's character
 
     std::unique_ptr<Character> player(new Character(Character::Player, mTextures));
     mPlayerCharacter = player.get();
     mPlayerCharacter->setPosition(mSpawnPosition);
-    mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureSpring);
     mSceneLayers[Air]->attachChild(std::move(player));
-
+    mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureSpring);
+    mPlayerCharacter->setTemperature(Constants::defaultTemperatureSpring);
     mPlayerCharacter->setWorldSceneGraph(&mSceneGraph);
 }
 
@@ -215,7 +219,7 @@ void World::handleCollisions() {
     // std::cout << "Number of colliding nodes: " << playerCollidingNodes.size() << '\n';
     for (auto node : playerCollidingNodes) {
         if (matchesCategories(node, Category::Obstacle)) {
-            std::cout << "Colliding with obstacle\n";
+            //std::cout << "Colliding with obstacle\n";
             Command command;
             command.category = Category::PlayerCharacter;
             command.action = derivedAction<Character>([](Character& c, sf::Time) { c.destroy(); });
