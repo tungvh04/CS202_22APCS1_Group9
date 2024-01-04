@@ -44,9 +44,9 @@ SettingState::SettingState(StateStack& stack, Context context)
 	backButton->setText("Back", 30);
 	backButton->setCallback([this]()
     {
-        // requestStackPop();
-		requestStateClear();
-        requestStackPush(States::Menu);
+        requestStackPop();
+		// requestStateClear();
+        // requestStackPush(States::Menu);
     });
 	mGUIContainer.pack(backButton);
 }
@@ -54,6 +54,7 @@ SettingState::SettingState(StateStack& stack, Context context)
 void SettingState::draw()
 {
 	sf::RenderWindow& window = *getContext().window;
+    window.setView(window.getDefaultView());
 
 	window.draw(mBackgroundSprite);
     if (isSettingSound == true){
@@ -68,7 +69,7 @@ void SettingState::draw()
 
 bool SettingState::update(sf::Time)
 {
-	return true;
+	return false;
 }
 
 bool SettingState::handleEvent(const sf::Event& event)
@@ -118,7 +119,7 @@ bool SettingState::handleEvent(const sf::Event& event)
                 mVolume.setString(toString(10*volume) + "%");
                 mVolume.setPosition(500.f, 615.f);
                 isSettingSound = false;
-                return true;
+                return false;
             }
             mVolume.setPosition(500 + 76.8*volume - 23, 550);
             mVolume.setString(toString(10*volume) + "%");

@@ -66,7 +66,7 @@ HighScoreState::HighScoreState(StateStack& stack, Context context)
 	backButton->setCallback([this]()
     {
         requestStackPop();
-        requestStackPush(States::Menu);
+        // requestStackPush(States::Menu);
     });
 	mGUIContainer.pack(scoreTop1);
 	mGUIContainer.pack(mapTop1);

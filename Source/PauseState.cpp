@@ -44,8 +44,8 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     settingButton->setCallback([this]()
     {
         gameLevel.save();
-        requestStateClear();
-        requestStackPush(States::Menu);
+        // requestStateClear();
+        // requestStackPush(States::Menu);
         requestStackPush(States::Setting);
     });
     auto saveAndquitButton = std::make_shared<GUI::Button>(context);
@@ -54,7 +54,8 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     saveAndquitButton->setCallback([this]()
     {
         gameLevel.save();
-        requestStackPop();
+        // requestStackPop();
+        requestStateClear();
         requestStackPush(States::Saving);
     });
     auto menuButton = std::make_shared<GUI::Button>(context);
