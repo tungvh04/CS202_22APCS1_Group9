@@ -194,6 +194,7 @@ void World::adaptPlayerPosition() {
     mPlayerCharacter->setPosition(position);
 }
 
+
 void World::adaptPlayerVelocity() {
     return;
     sf::Vector2f velocity = mPlayerCharacter->getVelocity();
