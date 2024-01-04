@@ -8,6 +8,7 @@ MusicPlayer::MusicPlayer()
 {
 	mFilenames[Music::MenuTheme]    = "Media/Music/MenuTheme.mp3";
 	mFilenames[Music::MissionTheme] = "Media/Music/MissionTheme.mp3";
+	mFilenames[Music::GameOverTheme] = "Media/Music/GameOverTheme.mp3";
 }
 
 void MusicPlayer::play(Music::ID theme)

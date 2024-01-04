@@ -95,6 +95,7 @@ namespace Music
 	{
 		MenuTheme,
 		MissionTheme,
+        GameOverTheme
 	};
 }
 // Forward declaration and a few type definitions
