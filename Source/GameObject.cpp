@@ -17,7 +17,8 @@ const std::vector<std::vector<Tile::Type>> RowObject::initilizeTileTypes() {
     std::vector<Tile::Type> rail2 = {Tile::Rail};
     std::vector<Tile::Type> grass5 = {Tile::Grass};
     std::vector<Tile::Type> grass6 = {Tile::Grass};
-    std::vector<std::vector<Tile::Type>> tileTypes = {grass, sand, ice, road, rail, grass2, sand2, sand3, grass3, grass4, road2, rail2, grass5, grass6};
+    std::vector<Tile::Type> grass7 = {Tile::Grass};
+    std::vector<std::vector<Tile::Type>> tileTypes = {grass, sand, ice, road, rail, grass2, sand2, sand3, grass3, grass4, road2, rail2, grass5, grass6, grass7};
     // return {grass, road, ice};
     return tileTypes;
 }
@@ -37,7 +38,8 @@ const std::vector<std::vector<Obstacle::Type>> RowObject::initilizeObstacleTypes
     std::vector<Obstacle::Type> rail2 = {Obstacle::Train, Obstacle::Train1};
     std::vector<Obstacle::Type> grass5 = {Obstacle::SlowDown};
     std::vector<Obstacle::Type> grass6 = {Obstacle::SpeedUp};
-    std::vector<std::vector<Obstacle::Type>> obstacleTypes = {grass, sand, ice, road, rail, grass2, sand2, sand3, grass3, grass4, road2, rail2, grass5, grass6};
+    std::vector<Obstacle::Type> grass7 = {Obstacle::IceCream};
+    std::vector<std::vector<Obstacle::Type>> obstacleTypes = {grass, sand, ice, road, rail, grass2, sand2, sand3, grass3, grass4, road2, rail2, grass5, grass6, grass7};
     // return {none, road, none};
     return obstacleTypes;
 }

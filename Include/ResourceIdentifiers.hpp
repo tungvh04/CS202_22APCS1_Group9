@@ -69,6 +69,7 @@ namespace Textures {
         SlowDown,
         SpeedUp,
         Freezing,
+        IceCream,
     };
 }
 namespace SoundEffects {

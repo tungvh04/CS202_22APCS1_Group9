@@ -23,6 +23,7 @@ namespace RowObject {
         Rail2,
         Grass5,
         Grass6,
+        Grass7,
         TypeCount,
     };
 

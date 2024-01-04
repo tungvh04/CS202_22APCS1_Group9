@@ -164,7 +164,7 @@ bool CharacterState::update(sf::Time dt){
     mBackgroundSpriteCharacter.getPosition().y + mBackgroundSpriteCharacter.getGlobalBounds().height / 2.0f - 200);
     
     typeCharacter = setTypeCha(currentType);
-    std::cout << currentType << '\n';
+
     return true;
 }
 //Function resize the texture

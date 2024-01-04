@@ -28,6 +28,8 @@ Textures::ID toTextureID(Obstacle::Type type) {
             return Textures::SlowDown;
         case Obstacle::SpeedUp:
             return Textures::SpeedUp;
+        case Obstacle::IceCream:
+            return Textures::IceCream;
         default:
             throw std::runtime_error("Invalid obstacle type");
     }
@@ -56,8 +58,9 @@ unsigned int Obstacle::getCategory() const {
         case SlowDown:
             return Category::SlowDown | Category::PickUp;
         case SpeedUp:
-            return Category::SpeedUp | Category::PickUp;
-        
+            return Category::SpeedUp | Category::PickUp | Category::Hot;
+        case IceCream:
+            return Category::Cold | Category::PickUp;
         default:
             throw std::runtime_error("Invalid obstacle type");
     }
