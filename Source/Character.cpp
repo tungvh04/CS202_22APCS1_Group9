@@ -216,3 +216,31 @@ void Character::setVelocity(float vx, float vy) {
 void Character::setSpeedMult(float x) {
     speedMult=x;
 }
+
+void Character::setFreezing() {
+    isCold=true;
+}
+
+void Character::notFreezing() {
+    isCold=false;
+}
+
+bool Character::isFreezing() {
+    return getTemperature()<Constants::freezeLimit;
+}
+
+float Character::getTemperature() {
+    return temperature;
+}
+
+void Character::shiftTemperature(float offset) {
+    temperature+=offset;
+}
+
+void Character::setTemperature(float value) {
+    temperature=value;
+}
+
+void Character::updateTemperature(sf::Time dt) {
+    temperature+=(temperature-defaultTemperature)*(dt.asMilliseconds()/(dt.asMilliseconds()+Constants::TemperatureSlope));
+}

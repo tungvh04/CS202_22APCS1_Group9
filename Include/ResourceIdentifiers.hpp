@@ -52,6 +52,7 @@ namespace Textures {
         RightPlayer,
         SlowDown,
         SpeedUp,
+        Freezing,
     };
 }
 namespace SoundEffects {

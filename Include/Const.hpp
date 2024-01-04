@@ -39,6 +39,10 @@ namespace Constants {
     const std::string savePath = "Media/save.txt";
 
     constexpr static float ScorePerSecond = 10.f;
+
+    constexpr static float TemperatureSlope = 40000.f;
+
+    constexpr static float freezeLimit = 0.f;
 }
 
 #endif // CONSTANTS_HPP

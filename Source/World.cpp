@@ -52,6 +52,15 @@ void World::draw() {
     // mWindow.draw(tileManager);
     // mWindow.draw(mTileManager);
     mWindow.draw(mSceneGraph);
+    //std::cout<<"Here\n";
+    if (mPlayerCharacter->isFreezing()) {
+        sf::Sprite overlay(mTextures.get(Textures::ID::Freezing));
+        overlay.setPosition(0,0);
+        mWindow.setView(mWindow.getDefaultView());
+        mWindow.draw(overlay);
+    }
+    //mWindow.setView();
+
 }
 
 CommandQueue& World::getCommandQueue() {
@@ -88,6 +97,7 @@ void World::loadTextures() {
     mTextures.load(Textures::UpPlayer, "Media/Textures/moveUp.png");
     mTextures.load(Textures::SpeedUp, "Media/Textures/SpeedUp.png");
     mTextures.load(Textures::SlowDown, "Media/Textures/SlowDown.png");
+    mTextures.load(Textures::Freezing, "Media/Textures/freezeScreenOverlay.png");
 }
 
 void World::buildScene() {
@@ -233,7 +243,7 @@ sf::FloatRect World::getBattlefieldBounds() const
 void World::speedUp() {
     //std::cout<<"Speeding ticket\n";
     //mPlayerCharacter->setVelocity(mPlayerCharacter->getVelocity()*2.f);
-    mPlayerCharacter->setSpeedMult(20.f);
+    mPlayerCharacter->setSpeedMult(2.f);
 }
 
 void World::slowDown() {
