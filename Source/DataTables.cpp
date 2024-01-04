@@ -32,8 +32,8 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Stone].scaleX = false;
 	data[Obstacle::Type::Stone].scaleY = true;
 	data[Obstacle::Type::Stone].texture = Textures::ID::Stone;
-	data[Obstacle::Type::Stone].minDistance = 4;
-	data[Obstacle::Type::Stone].maxDistance = 7;
+	data[Obstacle::Type::Stone].minDistance = 6;
+	data[Obstacle::Type::Stone].maxDistance = 10;
 
 	data[Obstacle::Type::Island].scaleX = true;
 	data[Obstacle::Type::Island].scaleY = true;

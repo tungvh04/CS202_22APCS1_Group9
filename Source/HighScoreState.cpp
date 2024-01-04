@@ -133,5 +133,12 @@ void HighScoreState::saveScore(double _score,std::string name) {
 }
 
 void HighScoreState::loadScore() {
-
+	std::ifstream in;
+	in.open(Constants::savePath);
+	for (int i=0;i<=2;i++) {
+		in>>highScore[i].first;
+		getline(in,highScore[i].second);
+		std::getline(in,highScore[i].second);
+	}
+	in.close();
 }
