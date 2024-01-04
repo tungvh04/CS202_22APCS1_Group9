@@ -253,10 +253,10 @@ void World::handleCollisions() {
         }
         */
         if (matchesCategories(node, Category::SpeedUp)) {
-            speedUp();
+            mPlayerCharacter->multSpeedMult(Constants::SpeedUpMult);
         }
         if (matchesCategories(node, Category::SlowDown)) {
-            slowDown();
+            mPlayerCharacter->multSpeedMult(Constants::SlowDownMult);
         }
         if (matchesCategories(node, Category::PickUp)) {
             node->setDestroy();

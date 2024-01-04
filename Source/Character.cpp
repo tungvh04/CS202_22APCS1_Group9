@@ -287,10 +287,11 @@ void Character::clearState() {
 void Character::updateRollAnimation(){
 }
 
+/*
 void Character::setSpeedMult(float x) {
     speedMult=x;
 }
-
+*/
 void Character::setFreezing() {
     isCold=true;
 }
@@ -325,4 +326,34 @@ void Character::setDefaultTemperature(float value) {
 
 void Character::updateTemperature(sf::Time dt) {
     temperature-=(temperature-defaultTemperature)*(dt.asMilliseconds()/(dt.asMilliseconds()+Constants::TemperatureSlope));
+}
+
+float Character::getSpeedMult() {
+    return speedMult;
+}
+
+void Character::shiftSpeedMult(float offset) {
+    speedMult+=offset;
+}
+
+void Character::multSpeedMult(float offset) {
+    speedMult*=offset;
+}
+
+void Character::setSpeedMult(float value) {
+    speedMult=value;
+}
+
+void Character::setDefaultSpeedMult(float value) {
+    defaultSpeedMult=value;
+}
+
+void Character::updateSpeedMult(sf::Time dt) {
+    if (isFreezing()) {
+        setDefaultSpeedMult(Constants::FreezingDefaultSpeed);
+    }
+    if (isBurning()) {
+        setDefaultSpeedMult(Constants::BurningDefaultSpeed);
+    }
+    speedMult-=(speedMult-defaultSpeedMult)*(dt.asMilliseconds()/(dt.asMilliseconds()+Constants::SpeedSlope));
 }
