@@ -215,7 +215,7 @@ void World::handleCollisions() {
     // std::cout << "Number of colliding nodes: " << playerCollidingNodes.size() << '\n';
     for (auto node : playerCollidingNodes) {
         if (matchesCategories(node, Category::Obstacle)) {
-            std::cout << "Colliding with obstacle\n";
+            //std::cout << "Colliding with obstacle\n";
             Command command;
             command.category = Category::PlayerCharacter;
             command.action = derivedAction<Character>([](Character& c, sf::Time) { c.destroy(); });
