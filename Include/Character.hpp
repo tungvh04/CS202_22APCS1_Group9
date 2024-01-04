@@ -42,12 +42,27 @@ public:
     void setSpeedMult(float speedMult);
     
     float speedMult = 1.0;
+
+    void setFreezing();
+    void notFreezing();
+    bool isFreezing();
+
+    float getTemperature();
+    void shiftTemperature(float offset);
+    void setTemperature(float value);
+    void setDefaultTemperature(float value);
+    void updateTemperature(sf::Time dt);
+
 private:
     //State hell
     
     bool onWater;
     bool onIsland;
 
+    bool isCold;
+
+    float temperature;
+    float defaultTemperature;
 
     std::queue<sf::Vector2f> mPath;
     const float mStep = Constants::GridSize;
