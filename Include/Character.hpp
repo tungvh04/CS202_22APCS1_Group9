@@ -23,6 +23,7 @@ public:
         YellowFrog,
         PinkFrog
     };
+
     Character(Type type, const TextureHolder& textures);
     virtual unsigned int getCategory() const;
     void pathRequest(sf::Vector2f direction);
@@ -37,6 +38,12 @@ public:
     void destroy();
     virtual bool isDestroyed() const;
 
+    void setVelocity(sf::Vector2f v);
+    void setVelocity(float vx,float vy);
+
+    void setSpeedMult(float speedMult);
+    
+    float speedMult = 1.0;
 private:
     //State hell
     

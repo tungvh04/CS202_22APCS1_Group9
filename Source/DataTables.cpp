@@ -75,6 +75,18 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::TrafficLightYellow].scaleX = false;
 	data[Obstacle::Type::TrafficLightYellow].scaleY = true;
 	data[Obstacle::Type::TrafficLightYellow].texture = Textures::ID::TrafficLightYellow;
+
+	data[Obstacle::Type::SpeedUp].scaleX = true;
+	data[Obstacle::Type::SpeedUp].scaleY = true;
+	data[Obstacle::Type::SpeedUp].texture = Textures::ID::SpeedUp;
+	data[Obstacle::Type::SpeedUp].minDistance = 10;
+	data[Obstacle::Type::SpeedUp].maxDistance = 40;
+
+	data[Obstacle::Type::SlowDown].scaleX = true;
+	data[Obstacle::Type::SlowDown].scaleY = true;
+	data[Obstacle::Type::SlowDown].texture = Textures::ID::SlowDown;
+	data[Obstacle::Type::SlowDown].minDistance = 10;
+	data[Obstacle::Type::SlowDown].maxDistance = 40;
 	
 	return data;
 }

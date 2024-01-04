@@ -22,6 +22,8 @@ namespace Category
         TrafficLightRed = 1 << 13,
         TrafficLightGreen = 1 << 14,
         TrafficLightYellow = 1 << 15,
+        SlowDown = 1 << 16,
+        SpeedUp = 1<< 17,
     };
 }
 

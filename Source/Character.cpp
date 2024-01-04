@@ -87,7 +87,7 @@ void Character::updateCurrent(sf::Time dt) {
             mMoving.restart();
             return;
         }
-        sf::Vector2f movement = mMovement * dt.asSeconds();
+        sf::Vector2f movement = mMovement * dt.asSeconds() * speedMult;
         if (mDistanceTravelled + abs(movement.x) > mStep) {
             mDistanceTravelled = 0.f;
             mIsMoving = false;
@@ -195,4 +195,16 @@ void Character::clearState() {
     onIsland=false;
 }
 void Character::updateRollAnimation(){
+}
+
+void Character::setVelocity(sf::Vector2f velocity) {
+    Entity::setVelocity(velocity*speedMult);
+}
+
+void Character::setVelocity(float vx, float vy) {
+    Entity::setVelocity(vx*speedMult,vy*speedMult);
+}
+
+void Character::setSpeedMult(float x) {
+    speedMult=x;
 }

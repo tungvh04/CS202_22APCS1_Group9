@@ -28,6 +28,8 @@ public:
         TrafficLightRed,
         TrafficLightYellow,
         TrafficLightGreen,
+        SpeedUp,
+        SlowDown,
         TypeCount,
     };
     

@@ -37,6 +37,9 @@ public:
 	bool 	hasPlayerReachedEnd() const;
     
 private:
+    void speedUp();
+    void slowDown();
+
     void loadTextures();
     void buildScene();
     void adaptPlayerPosition();

@@ -86,6 +86,8 @@ void World::loadTextures() {
     mTextures.load(Textures::TrafficLightYellow, "Media/Textures/TrafficLightYellow.png");
     mTextures.load(Textures::Death, "Media/Textures/death.png");
     mTextures.load(Textures::UpPlayer, "Media/Textures/moveUp.png");
+    mTextures.load(Textures::SpeedUp, "Media/Textures/SpeedUp.png");
+    mTextures.load(Textures::SlowDown, "Media/Textures/SlowDown.png");
 }
 
 void World::buildScene() {
@@ -174,7 +176,7 @@ void World::handleCollisions() {
     // std::cout << "Number of colliding nodes: " << playerCollidingNodes.size() << '\n';
     for (auto node : playerCollidingNodes) {
         if (matchesCategories(node, Category::Obstacle)) {
-            // std::cout << "Colliding with obstacle\n";
+            std::cout << "Colliding with obstacle\n";
             Command command;
             command.category = Category::PlayerCharacter;
             command.action = derivedAction<Character>([](Character& c, sf::Time) { c.destroy(); });
@@ -185,6 +187,18 @@ void World::handleCollisions() {
         }
         if (matchesCategories(node, Category::Island)) {
             // setIsland()
+        }
+        if (matchesCategories(node, Category::Ice)) {
+            // setWater()
+        }
+        if (matchesCategories(node, Category::Island)) {
+            // setIsland()
+        }
+        if (matchesCategories(node, Category::SpeedUp)) {
+            speedUp();
+        }
+        if (matchesCategories(node, Category::SlowDown)) {
+            slowDown();
         }
         // if (matchesCategories(node, Category::Car)) {
             // std::cout << "Colliding with car\n";
@@ -214,4 +228,16 @@ sf::FloatRect World::getBattlefieldBounds() const
 	bounds.width += Constants::battlefieldBoundsWidthOffset*2;
 
 	return bounds;
+}
+
+void World::speedUp() {
+    //std::cout<<"Speeding ticket\n";
+    //mPlayerCharacter->setVelocity(mPlayerCharacter->getVelocity()*2.f);
+    mPlayerCharacter->setSpeedMult(20.f);
+}
+
+void World::slowDown() {
+    //std::cout<<"Un-Speeding ticket\n";
+    //mPlayerCharacter->setVelocity(mPlayerCharacter->getVelocity()*0.5f);
+    mPlayerCharacter->setSpeedMult(0.8f);
 }

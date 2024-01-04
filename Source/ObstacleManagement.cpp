@@ -24,6 +24,10 @@ Textures::ID toTextureID(Obstacle::Type type) {
             return Textures::TrafficLightRed;
         case Obstacle::TrafficLightYellow:
             return Textures::TrafficLightYellow;
+        case Obstacle::SlowDown:
+            return Textures::SlowDown;
+        case Obstacle::SpeedUp:
+            return Textures::SpeedUp;
         default:
             throw std::runtime_error("Invalid obstacle type");
     }
@@ -49,6 +53,10 @@ unsigned int Obstacle::getCategory() const {
             return Category::TrafficLightRed;
         case TrafficLightYellow:
             return Category::TrafficLightYellow;
+        case SlowDown:
+            return Category::SlowDown;
+        case SpeedUp:
+            return Category::SpeedUp;
         default:
             throw std::runtime_error("Invalid obstacle type");
     }
