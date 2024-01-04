@@ -67,6 +67,11 @@ private:
     SceneNode* worldSceneGraph;
 
     bool mIsDestroyed = false;
+    enum Facing {
+        Left,
+        Right
+    };
+    Facing mFacing = Facing::Right;
 };
 
 
