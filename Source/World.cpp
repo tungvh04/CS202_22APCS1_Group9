@@ -86,6 +86,26 @@ void World::loadTextures() {
     mTextures.load(Textures::TrafficLightYellow, "Media/Textures/TrafficLightYellow.png");
     mTextures.load(Textures::Death, "Media/Textures/death.png");
     mTextures.load(Textures::UpPlayer, "Media/Textures/moveUp.png");
+
+    mTextures.load(Textures::BlueDino, "Media/Textures/Characters/Moving/BlueDino.png");
+    mTextures.load(Textures::RedDino, "Media/Textures/Characters/Moving/RedDino.png");
+    mTextures.load(Textures::GreenDino, "Media/Textures/Characters/Moving/GreenDino.png");
+    mTextures.load(Textures::YellowDino, "Media/Textures/Characters/Moving/YellowDino.png");
+
+    mTextures.load(Textures::BlueFrog, "Media/Textures/Characters/Moving/BlueFrog.png");
+    mTextures.load(Textures::GreenFrog, "Media/Textures/Characters/Moving/GreenFrog.png");
+    mTextures.load(Textures::PinkFrog, "Media/Textures/Characters/Moving/PinkFrog.png");
+    mTextures.load(Textures::YellowFrog, "Media/Textures/Characters/Moving/YellowFrog.png");
+
+    mTextures.load(Textures::BlueDinoDeath, "Media/Textures/Characters/Death/BlueDino.png");
+    mTextures.load(Textures::RedDinoDeath, "Media/Textures/Characters/Death/RedDino.png");
+    mTextures.load(Textures::GreenDinoDeath, "Media/Textures/Characters/Death/GreenDino.png");
+    mTextures.load(Textures::YellowDinoDeath, "Media/Textures/Characters/Death/YellowDino.png");
+
+    mTextures.load(Textures::BlueFrogDeath, "Media/Textures/Characters/Death/BlueFrog.png");
+    mTextures.load(Textures::GreenFrogDeath, "Media/Textures/Characters/Death/GreenFrog.png");
+    mTextures.load(Textures::PinkFrogDeath, "Media/Textures/Characters/Death/PinkFrog.png");
+    mTextures.load(Textures::YellowFrogDeath, "Media/Textures/Characters/Death/YellowFrog.png");
 }
 
 void World::buildScene() {

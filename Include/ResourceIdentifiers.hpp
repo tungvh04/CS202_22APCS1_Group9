@@ -50,6 +50,22 @@ namespace Textures {
         UpPlayer,
         LeftPlayer,
         RightPlayer,
+        BlueDino,
+        GreenDino,
+        YellowDino,
+        RedDino,
+        BlueFrog,
+        GreenFrog,
+        YellowFrog,
+        PinkFrog,
+        BlueDinoDeath,
+        GreenDinoDeath,
+        YellowDinoDeath,
+        RedDinoDeath,
+        BlueFrogDeath,
+        GreenFrogDeath,
+        YellowFrogDeath,
+        PinkFrogDeath
     };
 }
 namespace SoundEffects {
