@@ -205,14 +205,6 @@ void Character::clearState() {
 void Character::updateRollAnimation(){
 }
 
-void Character::setVelocity(sf::Vector2f velocity) {
-    Entity::setVelocity(velocity*speedMult);
-}
-
-void Character::setVelocity(float vx, float vy) {
-    Entity::setVelocity(vx*speedMult,vy*speedMult);
-}
-
 void Character::setSpeedMult(float x) {
     speedMult=x;
 }

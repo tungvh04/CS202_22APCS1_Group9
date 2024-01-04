@@ -38,8 +38,6 @@ public:
     void destroy();
     virtual bool isDestroyed() const;
 
-    void setVelocity(sf::Vector2f v);
-    void setVelocity(float vx,float vy);
 
     void setSpeedMult(float speedMult);
     

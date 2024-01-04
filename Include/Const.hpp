@@ -5,7 +5,7 @@
 #include <SFML/System/Time.hpp>
 
 namespace Constants {
-    constexpr static float playerSpeed = 500.f;
+    constexpr static float playerSpeed = 600.f;
     constexpr static float GridSize = 80.f;
     constexpr static float scrollSpeed = -100.f;
     constexpr static float BorderDistance = 40.f;
