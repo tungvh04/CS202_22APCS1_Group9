@@ -41,7 +41,10 @@ Character::Character(Type type, const TextureHolder& textures) : mType(type), mS
 }
 
 void Character::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
-    if (isDestroyed()) target.draw(mDeath, states);
+    if (mFacing == Facing::Left) {
+        states.transform.scale(-1.f, 1.f);
+    }
+    if (isDestroyed() && !mIsMoving) target.draw(mDeath, states);
     else {
         target.draw(mMoving, states);
         // target.draw(mSprite, states);
@@ -64,7 +67,7 @@ void Character::pathRequest(sf::Vector2f direction) {
 }
 
 void Character::updateCurrent(sf::Time dt) {
-    if (isDestroyed()){
+    if (isDestroyed() && !mIsMoving){
         mDeath.update(dt);
         return;
     }
@@ -78,8 +81,13 @@ void Character::updateCurrent(sf::Time dt) {
             }
             mMovement = direction;
             mIsMoving = true;
+            if (mMovement.x > 0) {
+                mFacing = Facing::Right;
+            }
+            else if (mMovement.x < 0) {
+                mFacing = Facing::Left;
+            }
         }
-        
     }
     mMoving.update(dt);
     if (mIsMoving) {
