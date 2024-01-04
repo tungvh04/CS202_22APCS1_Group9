@@ -193,6 +193,13 @@ void World::handleCollisions() {
             command.action = derivedAction<Character>([](Character& c, sf::Time) { c.destroy(); });
             mCommandQueue.push(command);
         }
+        if (matchesCategories(node, Category::Hot)) {
+            mPlayerCharacter->shiftTemperature(Constants::HotTemperatureShift);
+        }
+        if (matchesCategories(node, Category::Cold)) {
+            mPlayerCharacter->shiftTemperature(Constants::ColdTemperatureShift);
+        }
+        /*
         if (matchesCategories(node, Category::Ice)) {
             // setWater()
         }
@@ -205,11 +212,15 @@ void World::handleCollisions() {
         if (matchesCategories(node, Category::Island)) {
             // setIsland()
         }
+        */
         if (matchesCategories(node, Category::SpeedUp)) {
             speedUp();
         }
         if (matchesCategories(node, Category::SlowDown)) {
             slowDown();
+        }
+        if (matchesCategories(node, Category::PickUp)) {
+            node->setDestroy();
         }
         // if (matchesCategories(node, Category::Car)) {
             // std::cout << "Colliding with car\n";

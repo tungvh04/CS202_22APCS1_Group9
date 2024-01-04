@@ -43,7 +43,9 @@ namespace Constants {
     constexpr static float TemperatureSlope = 40000.f;
 
     constexpr static float freezeLimit = 0.f;
-    constexpr static float defaultTemperatureSpring = 24.f;
+    constexpr static float defaultTemperatureSpring = 16.f;
+    constexpr static float HotTemperatureShift = 20.f;
+    constexpr static float ColdTemperatureShift = -20.f;
 }
 
 #endif // CONSTANTS_HPP

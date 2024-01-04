@@ -88,5 +88,11 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::SlowDown].minDistance = 10;
 	data[Obstacle::Type::SlowDown].maxDistance = 40;
 	
+	data[Obstacle::Type::IceCream].scaleX = true;
+	data[Obstacle::Type::IceCream].scaleY = true;
+	data[Obstacle::Type::IceCream].texture = Textures::ID::SlowDown;
+	data[Obstacle::Type::IceCream].minDistance = 10;
+	data[Obstacle::Type::IceCream].maxDistance = 40;
+
 	return data;
 }

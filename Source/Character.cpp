@@ -183,7 +183,7 @@ void Character::destroy() {
 }
 
 bool Character::isDestroyed() const {
-    return mIsDestroyed;
+    return mIsDestroyed|isDestroyedFlag;
 }
 
 void Character::setWater() {

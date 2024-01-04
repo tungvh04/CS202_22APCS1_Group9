@@ -128,7 +128,12 @@ void SceneNode::checkNodeCollision(const sf::FloatRect& rect, std::set<SceneNode
 }
 
 bool SceneNode::isDestroyed() const {
+    if (isDestroyedFlag) return true;
     return false;
+}
+
+void SceneNode::setDestroy() {
+    isDestroyedFlag=true;
 }
 
 void SceneNode::removeWrecks() {

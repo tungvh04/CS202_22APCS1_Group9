@@ -39,7 +39,7 @@ void Tile::destroy() {
     isDestroy = true;
 }
 bool Tile::isDestroyed() const {
-    return isDestroy;
+    return isDestroy|isDestroyedFlag;
 }
 Tile::Tile(Type type, const TextureHolder& textures) : mType(type), MovingObject(textures.get(toTextureID(type))) {
     scale(Constants::GridSize / getGlobalBounds().width, Constants::GridSize / getGlobalBounds().height);
@@ -69,7 +69,7 @@ sf::FloatRect TileRow::getBoundingRect() const {
 }
 
 bool TileRow::isDestroyed() const {
-    return !getBattlefieldBounds().intersects(getBoundingRect());
+    return !getBattlefieldBounds().intersects(getBoundingRect())|isDestroyedFlag;
 }
 
 

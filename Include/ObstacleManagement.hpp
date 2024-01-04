@@ -30,6 +30,7 @@ public:
         TrafficLightGreen,
         SpeedUp,
         SlowDown,
+        IceCream,
         TypeCount,
     };
     

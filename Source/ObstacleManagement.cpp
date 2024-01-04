@@ -54,15 +54,17 @@ unsigned int Obstacle::getCategory() const {
         case TrafficLightYellow:
             return Category::TrafficLightYellow;
         case SlowDown:
-            return Category::SlowDown;
+            return Category::SlowDown | Category::PickUp;
         case SpeedUp:
-            return Category::SpeedUp;
+            return Category::SpeedUp | Category::PickUp;
+        
         default:
             throw std::runtime_error("Invalid obstacle type");
     }
 }
 
 bool Obstacle::isDestroyed() const {
+    if (isDestroyedFlag) return true;
     if (isKillByTime()) {
         return getKillTime().asSeconds()<0;
     }
@@ -171,7 +173,7 @@ sf::FloatRect ObstacleRow::getBoundingRect() const {
 }
 
 bool ObstacleRow::isDestroyed() const {
-    return !getBattlefieldBounds().intersects(getBoundingRect());
+    return !getBattlefieldBounds().intersects(getBoundingRect())|isDestroyedFlag;
 }
 
 Obstacle::Type Obstacle::getType() {

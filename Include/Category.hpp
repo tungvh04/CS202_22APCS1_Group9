@@ -24,6 +24,9 @@ namespace Category
         TrafficLightYellow = 1 << 15,
         SlowDown = 1 << 16,
         SpeedUp = 1<< 17,
+        Cold = 1 << 18,
+        Hot = 1 << 19,
+        PickUp = 1 << 20,
     };
 }
 
