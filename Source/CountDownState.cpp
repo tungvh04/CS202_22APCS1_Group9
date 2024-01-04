@@ -1,6 +1,7 @@
 #include <CountDownState.hpp>
 #include <Utility.hpp>
 #include <ResourceHolder.hpp>
+#include <MusicPlayer.hpp>
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -25,6 +26,8 @@ CountDownState::CountDownState(StateStack& stack, Context context)
     mCountdownText.setFillColor(sf::Color::White);
     centerOrigin(mCountdownText);
     mCountdownText.setPosition(0.48f * windowSize.x, 0.35f * windowSize.y);
+
+    context.music->play(Music::CountDownTheme);
 }
 
 bool CountDownState::update(sf::Time dt)
