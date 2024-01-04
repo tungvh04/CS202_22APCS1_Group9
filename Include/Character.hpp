@@ -46,6 +46,7 @@ public:
     void setFreezing();
     void notFreezing();
     bool isFreezing();
+    bool isBurning();
 
     float getTemperature();
     void shiftTemperature(float offset);

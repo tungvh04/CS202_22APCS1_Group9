@@ -70,6 +70,7 @@ namespace Textures {
         SpeedUp,
         Freezing,
         IceCream,
+        Burning,
     };
 }
 namespace SoundEffects {

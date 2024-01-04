@@ -90,7 +90,7 @@ std::vector<ObstacleData> initializeObstacleData()
 	
 	data[Obstacle::Type::IceCream].scaleX = true;
 	data[Obstacle::Type::IceCream].scaleY = true;
-	data[Obstacle::Type::IceCream].texture = Textures::ID::SlowDown;
+	data[Obstacle::Type::IceCream].texture = Textures::ID::IceCream;
 	data[Obstacle::Type::IceCream].minDistance = 10;
 	data[Obstacle::Type::IceCream].maxDistance = 40;
 
