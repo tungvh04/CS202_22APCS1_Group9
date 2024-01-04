@@ -50,6 +50,22 @@ namespace Textures {
         UpPlayer,
         LeftPlayer,
         RightPlayer,
+        BlueDino,
+        GreenDino,
+        YellowDino,
+        RedDino,
+        BlueFrog,
+        GreenFrog,
+        YellowFrog,
+        PinkFrog,
+        BlueDinoDeath,
+        GreenDinoDeath,
+        YellowDinoDeath,
+        RedDinoDeath,
+        BlueFrogDeath,
+        GreenFrogDeath,
+        YellowFrogDeath,
+        PinkFrogDeath,
         SlowDown,
         SpeedUp,
         Freezing,
@@ -96,6 +112,7 @@ namespace Music
 	{
 		MenuTheme,
 		MissionTheme,
+        GameOverTheme
 	};
 }
 // Forward declaration and a few type definitions

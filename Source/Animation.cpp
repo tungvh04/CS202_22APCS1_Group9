@@ -81,6 +81,7 @@ void Animation::restart()
 	mCurrentFrame = 0;
 }
 
+
 bool Animation::isFinished() const
 {
 	return mCurrentFrame >= mNumFrames;

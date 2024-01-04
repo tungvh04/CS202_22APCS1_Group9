@@ -8,6 +8,30 @@
 #include <SFML/Graphics/Image.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Time.hpp>
+TypeCharacter::ID typeCharacter;
+
+TypeCharacter::ID setTypeCha(int type){
+    switch (type) {
+    case 0:
+        return TypeCharacter::BlueDino;
+    case 1:
+        return TypeCharacter::GreenDino;
+    case 2:
+        return TypeCharacter::YellowDino;
+    case 3:
+        return TypeCharacter::RedDino;
+    case 4:
+        return TypeCharacter::BlueFrog;
+    case 5:
+        return TypeCharacter::GreenFrog;
+    case 6:
+        return TypeCharacter::YellowFrog;
+    case 7:
+        return TypeCharacter::PinkFrog;
+    default:
+        throw "Do not find corresponding character!";
+    }
+}
 CharacterState::CharacterState(StateStack &stack, Context context)
 : State(stack, context)
 , mGUIContainer()
@@ -111,13 +135,13 @@ void CharacterState::draw(){
 bool CharacterState::handleEvent(const sf::Event& event){
     if (event.type == sf::Event::KeyPressed){
         if (event.key.code == sf::Keyboard::D || event.key.code == sf::Keyboard::Right){
-            if (typeCharacter < mBackgroundTextureCharacter.size() - 1){
-                typeCharacter++;
+            if (currentType < mBackgroundTextureCharacter.size() - 1){
+                currentType++;
             }
         }
         else if (event.key.code == sf::Keyboard::A || event.key.code == sf::Keyboard::Left){
-            if (typeCharacter > 0){
-                typeCharacter--;
+            if (currentType > 0){
+                currentType--;
             }
         }
     }
@@ -127,18 +151,20 @@ bool CharacterState::handleEvent(const sf::Event& event){
 bool CharacterState::update(sf::Time dt){
     if (clock.getElapsedTime() >= frameTime){
 
-        mName.setString(listName[typeCharacter]);
-        mCharacterSprite.setTexture(mCharacterTexture[typeCharacter][currentFrame]);
-        if (++currentFrame >= mCharacterTexture[typeCharacter].size()) currentFrame = 0;
+        mName.setString(listName[currentType]);
+        mCharacterSprite.setTexture(mCharacterTexture[currentType][currentFrame]);
+        if (++currentFrame >= mCharacterTexture[currentType].size()) currentFrame = 0;
         clock.restart();
     }
-    mBackgroundSpriteCharacter.setTexture(mBackgroundTextureCharacter[typeCharacter]);
+    mBackgroundSpriteCharacter.setTexture(mBackgroundTextureCharacter[currentType]);
 
     sf::FloatRect textBounds = mName.getLocalBounds();
     mName.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
     mName.setPosition(mBackgroundSpriteCharacter.getPosition().x + mBackgroundSpriteCharacter.getGlobalBounds().width / 2.0f,
     mBackgroundSpriteCharacter.getPosition().y + mBackgroundSpriteCharacter.getGlobalBounds().height / 2.0f - 200);
     
+    typeCharacter = setTypeCha(currentType);
+    std::cout << currentType << '\n';
     return true;
 }
 //Function resize the texture

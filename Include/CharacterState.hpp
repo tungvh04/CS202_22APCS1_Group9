@@ -15,6 +15,7 @@
 
 #include <vector>
 #include <array>
+
 class CharacterState : public State{
     public:
         CharacterState(StateStack &stack, Context context);
@@ -37,11 +38,12 @@ class CharacterState : public State{
         std::vector<std::vector<sf::Texture>> mCharacterTexture;
         std::vector<sf::Texture> mBackgroundTextureCharacter;
         std::vector<std::string> listName;
-        
-        int typeCharacter = TypeCharacter::ID::BlueDino;
+        int currentType = TypeCharacter::ID::BlueDino;
         int currentFrame = 0;
         const float sizeOrigin = 240;
         sf::Clock clock;
         sf::Time frameTime = sf::seconds(0.1f);
 };
+
+extern TypeCharacter::ID typeCharacter;
 #endif

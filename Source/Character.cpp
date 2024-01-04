@@ -4,28 +4,109 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <CharacterState.hpp>
 
 #include <cmath>
 #include <iostream>
 #include <set>
 
-Textures::ID toTextureID(Character::Type type) {
+Textures::ID toTextureIDMoving(Character::Type type) {
     switch (type) {
-        case Character::Player:
-            return Textures::Player;
+        case Character::BlueDino:
+            return Textures::BlueDino;
+        case Character::RedDino:
+            return Textures::RedDino;
+        case Character::YellowDino:
+            return Textures::YellowDino;
+        case Character::GreenDino:
+            return Textures::GreenDino;
+        case Character::BlueFrog:
+            return Textures::BlueFrog;
+        case Character::GreenFrog:
+            return Textures::GreenFrog;
+        case Character::PinkFrog:
+            return Textures::PinkFrog;
+        case Character::YellowFrog:
+            return Textures::YellowFrog;
     }
     return Textures::Player;
 }
+Textures::ID toTextureIDDeath(Character::Type type) {
+    switch (type) {
+        case Character::BlueDino:
+            return Textures::BlueDinoDeath;
+        case Character::RedDino:
+            return Textures::RedDinoDeath;
+        case Character::YellowDino:
+            return Textures::YellowDinoDeath;
+        case Character::GreenDino:
+            return Textures::GreenDinoDeath;
+        case Character::BlueFrog:
+            return Textures::BlueFrogDeath;
+        case Character::GreenFrog:
+            return Textures::GreenFrogDeath;
+        case Character::PinkFrog:
+            return Textures::PinkFrogDeath;
+        case Character::YellowFrog:
+            return Textures::YellowFrogDeath;
+    }
+    return Textures::Player;
+}
+Character::Type setType(TypeCharacter::ID type){
+    switch (type) {
+        case TypeCharacter::BlueDino:
+            return Character::Type::BlueDino;
+        case TypeCharacter::RedDino:
+            return Character::Type::RedDino;
+        case TypeCharacter::GreenDino:
+            return Character::Type::GreenDino;
+        case TypeCharacter::YellowDino:
+            return Character::Type::YellowDino;
+        case TypeCharacter::BlueFrog:
+            return Character::Type::BlueFrog;
+        case TypeCharacter::GreenFrog:
+            return Character::Type::GreenFrog;
+        case TypeCharacter::YellowFrog:
+            return Character::Type::YellowFrog;
+        case TypeCharacter::PinkFrog:
+            return Character::Type::PinkFrog;
+        default:
+            throw "Not found type characrer";
+    }
+}
+int getSizeFrame(Character::Type type){
+    switch (type)
+    {
+    case Character::BlueDino:
+        return 24;
+    case Character::RedDino:
+        return 24;
+    case Character::YellowDino:
+        return 24;
+    case Character::GreenDino:
+        return 24;
+    case Character::BlueFrog:
+        return 16;
+    case Character::YellowFrog:
+        return 16;
+    case Character::PinkFrog:
+        return 16;
+    case Character:: GreenFrog:
+        return 16;
+    }
+}
+Character::Character(Type type, const TextureHolder& textures) : mSprite(textures.get(Textures::Player)) {
+    
+    mType = setType(typeCharacter);
+    mDeath.setTexture(textures.get(toTextureIDDeath(mType)));
+    mMoving.setTexture(textures.get(toTextureIDMoving(mType)));
 
-Character::Character(Type type, const TextureHolder& textures) : mType(type), mSprite(textures.get(toTextureID(type))) {
-    mDeath.setTexture(textures.get(Textures::Death));
-    mMoving.setTexture(textures.get(Textures::UpPlayer));
-
-    mDeath.setFrameSize(sf::Vector2i(16, 16));
+    int framSize = getSizeFrame(mType);
+    mDeath.setFrameSize(sf::Vector2i(framSize, framSize));
     mDeath.setNumFrames(8);
     mDeath.setDuration(sf::seconds(1));
 
-    mMoving.setFrameSize(sf::Vector2i(16, 16));
+    mMoving.setFrameSize(sf::Vector2i(framSize, framSize));
     mMoving.setNumFrames(8);
     mMoving.setDuration(sf::seconds(0.2));
 
@@ -57,7 +138,7 @@ unsigned int Character::getCategory() const {
         case Player:
             return Category::PlayerCharacter;
         default:
-            return Category::Object;
+            return Category::PlayerCharacter;
     }
 }
 
