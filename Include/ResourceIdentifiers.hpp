@@ -50,6 +50,8 @@ namespace Textures {
         UpPlayer,
         LeftPlayer,
         RightPlayer,
+        SlowDown,
+        SpeedUp,
     };
 }
 namespace SoundEffects {

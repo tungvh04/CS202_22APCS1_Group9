@@ -110,3 +110,35 @@ void HighScoreState::updateLabel()
 void HighScoreState::addButtonLabel(Player::Action action, float y, const std::string& text, Context context)
 {
 }
+
+void HighScoreState::saveScore() {
+	std::ofstream out;
+	out.open(Constants::savePath);
+	for (int i=0;i<=2;i++) {
+		out<<highScore[i].first<<'\n';
+		out<<highScore[i].second<<'\n';
+	}
+	out.close();
+}
+
+void HighScoreState::saveScore(double _score,std::string name) {
+    for (int i=0;i<=2;i++) {
+		if (name==highScore[i].second) {
+			if (_score>highScore[i].first) {
+				std::swap(_score,highScore[i].first);
+			}
+		}
+	}
+	saveScore();
+}
+
+void HighScoreState::loadScore() {
+	std::ifstream in;
+	in.open(Constants::savePath);
+	for (int i=0;i<=2;i++) {
+		in>>highScore[i].first;
+		getline(in,highScore[i].second);
+		std::getline(in,highScore[i].second);
+	}
+	in.close();
+}

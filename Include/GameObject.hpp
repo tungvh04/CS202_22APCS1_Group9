@@ -21,6 +21,8 @@ namespace RowObject {
         Grass4,
         Road2,
         Rail2,
+        Grass5,
+        Grass6,
         TypeCount,
     };
 
