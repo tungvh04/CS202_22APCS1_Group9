@@ -21,6 +21,12 @@ public:
     enum Type {
         Car,
         Car1,
+        Oto,
+        Oto_1,
+        Oto1,
+        Oto1_1,
+        Oto2,
+        Oto2_1,
         Stone,
         Island,
         Train,
@@ -31,6 +37,12 @@ public:
         SpeedUp,
         SlowDown,
         IceCream,
+        Tree,
+        Tree1,
+        Tree2,
+        Tree3,
+        Tree4,
+        Tree5,
         TypeCount,
     };
     

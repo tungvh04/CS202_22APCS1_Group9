@@ -95,16 +95,27 @@ void World::loadTextures() {
     mTextures.load(Textures::Sand, "Media/Textures/Tile/Tile2.png");
     mTextures.load(Textures::Ice, "Media/Textures/Vehicle/Raft.png");
     mTextures.load(Textures::Car, "Media/Textures/Vehicle/Truck.png");
+    mTextures.load(Textures::Oto, "Media/Textures/Vehicle/Oto.png");
+    mTextures.load(Textures::Oto1, "Media/Textures/Vehicle/Oto1.png");
+    mTextures.load(Textures::Oto2, "Media/Textures/Vehicle/Oto2.png");
     mTextures.load(Textures::Road, "Media/Textures/Tile/Tile4.png");
+    mTextures.load(Textures::Soil, "Media/Textures/Tile/Tile6.png");
     mTextures.load(Textures::Rail, "Media/Textures/Tile/Rail.png");
     mTextures.load(Textures::Train, "Media/Textures/Vehicle/Train.png");
     mTextures.load(Textures::Island, "Media/Textures/Tile/Tile5.png");
     mTextures.load(Textures::Stone, "Media/Textures/Vehicle/Stone.png");
+    mTextures.load(Textures::Log, "Media/Textures/Vehicle/Raft1.png");
+    
+    mTextures.load(Textures::Tree, "Media/Textures/Tree/tree.png");
+    mTextures.load(Textures::Tree1, "Media/Textures/Tree/tree1.png");
+    mTextures.load(Textures::Tree2, "Media/Textures/Tree/tree2.png");
+    mTextures.load(Textures::Tree3, "Media/Textures/Tree/tree3.png");
+    mTextures.load(Textures::Tree4, "Media/Textures/Tree/tree4.png");
+    mTextures.load(Textures::Tree5, "Media/Textures/Tree/tree5.png");
+
     mTextures.load(Textures::TrafficLightGreen, "Media/Textures/TrafficLightGreen.png");
     mTextures.load(Textures::TrafficLightRed, "Media/Textures/TrafficLightRed.png");
     mTextures.load(Textures::TrafficLightYellow, "Media/Textures/TrafficLightYellow.png");
-    mTextures.load(Textures::Death, "Media/Textures/death.png");
-    mTextures.load(Textures::UpPlayer, "Media/Textures/moveUp.png");
 
     mTextures.load(Textures::BlueDino, "Media/Textures/Characters/Moving/BlueDino.png");
     mTextures.load(Textures::RedDino, "Media/Textures/Characters/Moving/RedDino.png");

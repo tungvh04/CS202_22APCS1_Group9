@@ -12,6 +12,8 @@ namespace RowObject {
         Sand,
         Grass,
         Ice,
+        Log,
+        Soil,
         Road,
         Rail,
         Grass2,

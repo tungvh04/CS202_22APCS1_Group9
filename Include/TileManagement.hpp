@@ -20,9 +20,10 @@ public:
         Grass,
         Sand,
         Ice,
+        Log,
         Road,
         Rail,
-        Leaf,
+        Soil,
     };
     virtual unsigned int getCategory() const;
     Tile(Type type, const TextureHolder& textures);

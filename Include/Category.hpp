@@ -27,6 +27,7 @@ namespace Category
         Cold = 1 << 18,
         Hot = 1 << 19,
         PickUp = 1 << 20,
+        Soil = 1 << 21,
     };
 }
 

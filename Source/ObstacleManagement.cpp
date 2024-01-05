@@ -14,6 +14,8 @@ Textures::ID toTextureID(Obstacle::Type type) {
     switch (type) {
         case Obstacle::Car:
             return Textures::Car;
+        case Obstacle::Oto:
+            return Textures::Oto;
         case Obstacle::Train:
             return Textures::Train;
         case Obstacle::Island:
@@ -30,6 +32,18 @@ Textures::ID toTextureID(Obstacle::Type type) {
             return Textures::SpeedUp;
         case Obstacle::IceCream:
             return Textures::IceCream;
+        case Obstacle::Tree:
+            return Textures::Tree;
+        case Obstacle::Tree1:
+            return Textures::Tree1;
+        case Obstacle::Tree2:
+            return Textures::Tree2;
+        case Obstacle::Tree3:
+            return Textures::Tree3;
+        case Obstacle::Tree4:
+            return Textures::Tree4;
+        case Obstacle::Tree5:
+            return Textures::Tree5;
         default:
             throw std::runtime_error("Invalid obstacle type");
     }
@@ -41,6 +55,18 @@ unsigned int Obstacle::getCategory() const {
             return Category::Car | Category::Obstacle;
         case Car1:
             return Category::Car | Category::Obstacle;
+        case Oto:
+            return Category::Car | Category::Obstacle;
+        case Oto_1:
+            return Category::Car | Category::Obstacle;
+        case Oto1:
+            return Category::Car | Category::Obstacle;
+        case Oto1_1:
+            return Category::Car | Category::Obstacle;
+        case Oto2:
+            return Category::Car | Category::Obstacle;
+        case Oto2_1:
+            return Category::Car | Category::Obstacle;    
         case Stone:
             return Category::Stone | Category::Obstacle;
         case Island:
@@ -61,6 +87,18 @@ unsigned int Obstacle::getCategory() const {
             return Category::SpeedUp | Category::PickUp | Category::Hot;
         case IceCream:
             return Category::Cold | Category::PickUp;
+        case Tree:
+            return Category::Stone | Category::Obstacle;
+        case Tree1:
+            return Category::Stone | Category::Obstacle;
+        case Tree2:
+            return Category::Stone | Category::Obstacle;
+        case Tree3:
+            return Category::Stone | Category::Obstacle;
+        case Tree4:
+            return Category::Stone | Category::Obstacle;
+        case Tree5:
+            return Category::Stone | Category::Obstacle;
         default:
             throw std::runtime_error("Invalid obstacle type");
     }
