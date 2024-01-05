@@ -39,9 +39,7 @@ public:
     virtual bool isDestroyed() const;
 
 
-    void setSpeedMult(float speedMult);
-    
-    float speedMult = 1.0;
+    //void setSpeedMult(float speedMult);
 
     void setFreezing();
     void notFreezing();
@@ -54,6 +52,13 @@ public:
     void setDefaultTemperature(float value);
     void updateTemperature(sf::Time dt);
 
+    float getSpeedMult();
+    void shiftSpeedMult(float offset);
+    void multSpeedMult(float offset);
+    void setSpeedMult(float value);
+    void setDefaultSpeedMult(float value);
+    void updateSpeedMult(sf::Time dt);
+
 private:
     //State hell
     
@@ -64,6 +69,9 @@ private:
 
     float temperature;
     float defaultTemperature;
+
+    float speedMult = 1.0;
+    float defaultSpeedMult = 1.0;
 
     std::queue<sf::Vector2f> mPath;
     const float mStep = Constants::GridSize;
