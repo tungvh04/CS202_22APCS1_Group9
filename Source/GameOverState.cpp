@@ -21,8 +21,6 @@ GameOverState::GameOverState(StateStack& stack, Context context)
 	mGameOverText.setFont(font);
 	if (context.player->getMissionStatus() == Player::MissionFailure)
 		mGameOverText.setString("GAME OVER");
-	else
-		mGameOverText.setString("CONGRATULATIONS! YOU'VE PASSED THIS LEVEL");
 
 	mGameOverText.setCharacterSize(100);
 	centerOrigin(mGameOverText);
