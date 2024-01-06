@@ -19,7 +19,7 @@ World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getD
 }
 
 void World::update(sf::Time dt) {
-    //std::cout<<"Player temperature: "<<mPlayerCharacter->getTemperature()<<'\n';
+    std::cout<<"Player speed: "<<mPlayerCharacter->getSpeedMult()<<'\n';
     mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureSpring);
 
     //std::cout<<mPlayerCharacter->getPosition().x<<' '<<mPlayerCharacter->getPosition().y<<'\n';
