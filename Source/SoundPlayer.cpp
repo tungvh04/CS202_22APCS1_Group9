@@ -19,7 +19,7 @@ SoundPlayer::SoundPlayer()
 : mSoundBuffers()
 , mSounds()
 {
-	mSoundBuffers.load(SoundEffects::Button,	"Media/Sound/Button.mp3");
+	mSoundBuffers.load(SoundEffects::Button, "Media/Sound/Button.mp3");
 
 	// Listener points towards the screen (default in SFML)
 	sf::Listener::setDirection(0.f, 0.f, -1.f);
