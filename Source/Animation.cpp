@@ -23,11 +23,17 @@ Animation::Animation(const sf::Texture& texture)
 , mDuration(sf::Time::Zero)
 , mElapsedTime(sf::Time::Zero)
 , mRepeat(false)
+, isBuiltYet(true)
 {
+}
+
+bool Animation::isBuilt() {
+	return isBuiltYet;
 }
 
 void Animation::setTexture(const sf::Texture& texture)
 {
+	isBuiltYet=true;
 	mSprite.setTexture(texture);
 }
 
@@ -78,13 +84,14 @@ bool Animation::isRepeating() const
 
 void Animation::restart()
 {
+	isFinishedFlag = false;
 	mCurrentFrame = 0;
 }
 
 
 bool Animation::isFinished() const
 {
-	return mCurrentFrame >= mNumFrames;
+	return isFinishedFlag;
 }
 
 sf::FloatRect Animation::getLocalBounds() const
@@ -118,9 +125,17 @@ void Animation::update(sf::Time dt)
 			textureRect.top += textureRect.height;
 		}
 
+		int tmp = (textureBounds.x + textureRect.width - 1) / textureRect.width;
+		textureRect.left = textureRect.width * (mCurrentFrame%tmp);
+		textureRect.top = textureRect.height * (mCurrentFrame/tmp);
+
 		mElapsedTime -= timePerFrame;
 		if (mRepeat)
 		{
+			if (mCurrentFrame>=mNumFrames) {
+				isFinishedFlag = true;
+			}
+
 			mCurrentFrame = (mCurrentFrame + 1) % mNumFrames;
 
 			if (mCurrentFrame == 0)
@@ -129,6 +144,13 @@ void Animation::update(sf::Time dt)
 		else
 		{
 			mCurrentFrame++;
+			if (mCurrentFrame>=mNumFrames) {
+				mCurrentFrame=mNumFrames-1;
+				isFinishedFlag = true;
+			}
+			if (mNumFrames<0) {
+				mNumFrames=0;
+			}
 		}
 	}
 
@@ -139,6 +161,15 @@ void Animation::update(sf::Time dt)
 
 void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	if (isHide) return;
 	states.transform *= getTransform();
 	target.draw(mSprite, states);
+}
+
+void Animation::hide() {
+	isHide=true;
+}
+
+void Animation::show() {
+	isHide=false;
 }

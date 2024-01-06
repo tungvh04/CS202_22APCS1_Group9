@@ -63,7 +63,7 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Oto1].passTime = sf::seconds(Constants::WindowWidth/Constants::trainSpeed);
 
 	data[Obstacle::Type::Oto1_1].speed = sf::Vector2f(-Constants::carSpeed, 0.f);
-	data[Obstacle::Type::Oto1_1].scaleX = true;
+	data[Obstacle::Type::Oto1_1].scaleX = false;
 	data[Obstacle::Type::Oto1_1].scaleY = true;
 	data[Obstacle::Type::Oto1_1].texture = Textures::ID::Oto1;
 	data[Obstacle::Type::Oto1_1].minTime = sf::seconds(1.6);
@@ -86,6 +86,7 @@ std::vector<ObstacleData> initializeObstacleData()
 
 	data[Obstacle::Type::Oto2_1].speed = sf::Vector2f(-Constants::carSpeed, 0.f);
 	data[Obstacle::Type::Oto2_1].scaleX = false;
+
 	data[Obstacle::Type::Oto2_1].scaleY = true;
 	data[Obstacle::Type::Oto2_1].texture = Textures::ID::Oto2;
 	data[Obstacle::Type::Oto2_1].minTime = sf::seconds(1.6);
@@ -100,6 +101,7 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Stone].texture = Textures::ID::Stone;
 	data[Obstacle::Type::Stone].minDistance = 6;
 	data[Obstacle::Type::Stone].maxDistance = 10;
+
 	//Tree
 	data[Obstacle::Type::Tree].scaleX = true;
 	data[Obstacle::Type::Tree].scaleY = true;
@@ -118,6 +120,7 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Tree2].texture = Textures::ID::Tree2;
 	data[Obstacle::Type::Tree2].minDistance = 4;
 	data[Obstacle::Type::Tree2].maxDistance = 10;
+
 
 	data[Obstacle::Type::Tree3].scaleX = true;
 	data[Obstacle::Type::Tree3].scaleY = true;
@@ -197,4 +200,5 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::IceCream].maxDistance = 40;
 
 	return data;
+
 }

@@ -1,5 +1,6 @@
 #include <World.hpp>
 #include <Utility.hpp>
+#include <MapState.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -9,7 +10,20 @@
 #include <iostream>
 
 #include <GameLevel.hpp>
-
+std::string IDtoString(TypeMap::ID typeOfMap){
+    switch (typeOfMap){
+    case TypeMap::Spring:
+        return "Spring";
+    case TypeMap::Autumn:
+        return "Autumn";
+    case TypeMap::Winter:
+        return "Winter";
+    case TypeMap::Atlantis:
+        return "Atlantis";
+    default:
+        return "Spring";
+    }
+}
 World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getDefaultView()), mTextures(), mSceneGraph(), mSceneLayers(), mWorldBounds(0.f, 0.f, /*mWorldView.getSize().x*/ 200000.f, 200000.f), mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f), mScrollSpeed(Constants::scrollSpeed), mPlayerCharacter(nullptr) {
     loadTextures();
     buildScene();
@@ -19,7 +33,7 @@ World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getD
 }
 
 void World::update(sf::Time dt) {
-    //std::cout<<"Player temperature: "<<mPlayerCharacter->getTemperature()<<'\n';
+    //std::cout<<"Player speed: "<<mPlayerCharacter->getSpeedMult()<<'\n';
     mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureSpring);
 
     //std::cout<<mPlayerCharacter->getPosition().x<<' '<<mPlayerCharacter->getPosition().y<<'\n';
@@ -46,6 +60,56 @@ void World::update(sf::Time dt) {
     // Update level
     gameLevel.incrementScore(dt.asSeconds() * Constants::ScorePerSecond);
 
+    if (mPlayerCharacter->isBurning()) {
+        if (!checkCState(CState::Type::burning)) {
+            //sf::Sprite overlay(mTextures.get(Textures::ID::Burning));
+            //overlay.setPosition(0,0);
+            //overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
+            charState|=CState::Type::burning;
+            screenEffect.setTexture(mTextures.get(Textures::ID::Burning));
+            screenEffect.setNumFrames(20);
+            screenEffect.setDuration(sf::seconds(0.5f));
+            screenEffect.setRepeating(true);
+            screenEffect.setFrameSize(sf::Vector2i(200,108));
+            screenEffect.setPosition(0,0);
+            screenEffect.restart();
+            screenEffect.setScale(1,1);
+            screenEffect.setScale((Constants::WindowWidth)/(screenEffect.getGlobalBounds().width),(Constants::WindowHeight)/(screenEffect.getGlobalBounds().height));
+        }
+    }
+    else {
+        charState&=~CState::Type::burning;
+    }
+
+    if (mPlayerCharacter->isFreezing()) {
+        if (!checkCState(CState::Type::freezing)) {
+            //sf::Sprite overlay(mTextures.get(Textures::ID::Burning));
+            //overlay.setPosition(0,0);
+            //overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
+            charState|=CState::Type::freezing;
+            screenEffect.setTexture(mTextures.get(Textures::ID::Freezing));
+            screenEffect.setNumFrames(20);
+            screenEffect.setDuration(sf::seconds(0.5f));
+            //screenEffect.setRepeating(true);
+            screenEffect.setFrameSize(sf::Vector2i(320,180));
+            screenEffect.setPosition(0,0);
+            screenEffect.restart();
+            screenEffect.setScale(1,1);
+            screenEffect.setScale((Constants::WindowWidth)/(screenEffect.getGlobalBounds().width),(Constants::WindowHeight)/(screenEffect.getGlobalBounds().height));
+        }
+    }
+    else {
+        charState&=~CState::Type::freezing;
+    }
+    
+    if (!charState) {
+        screenEffect.hide();
+    }
+    else {
+        screenEffect.show();
+    }
+
+    if (screenEffect.isBuilt()) screenEffect.update(dt);
 }
 
 void World::draw() { 
@@ -55,22 +119,9 @@ void World::draw() {
     // mWindow.draw(mTileManager);
     mWindow.draw(mSceneGraph);
     //std::cout<<"Here\n";
-    if (mPlayerCharacter->isFreezing()) {
-        sf::Sprite overlay(mTextures.get(Textures::ID::Freezing));
-        overlay.setPosition(0,0);
-        overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
-        mWindow.setView(mWindow.getDefaultView());
-        mWindow.draw(overlay);
-    }
-    if (mPlayerCharacter->isBurning()) {
-        sf::Sprite overlay(mTextures.get(Textures::ID::Burning));
-        overlay.setPosition(0,0);
-        overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
-        mWindow.setView(mWindow.getDefaultView());
-        mWindow.draw(overlay);
-    }
     //mWindow.setView();
-
+    mWindow.setView(mWindow.getDefaultView());
+    mWindow.draw(screenEffect);
 }
 
 CommandQueue& World::getCommandQueue() {
@@ -83,34 +134,39 @@ bool World::hasAlivePlayer() const
 }
 
 void World::loadTextures() {
+    std::string typeMap = IDtoString(typeOfMap);
     
-    mTextures.load(Textures::Player, "Media/Textures/Eagle.png");
-    mTextures.load(Textures::Background, "Media/Textures/Desert.png");
-    mTextures.load(Textures::Grass, "Media/Textures/Tile/Tile1.png");
-    mTextures.load(Textures::Sand, "Media/Textures/Tile/Tile2.png");
-    mTextures.load(Textures::Ice, "Media/Textures/Vehicle/Raft.png");
-    mTextures.load(Textures::Car, "Media/Textures/Vehicle/Truck.png");
-    mTextures.load(Textures::Oto, "Media/Textures/Vehicle/Oto.png");
-    mTextures.load(Textures::Oto1, "Media/Textures/Vehicle/Oto1.png");
-    mTextures.load(Textures::Oto2, "Media/Textures/Vehicle/Oto2.png");
-    mTextures.load(Textures::Road, "Media/Textures/Tile/Tile4.png");
-    mTextures.load(Textures::Soil, "Media/Textures/Tile/Tile6.png");
-    mTextures.load(Textures::Rail, "Media/Textures/Tile/Rail.png");
-    mTextures.load(Textures::Train, "Media/Textures/Vehicle/Train.png");
-    mTextures.load(Textures::Island, "Media/Textures/Tile/Tile5.png");
-    mTextures.load(Textures::Stone, "Media/Textures/Vehicle/Stone.png");
-    mTextures.load(Textures::Log, "Media/Textures/Vehicle/Raft1.png");
-    
-    mTextures.load(Textures::Tree, "Media/Textures/Tree/tree.png");
-    mTextures.load(Textures::Tree1, "Media/Textures/Tree/tree1.png");
-    mTextures.load(Textures::Tree2, "Media/Textures/Tree/tree2.png");
-    mTextures.load(Textures::Tree3, "Media/Textures/Tree/tree3.png");
-    mTextures.load(Textures::Tree4, "Media/Textures/Tree/tree4.png");
-    mTextures.load(Textures::Tree5, "Media/Textures/Tree/tree5.png");
+    mTextures.load(Textures::Player, "Media/Textures/Eagle.png");//Base Player
 
-    mTextures.load(Textures::TrafficLightGreen, "Media/Textures/TrafficLightGreen.png");
-    mTextures.load(Textures::TrafficLightRed, "Media/Textures/TrafficLightRed.png");
-    mTextures.load(Textures::TrafficLightYellow, "Media/Textures/TrafficLightYellow.png");
+    mTextures.load(Textures::Background, "Media/Textures/Desert.png");
+
+    mTextures.load(Textures::Grass, "Media/Textures/" + typeMap + "/Tile/Tile1.png");
+    mTextures.load(Textures::Sand, "Media/Textures/" + typeMap + "/Tile/Tile2.png");
+    mTextures.load(Textures::Ice, "Media/Textures/" + typeMap +  "/Vehicle/Raft.png");
+    mTextures.load(Textures::Car, "Media/Textures/" + typeMap + "/Vehicle/Truck.png");
+    mTextures.load(Textures::Oto, "Media/Textures/" + typeMap + "/Vehicle/Oto.png");
+    mTextures.load(Textures::Oto1, "Media/Textures/" + typeMap + "/Vehicle/Oto1.png");
+    mTextures.load(Textures::Oto2, "Media/Textures/" + typeMap +  "/Vehicle/Oto2.png");
+    mTextures.load(Textures::Road, "Media/Textures/" + typeMap +  "/Tile/Tile4.png");
+    mTextures.load(Textures::Soil, "Media/Textures/" + typeMap + "/Tile/Tile6.png");
+    mTextures.load(Textures::Rail, "Media/Textures/" + typeMap + "/Tile/Rail.png");
+    mTextures.load(Textures::Train, "Media/Textures/" + typeMap + "/Vehicle/Train.png");
+    mTextures.load(Textures::Island, "Media/Textures/" + typeMap + "/Tile/Tile5.png");
+    mTextures.load(Textures::Stone, "Media/Textures/" + typeMap + "/Vehicle/Stone.png");
+    mTextures.load(Textures::Log, "Media/Textures/" + typeMap + "/Vehicle/Raft1.png");
+    
+
+    mTextures.load(Textures::Tree, "Media/Textures/" + typeMap + "/Tree/tree.png");
+    mTextures.load(Textures::Tree1, "Media/Textures/" + typeMap + "/Tree/tree1.png");
+    mTextures.load(Textures::Tree2, "Media/Textures/" + typeMap + "/Tree/tree2.png");
+    mTextures.load(Textures::Tree3, "Media/Textures/" + typeMap + "/Tree/tree3.png");
+    mTextures.load(Textures::Tree4, "Media/Textures/" + typeMap + "/Tree/tree4.png");
+    mTextures.load(Textures::Tree5, "Media/Textures/" + typeMap + "/Tree/tree5.png");
+
+    mTextures.load(Textures::TrafficLightGreen, "Media/Textures/" + typeMap +  "/TrafficLightGreen.png");
+    mTextures.load(Textures::TrafficLightRed, "Media/Textures/" + typeMap + "/TrafficLightRed.png");
+    mTextures.load(Textures::TrafficLightYellow, "Media/Textures/" + typeMap + "/TrafficLightYellow.png");
+
 
     mTextures.load(Textures::BlueDino, "Media/Textures/Characters/Moving/BlueDino.png");
     mTextures.load(Textures::RedDino, "Media/Textures/Characters/Moving/RedDino.png");
@@ -133,9 +189,9 @@ void World::loadTextures() {
     mTextures.load(Textures::YellowFrogDeath, "Media/Textures/Characters/Death/YellowFrog.png");
     mTextures.load(Textures::SpeedUp, "Media/Textures/SpeedUp.png");
     mTextures.load(Textures::SlowDown, "Media/Textures/SlowDown.png");
-    mTextures.load(Textures::Freezing, "Media/Textures/freezeScreenOverlay.png");
+    mTextures.load(Textures::Freezing, "Media/Textures/Effect/Freezing/Freezing.png");
     mTextures.load(Textures::IceCream, "Media/Textures/IceCream.png");
-    mTextures.load(Textures::Burning, "Media/Textures/Burning.png");
+    mTextures.load(Textures::Burning, "Media/Textures/Effect/Burning/Burning3.png");
 }
 
 void World::buildScene() {
@@ -308,4 +364,8 @@ void World::slowDown() {
     //std::cout<<"Un-Speeding ticket\n";
     //mPlayerCharacter->setVelocity(mPlayerCharacter->getVelocity()*0.5f);
     mPlayerCharacter->setSpeedMult(0.8f);
+}
+
+bool World::checkCState(int x) {
+    return x&charState;
 }

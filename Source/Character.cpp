@@ -205,6 +205,7 @@ void Character::updateCurrent(sf::Time dt) {
         }
     }
     updateTemperature(dt);
+    updateSpeedMult(dt);
 }
 sf::FloatRect Character::getBoundingRect() const
 {
@@ -352,8 +353,11 @@ void Character::updateSpeedMult(sf::Time dt) {
     if (isFreezing()) {
         setDefaultSpeedMult(Constants::FreezingDefaultSpeed);
     }
-    if (isBurning()) {
+    else if (isBurning()) {
         setDefaultSpeedMult(Constants::BurningDefaultSpeed);
+    }
+    else {
+        setDefaultSpeedMult(1);
     }
     speedMult-=(speedMult-defaultSpeedMult)*(dt.asMilliseconds()/(dt.asMilliseconds()+Constants::SpeedSlope));
 }

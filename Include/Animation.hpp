@@ -23,11 +23,16 @@ class Animation : public sf::Drawable, public sf::Transformable
 		void setRepeating(bool flag);
 		bool isRepeating() const;
 
+		bool isBuilt();
+
 		void restart();
 		bool isFinished() const;
 		sf::FloatRect getLocalBounds() const;
 		sf::FloatRect getGlobalBounds() const;
 		void update(sf::Time dt);
+
+		void hide();
+		void show();
 	private:
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	private:
@@ -38,5 +43,11 @@ class Animation : public sf::Drawable, public sf::Transformable
 		sf::Time mDuration;
 		sf::Time mElapsedTime;
 		bool mRepeat;
+
+		bool isFinishedFlag = false;
+
+		bool isBuiltYet = false;
+
+		bool isHide = false;
 };
 #endif //ANIMATION_HPP

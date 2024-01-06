@@ -16,6 +16,13 @@
 #include <vector>
 #include <array>
 
+namespace CState {
+    enum Type {
+        burning = 1 << 1,
+        freezing = 1 << 2,
+    };
+}
+
 class CharacterState : public State{
     public:
         CharacterState(StateStack &stack, Context context);
