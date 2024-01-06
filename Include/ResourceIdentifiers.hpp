@@ -39,6 +39,7 @@ namespace Textures {
         Autumn,
         Spring,
         Winter,
+        Atlantis,
         Soil,
         Road,
         Rail,
@@ -87,7 +88,8 @@ namespace SoundEffects {
         Collison,
         SpringTheme,
         AutumnTheme,
-        WinterTheme
+        WinterTheme,
+        AtlantisTheme,
     };
 }
 namespace Fonts {
@@ -111,7 +113,8 @@ namespace TypeMap{
     enum ID {
         Spring,
         Autumn,
-        Winter
+        Winter,
+        Atlantis,
     };
 }
 

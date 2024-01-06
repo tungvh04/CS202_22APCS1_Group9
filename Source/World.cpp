@@ -18,6 +18,8 @@ std::string IDtoString(TypeMap::ID typeOfMap){
         return "Autumn";
     case TypeMap::Winter:
         return "Winter";
+    case TypeMap::Atlantis:
+        return "Atlantis";
     default:
         return "Spring";
     }

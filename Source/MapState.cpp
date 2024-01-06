@@ -15,6 +15,8 @@ TypeMap::ID setTypeMap(int typeMap){
         return TypeMap::Autumn;
     case 2:
         return TypeMap::Winter;
+    case 3:
+        return TypeMap::Atlantis;
     default:
         throw "Invalid the type of map!";
     }
@@ -27,6 +29,7 @@ MapState::MapState(StateStack &stack, Context context)
     listMap[0].loadFromFile("Media/Textures/Spring.png");
     listMap[1].loadFromFile("Media/Textures/Autumn.png");
     listMap[2].loadFromFile("Media/Textures/Winter.png");
+    listMap[3].loadFromFile("Media/Textures/Atlantis.png");
     mMap.setPosition(470, 100);
     mMap.setScale(0.8, 0.8);
     mMap.setTexture(listMap[0]);
