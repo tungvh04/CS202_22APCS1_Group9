@@ -40,16 +40,18 @@ namespace Constants {
 
     constexpr static float ScorePerSecond = 10.f;
 
-    constexpr static float TemperatureSlope = 40000.f;
+    constexpr static float TemperatureSlope = 20000.f;
     constexpr static float SpeedSlope = 4000.f;
 
     constexpr static float freezeLimit = 0.f;
     constexpr static float burningLimit = 40.f;
     constexpr static float defaultTemperatureSpring = 16.f;
+    constexpr static float defaultTemperatureAutumn = 5.f;
+    constexpr static float defaultTemperatureWinter = -10.f;
     constexpr static float HotTemperatureShift = 20.f;
     constexpr static float ColdTemperatureShift = -20.f;
 
-    constexpr static float FreezingDefaultSpeed = 0.5f;
+    constexpr static float FreezingDefaultSpeed = 0.3f;
     constexpr static float BurningDefaultSpeed = 0.8f;
     constexpr static float SpeedUpMult = 1.5f;
     constexpr static float SlowDownMult = 0.8f;

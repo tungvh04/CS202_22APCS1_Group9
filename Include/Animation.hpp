@@ -33,6 +33,7 @@ class Animation : public sf::Drawable, public sf::Transformable
 
 		void hide();
 		void show();
+		bool isShow();
 	private:
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	private:

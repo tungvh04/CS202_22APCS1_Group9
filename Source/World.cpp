@@ -1,6 +1,7 @@
 #include <World.hpp>
 #include <Utility.hpp>
 #include <MapState.hpp>
+#include <WeatherState.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -24,7 +25,7 @@ std::string IDtoString(TypeMap::ID typeOfMap){
         return "Spring";
     }
 }
-World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getDefaultView()), mTextures(), mSceneGraph(), mSceneLayers(), mWorldBounds(0.f, 0.f, /*mWorldView.getSize().x*/ 200000.f, 200000.f), mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f), mScrollSpeed(Constants::scrollSpeed), mPlayerCharacter(nullptr) {
+World::World(sf::RenderWindow& window) : lastWeatherState(0), mWindow(window), mWorldView(window.getDefaultView()), mTextures(), mSceneGraph(), mSceneLayers(), mWorldBounds(0.f, 0.f, /*mWorldView.getSize().x*/ 200000.f, 200000.f), mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f), mScrollSpeed(Constants::scrollSpeed), mPlayerCharacter(nullptr) {
     loadTextures();
     buildScene();
 
@@ -34,7 +35,21 @@ World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getD
 
 void World::update(sf::Time dt) {
     //std::cout<<"Player speed: "<<mPlayerCharacter->getSpeedMult()<<'\n';
-    mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureSpring);
+    //std::cout<<"Player temperature: "<<mPlayerCharacter->getTemperature()<<'\n';
+
+    //std::cout<<"Weather: "<<weatherState<<'\n';
+
+    if (typeOfMap==TypeMap::Spring) {
+        mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureSpring);
+    }
+    else if (typeOfMap==TypeMap::Autumn) {
+        setWeather(Weather::Rain);
+        mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureAutumn);
+    }
+    else if (typeOfMap==TypeMap::Winter) {
+        setWeather(Weather::Snowing);
+        mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureWinter);
+    }
 
     //std::cout<<mPlayerCharacter->getPosition().x<<' '<<mPlayerCharacter->getPosition().y<<'\n';
     // Scroll the world, reset player velocity
@@ -89,7 +104,7 @@ void World::update(sf::Time dt) {
             charState|=CState::Type::freezing;
             screenEffect.setTexture(mTextures.get(Textures::ID::Freezing));
             screenEffect.setNumFrames(20);
-            screenEffect.setDuration(sf::seconds(0.5f));
+            screenEffect.setDuration(sf::seconds(3.f));
             //screenEffect.setRepeating(true);
             screenEffect.setFrameSize(sf::Vector2i(320,180));
             screenEffect.setPosition(0,0);
@@ -109,7 +124,50 @@ void World::update(sf::Time dt) {
         screenEffect.show();
     }
 
+    if (isWeather(Weather::Rain)) {
+        if (!checkLastWeatherState(Weather::Rain)) {
+            //sf::Sprite overlay(mTextures.get(Textures::ID::Burning));
+            //overlay.setPosition(0,0);
+            //overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
+            lastWeatherState=Weather::Rain;
+            weatherEffect.setTexture(mTextures.get(Textures::ID::Raining));
+            weatherEffect.setNumFrames(20);
+            weatherEffect.setDuration(sf::seconds(1.f));
+            weatherEffect.setRepeating(true);
+            weatherEffect.setFrameSize(sf::Vector2i(320,180));
+            weatherEffect.setPosition(0,0);
+            weatherEffect.restart();
+            weatherEffect.setScale(1,1);
+            weatherEffect.setScale((Constants::WindowWidth)/(weatherEffect.getGlobalBounds().width),(Constants::WindowHeight)/(weatherEffect.getGlobalBounds().height));
+        }
+    }
+    else if (isWeather(Weather::Snowing)) {
+        if (!checkLastWeatherState(Weather::Snowing)) {
+            //sf::Sprite overlay(mTextures.get(Textures::ID::Burning));
+            //overlay.setPosition(0,0);
+            //overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
+            lastWeatherState=Weather::Snowing;
+            weatherEffect.setTexture(mTextures.get(Textures::ID::Snowing));
+            weatherEffect.setNumFrames(20);
+            weatherEffect.setDuration(sf::seconds(1.f));
+            weatherEffect.setRepeating(true);
+            weatherEffect.setFrameSize(sf::Vector2i(320,180));
+            weatherEffect.setPosition(0,0);
+            weatherEffect.restart();
+            weatherEffect.setScale(1,1);
+            weatherEffect.setScale((Constants::WindowWidth)/(weatherEffect.getGlobalBounds().width),(Constants::WindowHeight)/(weatherEffect.getGlobalBounds().height));
+        }
+    }
+    
+    if (!weatherState) {
+        weatherEffect.hide();
+    }
+    else {
+        weatherEffect.show();
+    }
+
     if (screenEffect.isBuilt()) screenEffect.update(dt);
+    if (weatherEffect.isBuilt()) weatherEffect.update(dt);
 }
 
 void World::draw() { 
@@ -120,6 +178,9 @@ void World::draw() {
     mWindow.draw(mSceneGraph);
     //std::cout<<"Here\n";
     //mWindow.setView();
+    mWindow.setView(mWindow.getDefaultView());
+    mWindow.draw(weatherEffect);
+    //if (weatherEffect.isShow()) std::cout<<"Wtf happened here\n";
     mWindow.setView(mWindow.getDefaultView());
     mWindow.draw(screenEffect);
 }
@@ -192,6 +253,9 @@ void World::loadTextures() {
     mTextures.load(Textures::Freezing, "Media/Textures/Effect/Freezing/Freezing.png");
     mTextures.load(Textures::IceCream, "Media/Textures/IceCream.png");
     mTextures.load(Textures::Burning, "Media/Textures/Effect/Burning/Burning3.png");
+    
+    mTextures.load(Textures::Raining, "Media/Textures/Raining.png");
+    mTextures.load(Textures::Snowing, "Media/Textures/Snowing.png");
 }
 
 void World::buildScene() {
@@ -368,4 +432,20 @@ void World::slowDown() {
 
 bool World::checkCState(int x) {
     return x&charState;
+}
+
+void World::setWeather(int x) {
+    weatherState=x;
+}
+
+void World::clearWeather() {
+    weatherState=0;
+}
+
+bool World::isWeather(int x) {
+    return weatherState&x;
+}
+
+bool World::checkLastWeatherState(int x) {
+    return lastWeatherState&x;
 }

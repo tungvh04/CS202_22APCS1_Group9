@@ -40,6 +40,11 @@ public:
     
     bool checkCState(int x);
 
+    void setWeather(int x);
+    bool isWeather(int x);
+    bool checkLastWeatherState(int x);
+    void clearWeather();
+
 private:
     void speedUp();
     void slowDown();
@@ -98,6 +103,9 @@ private:
 
     Animation screenEffect;
     int charState = 0;
+
+    Animation weatherEffect;
+    int weatherState,lastWeatherState;
 };
 
 #endif // WORLD_HPP

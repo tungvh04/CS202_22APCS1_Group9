@@ -79,6 +79,8 @@ namespace Textures {
         Tree4,
         Tree5,
         Log,
+        Raining,
+        Snowing,
     };
 }
 namespace SoundEffects {

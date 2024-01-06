@@ -173,3 +173,7 @@ void Animation::hide() {
 void Animation::show() {
 	isHide=false;
 }
+
+bool Animation::isShow() {
+	return !isHide;
+}
