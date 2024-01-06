@@ -26,6 +26,8 @@ namespace sf {
     class RenderWindow;
 }
 
+std::string IDtoString(TypeMap::ID typeOfMap);
+
 class World : private sf::NonCopyable {
 public:
     explicit World(sf::RenderWindow& window);
