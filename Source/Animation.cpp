@@ -23,11 +23,17 @@ Animation::Animation(const sf::Texture& texture)
 , mDuration(sf::Time::Zero)
 , mElapsedTime(sf::Time::Zero)
 , mRepeat(false)
+, isBuiltYet(true)
 {
+}
+
+bool Animation::isBuilt() {
+	return isBuiltYet;
 }
 
 void Animation::setTexture(const sf::Texture& texture)
 {
+	isBuiltYet=true;
 	mSprite.setTexture(texture);
 }
 
