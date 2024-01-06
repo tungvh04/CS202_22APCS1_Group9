@@ -5,6 +5,20 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Image.hpp>
+TypeMap::ID typeOfMap;
+TypeMap::ID setTypeMap(int typeMap){
+    switch (typeMap)
+    {
+    case 0:
+        return TypeMap::Spring;
+    case 1:
+        return TypeMap::Autumn;
+    case 2:
+        return TypeMap::Winter;
+    default:
+        throw "Invalid the type of map!";
+    }
+}
 MapState::MapState(StateStack &stack, Context context)
 : State(stack, context)
 , mGUIContainer()
@@ -63,5 +77,6 @@ bool MapState::handleEvent(const sf::Event& event){
 }
 bool MapState::update(sf::Time dt){
     mMap.setTexture(listMap[typeMap]);
+    typeOfMap = setTypeMap(typeMap);
     return true;
 }

@@ -29,4 +29,5 @@ class MapState : public State, Entity{
         GUI::Container mGUIContainer;
         int typeMap = TypeMap::ID::Spring;
 };
+extern TypeMap::ID typeOfMap;
 #endif
