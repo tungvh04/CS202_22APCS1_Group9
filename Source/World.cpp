@@ -19,7 +19,7 @@ World::World(sf::RenderWindow& window) : mWindow(window), mWorldView(window.getD
 }
 
 void World::update(sf::Time dt) {
-    //std::cout<<"Player temperature: "<<mPlayerCharacter->getTemperature()<<'\n';
+    //std::cout<<"Player speed: "<<mPlayerCharacter->getSpeedMult()<<'\n';
     mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureSpring);
 
     //std::cout<<mPlayerCharacter->getPosition().x<<' '<<mPlayerCharacter->getPosition().y<<'\n';
@@ -46,6 +46,56 @@ void World::update(sf::Time dt) {
     // Update level
     gameLevel.incrementScore(dt.asSeconds() * Constants::ScorePerSecond);
 
+    if (mPlayerCharacter->isBurning()) {
+        if (!checkCState(CState::Type::burning)) {
+            //sf::Sprite overlay(mTextures.get(Textures::ID::Burning));
+            //overlay.setPosition(0,0);
+            //overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
+            charState|=CState::Type::burning;
+            screenEffect.setTexture(mTextures.get(Textures::ID::Burning));
+            screenEffect.setNumFrames(20);
+            screenEffect.setDuration(sf::seconds(0.5f));
+            screenEffect.setRepeating(true);
+            screenEffect.setFrameSize(sf::Vector2i(200,108));
+            screenEffect.setPosition(0,0);
+            screenEffect.restart();
+            screenEffect.setScale(1,1);
+            screenEffect.setScale((Constants::WindowWidth)/(screenEffect.getGlobalBounds().width),(Constants::WindowHeight)/(screenEffect.getGlobalBounds().height));
+        }
+    }
+    else {
+        charState&=~CState::Type::burning;
+    }
+
+    if (mPlayerCharacter->isFreezing()) {
+        if (!checkCState(CState::Type::freezing)) {
+            //sf::Sprite overlay(mTextures.get(Textures::ID::Burning));
+            //overlay.setPosition(0,0);
+            //overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
+            charState|=CState::Type::freezing;
+            screenEffect.setTexture(mTextures.get(Textures::ID::Freezing));
+            screenEffect.setNumFrames(20);
+            screenEffect.setDuration(sf::seconds(0.5f));
+            //screenEffect.setRepeating(true);
+            screenEffect.setFrameSize(sf::Vector2i(320,180));
+            screenEffect.setPosition(0,0);
+            screenEffect.restart();
+            screenEffect.setScale(1,1);
+            screenEffect.setScale((Constants::WindowWidth)/(screenEffect.getGlobalBounds().width),(Constants::WindowHeight)/(screenEffect.getGlobalBounds().height));
+        }
+    }
+    else {
+        charState&=~CState::Type::freezing;
+    }
+    
+    if (!charState) {
+        screenEffect.hide();
+    }
+    else {
+        screenEffect.show();
+    }
+
+    if (screenEffect.isBuilt()) screenEffect.update(dt);
 }
 
 void World::draw() { 
@@ -55,22 +105,9 @@ void World::draw() {
     // mWindow.draw(mTileManager);
     mWindow.draw(mSceneGraph);
     //std::cout<<"Here\n";
-    if (mPlayerCharacter->isFreezing()) {
-        sf::Sprite overlay(mTextures.get(Textures::ID::Freezing));
-        overlay.setPosition(0,0);
-        overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
-        mWindow.setView(mWindow.getDefaultView());
-        mWindow.draw(overlay);
-    }
-    if (mPlayerCharacter->isBurning()) {
-        sf::Sprite overlay(mTextures.get(Textures::ID::Burning));
-        overlay.setPosition(0,0);
-        overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
-        mWindow.setView(mWindow.getDefaultView());
-        mWindow.draw(overlay);
-    }
     //mWindow.setView();
-
+    mWindow.setView(mWindow.getDefaultView());
+    mWindow.draw(screenEffect);
 }
 
 CommandQueue& World::getCommandQueue() {
@@ -80,11 +117,6 @@ CommandQueue& World::getCommandQueue() {
 bool World::hasAlivePlayer() const
 {
 	return !mPlayerCharacter->isMarkedForRemoval();
-}
-
-bool World::hasPlayerReachedEnd() const
-{
-	return !mWorldBounds.contains(mPlayerCharacter->getPosition());
 }
 
 void World::loadTextures() {
@@ -138,9 +170,9 @@ void World::loadTextures() {
     mTextures.load(Textures::YellowFrogDeath, "Media/Textures/Characters/Death/YellowFrog.png");
     mTextures.load(Textures::SpeedUp, "Media/Textures/SpeedUp.png");
     mTextures.load(Textures::SlowDown, "Media/Textures/SlowDown.png");
-    mTextures.load(Textures::Freezing, "Media/Textures/freezeScreenOverlay.png");
+    mTextures.load(Textures::Freezing, "Media/Textures/Effect/Freezing/Freezing.png");
     mTextures.load(Textures::IceCream, "Media/Textures/IceCream.png");
-    mTextures.load(Textures::Burning, "Media/Textures/Burning.png");
+    mTextures.load(Textures::Burning, "Media/Textures/Effect/Burning/Burning3.png");
 }
 
 void World::buildScene() {
@@ -313,4 +345,8 @@ void World::slowDown() {
     //std::cout<<"Un-Speeding ticket\n";
     //mPlayerCharacter->setVelocity(mPlayerCharacter->getVelocity()*0.5f);
     mPlayerCharacter->setSpeedMult(0.8f);
+}
+
+bool World::checkCState(int x) {
+    return x&charState;
 }

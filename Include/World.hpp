@@ -12,6 +12,7 @@
 #include <TileManagement.hpp>
 #include <GameObject.hpp>
 #include <Car.hpp>
+#include <CharacterState.hpp>
 
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/Graphics/View.hpp>
@@ -34,8 +35,9 @@ public:
     CommandQueue& getCommandQueue();
 
     bool 	hasAlivePlayer() const;
-	bool 	hasPlayerReachedEnd() const;
     
+    bool checkCState(int x);
+
 private:
     void speedUp();
     void slowDown();
@@ -92,6 +94,8 @@ private:
     std::vector<SpawnPoint> mEnemySpawnPoints;
 	std::vector<Car*> mActiveEnemies;
 
+    Animation screenEffect;
+    int charState = 0;
 };
 
 #endif // WORLD_HPP

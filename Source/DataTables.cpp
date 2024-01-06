@@ -63,7 +63,7 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Oto1].passTime = sf::seconds(Constants::WindowWidth/Constants::trainSpeed);
 
 	data[Obstacle::Type::Oto1_1].speed = sf::Vector2f(-Constants::carSpeed, 0.f);
-	data[Obstacle::Type::Oto1_1].scaleX = true;
+	data[Obstacle::Type::Oto1_1].scaleX = false;
 	data[Obstacle::Type::Oto1_1].scaleY = true;
 	data[Obstacle::Type::Oto1_1].texture = Textures::ID::Oto1;
 	data[Obstacle::Type::Oto1_1].minTime = sf::seconds(1.6);
