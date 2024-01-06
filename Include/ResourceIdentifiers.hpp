@@ -83,13 +83,7 @@ namespace Textures {
 }
 namespace SoundEffects {
     enum ID {
-        Button,
-        Step,
-        Collison,
-        SpringTheme,
-        AutumnTheme,
-        WinterTheme,
-        AtlantisTheme,
+        Button
     };
 }
 namespace Fonts {

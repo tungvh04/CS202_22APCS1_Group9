@@ -15,6 +15,7 @@ class MusicPlayer : private sf::NonCopyable
 {
 	public:
 		MusicPlayer();
+		void updateFilenames();
 
 		void play(Music::ID theme);
 		void stop();

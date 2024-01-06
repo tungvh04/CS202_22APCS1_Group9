@@ -1,19 +1,25 @@
 #include <MusicPlayer.hpp>
-
+#include <MapState.hpp>
+#include <World.hpp>
 
 MusicPlayer::MusicPlayer()
 : mMusic()
 , mFilenames()
 , mVolume(100.f)
-{
-	mFilenames[Music::MenuTheme]    = "Media/Music/MenuTheme.mp3";
-	mFilenames[Music::MissionTheme] = "Media/Music/MissionTheme.mp3";
-	mFilenames[Music::GameOverTheme] = "Media/Music/GameOverTheme.mp3";
-	mFilenames[Music::CountDownTheme] = "Media/Music/CountDownTheme.mp3";
+{}
+
+void MusicPlayer::updateFilenames() {
+    std::string typeMap = IDtoString(typeOfMap);
+
+    mFilenames[Music::MenuTheme]    = "Media/Music/MenuTheme.mp3";
+    mFilenames[Music::MissionTheme] = "Media/Music/" + typeMap + "/MissionTheme.mp3";
+    mFilenames[Music::GameOverTheme] = "Media/Music/GameOverTheme.mp3";
+    mFilenames[Music::CountDownTheme] = "Media/Music/CountDownTheme.mp3";
 }
 
 void MusicPlayer::play(Music::ID theme)
 {
+	updateFilenames();
 	std::string filename = mFilenames[theme];
 
 	if (!mMusic.openFromFile(filename))
