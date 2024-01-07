@@ -307,7 +307,9 @@ void World::loadTextures() {
     mTextures.load(Textures::Raining, "Media/Textures/Raining.png");
     mTextures.load(Textures::Snowing, "Media/Textures/Snowing.png");
 }
-
+void World::loadAnimations(){
+    mAnimation[Animations::ID::Spider].setAnimation("Media/Textures/Animal1.png", 4, 16, 16);
+}
 void World::buildScene() {
     // Initialize the different layers
     for (std::size_t i = 0; i < LayerCount; ++i) {

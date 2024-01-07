@@ -13,6 +13,7 @@
 #include <GameObject.hpp>
 #include <Car.hpp>
 #include <CharacterState.hpp>
+#include <Animation.hpp>
 
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/Graphics/View.hpp>
@@ -21,6 +22,7 @@
 #include <vector>
 #include <array>
 #include <queue>
+#include <map>
 
 namespace sf {
     class RenderWindow;
@@ -52,6 +54,8 @@ private:
     void slowDown();
 
     void loadTextures();
+    void loadAnimations();
+
     void buildScene();
     void adaptPlayerPosition();
     void adaptPlayerVelocity();
@@ -85,6 +89,7 @@ private:
     sf::RenderWindow& mWindow;
     sf::View mWorldView;
     TextureHolder mTextures;
+    std::map<Animations::ID, Animation> mAnimation;
 
     SceneNode mSceneGraph;
     std::array<SceneNode*, LayerCount> mSceneLayers;
