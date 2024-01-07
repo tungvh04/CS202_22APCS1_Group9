@@ -42,11 +42,11 @@ const sf::Texture* Animation::getTexture() const
 	return mSprite.getTexture();
 }
 void Animation::setAnimation(const std::string& filename, int numFrame, int x, int y){
-	sf::Texture texture;
-	if (!texture.loadFromFile(filename)){
+	sf::Texture* texture = new sf::Texture();
+	if (!texture->loadFromFile(filename)){
 		throw "Invalid " + filename;
 	}
-	setTexture(texture);
+	setTexture(*texture);
 	setNumFrames(numFrame);
 	setFrameSize(sf::Vector2i(x, y));
 	setRepeating(true);
@@ -105,8 +105,11 @@ bool Animation::isFinished() const
 }
 
 sf::FloatRect Animation::getLocalBounds() const
-{
-	return sf::FloatRect(getOrigin(), static_cast<sf::Vector2f>(getFrameSize()));
+{	
+	float width = static_cast<float>(std::abs(getFrameSize().x));
+	float height = static_cast<float>(std::abs(getFrameSize().y));
+	return sf::FloatRect(0.f, 0.f, width, height);
+	// return sf::FloatRect(getOrigin(), static_cast<sf::Vector2f>(getFrameSize()));
 }
 
 sf::FloatRect Animation::getGlobalBounds() const

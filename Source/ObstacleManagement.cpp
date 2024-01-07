@@ -99,6 +99,14 @@ unsigned int Obstacle::getCategory() const {
             return Category::Stone | Category::Obstacle;
         case Tree5:
             return Category::Stone | Category::Obstacle;
+        case Animal1:
+            return Category::Car | Category::Obstacle;
+        case Animal2:
+            return Category::Car | Category::Obstacle;
+        case Animal3:
+            return Category::Car | Category::Obstacle;
+        case Animal4:
+            return Category::Car | Category::Obstacle;
         default:
             throw std::runtime_error("Invalid obstacle type");
     }
@@ -112,8 +120,20 @@ bool Obstacle::isDestroyed() const {
     return !getBattlefieldBounds().intersects(getBoundingRect());
 }
 
+sf::FloatRect Obstacle::getBoundingRect() const {
+    if (ObstacleDataTables::data[mType].hasAnimation) {
+        return getWorldTransform().transformRect(mAnimation->getGlobalBounds());
+    }
+    else {
+        return MovingObject::getBoundingRect();
+    }
+}
 
-Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::FloatRect()> getBattlefieldBounds) : mType(type), MovingObject(textures.get(toTextureID(type))), getBattlefieldBounds(getBattlefieldBounds) {
+
+Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::FloatRect()> getBattlefieldBounds, std::map<Animations::ID, Animation>& animations) : mType(type), MovingObject(textures.get(toTextureID(type))), getBattlefieldBounds(getBattlefieldBounds) {
+    if (ObstacleDataTables::data[type].hasAnimation) {
+        mAnimation = &animations[ObstacleDataTables::data[type].animation];
+    }
     rotate(ObstacleDataTables::data[type].rotateAngle);
     if (ObstacleDataTables::data[type].flipHorizontal) flipHorizontal();
     if (ObstacleDataTables::data[type].flipVertical) flipVertical();
@@ -139,6 +159,26 @@ Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::F
     }
 }
 
+void Obstacle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
+    if (ObstacleDataTables::data[mType].hasAnimation) {
+        target.draw(*mAnimation, states);
+        // std::cout << "Draw animation\n";
+    }
+    else {
+        MovingObject::drawCurrent(target, states);
+    }
+}
+
+void Obstacle::updateCurrent(sf::Time dt) {
+    if (ObstacleDataTables::data[mType].hasAnimation) {
+        mAnimation->update(dt);
+        // std::cout << "Update animation\n";
+    }
+    else {
+        MovingObject::updateCurrent(dt);
+    }
+}
+
 Obstacle::~Obstacle() {
     /*
     if (Type::TrafficLightGreen==mType) {
@@ -156,7 +196,7 @@ Obstacle::~Obstacle() {
     */
 }
 
-ObstacleRow::ObstacleRow(std::vector<Obstacle::Type> types, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures) : getBattlefieldBounds(getBattlefieldBounds), mTextures(textures) {
+ObstacleRow::ObstacleRow(std::vector<Obstacle::Type> types, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures, std::map<Animations::ID, Animation>& animation) : getBattlefieldBounds(getBattlefieldBounds), mTextures(textures), mAnimations(animation) {
     if (types.empty()) {
         mType = Obstacle::Type::TypeCount;
         return;
@@ -194,7 +234,7 @@ void ObstacleRow::generateRow() {
         // tile.get()->setPosition(i * Constants::GridSize, 0);
         // attachChild(std::move(tile));
         if (delta == 0) {
-            SceneNode::Ptr obstacle(new Obstacle(mType, *mTextures, getBattlefieldBounds));
+            SceneNode::Ptr obstacle(new Obstacle(mType, *mTextures, getBattlefieldBounds, mAnimations));
             obstacle.get()->setPosition(i * Constants::GridSize, 0);
             attachChild(std::move(obstacle));
             delta = ObstacleDataTables::data[mType].minDistance + rand() % (ObstacleDataTables::data[mType].maxDistance - ObstacleDataTables::data[mType].minDistance);
@@ -240,7 +280,7 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
         if (!hasSpawned) {
             hasSpawned=true;
             //Green light spawn here
-            SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightGreen, *mTextures, getBattlefieldBounds));
+            SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightGreen, *mTextures, getBattlefieldBounds, mAnimations));
             float lightLeftBound = getBattlefieldBounds().left + Constants::lightOffset - getPosition().x ;
             float lightRightBound = getBattlefieldBounds().left + getBattlefieldBounds().width - Constants::lightOffset - getPosition().x ;
             if (getVelocity().x > 0) {
@@ -263,7 +303,7 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
             if (getVelocity().x == 0) {
                 return;
             }
-            SceneNode::Ptr obstacle(new Obstacle(mType, *mTextures, getBattlefieldBounds));
+            SceneNode::Ptr obstacle(new Obstacle(mType, *mTextures, getBattlefieldBounds, mAnimations));
             float leftBound = getBattlefieldBounds().left + ObstacleDataTables::data[mType].spawnOffset - getPosition().x;
             float rightBound = getBattlefieldBounds().left + getBattlefieldBounds().width - ObstacleDataTables::data[mType].spawnOffset - getPosition().x;
             // obstacle->move(leftBound, 0);
@@ -293,7 +333,7 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
                 randomTimeGroup = randomTime;
                 mTimeToWait = ObstacleDataTables::data[mType].groupDelayTime;
                 //Spawn green light here
-                SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightRed, *mTextures, getBattlefieldBounds));
+                SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightRed, *mTextures, getBattlefieldBounds, mAnimations));
                 float lightLeftBound = getBattlefieldBounds().left - getPosition().x + Constants::lightOffset;
                 float lightRightBound = getBattlefieldBounds().left + getBattlefieldBounds().width - Constants::lightOffset - getPosition().x ;
                 if (getVelocity().x > 0) {

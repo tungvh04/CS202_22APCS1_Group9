@@ -13,12 +13,13 @@ class MovingObject : public Entity{
         virtual sf::FloatRect getBoundingRect() const;
         sf::FloatRect getGlobalBounds() const;
 
-        void rotate(float angle);
+        // void rotate(float angle);
         void flipHorizontal();
         void flipVertical();
 
     private:
         sf::Sprite mSprite;
+    protected:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 #endif
