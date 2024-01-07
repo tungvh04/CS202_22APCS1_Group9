@@ -25,6 +25,7 @@ struct ObstacleData {
     bool flipVertical,flipHorizontal = 0;
     int groupSpawnAmount;
     float spawnOffset = 0;
+    bool noTrafficLight = false;
 };
 
 std::vector<ObstacleData> initializeObstacleData();

@@ -571,10 +571,10 @@ void World::handleCollisions() {
             mPlayerCharacter->hurt(-Constants::healAmountLarge);
         }
         if (matchesCategories(node, Category::HurtSmall)) {
-            mPlayerCharacter->hurt(-Constants::hurtAmountSmall);
+            mPlayerCharacter->hurt(Constants::hurtAmountSmall);
         }
         if (matchesCategories(node, Category::HurtLarge)) {
-            mPlayerCharacter->hurt(-Constants::hurtAmountLarge);
+            mPlayerCharacter->hurt(Constants::hurtAmountLarge);
         }
         if (matchesCategories(node, Category::PickUp)) {
             node->setDestroy();

@@ -276,24 +276,27 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
     if (mType == Obstacle::Type::TypeCount) {
         return;
     }
+    if (ObstacleDataTables::data[mType].noTrafficLight) 
     if (mTimeToWait <= sf::Time::Zero) {
         if (!hasSpawned) {
             hasSpawned=true;
             //Green light spawn here
-            SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightGreen, *mTextures, getBattlefieldBounds, mAnimations));
-            float lightLeftBound = getBattlefieldBounds().left + Constants::lightOffset - getPosition().x ;
-            float lightRightBound = getBattlefieldBounds().left + getBattlefieldBounds().width - Constants::lightOffset - getPosition().x ;
-            if (getVelocity().x > 0) {
-                //lightObstacle->setPosition(Constants::lightOffsetLeft, 0);
-                lightObstacle->setPosition(lightLeftBound, 0);
+            if (!ObstacleDataTables::data[mType].noTrafficLight) {
+                SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightGreen, *mTextures, getBattlefieldBounds, mAnimations));
+                float lightLeftBound = getBattlefieldBounds().left + Constants::lightOffset - getPosition().x ;
+                float lightRightBound = getBattlefieldBounds().left + getBattlefieldBounds().width - Constants::lightOffset - getPosition().x ;
+                if (getVelocity().x > 0) {
+                    //lightObstacle->setPosition(Constants::lightOffsetLeft, 0);
+                    lightObstacle->setPosition(lightLeftBound, 0);
+                }
+                else if (getVelocity().x < 0) {
+                    //lightObstacle->setPosition(Constants::lightOffsetRight,  0);
+                    lightObstacle->setPosition(lightRightBound, 0);
+                }
+                lightObstacle->setKillTime(sf::milliseconds(int(randomTimeGroup.asMilliseconds())*groupSpawnLeft)+mTimeToSpawn+sf::seconds(Constants::trafficLightKillDelay));
+                attachChild(std::move(lightObstacle));
+                //-------------------------------------------------
             }
-            else if (getVelocity().x < 0) {
-                //lightObstacle->setPosition(Constants::lightOffsetRight,  0);
-                lightObstacle->setPosition(lightRightBound, 0);
-            }
-            lightObstacle->setKillTime(sf::milliseconds(int(randomTimeGroup.asMilliseconds())*groupSpawnLeft)+mTimeToSpawn+sf::seconds(Constants::trafficLightKillDelay));
-            attachChild(std::move(lightObstacle));
-            //-------------------------------------------------
         }
         if (mTimeToSpawn <= sf::Time::Zero) {
             bool isSpawn = rand() % 5;
@@ -303,6 +306,7 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
             if (getVelocity().x == 0) {
                 return;
             }
+
             SceneNode::Ptr obstacle(new Obstacle(mType, *mTextures, getBattlefieldBounds, mAnimations));
             float leftBound = getBattlefieldBounds().left + ObstacleDataTables::data[mType].spawnOffset - getPosition().x;
             float rightBound = getBattlefieldBounds().left + getBattlefieldBounds().width - ObstacleDataTables::data[mType].spawnOffset - getPosition().x;
@@ -332,21 +336,23 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
                 randomTime += minTime;
                 randomTimeGroup = randomTime;
                 mTimeToWait = ObstacleDataTables::data[mType].groupDelayTime;
-                //Spawn green light here
-                SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightRed, *mTextures, getBattlefieldBounds, mAnimations));
-                float lightLeftBound = getBattlefieldBounds().left - getPosition().x + Constants::lightOffset;
-                float lightRightBound = getBattlefieldBounds().left + getBattlefieldBounds().width - Constants::lightOffset - getPosition().x ;
-                if (getVelocity().x > 0) {
-                    //lightObstacle->setPosition(Constants::lightOffsetLeft, 0);
-                    lightObstacle->setPosition(lightLeftBound, 0);
+                if (!ObstacleDataTables::data[mType].noTrafficLight) {
+                    //Spawn green light here
+                    SceneNode::Ptr lightObstacle(new Obstacle(Obstacle::Type::TrafficLightRed, *mTextures, getBattlefieldBounds, mAnimations));
+                    float lightLeftBound = getBattlefieldBounds().left - getPosition().x + Constants::lightOffset;
+                    float lightRightBound = getBattlefieldBounds().left + getBattlefieldBounds().width - Constants::lightOffset - getPosition().x ;
+                    if (getVelocity().x > 0) {
+                        //lightObstacle->setPosition(Constants::lightOffsetLeft, 0);
+                        lightObstacle->setPosition(lightLeftBound, 0);
+                    }
+                    else if (getVelocity().x < 0) {
+                        //lightObstacle->setPosition(Constants::lightOffsetRight,  0);
+                        lightObstacle->setPosition(lightRightBound, 0);
+                    }
+                    lightObstacle->setKillTime(mTimeToWait+sf::seconds(Constants::trafficLightKillDelay));
+                    attachChild(std::move(lightObstacle));
+                    //---------------------------------------------
                 }
-                else if (getVelocity().x < 0) {
-                    //lightObstacle->setPosition(Constants::lightOffsetRight,  0);
-                    lightObstacle->setPosition(lightRightBound, 0);
-                }
-                lightObstacle->setKillTime(mTimeToWait+sf::seconds(Constants::trafficLightKillDelay));
-                attachChild(std::move(lightObstacle));
-                //---------------------------------------------
                 groupSpawnLeft = ObstacleDataTables::data[mType].groupSpawnAmount;
                 hasSpawned=false;
             }
