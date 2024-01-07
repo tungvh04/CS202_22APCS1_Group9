@@ -3,6 +3,7 @@
 
 #include <TileManagement.hpp>
 #include <ObstacleManagement.hpp>
+#include <Animation.hpp>
 
 namespace RowObject {
     const static std::vector<std::vector<Tile::Type>> initilizeTileTypes();
@@ -33,7 +34,7 @@ namespace RowObject {
 
 class GameObject : public SceneNode {
 public:
-    GameObject(sf::Vector2f spawnOrigin, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures);
+    GameObject(sf::Vector2f spawnOrigin, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures, std::map<Animations::ID, Animation>& animations);
     virtual void updateCurrent(sf::Time dt);
     void setSpawnOrigin(sf::Vector2f spawnOrigin);
 private:
@@ -44,6 +45,7 @@ private:
     std::function<sf::FloatRect()> getBattlefieldBounds;
     TextureHolder* mTextures;
     SceneNode* mTiles, *mObstacles;
+    std::map<Animations::ID, Animation>& mAnimations;
 };
 
 #endif // GAMEOBJECT_HPP

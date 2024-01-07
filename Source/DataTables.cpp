@@ -199,6 +199,20 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::IceCream].minDistance = 10;
 	data[Obstacle::Type::IceCream].maxDistance = 40;
 
+	data[Obstacle::Type::Spider].speed = sf::Vector2f(-Constants::carSpeed, 0.f);
+	data[Obstacle::Type::Spider].scaleX = false;
+
+	data[Obstacle::Type::Spider].scaleY = true;
+	data[Obstacle::Type::Spider].hasAnimation = true;
+	data[Obstacle::Type::Spider].animation = Animations::ID::Spider;
+	data[Obstacle::Type::Spider].texture = Textures::ID::Oto2;
+	data[Obstacle::Type::Spider].minTime = sf::seconds(1.6);
+	data[Obstacle::Type::Spider].maxTime = sf::seconds(2.8);
+	data[Obstacle::Type::Spider].flipHorizontal = true;
+	data[Obstacle::Type::Spider].groupDelayTime = sf::seconds(5);
+	data[Obstacle::Type::Spider].groupSpawnAmount = 1;
+	data[Obstacle::Type::Spider].passTime = sf::seconds(Constants::WindowWidth/Constants::trainSpeed);
+
 	return data;
 
 }

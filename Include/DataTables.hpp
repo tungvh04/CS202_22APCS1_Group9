@@ -14,6 +14,8 @@
 
 struct ObstacleData {
     sf::Vector2f speed;
+    bool hasAnimation = false;
+    Animations::ID animation;
     Textures::ID texture;
     sf::Time minTime, maxTime, killTime, groupDelayTime,passTime;
     int minDistance, maxDistance;

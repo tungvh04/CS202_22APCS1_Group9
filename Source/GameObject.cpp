@@ -34,7 +34,7 @@ const std::vector<std::vector<Obstacle::Type>> RowObject::initilizeObstacleTypes
     std::vector<Obstacle::Type> grass2 = {Obstacle::Stone};
     std::vector<Obstacle::Type> sand2 = {};
     std::vector<Obstacle::Type> sand3 = {};
-    std::vector<Obstacle::Type> grass3 = {};
+    std::vector<Obstacle::Type> grass3 = {Obstacle::Spider};
     std::vector<Obstacle::Type> grass4 = {};
     std::vector<Obstacle::Type> road2 = {Obstacle::Car, Obstacle::Car1, Obstacle::Oto, Obstacle::Oto_1, Obstacle::Oto1, Obstacle::Oto1_1, Obstacle::Oto2, Obstacle::Oto2_1};
     std::vector<Obstacle::Type> rail2 = {Obstacle::Train, Obstacle::Train1};
@@ -52,7 +52,7 @@ const static std::vector<std::vector<Tile::Type>> mTileTypes = RowObject::initil
 const static std::vector<std::vector<Obstacle::Type>> mObstacleTypes = RowObject::initilizeObstacleTypes();
 
 
-GameObject::GameObject(sf::Vector2f spawnOrigin, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures) : getBattlefieldBounds(getBattlefieldBounds), mTextures(textures), mSpawnOrigin(spawnOrigin) {
+GameObject::GameObject(sf::Vector2f spawnOrigin, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures, std::map<Animations::ID, Animation>& animations) : getBattlefieldBounds(getBattlefieldBounds), mTextures(textures), mSpawnOrigin(spawnOrigin), mAnimations(animations) {
     SceneNode::Ptr tileRow(new SceneNode);
     mTiles = tileRow.get();
     attachChild(std::move(tileRow));
@@ -67,7 +67,7 @@ void GameObject::initialGenerate() {
         int rowType = rand() % RowObject::TypeCount;
         SceneNode::Ptr tileRow(new TileRow(mTileTypes[rowType], getBattlefieldBounds, mTextures));
         // SceneNode::Ptr obstacleRow(new ObstacleRow(sf::Vector2f(200, 0), mObstacleTypes[rowType], getBattlefieldBounds, mTextures));
-        SceneNode::Ptr obstacleRow(new ObstacleRow(mObstacleTypes[rowType], getBattlefieldBounds, mTextures));
+        SceneNode::Ptr obstacleRow(new ObstacleRow(mObstacleTypes[rowType], getBattlefieldBounds, mTextures, mAnimations));
         tileRow.get()->setPosition(mSpawnOrigin);
         obstacleRow.get()->setPosition(mSpawnOrigin);
         mTiles->attachChild(std::move(tileRow));
@@ -96,7 +96,7 @@ void GameObject::updateCurrent(sf::Time dt) {
         last=rowType;
         SceneNode::Ptr tileRow(new TileRow(mTileTypes[rowType], getBattlefieldBounds, mTextures));
         // SceneNode::Ptr obstacleRow(new ObstacleRow(sf::Vector2f(200, 0), mObstacleTypes[rowType], getBattlefieldBounds, mTextures));
-        SceneNode::Ptr obstacleRow(new ObstacleRow(mObstacleTypes[rowType], getBattlefieldBounds, mTextures));
+        SceneNode::Ptr obstacleRow(new ObstacleRow(mObstacleTypes[rowType], getBattlefieldBounds, mTextures, mAnimations));
         tileRow.get()->setPosition(mSpawnOrigin);
         obstacleRow.get()->setPosition(mSpawnOrigin);
         mTiles->attachChild(std::move(tileRow));
