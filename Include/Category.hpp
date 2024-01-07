@@ -28,6 +28,10 @@ namespace Category
         Hot = 1 << 19,
         PickUp = 1 << 20,
         Soil = 1 << 21,
+        HealSmall = 1 << 22,
+        HealLarge = 1 << 23,
+        HurtSmall = 1 << 24,
+        HurtLarge = 1 << 25,
     };
 }
 
