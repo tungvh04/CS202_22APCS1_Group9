@@ -16,7 +16,7 @@ public:
 protected:
     virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
 
-private:
+protected:
     virtual void updateCurrent(sf::Time dt);
 
     sf::Vector2f mVelocity;

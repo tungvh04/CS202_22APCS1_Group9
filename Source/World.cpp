@@ -26,6 +26,7 @@ std::string IDtoString(TypeMap::ID typeOfMap){
     }
 }
 World::World(sf::RenderWindow& window) : lastWeatherState(0), mWindow(window), mWorldView(window.getDefaultView()), mTextures(), mSceneGraph(), mSceneLayers(), mWorldBounds(0.f, 0.f, /*mWorldView.getSize().x*/ 200000.f, 200000.f), mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f), mScrollSpeed(Constants::scrollSpeed), mPlayerCharacter(nullptr) {
+    loadAnimations();
     loadTextures();
     buildScene();
 
@@ -172,7 +173,6 @@ void World::update(sf::Time dt) {
 
 void World::draw() { 
     mWindow.setView(mWorldView);
-    // tileManager.draw(mWindow);
     // mWindow.draw(tileManager);
     // mWindow.draw(mTileManager);
     mWindow.draw(mSceneGraph);
@@ -293,7 +293,7 @@ void World::buildScene() {
     sf::Vector2f gridspawn = mSpawnPosition;
     gridspawn.y += Constants::initialShift * Constants::GridSize;
     // SceneNode::Ptr grid(GameObject(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures));
-    SceneNode::Ptr grid(new GameObject(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures));
+    SceneNode::Ptr grid(new GameObject(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures, mAnimation));
     mSceneLayers[Background]->attachChild(std::move(grid));
     mOriginGrid = mSpawnPosition;
     // Add player's character

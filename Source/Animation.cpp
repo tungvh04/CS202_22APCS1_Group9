@@ -42,11 +42,11 @@ const sf::Texture* Animation::getTexture() const
 	return mSprite.getTexture();
 }
 void Animation::setAnimation(const std::string& filename, int numFrame, int x, int y){
-	sf::Texture texture;
-	if (!texture.loadFromFile(filename)){
+	sf::Texture* texture = new sf::Texture();
+	if (!texture->loadFromFile(filename)){
 		throw "Invalid " + filename;
 	}
-	setTexture(texture);
+	setTexture(*texture);
 	setNumFrames(numFrame);
 	setFrameSize(sf::Vector2i(x, y));
 	setRepeating(true);

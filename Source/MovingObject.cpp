@@ -22,16 +22,18 @@ sf::FloatRect MovingObject::getGlobalBounds() const {
     return getWorldTransform().transformRect(mSprite.getGlobalBounds());
 }
 
-void MovingObject::rotate(float angle) {
-    mSprite.rotate(angle);
-}
+// void MovingObject::rotate(float angle) {
+    // mSprite.rotate(angle);
+// }
 
 void MovingObject::flipHorizontal() {
-    mSprite.setScale(-1.0f,1.0f);
+    // mSprite.setScale(-1.0f,1.0f);
+    setScale(-1.0f,1.0f);
     //mSprite.setPosition(mSprite.getPosition().x + mSprite.getLocalBounds().width, mSprite.getPosition().y);
 }
 
 void MovingObject::flipVertical() {
-    mSprite.setScale(1.0f,-1.0f);
+    // mSprite.setScale(1.0f,-1.0f);
+    setScale(1.0f,-1.0f);
     //mSprite.setPosition(mSprite.getPosition().x, mSprite.getPosition().y + mSprite.getLocalBounds().height);
 }
