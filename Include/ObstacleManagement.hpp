@@ -44,7 +44,10 @@ public:
         Tree3,
         Tree4,
         Tree5,
-        Spider,
+        Animal1,
+        Animal2,
+        Animal3,
+        Animal4,
         TypeCount,
     };
     

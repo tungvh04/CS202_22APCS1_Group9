@@ -199,19 +199,61 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::IceCream].minDistance = 10;
 	data[Obstacle::Type::IceCream].maxDistance = 40;
 
-	data[Obstacle::Type::Spider].speed = sf::Vector2f(-Constants::carSpeed, 0.f);
-	data[Obstacle::Type::Spider].scaleX = false;
+	data[Obstacle::Type::Animal1].speed = sf::Vector2f(-Constants::carSpeed, 0.f);
+	data[Obstacle::Type::Animal1].scaleX = false;
 
-	data[Obstacle::Type::Spider].scaleY = true;
-	data[Obstacle::Type::Spider].hasAnimation = true;
-	data[Obstacle::Type::Spider].animation = Animations::ID::Spider;
-	data[Obstacle::Type::Spider].texture = Textures::ID::Oto2;
-	data[Obstacle::Type::Spider].minTime = sf::seconds(1.6);
-	data[Obstacle::Type::Spider].maxTime = sf::seconds(2.8);
-	data[Obstacle::Type::Spider].flipHorizontal = true;
-	data[Obstacle::Type::Spider].groupDelayTime = sf::seconds(5);
-	data[Obstacle::Type::Spider].groupSpawnAmount = 1;
-	data[Obstacle::Type::Spider].passTime = sf::seconds(Constants::WindowWidth/Constants::trainSpeed);
+	data[Obstacle::Type::Animal1].scaleY = false;
+	data[Obstacle::Type::Animal1].hasAnimation = true;
+	data[Obstacle::Type::Animal1].animation = Animations::ID::Animal1;
+	data[Obstacle::Type::Animal1].texture = Textures::ID::Oto2;
+	data[Obstacle::Type::Animal1].minTime = sf::seconds(1.6);
+	data[Obstacle::Type::Animal1].maxTime = sf::seconds(2.8);
+	data[Obstacle::Type::Animal1].flipHorizontal = true;
+	data[Obstacle::Type::Animal1].groupDelayTime = sf::seconds(5);
+	data[Obstacle::Type::Animal1].groupSpawnAmount = 1;
+	data[Obstacle::Type::Animal1].passTime = sf::seconds(Constants::WindowWidth/Constants::trainSpeed);
+
+	data[Obstacle::Type::Animal2].speed = sf::Vector2f(-Constants::carSpeed, 0.f);
+	data[Obstacle::Type::Animal2].scaleX = false;
+
+	data[Obstacle::Type::Animal2].scaleY = false;
+	data[Obstacle::Type::Animal2].hasAnimation = true;
+	data[Obstacle::Type::Animal2].animation = Animations::ID::Animal2;
+	data[Obstacle::Type::Animal2].texture = Textures::ID::Oto2;
+	data[Obstacle::Type::Animal2].minTime = sf::seconds(1.6);
+	data[Obstacle::Type::Animal2].maxTime = sf::seconds(2.8);
+	data[Obstacle::Type::Animal2].flipHorizontal = true;
+	data[Obstacle::Type::Animal2].groupDelayTime = sf::seconds(5);
+	data[Obstacle::Type::Animal2].groupSpawnAmount = 1;
+	data[Obstacle::Type::Animal2].passTime = sf::seconds(Constants::WindowWidth/Constants::trainSpeed);
+
+	data[Obstacle::Type::Animal4].speed = sf::Vector2f(-Constants::carSpeed, 0.f);
+	data[Obstacle::Type::Animal4].scaleX = false;
+
+	data[Obstacle::Type::Animal4].scaleY = false;
+	data[Obstacle::Type::Animal4].hasAnimation = true;
+	data[Obstacle::Type::Animal4].animation = Animations::ID::Animal4;
+	data[Obstacle::Type::Animal4].texture = Textures::ID::Oto2;
+	data[Obstacle::Type::Animal4].minTime = sf::seconds(1.6);
+	data[Obstacle::Type::Animal4].maxTime = sf::seconds(2.8);
+	data[Obstacle::Type::Animal4].flipHorizontal = true;
+	data[Obstacle::Type::Animal4].groupDelayTime = sf::seconds(5);
+	data[Obstacle::Type::Animal4].groupSpawnAmount = 1;
+	data[Obstacle::Type::Animal4].passTime = sf::seconds(Constants::WindowWidth/Constants::trainSpeed);
+
+	data[Obstacle::Type::Animal3].speed = sf::Vector2f(-Constants::carSpeed, 0.f);
+	data[Obstacle::Type::Animal3].scaleX = false;
+
+	data[Obstacle::Type::Animal3].scaleY = false;
+	data[Obstacle::Type::Animal3].hasAnimation = true;
+	data[Obstacle::Type::Animal3].animation = Animations::ID::Animal3;
+	data[Obstacle::Type::Animal3].texture = Textures::ID::Oto2;
+	data[Obstacle::Type::Animal3].minTime = sf::seconds(1.6);
+	data[Obstacle::Type::Animal3].maxTime = sf::seconds(2.8);
+	data[Obstacle::Type::Animal3].flipHorizontal = true;
+	data[Obstacle::Type::Animal3].groupDelayTime = sf::seconds(5);
+	data[Obstacle::Type::Animal3].groupSpawnAmount = 1;
+	data[Obstacle::Type::Animal3].passTime = sf::seconds(Constants::WindowWidth/Constants::trainSpeed);
 
 	return data;
 

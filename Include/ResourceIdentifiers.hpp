@@ -81,13 +81,18 @@ namespace Textures {
         Log,
         Raining,
         Snowing,
-        Spider,
+        Animal1,
+        Animal2,
+        Animal3,
+        Animal4,
     };
 }
 namespace Animations {
     enum ID {
-        Spider,
-
+        Animal1,
+        Animal2,
+        Animal3,
+        Animal4,
     };
 }
 namespace SoundEffects {

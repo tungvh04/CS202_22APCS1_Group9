@@ -105,8 +105,11 @@ bool Animation::isFinished() const
 }
 
 sf::FloatRect Animation::getLocalBounds() const
-{
-	return sf::FloatRect(getOrigin(), static_cast<sf::Vector2f>(getFrameSize()));
+{	
+	float width = static_cast<float>(std::abs(getFrameSize().x));
+	float height = static_cast<float>(std::abs(getFrameSize().y));
+	return sf::FloatRect(0.f, 0.f, width, height);
+	// return sf::FloatRect(getOrigin(), static_cast<sf::Vector2f>(getFrameSize()));
 }
 
 sf::FloatRect Animation::getGlobalBounds() const

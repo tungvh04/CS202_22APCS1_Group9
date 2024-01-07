@@ -30,7 +30,7 @@ CreditState::CreditState(StateStack& stack, Context context)
     mCredit[4].setString("Vu Hoang Tung");
 
 	auto backButton = std::make_shared<GUI::Button>(context);
-	backButton->setPosition(70.f, 950.f);
+	backButton->setPosition(70.f, 970.f);
 	backButton->setText("Back", 40);
 	backButton->setCallback([this]()
     {

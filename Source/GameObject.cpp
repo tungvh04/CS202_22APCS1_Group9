@@ -28,13 +28,13 @@ const std::vector<std::vector<Tile::Type>> RowObject::initilizeTileTypes() {
 const std::vector<std::vector<Obstacle::Type>> RowObject::initilizeObstacleTypes() {
     std::vector<Obstacle::Type> road = {Obstacle::Car, Obstacle::Car1, Obstacle::Oto, Obstacle::Oto_1, Obstacle::Oto1, Obstacle::Oto1_1, Obstacle::Oto2, Obstacle::Oto2_1};
     std::vector<Obstacle::Type> rail = {Obstacle::Train, Obstacle::Train1};
-    std::vector<Obstacle::Type> sand = {};
+    std::vector<Obstacle::Type> sand = {Obstacle::Animal3};
     std::vector<Obstacle::Type> grass = {Obstacle::Tree, Obstacle::Tree1, Obstacle::Tree2, Obstacle::Tree3, Obstacle::Tree4, Obstacle::Tree5};
     std::vector<Obstacle::Type> ice = {Obstacle::Island};
     std::vector<Obstacle::Type> grass2 = {Obstacle::Stone};
     std::vector<Obstacle::Type> sand2 = {};
     std::vector<Obstacle::Type> sand3 = {};
-    std::vector<Obstacle::Type> grass3 = {Obstacle::Spider};
+    std::vector<Obstacle::Type> grass3 = {Obstacle::Animal1, Obstacle::Animal2};
     std::vector<Obstacle::Type> grass4 = {};
     std::vector<Obstacle::Type> road2 = {Obstacle::Car, Obstacle::Car1, Obstacle::Oto, Obstacle::Oto_1, Obstacle::Oto1, Obstacle::Oto1_1, Obstacle::Oto2, Obstacle::Oto2_1};
     std::vector<Obstacle::Type> rail2 = {Obstacle::Train, Obstacle::Train1};
@@ -42,7 +42,7 @@ const std::vector<std::vector<Obstacle::Type>> RowObject::initilizeObstacleTypes
     std::vector<Obstacle::Type> grass6 = {Obstacle::SpeedUp};
     std::vector<Obstacle::Type> grass7 = {Obstacle::IceCream};
     std::vector<Obstacle::Type> log = {Obstacle::Island};
-    std::vector<Obstacle::Type> soil = {};
+    std::vector<Obstacle::Type> soil = {Obstacle::Animal4};
     std::vector<std::vector<Obstacle::Type>> obstacleTypes = {grass, sand, ice, road, rail, grass2, sand2, sand3, grass3, grass4, road2, rail2, grass5, grass6, grass7, log, soil};
     // return {none, road, none};
     return obstacleTypes;

@@ -4,13 +4,54 @@
 #include <WeatherState.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Image.hpp>
 
 #include <algorithm>
 #include <cmath>
 #include <fstream>
 #include <iostream>
-
+#include <vector>
 #include <GameLevel.hpp>
+
+std::vector<std::pair<int, sf::Vector2i>> setAnimation(TypeMap::ID typeOfMap){
+    std::pair<int, sf::Vector2i> animal1;
+    std::pair<int, sf::Vector2i> animal2;
+    std::pair<int, sf::Vector2i> animal3;
+    std::pair<int, sf::Vector2i> animal4;
+    switch (typeOfMap){
+        case TypeMap::Spring:
+            animal1 = std::make_pair(4, sf::Vector2i(16, 16));
+            animal2 = std::make_pair(4, sf::Vector2i(16, 16));
+            animal3 = std::make_pair(4, sf::Vector2i(16, 16));
+            animal4 = std::make_pair(4, sf::Vector2i(16, 16));
+            return {animal1, animal2, animal3, animal4};
+        case TypeMap::Autumn:
+            animal1 = std::make_pair(4, sf::Vector2i(16, 16));
+            animal2 = std::make_pair(4, sf::Vector2i(16, 16));
+            animal3 = std::make_pair(4, sf::Vector2i(16, 16));
+            animal4 = std::make_pair(4, sf::Vector2i(16, 16));
+            return {animal1, animal2, animal3, animal4};
+        case TypeMap::Winter:
+            animal1 = std::make_pair(4, sf::Vector2i(16, 16));
+            animal2 = std::make_pair(4, sf::Vector2i(16, 16));
+            animal3 = std::make_pair(4, sf::Vector2i(16, 16));
+            animal4 = std::make_pair(4, sf::Vector2i(16, 16));
+            return {animal1, animal2, animal3, animal4};
+        case TypeMap::Atlantis:
+            animal1 = std::make_pair(8, sf::Vector2i(48, 32));
+            animal2 = std::make_pair(4, sf::Vector2i(32, 16));
+            animal3 = std::make_pair(8, sf::Vector2i(48, 32));
+            animal4 = std::make_pair(8, sf::Vector2i(32, 32));
+            return {animal1, animal2, animal3, animal4};
+            return {animal1, animal2, animal3, animal4};
+        default:
+            animal1 = std::make_pair(4, sf::Vector2i(16, 16));
+            animal2 = std::make_pair(4, sf::Vector2i(16, 16));
+            animal3 = std::make_pair(4, sf::Vector2i(16, 16));
+            animal4 = std::make_pair(4, sf::Vector2i(16, 16));
+            return {animal1, animal2, animal3, animal4};
+    }
+}
 std::string IDtoString(TypeMap::ID typeOfMap){
     switch (typeOfMap){
     case TypeMap::Spring:
@@ -307,16 +348,53 @@ void World::loadTextures() {
     mTextures.load(Textures::Raining, "Media/Textures/Raining.png");
     mTextures.load(Textures::Snowing, "Media/Textures/Snowing.png");
 
-    mTextures.load(Textures::Spider, "Media/Textures/Animal1.png");
+    mTextures.load(Textures::Animal1, "Media/Textures/" + typeMap + "/Animal/Animal1.png");
+    mTextures.load(Textures::Animal2, "Media/Textures/" + typeMap + "/Animal/Animal2.png");
+    mTextures.load(Textures::Animal3, "Media/Textures/" + typeMap + "/Animal/Animal3.png");
+    mTextures.load(Textures::Animal4, "Media/Textures/" + typeMap + "/Animal/Animal4.png");
 }
 void World::loadAnimations(){
-    // mAnimation[Animations::ID::Spider].setAnimation("Media/Textures/Animal1.png", 4, 16, 16);
-    Animation& spider = mAnimation[Animations::ID::Spider];
-    spider.setTexture(mTextures.get(Textures::ID::Spider));
-	spider.setNumFrames(4);
-	spider.setFrameSize(sf::Vector2i(16, 16));
-	spider.setRepeating(true);
-	spider.setDuration(sf::seconds(1));
+    std::vector<std::pair<int, sf::Vector2i>> listIn4(setAnimation(typeOfMap));
+
+    std::cout << listIn4[0].first;
+    std::cout << listIn4[1].first;
+    std::cout << listIn4[2].first;
+    std::cout << listIn4[3].first;
+    Animation& animal1 = mAnimation[Animations::ID::Animal1];
+    animal1.setTexture(mTextures.get(Textures::ID::Animal1));
+	animal1.setNumFrames(listIn4[0].first);
+	animal1.setFrameSize(listIn4[0].second);
+	animal1.setRepeating(true);
+	animal1.setDuration(sf::seconds(1));
+    animal1.scale(Constants::GridSize / animal1.getLocalBounds().width, Constants::GridSize / animal1.getLocalBounds().height);
+    animal1.setOrigin(animal1.getLocalBounds().width / 2.f, animal1.getLocalBounds().height / 2.f);
+
+    Animation& animal2 = mAnimation[Animations::ID::Animal2];
+    animal2.setTexture(mTextures.get(Textures::ID::Animal2));
+	animal2.setNumFrames(listIn4[1].first);
+	animal2.setFrameSize(listIn4[1].second);
+	animal2.setRepeating(true);
+	animal2.setDuration(sf::seconds(1));
+    animal2.scale(Constants::GridSize / animal2.getLocalBounds().width, Constants::GridSize / animal2.getLocalBounds().height);
+    animal2.setOrigin(animal2.getLocalBounds().width / 2.f, animal2.getLocalBounds().height / 2.f);
+
+    Animation& animal3 = mAnimation[Animations::ID::Animal3];
+    animal3.setTexture(mTextures.get(Textures::ID::Animal3));
+	animal3.setNumFrames(listIn4[2].first);
+	animal3.setFrameSize(listIn4[2].second);
+	animal3.setRepeating(true);
+	animal3.setDuration(sf::seconds(1));
+    animal3.scale(Constants::GridSize / animal3.getLocalBounds().width, Constants::GridSize / animal3.getLocalBounds().height);
+    animal3.setOrigin(animal3.getLocalBounds().width / 2.f, animal3.getLocalBounds().height / 2.f);
+
+    Animation& animal4 = mAnimation[Animations::ID::Animal4];
+    animal4.setTexture(mTextures.get(Textures::ID::Animal4));
+	animal4.setNumFrames(listIn4[3].first);
+	animal4.setFrameSize(listIn4[3].second);
+	animal4.setRepeating(true);
+	animal4.setDuration(sf::seconds(1));
+    animal4.scale(Constants::GridSize / animal4.getLocalBounds().width, Constants::GridSize / animal4.getLocalBounds().height);
+    animal4.setOrigin(animal4.getLocalBounds().width / 2.f, animal4.getLocalBounds().height / 2.f);
 }
 void World::buildScene() {
     // Initialize the different layers
