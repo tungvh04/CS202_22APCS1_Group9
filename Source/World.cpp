@@ -26,8 +26,8 @@ std::string IDtoString(TypeMap::ID typeOfMap){
     }
 }
 World::World(sf::RenderWindow& window) : lastWeatherState(0), mWindow(window), mWorldView(window.getDefaultView()), mTextures(), mSceneGraph(), mSceneLayers(), mWorldBounds(0.f, 0.f, /*mWorldView.getSize().x*/ 200000.f, 200000.f), mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f), mScrollSpeed(Constants::scrollSpeed), mPlayerCharacter(nullptr) {
-    loadAnimations();
     loadTextures();
+    loadAnimations();
     buildScene();
 
     // Prepare the view
@@ -256,9 +256,17 @@ void World::loadTextures() {
     
     mTextures.load(Textures::Raining, "Media/Textures/Raining.png");
     mTextures.load(Textures::Snowing, "Media/Textures/Snowing.png");
+
+    mTextures.load(Textures::Spider, "Media/Textures/Animal1.png");
 }
 void World::loadAnimations(){
-    mAnimation[Animations::ID::Spider].setAnimation("Media/Textures/Animal1.png", 4, 16, 16);
+    // mAnimation[Animations::ID::Spider].setAnimation("Media/Textures/Animal1.png", 4, 16, 16);
+    Animation& spider = mAnimation[Animations::ID::Spider];
+    spider.setTexture(mTextures.get(Textures::ID::Spider));
+	spider.setNumFrames(4);
+	spider.setFrameSize(sf::Vector2i(16, 16));
+	spider.setRepeating(true);
+	spider.setDuration(sf::seconds(1));
 }
 void World::buildScene() {
     // Initialize the different layers
