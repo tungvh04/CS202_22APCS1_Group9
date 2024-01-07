@@ -276,7 +276,7 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
     if (mType == Obstacle::Type::TypeCount) {
         return;
     }
-    if (ObstacleDataTables::data[mType].noTrafficLight) 
+    //if (ObstacleDataTables::data[mType].noTrafficLight) 
     if (mTimeToWait <= sf::Time::Zero) {
         if (!hasSpawned) {
             hasSpawned=true;
@@ -293,7 +293,7 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
                     //lightObstacle->setPosition(Constants::lightOffsetRight,  0);
                     lightObstacle->setPosition(lightRightBound, 0);
                 }
-                lightObstacle->setKillTime(sf::milliseconds(int(randomTimeGroup.asMilliseconds())*groupSpawnLeft)+mTimeToSpawn+sf::seconds(Constants::trafficLightKillDelay));
+                lightObstacle->setKillTime(sf::milliseconds(int(randomTimeGroup.asMilliseconds())*(groupSpawnLeft-1))+mTimeToSpawn+sf::seconds(Constants::trafficLightKillDelay)+ObstacleDataTables::data[mType].passTime);
                 attachChild(std::move(lightObstacle));
                 //-------------------------------------------------
             }
@@ -349,7 +349,7 @@ void ObstacleRow::updateCurrent(sf::Time dt) {
                         //lightObstacle->setPosition(Constants::lightOffsetRight,  0);
                         lightObstacle->setPosition(lightRightBound, 0);
                     }
-                    lightObstacle->setKillTime(mTimeToWait+sf::seconds(Constants::trafficLightKillDelay));
+                    lightObstacle->setKillTime(randomTimeGroup+mTimeToWait+sf::seconds(Constants::trafficLightKillDelay)-ObstacleDataTables::data[mType].passTime);
                     attachChild(std::move(lightObstacle));
                     //---------------------------------------------
                 }
