@@ -3,12 +3,15 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Time.hpp>
+
+#include <iostream>
 class Animation : public sf::Drawable, public sf::Transformable
 {
 	public:
 		Animation();
 		explicit Animation(const sf::Texture& texture);
 		void setTexture(const sf::Texture& texture);
+		void setAnimation(const std::string& filename, int numFrame, int x, int y);
 		const sf::Texture* getTexture() const;
         
 		void setFrameSize(sf::Vector2i mFrameSize);

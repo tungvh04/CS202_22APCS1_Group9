@@ -83,6 +83,12 @@ namespace Textures {
         Snowing,
     };
 }
+namespace Animations {
+    enum ID {
+        Spider,
+
+    };
+}
 namespace SoundEffects {
     enum ID {
         Button
