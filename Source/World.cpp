@@ -564,6 +564,18 @@ void World::handleCollisions() {
         if (matchesCategories(node, Category::SlowDown)) {
             mPlayerCharacter->multSpeedMult(Constants::SlowDownMult);
         }
+        if (matchesCategories(node, Category::HealSmall)) {
+            mPlayerCharacter->hurt(-Constants::healAmountSmall);
+        }
+        if (matchesCategories(node, Category::HealLarge)) {
+            mPlayerCharacter->hurt(-Constants::healAmountLarge);
+        }
+        if (matchesCategories(node, Category::HurtSmall)) {
+            mPlayerCharacter->hurt(-Constants::hurtAmountSmall);
+        }
+        if (matchesCategories(node, Category::HurtLarge)) {
+            mPlayerCharacter->hurt(-Constants::hurtAmountLarge);
+        }
         if (matchesCategories(node, Category::PickUp)) {
             node->setDestroy();
         }

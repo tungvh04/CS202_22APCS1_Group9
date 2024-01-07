@@ -61,6 +61,11 @@ namespace Constants {
 
     constexpr static float FreezingHealthDrainPerSecond = 50.f;
     constexpr static float BurningHealthDrainPerSecond = 20.f;
+
+    constexpr static float healAmountLarge = 100.f;
+    constexpr static float healAmountSmall = 50.f;
+    constexpr static float hurtAmountLarge = 100.f;
+    constexpr static float hurtAmountSmall = 50.f;
 }
 
 #endif // CONSTANTS_HPP
