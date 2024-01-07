@@ -47,6 +47,8 @@ public:
     bool checkLastWeatherState(int x);
     void clearWeather();
 
+    std::string getMap();
+
 private:
     void speedUp();
     void slowDown();

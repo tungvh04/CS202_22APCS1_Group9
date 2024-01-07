@@ -3,6 +3,7 @@
 
 #include <StateIdentifiers.hpp>
 #include <ResourceIdentifiers.hpp>
+#include <ScoreState.hpp>
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Window/Event.hpp>
@@ -49,6 +50,8 @@ protected:
 
 private:
     StateStack* mStack;
+
+protected:
     Context mContext;
 };
 

@@ -22,6 +22,8 @@ class Container : public Component
         virtual bool isSelectable() const;
         virtual void handleEvent(const sf::Event& event);
 
+        void clear();
+
 
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
