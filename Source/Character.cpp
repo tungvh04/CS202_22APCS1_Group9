@@ -260,6 +260,7 @@ bool Character::predictMovement(sf::Vector2f direction) {
 
 void Character::destroy() {
     // std::cout << "Character destroyed\n";
+    playerSoundController.play(SoundEffects::Die);
     if (!mIsDestroyed) {
         mIsDestroyed = true;
         mShowDeath = true;
@@ -370,7 +371,22 @@ float Character::getHealth() {
 }
 
 void Character::hurt(float x) {
+    if (x>0&&x==Constants::hurtAmountSmall) {
+        playerSoundController.play(SoundEffects::Hurt);
+    }
+    if (x>0&&x==Constants::hurtAmountLarge) {
+        playerSoundController.play(SoundEffects::Hurt);
+    }
+    if (x<0&&x==-Constants::healAmountSmall) {
+        playerSoundController.play(SoundEffects::Heal);
+    }
+    if (x<0&&x==-Constants::healAmountLarge) {
+        playerSoundController.play(SoundEffects::Heal);
+    }
     health-=x;
+    if (health>Constants::characterHealth) {
+        health=Constants::characterHealth;
+    }
 }
 
 void Character::updateHealth(sf::Time dt) {

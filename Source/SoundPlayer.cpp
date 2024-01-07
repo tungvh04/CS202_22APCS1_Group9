@@ -21,6 +21,9 @@ SoundPlayer::SoundPlayer()
 {
 	mSoundBuffers.load(SoundEffects::Button, "Media/Sound/Button.mp3");
 
+	mSoundBuffers.load(SoundEffects::Hurt, "Media/Sound/Hurt.wav");
+	mSoundBuffers.load(SoundEffects::Heal, "Media/Sound/Heal.mp3");
+	mSoundBuffers.load(SoundEffects::Die, "Media/Sound/Death.mp3");
 	// Listener points towards the screen (default in SFML)
 	sf::Listener::setDirection(0.f, 0.f, -1.f);
 }

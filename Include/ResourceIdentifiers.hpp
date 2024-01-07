@@ -98,7 +98,10 @@ namespace Animations {
 }
 namespace SoundEffects {
     enum ID {
-        Button
+        Button,
+        Hurt,
+        Die,
+        Heal,
     };
 }
 namespace Fonts {

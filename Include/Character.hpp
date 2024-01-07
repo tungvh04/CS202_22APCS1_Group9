@@ -5,6 +5,7 @@
 #include <ResourceIdentifiers.hpp>
 #include <Const.hpp>
 #include <Animation.hpp>
+#include <SoundPlayer.hpp>
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -107,6 +108,7 @@ private:
     Facing mFacing = Facing::Right;
 
     float health;
+    SoundPlayer playerSoundController;
 };
 
 
