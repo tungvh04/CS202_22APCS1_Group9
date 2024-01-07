@@ -13,7 +13,6 @@ class Animation : public sf::Drawable, public sf::Transformable
 		void setTexture(const sf::Texture& texture);
 		void setAnimation(const std::string& filename, int numFrame, int x, int y);
 		const sf::Texture* getTexture() const;
-        
 		void setFrameSize(sf::Vector2i mFrameSize);
 		sf::Vector2i getFrameSize() const;
 
