@@ -113,6 +113,8 @@ private:
 
     Animation weatherEffect;
     int weatherState,lastWeatherState;
+
+    Animation heartEffect;
 };
 
 #endif // WORLD_HPP

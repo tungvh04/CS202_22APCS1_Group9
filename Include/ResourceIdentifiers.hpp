@@ -81,6 +81,7 @@ namespace Textures {
         Log,
         Raining,
         Snowing,
+        Heart,
     };
 }
 namespace Animations {

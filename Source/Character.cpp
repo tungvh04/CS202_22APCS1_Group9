@@ -101,6 +101,8 @@ Character::Character(Type type, const TextureHolder& textures) : mSprite(texture
     mDeath.setTexture(textures.get(toTextureIDDeath(mType)));
     mMoving.setTexture(textures.get(toTextureIDMoving(mType)));
 
+    health=Constants::characterHealth;
+
     int framSize = getSizeFrame(mType);
     mDeath.setFrameSize(sf::Vector2i(framSize, framSize));
     mDeath.setNumFrames(8);
@@ -206,6 +208,7 @@ void Character::updateCurrent(sf::Time dt) {
     }
     updateTemperature(dt);
     updateSpeedMult(dt);
+    updateHealth(dt);
 }
 sf::FloatRect Character::getBoundingRect() const
 {
@@ -360,4 +363,21 @@ void Character::updateSpeedMult(sf::Time dt) {
         setDefaultSpeedMult(1);
     }
     speedMult-=(speedMult-defaultSpeedMult)*(dt.asMilliseconds()/(dt.asMilliseconds()+Constants::SpeedSlope));
+}
+
+float Character::getHealth() {
+    return health;
+}
+
+void Character::hurt(float x) {
+    health-=x;
+}
+
+void Character::updateHealth(sf::Time dt) {
+    if (isFreezing()) {
+        hurt(Constants::FreezingHealthDrainPerSecond*dt.asSeconds());
+    }
+    if (isBurning()) {
+        hurt(Constants::BurningHealthDrainPerSecond*dt.asSeconds());
+    }
 }

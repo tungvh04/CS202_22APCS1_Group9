@@ -199,8 +199,8 @@ void World::update(sf::Time dt) {
             lastWeatherState=Weather::Snowing;
             weatherEffect.setTexture(mTextures.get(Textures::ID::Snowing));
             weatherEffect.setNumFrames(20);
-            weatherEffect.setDuration(sf::seconds(1.f));
-            weatherEffect.setRepeating(true);
+            weatherEffect.setDuration(sf::seconds(10.f));
+            //weatherEffect.setRepeating(true);
             weatherEffect.setFrameSize(sf::Vector2i(320,180));
             weatherEffect.setPosition(0,0);
             weatherEffect.restart();
@@ -218,6 +218,25 @@ void World::update(sf::Time dt) {
 
     if (screenEffect.isBuilt()) screenEffect.update(dt);
     if (weatherEffect.isBuilt()) weatherEffect.update(dt);
+
+    if (!heartEffect.isBuilt()) {
+        heartEffect.setTexture(mTextures.get(Textures::ID::Heart));
+        heartEffect.setNumFrames(20);
+        heartEffect.setDuration(sf::seconds(1.f));
+        heartEffect.setRepeating(true);
+        heartEffect.setFrameSize(sf::Vector2i(320,180));
+        heartEffect.setPosition(Constants::WindowWidth-300,100);
+        //heartEffect.setPosition(0,0);
+        heartEffect.restart();
+        heartEffect.setScale(1,1);
+        //heartEffect.setScale((Constants::WindowWidth)/(heartEffect.getGlobalBounds().width),(Constants::WindowHeight)/(heartEffect.getGlobalBounds().height));
+    }
+
+    if (heartEffect.isBuilt()) heartEffect.update(dt);
+
+    if (mPlayerCharacter->getHealth()<=0) {
+        mPlayerCharacter->destroy();
+    }
 }
 
 void World::draw() { 
@@ -233,6 +252,28 @@ void World::draw() {
     //if (weatherEffect.isShow()) std::cout<<"Wtf happened here\n";
     mWindow.setView(mWindow.getDefaultView());
     mWindow.draw(screenEffect);
+    mWindow.setView(mWindow.getDefaultView());
+    std::cout<<mPlayerCharacter->getHealth()<<'\n';
+    if (mPlayerCharacter->getHealth()>0) {
+        heartEffect.setPosition(Constants::WindowWidth-200,-50);
+        mWindow.draw(heartEffect);
+    }
+    if (mPlayerCharacter->getHealth()>100) {
+        heartEffect.setPosition(Constants::WindowWidth-300,-50);
+        mWindow.draw(heartEffect);
+    }
+    if (mPlayerCharacter->getHealth()>200) {
+        heartEffect.setPosition(Constants::WindowWidth-400,-50);
+        mWindow.draw(heartEffect);
+    }
+    if (mPlayerCharacter->getHealth()>300) {
+        heartEffect.setPosition(Constants::WindowWidth-500,-50);
+        mWindow.draw(heartEffect);
+    }
+    if (mPlayerCharacter->getHealth()>400) {
+        heartEffect.setPosition(Constants::WindowWidth-600,-50);
+        mWindow.draw(heartEffect);
+    }
 }
 
 CommandQueue& World::getCommandQueue() {
@@ -306,6 +347,7 @@ void World::loadTextures() {
     
     mTextures.load(Textures::Raining, "Media/Textures/Raining.png");
     mTextures.load(Textures::Snowing, "Media/Textures/Snowing.png");
+    mTextures.load(Textures::Heart, "Media/Textures/Heart.png");
 }
 void World::loadAnimations(){
     mAnimation[Animations::ID::Spider].setAnimation("Media/Textures/Animal1.png", 4, 16, 16);

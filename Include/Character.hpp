@@ -59,6 +59,10 @@ public:
     void setDefaultSpeedMult(float value);
     void updateSpeedMult(sf::Time dt);
 
+    float getHealth();
+    void hurt(float x);
+    void updateHealth(sf::Time dt);
+
 private:
     //State hell
     
@@ -101,6 +105,8 @@ private:
         Right
     };
     Facing mFacing = Facing::Right;
+
+    float health;
 };
 
 

@@ -56,6 +56,11 @@ namespace Constants {
     constexpr static float BurningDefaultSpeed = 0.8f;
     constexpr static float SpeedUpMult = 1.5f;
     constexpr static float SlowDownMult = 0.8f;
+
+    constexpr static float characterHealth = 500.f;
+
+    constexpr static float FreezingHealthDrainPerSecond = 50.f;
+    constexpr static float BurningHealthDrainPerSecond = 20.f;
 }
 
 #endif // CONSTANTS_HPP
