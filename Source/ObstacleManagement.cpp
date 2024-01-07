@@ -32,6 +32,8 @@ Textures::ID toTextureID(Obstacle::Type type) {
             return Textures::SpeedUp;
         case Obstacle::IceCream:
             return Textures::IceCream;
+        //case Obstacle::Honey:
+        //    return Textures::Honey;
         case Obstacle::Tree:
             return Textures::Tree;
         case Obstacle::Tree1:
@@ -107,6 +109,8 @@ unsigned int Obstacle::getCategory() const {
             return Category::Car | Category::HurtLarge | Category::PickUp;
         case Animal4:
             return Category::Car | Category::HurtLarge | Category::PickUp;
+        //case Honey:
+        //    return Category::PickUp | Category::HealLarge;
         default:
             throw std::runtime_error("Invalid obstacle type");
     }

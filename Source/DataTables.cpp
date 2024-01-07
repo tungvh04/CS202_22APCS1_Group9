@@ -199,6 +199,14 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::IceCream].minDistance = 10;
 	data[Obstacle::Type::IceCream].maxDistance = 40;
 
+	/*
+	data[Obstacle::Type::Honey].scaleX = true;
+	data[Obstacle::Type::Honey].scaleY = true;
+	data[Obstacle::Type::Honey].texture = Textures::ID::Honey;
+	data[Obstacle::Type::Honey].minDistance = 10;
+	data[Obstacle::Type::Honey].maxDistance = 40;
+	*/
+
 	data[Obstacle::Type::Animal1].speed = sf::Vector2f(-Constants::carSpeed, 0.f);
 	data[Obstacle::Type::Animal1].scaleX = false;
 

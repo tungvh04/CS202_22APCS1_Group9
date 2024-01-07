@@ -384,6 +384,7 @@ void World::loadTextures() {
     mTextures.load(Textures::SlowDown, "Media/Textures/SlowDown.png");
     mTextures.load(Textures::Freezing, "Media/Textures/Effect/Freezing/Freezing.png");
     mTextures.load(Textures::IceCream, "Media/Textures/IceCream.png");
+    //mTextures.load(Textures::Honey, "Media/Textures/Honey.png");
     mTextures.load(Textures::Burning, "Media/Textures/Effect/Burning/Burning3.png");
     
     mTextures.load(Textures::Raining, "Media/Textures/Raining.png");

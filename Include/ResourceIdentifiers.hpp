@@ -86,6 +86,7 @@ namespace Textures {
         Animal2,
         Animal3,
         Animal4,
+        //Honey,
     };
 }
 namespace Animations {

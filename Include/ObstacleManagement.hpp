@@ -49,6 +49,7 @@ public:
         Animal3,
         Animal4,
         TypeCount,
+        //Honey,
     };
     
     virtual unsigned int getCategory() const;
