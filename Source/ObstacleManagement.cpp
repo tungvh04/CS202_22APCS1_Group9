@@ -100,13 +100,13 @@ unsigned int Obstacle::getCategory() const {
         case Tree5:
             return Category::Stone | Category::Obstacle;
         case Animal1:
-            return Category::Car | Category::Obstacle;
+            return Category::Car | Category::HurtLarge | Category::PickUp;
         case Animal2:
-            return Category::Car | Category::Obstacle;
+            return Category::Car | Category::HurtLarge | Category::PickUp;
         case Animal3:
-            return Category::Car | Category::Obstacle;
+            return Category::Car | Category::HurtLarge | Category::PickUp;
         case Animal4:
-            return Category::Car | Category::Obstacle;
+            return Category::Car | Category::HurtLarge | Category::PickUp;
         default:
             throw std::runtime_error("Invalid obstacle type");
     }

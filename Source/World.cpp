@@ -294,7 +294,7 @@ void World::draw() {
     mWindow.setView(mWindow.getDefaultView());
     mWindow.draw(screenEffect);
     mWindow.setView(mWindow.getDefaultView());
-    std::cout<<mPlayerCharacter->getHealth()<<'\n';
+    //std::cout<<mPlayerCharacter->getHealth()<<'\n';
     if (mPlayerCharacter->getHealth()>0) {
         heartEffect.setPosition(Constants::WindowWidth-200,-50);
         mWindow.draw(heartEffect);
