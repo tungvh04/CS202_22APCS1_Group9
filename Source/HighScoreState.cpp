@@ -1,6 +1,7 @@
 #include <HighScoreState.hpp>
 #include <Utility.hpp>
 #include <ResourceHolder.hpp>
+#include <iostream>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -8,13 +9,20 @@ HighScoreState::HighScoreState(StateStack& stack, Context context)
 : State(stack, context)
 , mGUIContainer()
 {
+	loadScore();
 	//Example
+	/*
 	highScore[0].first = 234;
 	highScore[0].second = "Winter";
 	highScore[1].first = 220;
 	highScore[1].second = "Autumn";
 	highScore[2].first = 123;
 	highScore[2].second = "Spring";
+	*/
+
+	for (int i=0;i<=2;i++) {
+		std::cout<<highScore[i].first<<' '<<highScore[i].second<<'\n';
+	}
 
 	mBackgroundSprite.setTexture(context.textures->get(Textures::HighScore));
 	
@@ -87,6 +95,74 @@ void HighScoreState::draw()
 
 bool HighScoreState::update(sf::Time)
 {
+	
+	int scoreStateScore;
+	std::string scoreStateMapName;
+	saveScore(scoreStateScore,scoreStateMapName);
+	loadScore();
+	/*
+	mGUIContainer.clear();
+
+	Context context=getContext();
+
+	auto scoreTop1 = std::make_shared<GUI::Button>(context);
+	scoreTop1->setPosition(650.f, 440.f);
+	scoreTop1->setText(toString(highScore[0].first), 40);
+	scoreTop1->setCallback([this]()
+    {
+    });
+
+	auto mapTop1 = std::make_shared<GUI::Button>(context);
+	mapTop1->setPosition(1050.f, 440.f);
+	mapTop1->setText(highScore[0].second, 40);
+	mapTop1->setCallback([this]()
+    {
+    });
+
+	auto scoreTop2 = std::make_shared<GUI::Button>(context);
+	scoreTop2->setPosition(650.f, 600.f);
+	scoreTop2->setText(toString(highScore[1].first), 40);
+	scoreTop2->setCallback([this]()
+    {
+    });
+
+	auto mapTop2 = std::make_shared<GUI::Button>(context);
+	mapTop2->setPosition(1050.f, 600.f);
+	mapTop2->setText(highScore[1].second, 40);
+	mapTop2->setCallback([this]()
+    {
+    });
+
+	auto scoreTop3 = std::make_shared<GUI::Button>(context);
+	scoreTop3->setPosition(650.f, 760.f);
+	scoreTop3->setText(toString(highScore[2].first), 40);
+	scoreTop3->setCallback([this]()
+    {
+    });
+
+	auto mapTop3 = std::make_shared<GUI::Button>(context);
+	mapTop3->setPosition(1050.f, 760.f);
+	mapTop3->setText(highScore[2].second, 40);
+	mapTop3->setCallback([this]()
+    {
+    });
+
+	auto backButton = std::make_shared<GUI::Button>(context);
+	backButton->setPosition(70.f, 950.f);
+	backButton->setText("Back", 40);
+	backButton->setCallback([this]()
+    {
+        requestStackPop();
+        // requestStackPush(States::Menu);
+    });
+	mGUIContainer.pack(scoreTop1);
+	mGUIContainer.pack(mapTop1);
+	mGUIContainer.pack(scoreTop2);
+	mGUIContainer.pack(mapTop2);
+	mGUIContainer.pack(scoreTop3);
+	mGUIContainer.pack(mapTop3);
+	mGUIContainer.pack(backButton);
+	*/
 	return false;
 }
 
@@ -113,7 +189,7 @@ void HighScoreState::addButtonLabel(Player::Action action, float y, const std::s
 
 void HighScoreState::saveScore() {
 	std::ofstream out;
-	out.open(Constants::savePath);
+	out.open(Constants::saveScorePath);
 	for (int i=0;i<=2;i++) {
 		out<<highScore[i].first<<'\n';
 		out<<highScore[i].second<<'\n';
@@ -122,11 +198,13 @@ void HighScoreState::saveScore() {
 }
 
 void HighScoreState::saveScore(double _score,std::string name) {
+	//std::cout<<"Help: "<<_score<<' '<<name<<'\n';
     for (int i=0;i<=2;i++) {
 		if (name==highScore[i].second) {
 			if (_score>highScore[i].first) {
 				std::swap(_score,highScore[i].first);
 			}
+			else if (_score==highScore[i].first) break;
 		}
 	}
 	saveScore();
@@ -134,7 +212,7 @@ void HighScoreState::saveScore(double _score,std::string name) {
 
 void HighScoreState::loadScore() {
 	std::ifstream in;
-	in.open(Constants::savePath);
+	in.open(Constants::saveScorePath);
 	for (int i=0;i<=2;i++) {
 		in>>highScore[i].first;
 		getline(in,highScore[i].second);

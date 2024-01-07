@@ -25,6 +25,22 @@ std::string IDtoString(TypeMap::ID typeOfMap){
         return "Spring";
     }
 }
+
+std::string World::getMap() {
+    switch (typeOfMap){
+    case TypeMap::Spring:
+        return "Spring";
+    case TypeMap::Autumn:
+        return "Autumn";
+    case TypeMap::Winter:
+        return "Winter";
+    case TypeMap::Atlantis:
+        return "Atlantis";
+    default:
+        return "Spring";
+    }
+}
+
 World::World(sf::RenderWindow& window) : lastWeatherState(0), mWindow(window), mWorldView(window.getDefaultView()), mTextures(), mSceneGraph(), mSceneLayers(), mWorldBounds(0.f, 0.f, /*mWorldView.getSize().x*/ 200000.f, 200000.f), mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f), mScrollSpeed(Constants::scrollSpeed), mPlayerCharacter(nullptr) {
     loadTextures();
     buildScene();
@@ -40,6 +56,7 @@ void World::update(sf::Time dt) {
     //std::cout<<"Weather: "<<weatherState<<'\n';
 
     if (typeOfMap==TypeMap::Spring) {
+        clearWeather();
         mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureSpring);
     }
     else if (typeOfMap==TypeMap::Autumn) {
@@ -67,6 +84,39 @@ void World::update(sf::Time dt) {
     adaptPlayerVelocity();
 
     handleCollisions();
+
+    if (mPlayerCharacter->isDestroyed()) {
+        int scoreStateScore=gameLevel.getScore();
+	    std::string scoreStateMapName=getMap();
+        std::vector<std::pair<int,std::string>> highScore;
+        highScore.resize(3);
+        std::ifstream in;
+        in.open(Constants::saveScorePath);
+        for (int i=0;i<=2;i++) {
+            in>>highScore[i].first;
+            getline(in,highScore[i].second);
+            std::getline(in,highScore[i].second);
+        }
+        in.close();
+        for (int i=0;i<=2;i++) {
+            if (scoreStateMapName==highScore[i].second) {
+                if (scoreStateScore>highScore[i].first) {
+                    std::swap(scoreStateScore,highScore[i].first);
+                }
+                else if (scoreStateScore==highScore[i].first) break;
+            }
+        }
+        std::ofstream out;
+        out.open(Constants::saveScorePath);
+        for (int i=0;i<=2;i++) {
+            out<<highScore[i].first<<'\n';
+            out<<highScore[i].second<<'\n';
+            //std::cout<<highScore[i].first<<'\n';
+            //std::cout<<highScore[i].second<<'\n';
+        }
+        out.close();
+        //std::cout<<"Huh: ? "<<scoreStateMapName<<' '<<scoreStateScore<<'\n';
+    }
 
     // Regular update step, adapt position (correct if outside view)
     mSceneGraph.update(dt);
