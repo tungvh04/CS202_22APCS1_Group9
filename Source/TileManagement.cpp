@@ -82,50 +82,15 @@ bool TileRow::isDestroyed() const {
 
 
 TileManager::TileManager(std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures) : mSpawnOrigin(0, 0), getBattlefieldBounds(getBattlefieldBounds), mTextures(textures) {
-    // mTiles.get()->setPosition(mSpawnOrigin);
 }
 
-// TileManager::TileManager() : mSpawnOrigin(0, 0), mTiles(new SceneNode()) {
-    // // mTiles.get()->setPosition(mSpawnOrigin);
-// }
 
 TileManager::TileManager(sf::Vector2f spawnOrigin, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures) : mSpawnOrigin(spawnOrigin), getBattlefieldBounds(getBattlefieldBounds), mTextures(textures) {
-    // mTiles.get()->setPosition(mSpawnOrigin);
 }
-// TileManager::TileManager(sf::Vector2f spawnOrigin) : mSpawnOrigin(spawnOrigin), mTiles(new SceneNode()) {
-    // // mTiles.get()->setPosition(mSpawnOrigin);
-// }
 
 void TileManager::updateCurrent(sf::Time dt) {
-    // sf::FloatRect viewBounds = getBattlefieldBounds();
-    // while (mSpawnOrigin.y > viewBounds.top) {
-        // int type = rand() % 3;
-        // SceneNode::Ptr row(new TileRow(std::vector<Tile::Type>(1, static_cast<Tile::Type>(type)), getBattlefieldBounds, mTextures));
-        // row.get()->setPosition(mSpawnOrigin);
-        // attachChild(std::move(row));
-        // mSpawnOrigin.y -= Constants::GridSize;
-    // }
-    // Command command;
-    // command.category = Category::Tile;
-    // command.action = derivedAction<Tile>([this, viewBounds, dt](Tile& tile, sf::Time) {
-        // if (!viewBounds.intersects(tile.getBoundingRect())) {
-            // tile.destroy();
-        // }
-    // });
-    // // mTiles.get()->onCommand(command, dt);
-    // // mTiles.get()->removeWrecks();
-    // onCommand(command, dt);
-    // removeWrecks();
 }
 
-// void TileManager::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    // // std::cout << "Drawing tiles\n";
-    // target.draw(*mTiles, states);
-// }
-
-// void TileManager::checkNodeCollision(sf::FloatRect rect, std::set<SceneNode*>& collisionNodes) {
-    // mTiles.get()->checkNodeCollision(rect, collisionNodes);
-// }
 void TileManager::setSpawnOrigin(sf::Vector2f spawnOrigin) {
     mSpawnOrigin = spawnOrigin;
 }

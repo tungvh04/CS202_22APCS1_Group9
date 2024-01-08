@@ -21,7 +21,6 @@ const std::vector<std::vector<Tile::Type>> RowObject::initilizeTileTypes() {
     std::vector<Tile::Type> log = {Tile::Log};
     std::vector<Tile::Type> soil = {Tile::Soil};
     std::vector<std::vector<Tile::Type>> tileTypes = {grass, sand, ice, road, rail, grass2, sand2, sand3, grass3, grass4, road2, rail2, grass5, grass6, grass7, log, soil};
-    // return {grass, road, ice};
     return tileTypes;
 }
 
@@ -44,7 +43,6 @@ const std::vector<std::vector<Obstacle::Type>> RowObject::initilizeObstacleTypes
     std::vector<Obstacle::Type> log = {Obstacle::Island};
     std::vector<Obstacle::Type> soil = {Obstacle::Animal4};
     std::vector<std::vector<Obstacle::Type>> obstacleTypes = {grass, sand, ice, road, rail, grass2, sand2, sand3, grass3, grass4, road2, rail2, grass5, grass6, grass7, log, soil};
-    // return {none, road, none};
     return obstacleTypes;
 }
 
@@ -66,7 +64,6 @@ void GameObject::initialGenerate() {
     for (int i = 0; i < Constants::initialShift;i++) {
         int rowType = rand() % RowObject::TypeCount;
         SceneNode::Ptr tileRow(new TileRow(mTileTypes[rowType], getBattlefieldBounds, mTextures));
-        // SceneNode::Ptr obstacleRow(new ObstacleRow(sf::Vector2f(200, 0), mObstacleTypes[rowType], getBattlefieldBounds, mTextures));
         SceneNode::Ptr obstacleRow(new ObstacleRow(mObstacleTypes[rowType], getBattlefieldBounds, mTextures, mAnimations));
         tileRow.get()->setPosition(mSpawnOrigin);
         obstacleRow.get()->setPosition(mSpawnOrigin);
@@ -95,7 +92,6 @@ void GameObject::updateCurrent(sf::Time dt) {
         }
         last=rowType;
         SceneNode::Ptr tileRow(new TileRow(mTileTypes[rowType], getBattlefieldBounds, mTextures));
-        // SceneNode::Ptr obstacleRow(new ObstacleRow(sf::Vector2f(200, 0), mObstacleTypes[rowType], getBattlefieldBounds, mTextures));
         SceneNode::Ptr obstacleRow(new ObstacleRow(mObstacleTypes[rowType], getBattlefieldBounds, mTextures, mAnimations));
         tileRow.get()->setPosition(mSpawnOrigin);
         obstacleRow.get()->setPosition(mSpawnOrigin);

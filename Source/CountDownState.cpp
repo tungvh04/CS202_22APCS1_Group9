@@ -53,12 +53,7 @@ void CountDownState::draw()
     sf::RenderWindow& window = *getContext().window;
     window.setView(window.getDefaultView());
 
-    // Create dark, semitransparent background
-    // sf::RectangleShape backgroundShape;
-    // backgroundShape.setFillColor(sf::Color(0, 255, 0, 150));
-    // backgroundShape.setSize(window.getView().getSize();
 
-    // window.draw(backgroundShape);
     window.draw(mBackground);
     window.draw(mCountdownText);
 }

@@ -30,17 +30,10 @@ public:
     void pathRequest(sf::Vector2f direction);
     virtual sf::FloatRect getBoundingRect() const;
     virtual bool isMarkedForRemoval() const;
-    void clearState();
-    void setWater();
-    void setIsland();
-    bool deadOnWater();
 
     void setWorldSceneGraph(SceneNode* worldSceneGraph);
     void destroy();
     virtual bool isDestroyed() const;
-
-
-    //void setSpeedMult(float speedMult);
 
     void setFreezing();
     void notFreezing();
@@ -65,10 +58,6 @@ public:
     void updateHealth(sf::Time dt);
 
 private:
-    //State hell
-    
-    bool onWater;
-    bool onIsland;
 
     bool isCold;
 
