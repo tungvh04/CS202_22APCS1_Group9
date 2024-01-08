@@ -40,6 +40,7 @@ namespace Textures {
         Spring,
         Winter,
         Atlantis,
+        Jura,
         Soil,
         Road,
         Rail,
@@ -128,6 +129,7 @@ namespace TypeMap{
         Autumn,
         Winter,
         Atlantis,
+        Jura,
     };
 }
 

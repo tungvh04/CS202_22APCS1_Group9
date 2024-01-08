@@ -43,6 +43,11 @@ std::vector<std::pair<int, sf::Vector2i>> setAnimation(TypeMap::ID typeOfMap){
             animal3 = std::make_pair(8, sf::Vector2i(48, 32));
             animal4 = std::make_pair(8, sf::Vector2i(32, 32));
             return {animal1, animal2, animal3, animal4};
+        case TypeMap::Jura:
+            animal1 = std::make_pair(4, sf::Vector2i(50, 32));
+            animal2 = std::make_pair(4, sf::Vector2i(50, 40));
+            animal3 = std::make_pair(4, sf::Vector2i(50, 40));
+            animal4 = std::make_pair(4, sf::Vector2i(16, 16));
             return {animal1, animal2, animal3, animal4};
         default:
             animal1 = std::make_pair(4, sf::Vector2i(16, 16));
@@ -50,6 +55,7 @@ std::vector<std::pair<int, sf::Vector2i>> setAnimation(TypeMap::ID typeOfMap){
             animal3 = std::make_pair(4, sf::Vector2i(16, 16));
             animal4 = std::make_pair(4, sf::Vector2i(16, 16));
             return {animal1, animal2, animal3, animal4};
+            
     }
 }
 std::string IDtoString(TypeMap::ID typeOfMap){
@@ -62,6 +68,8 @@ std::string IDtoString(TypeMap::ID typeOfMap){
         return "Winter";
     case TypeMap::Atlantis:
         return "Atlantis";
+    case TypeMap::Jura:
+        return "Jura";
     default:
         return "Spring";
     }
@@ -77,6 +85,8 @@ std::string World::getMap() {
         return "Winter";
     case TypeMap::Atlantis:
         return "Atlantis";
+    case TypeMap::Jura:
+        return "Jura";
     default:
         return "Spring";
     }
@@ -397,11 +407,12 @@ void World::loadTextures() {
 }
 void World::loadAnimations(){
     std::vector<std::pair<int, sf::Vector2i>> listIn4(setAnimation(typeOfMap));
+    std::cout << typeOfMap << '\n';
+    std::cout << listIn4[0].second.x << ' ' << listIn4[0].second.y << '\n';
+    std::cout << listIn4[1].second.x << ' ' << listIn4[1].second.y << '\n';
+    std::cout << listIn4[2].second.x << ' ' << listIn4[2].second.y << '\n';
+    std::cout << listIn4[3].second.x << ' ' << listIn4[3].second.y << '\n';
 
-    std::cout << listIn4[0].first;
-    std::cout << listIn4[1].first;
-    std::cout << listIn4[2].first;
-    std::cout << listIn4[3].first;
     Animation& animal1 = mAnimation[Animations::ID::Animal1];
     animal1.setTexture(mTextures.get(Textures::ID::Animal1));
 	animal1.setNumFrames(listIn4[0].first);

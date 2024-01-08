@@ -17,6 +17,8 @@ TypeMap::ID setTypeMap(int typeMap){
         return TypeMap::Winter;
     case 3:
         return TypeMap::Atlantis;
+    case 4:
+        return TypeMap::Jura;
     default:
         throw "Invalid the type of map!";
     }
@@ -30,6 +32,8 @@ MapState::MapState(StateStack &stack, Context context)
     listMap[1].loadFromFile("Media/Textures/Autumn.png");
     listMap[2].loadFromFile("Media/Textures/Winter.png");
     listMap[3].loadFromFile("Media/Textures/Atlantis.png");
+    listMap[4].loadFromFile("Media/Textures/Jura.png");
+
     mMap.setPosition(470, 100);
     mMap.setScale(0.8, 0.8);
     mMap.setTexture(listMap[0]);
@@ -80,6 +84,7 @@ bool MapState::handleEvent(const sf::Event& event){
 }
 bool MapState::update(sf::Time dt){
     mMap.setTexture(listMap[typeMap]);
+    std::cout << typeMap << '\n';
     typeOfMap = setTypeMap(typeMap);
     return true;
 }

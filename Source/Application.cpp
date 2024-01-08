@@ -45,10 +45,12 @@ Application::Application() : mWindow(sf::VideoMode(Constants::WindowWidth, Const
     mTextures.load(Textures::Credit,"Media/Textures/Credit.png"); 
     mTextures.load(Textures::Sound1, "Media/Textures/Sound1.png"); 
     mTextures.load(Textures::Sound2, "Media/Textures/Sound2.png");
+    
     mTextures.load(Textures::Winter, "Media/Textures/Winter.png");
     mTextures.load(Textures::Autumn, "Media/Textures/Autumn.png");
     mTextures.load(Textures::Spring, "Media/Textures/Spring.png");
     mTextures.load(Textures::Atlantis, "Media/Textures/Atlantis.png");
+    mTextures.load(Textures::Jura, "Media/Textures/Jura.png");
 
     mStatisticsText.setFont(mFonts.get(Fonts::Main));
     mStatisticsText.setPosition(5.f, 5.f);
