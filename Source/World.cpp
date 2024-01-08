@@ -119,6 +119,10 @@ void World::update(sf::Time dt) {
         setWeather(Weather::Snowing);
         mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureWinter);
     }
+    else {
+        clearWeather();
+        mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureSpring);
+    }
 
     //std::cout<<mPlayerCharacter->getPosition().x<<' '<<mPlayerCharacter->getPosition().y<<'\n';
     // Scroll the world, reset player velocity
