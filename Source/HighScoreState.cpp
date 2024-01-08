@@ -98,9 +98,9 @@ void HighScoreState::draw()
 bool HighScoreState::update(sf::Time)
 {
 	
-	int scoreStateScore;
-	std::string scoreStateMapName;
-	saveScore(scoreStateScore,scoreStateMapName);
+	// int scoreStateScore;
+	// std::string scoreStateMapName;
+	// saveScore(scoreStateScore,scoreStateMapName);
 	loadScore();
 	/*
 	mGUIContainer.clear();

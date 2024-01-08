@@ -94,6 +94,7 @@ int getSizeFrame(Character::Type type){
     case Character:: GreenFrog:
         return 16;
     }
+    throw "Not found type characrer";
 }
 Character::Character(Type type, const TextureHolder& textures) : mSprite(textures.get(Textures::Player)) {
     
