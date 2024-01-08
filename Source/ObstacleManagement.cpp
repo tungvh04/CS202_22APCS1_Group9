@@ -88,7 +88,7 @@ unsigned int Obstacle::getCategory() const {
         case SpeedUp:
             return Category::SpeedUp | Category::PickUp | Category::Hot | Category::HurtSmall;
         case IceCream:
-            return Category::Cold | Category::PickUp | Category::HealSmall;
+            return Category::Cold | Category::PickUp | Category::HealLarge;
         case Tree:
             return Category::Stone | Category::Obstacle;
         case Tree1:
