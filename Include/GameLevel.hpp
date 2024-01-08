@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include <MapState.hpp>
 
@@ -23,7 +24,7 @@ public:
     void setScore(float score);
     float getScore() const;
 
-    static float loadHighScore(TypeMap::ID typeMap);
+    static std::vector<float> loadHighScore(TypeMap::ID typeMap);
 private:
     float mScore;
 };

@@ -22,15 +22,11 @@ HighScoreState::HighScoreState(StateStack& stack, Context context)
 	highScore[2].second = "Spring";
 	*/
 
-	for (int i=0;i<=2;i++) {
-		std::cout<<highScore[i].first<<' '<<highScore[i].second<<'\n';
-	}
-
 	mBackgroundSprite.setTexture(context.textures->get(Textures::HighScore));
 	
 	auto scoreTop1 = std::make_shared<GUI::Button>(context);
 	scoreTop1->setPosition(650.f, 440.f);
-	scoreTop1->setText(toString(highScore[0].first), 40);
+	scoreTop1->setText(toString(highScore[0].first[0]), 40);
 	scoreTop1->setCallback([this]()
     {
     });
@@ -44,7 +40,7 @@ HighScoreState::HighScoreState(StateStack& stack, Context context)
 
 	auto scoreTop2 = std::make_shared<GUI::Button>(context);
 	scoreTop2->setPosition(650.f, 600.f);
-	scoreTop2->setText(toString(highScore[1].first), 40);
+	scoreTop2->setText(toString(highScore[1].first[0]), 40);
 	scoreTop2->setCallback([this]()
     {
     });
@@ -58,7 +54,7 @@ HighScoreState::HighScoreState(StateStack& stack, Context context)
 
 	auto scoreTop3 = std::make_shared<GUI::Button>(context);
 	scoreTop3->setPosition(650.f, 760.f);
-	scoreTop3->setText(toString(highScore[2].first), 40);
+	scoreTop3->setText(toString(highScore[2].first[0]), 40);
 	scoreTop3->setCallback([this]()
     {
     });
@@ -187,29 +183,6 @@ void HighScoreState::updateLabel()
 
 void HighScoreState::addButtonLabel(Player::Action action, float y, const std::string& text, Context context)
 {
-}
-
-void HighScoreState::saveScore() {
-	std::ofstream out;
-	out.open(Constants::saveScorePath);
-	for (int i=0;i<=2;i++) {
-		out<<highScore[i].first<<'\n';
-		out<<highScore[i].second<<'\n';
-	}
-	out.close();
-}
-
-void HighScoreState::saveScore(double _score,std::string name) {
-	//std::cout<<"Help: "<<_score<<' '<<name<<'\n';
-    for (int i=0;i<=2;i++) {
-		if (name==highScore[i].second) {
-			if (_score>highScore[i].first) {
-				std::swap(_score,highScore[i].first);
-			}
-			else if (_score==highScore[i].first) break;
-		}
-	}
-	saveScore();
 }
 
 std::string MapID2Name(TypeMap::ID typeMap) {

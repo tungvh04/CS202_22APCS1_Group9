@@ -7,25 +7,39 @@ GameLevel::GameLevel() {
 }
 
 void GameLevel::saveHighScore(TypeMap::ID typeMap) {
-    if (mScore <= loadHighScore(typeMap)) {
-        return;
+    std::vector<float> highScore = loadHighScore(typeMap);
+    if (highScore.size() < Constants::MaxNumSaveScore) {
+        highScore.push_back(mScore);
     }
+    else {
+        if (highScore.back() < mScore) {
+            highScore.back() = mScore;
+        }
+    }
+    sort(highScore.begin(), highScore.end(), std::greater<float>());
+
     std::ofstream file;
-    file.open(Constants::savePath + "map" + std::to_string(typeMap) + ".txt");
+    file.open(Constants::saveMapPath + "map" + std::to_string(typeMap) + ".txt");
     if (file.is_open()) {
-        file << mScore;
+        for (auto score : highScore) {
+            file << score << std::endl;
+        }
         file.close();
     }
 }
 
-float GameLevel::loadHighScore(TypeMap::ID typeMap) {
+std::vector<float> GameLevel::loadHighScore(TypeMap::ID typeMap) {
     std::ifstream file;
-    file.open(Constants::savePath + "map" + std::to_string(typeMap) + ".txt");
+    file.open(Constants::saveMapPath + "map" + std::to_string(typeMap) + ".txt");
     if (!file.is_open()) {
-        return 0;
+        return {};
     }
-    float highScore;
-    file >> highScore;
+    float score;
+    std::vector<float> highScore;
+    while (file >> score) {
+        highScore.push_back(score);
+    }
+    file.close();
     return highScore;
 }
 

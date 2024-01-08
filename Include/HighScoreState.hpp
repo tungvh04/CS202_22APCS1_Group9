@@ -24,12 +24,10 @@ class HighScoreState : public State{
         void updateLabel();
         void addButtonLabel(Player::Action action, float y, const std::string& text, Context context);
 
-        void saveScore();
-        void saveScore(double _score,std::string name);
         void loadScore();
 	private:
 		sf::Sprite mBackgroundSprite;
 		GUI::Container mGUIContainer;
-        std::array<std::pair<double, std::string>, 5> highScore;
+        std::array<std::pair<std::vector<float>, std::string>, 5> highScore;
 };
 #endif
