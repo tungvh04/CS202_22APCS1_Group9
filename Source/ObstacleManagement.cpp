@@ -126,7 +126,7 @@ bool Obstacle::isDestroyed() const {
 
 sf::FloatRect Obstacle::getBoundingRect() const {
     if (ObstacleDataTables::data[mType].hasAnimation) {
-        return getWorldTransform().transformRect(mAnimation->getGlobalBounds());
+        return getWorldTransform().transformRect(mAnimation.getGlobalBounds());
     }
     else {
         return MovingObject::getBoundingRect();
@@ -136,7 +136,7 @@ sf::FloatRect Obstacle::getBoundingRect() const {
 
 Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::FloatRect()> getBattlefieldBounds, std::map<Animations::ID, Animation>& animations) : mType(type), MovingObject(textures.get(toTextureID(type))), getBattlefieldBounds(getBattlefieldBounds) {
     if (ObstacleDataTables::data[type].hasAnimation) {
-        mAnimation = &animations[ObstacleDataTables::data[type].animation];
+        mAnimation = animations[ObstacleDataTables::data[type].animation];
     }
     rotate(ObstacleDataTables::data[type].rotateAngle);
     if (ObstacleDataTables::data[type].flipHorizontal) flipHorizontal();
@@ -165,7 +165,7 @@ Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::F
 
 void Obstacle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
     if (ObstacleDataTables::data[mType].hasAnimation) {
-        target.draw(*mAnimation, states);
+        target.draw(mAnimation, states);
         // std::cout << "Draw animation\n";
     }
     else {
@@ -175,7 +175,7 @@ void Obstacle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) co
 
 void Obstacle::updateCurrent(sf::Time dt) {
     if (ObstacleDataTables::data[mType].hasAnimation) {
-        mAnimation->update(dt);
+        mAnimation.update(dt);
         // std::cout << "Update animation\n";
     }
     else {

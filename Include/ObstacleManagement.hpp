@@ -65,7 +65,7 @@ private:
     // virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     Type mType;
     std::function<sf::FloatRect()> getBattlefieldBounds;
-    Animation* mAnimation;
+    Animation mAnimation;
 };
 
 class ObstacleRow : public Entity {
