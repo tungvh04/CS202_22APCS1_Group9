@@ -5,10 +5,14 @@
 #include <iostream>
 #include <string>
 
+#include <MapState.hpp>
+
 class GameLevel {
 public:
     GameLevel();
     // ~GameLevel();
+
+    void saveHighScore(TypeMap::ID typeMap);
 
     void load();
     void save();
@@ -18,6 +22,8 @@ public:
     void incrementScore(float score);
     void setScore(float score);
     float getScore() const;
+
+    static float loadHighScore(TypeMap::ID typeMap);
 private:
     float mScore;
 };

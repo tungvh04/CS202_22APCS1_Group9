@@ -140,38 +140,38 @@ void World::update(sf::Time dt) {
 
     handleCollisions();
 
-    if (mPlayerCharacter->isDestroyed()) {
-        int scoreStateScore=gameLevel.getScore();
-	    std::string scoreStateMapName=getMap();
-        std::vector<std::pair<int,std::string>> highScore;
-        highScore.resize(3);
-        std::ifstream in;
-        in.open(Constants::saveScorePath);
-        for (int i=0;i<=2;i++) {
-            in>>highScore[i].first;
-            getline(in,highScore[i].second);
-            std::getline(in,highScore[i].second);
-        }
-        in.close();
-        for (int i=0;i<=2;i++) {
-            if (scoreStateMapName==highScore[i].second) {
-                if (scoreStateScore>highScore[i].first) {
-                    std::swap(scoreStateScore,highScore[i].first);
-                }
-                else if (scoreStateScore==highScore[i].first) break;
-            }
-        }
-        std::ofstream out;
-        out.open(Constants::saveScorePath);
-        for (int i=0;i<=2;i++) {
-            out<<highScore[i].first<<'\n';
-            out<<highScore[i].second<<'\n';
-            //std::cout<<highScore[i].first<<'\n';
-            //std::cout<<highScore[i].second<<'\n';
-        }
-        out.close();
-        //std::cout<<"Huh: ? "<<scoreStateMapName<<' '<<scoreStateScore<<'\n';
-    }
+    // if (mPlayerCharacter->isDestroyed()) {
+        // int scoreStateScore=gameLevel.getScore();
+	    // std::string scoreStateMapName=getMap();
+        // std::vector<std::pair<int,std::string>> highScore;
+        // highScore.resize(3);
+        // std::ifstream in;
+        // in.open(Constants::saveScorePath);
+        // for (int i=0;i<=2;i++) {
+            // in>>highScore[i].first;
+            // getline(in,highScore[i].second);
+            // std::getline(in,highScore[i].second);
+        // }
+        // in.close();
+        // for (int i=0;i<=2;i++) {
+            // if (scoreStateMapName==highScore[i].second) {
+                // if (scoreStateScore>highScore[i].first) {
+                    // std::swap(scoreStateScore,highScore[i].first);
+                // }
+                // else if (scoreStateScore==highScore[i].first) break;
+            // }
+        // }
+        // std::ofstream out;
+        // out.open(Constants::saveScorePath);
+        // for (int i=0;i<=2;i++) {
+            // out<<highScore[i].first<<'\n';
+            // out<<highScore[i].second<<'\n';
+            // //std::cout<<highScore[i].first<<'\n';
+            // //std::cout<<highScore[i].second<<'\n';
+        // }
+        // out.close();
+        // //std::cout<<"Huh: ? "<<scoreStateMapName<<' '<<scoreStateScore<<'\n';
+    // }
 
     // Regular update step, adapt position (correct if outside view)
     mSceneGraph.update(dt);

@@ -6,6 +6,29 @@ GameLevel::GameLevel() {
     load();
 }
 
+void GameLevel::saveHighScore(TypeMap::ID typeMap) {
+    if (mScore <= loadHighScore(typeMap)) {
+        return;
+    }
+    std::ofstream file;
+    file.open(Constants::savePath + "map" + std::to_string(typeMap) + ".txt");
+    if (file.is_open()) {
+        file << mScore;
+        file.close();
+    }
+}
+
+float GameLevel::loadHighScore(TypeMap::ID typeMap) {
+    std::ifstream file;
+    file.open(Constants::savePath + "map" + std::to_string(typeMap) + ".txt");
+    if (!file.is_open()) {
+        return 0;
+    }
+    float highScore;
+    file >> highScore;
+    return highScore;
+}
+
 void GameLevel::load() {
     std::ifstream file(Constants::savePath);
     if (file.is_open()) {

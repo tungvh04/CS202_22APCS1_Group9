@@ -31,6 +31,7 @@ bool GameState::update(sf::Time dt) {
 	{
 		mPlayer.setMissionStatus(Player::MissionFailure);
 		requestStackPush(States::GameOver);
+        gameLevel.saveHighScore(typeOfMap);
 	}
 
     CommandQueue& commands = mWorld.getCommandQueue();

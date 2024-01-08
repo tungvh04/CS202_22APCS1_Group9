@@ -2,6 +2,8 @@
 #include <Utility.hpp>
 #include <ResourceHolder.hpp>
 #include <iostream>
+#include <MapState.hpp>
+#include <GameLevel.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -210,13 +212,28 @@ void HighScoreState::saveScore(double _score,std::string name) {
 	saveScore();
 }
 
-void HighScoreState::loadScore() {
-	std::ifstream in;
-	in.open(Constants::saveScorePath);
-	for (int i=0;i<=2;i++) {
-		in>>highScore[i].first;
-		getline(in,highScore[i].second);
-		std::getline(in,highScore[i].second);
+std::string MapID2Name(TypeMap::ID typeMap) {
+	switch (typeMap) {
+		case TypeMap::ID::Spring: return "Spring";
+		case TypeMap::ID::Autumn: return "Autumn";
+		case TypeMap::ID::Winter: return "Winter";
+		case TypeMap::ID::Atlantis: return "Atlantis";
+		case TypeMap::ID::Jura: return "Jura";
+		default : throw "Invalid the type of map!";
 	}
-	in.close();
+}
+
+void HighScoreState::loadScore() {
+	// std::ifstream in;
+	// in.open(Constants::saveScorePath);
+	// for (int i=0;i<=2;i++) {
+		// in>>highScore[i].first;
+		// getline(in,highScore[i].second);
+		// std::getline(in,highScore[i].second);
+	// }
+	// in.close();
+	for (int i = 0; i < 5; ++i) {
+		highScore[i].first = GameLevel::loadHighScore(TypeMap::ID(i));
+		highScore[i].second = MapID2Name(TypeMap::ID(i));
+	}
 }

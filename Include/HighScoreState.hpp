@@ -30,6 +30,6 @@ class HighScoreState : public State{
 	private:
 		sf::Sprite mBackgroundSprite;
 		GUI::Container mGUIContainer;
-        std::array<std::pair<double, std::string>, 3> highScore;
+        std::array<std::pair<double, std::string>, 5> highScore;
 };
 #endif

@@ -3,6 +3,7 @@
 #include <Player.hpp>
 #include <ResourceHolder.hpp>
 #include <GameLevel.hpp>
+#include <MapState.hpp>
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
