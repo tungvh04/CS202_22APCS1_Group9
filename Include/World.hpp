@@ -11,7 +11,8 @@
 // #include <TileSystem.hpp>
 #include <TileManagement.hpp>
 #include <GameObject.hpp>
-#include <Car.hpp>
+#include <CharacterState.hpp>
+#include <Animation.hpp>
 
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/Graphics/View.hpp>
@@ -20,10 +21,13 @@
 #include <vector>
 #include <array>
 #include <queue>
+#include <map>
 
 namespace sf {
     class RenderWindow;
 }
+
+std::string IDtoString(TypeMap::ID typeOfMap);
 
 class World : private sf::NonCopyable {
 public:
@@ -34,13 +38,23 @@ public:
     CommandQueue& getCommandQueue();
 
     bool 	hasAlivePlayer() const;
-	bool 	hasPlayerReachedEnd() const;
     
+    bool checkCState(int x);
+
+    void setWeather(int x);
+    bool isWeather(int x);
+    bool checkLastWeatherState(int x);
+    void clearWeather();
+
+    std::string getMap();
+
 private:
     void speedUp();
     void slowDown();
 
     void loadTextures();
+    void loadAnimations();
+
     void buildScene();
     void adaptPlayerPosition();
     void adaptPlayerVelocity();
@@ -55,25 +69,12 @@ private:
         LayerCount
     };
 
-    struct SpawnPoint {
-		SpawnPoint(Car::Type type, float x, float y): type(type), x(x), y(y){
-		
-        }
-
-		Car::Type type;
-		float x;
-		float y;
-	};
-
 private:
-    // TileBuilderRow tileManager;
-    // TileManager tileManager;
-    // TileManager mTileManager;
-    TileManager* mTileManager;
 
     sf::RenderWindow& mWindow;
     sf::View mWorldView;
     TextureHolder mTextures;
+    std::map<Animations::ID, Animation> mAnimation;
 
     SceneNode mSceneGraph;
     std::array<SceneNode*, LayerCount> mSceneLayers;
@@ -87,11 +88,14 @@ private:
     std::vector<TextureHolder*> mTiles;
     sf::Vector2f mOriginGrid;
 
-    int tileCnt;
 
-    std::vector<SpawnPoint> mEnemySpawnPoints;
-	std::vector<Car*> mActiveEnemies;
+    Animation screenEffect;
+    int charState = 0;
 
+    Animation weatherEffect;
+    int weatherState,lastWeatherState;
+
+    Animation heartEffect;
 };
 
 #endif // WORLD_HPP

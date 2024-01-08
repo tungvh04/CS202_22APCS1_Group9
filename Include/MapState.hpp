@@ -25,8 +25,9 @@ class MapState : public State, Entity{
     private:
         sf::Sprite mBackgroundSprite;
         sf::Sprite mMap;
-        std::array<sf::Texture, 3> listMap;
+        std::array<sf::Texture, 5> listMap;
         GUI::Container mGUIContainer;
         int typeMap = TypeMap::ID::Spring;
 };
+extern TypeMap::ID typeOfMap;
 #endif

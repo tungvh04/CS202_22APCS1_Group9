@@ -6,6 +6,7 @@
 #include <Container.hpp>
 #include <Button.hpp>
 #include <Label.h>
+#include <MusicPlayer.hpp>
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>

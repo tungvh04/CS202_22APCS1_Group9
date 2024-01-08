@@ -53,7 +53,7 @@ void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     drawCurrent(target, states);
     drawChildren(target, states);
 
-    drawBoundingRect(target, states);
+    // drawBoundingRect(target, states);
 }
 
 void SceneNode::drawCurrent(sf::RenderTarget&, sf::RenderStates) const {
@@ -128,7 +128,12 @@ void SceneNode::checkNodeCollision(const sf::FloatRect& rect, std::set<SceneNode
 }
 
 bool SceneNode::isDestroyed() const {
+    if (isDestroyedFlag) return true;
     return false;
+}
+
+void SceneNode::setDestroy() {
+    isDestroyedFlag=true;
 }
 
 void SceneNode::removeWrecks() {

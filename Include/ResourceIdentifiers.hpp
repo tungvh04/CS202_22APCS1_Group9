@@ -31,11 +31,17 @@ namespace Textures {
         Sand,
         Ice,
         Car,
+        Oto,
+        Oto1,
+        Oto2,
         Sound1,
         Sound2,
         Autumn,
         Spring,
         Winter,
+        Atlantis,
+        Jura,
+        Soil,
         Road,
         Rail,
         Train,
@@ -44,24 +50,60 @@ namespace Textures {
         TrafficLightRed,
         TrafficLightGreen,
         TrafficLightYellow,
-        Death,
         Water,
         Raft,
-        UpPlayer,
-        LeftPlayer,
-        RightPlayer,
+        BlueDino,
+        GreenDino,
+        YellowDino,
+        RedDino,
+        BlueFrog,
+        GreenFrog,
+        YellowFrog,
+        PinkFrog,
+        BlueDinoDeath,
+        GreenDinoDeath,
+        YellowDinoDeath,
+        RedDinoDeath,
+        BlueFrogDeath,
+        GreenFrogDeath,
+        YellowFrogDeath,
+        PinkFrogDeath,
         SlowDown,
         SpeedUp,
+        Freezing,
+        IceCream,
+        Burning,
+        Tree,
+        Tree1,
+        Tree2,
+        Tree3,
+        Tree4,
+        Tree5,
+        Log,
+        Raining,
+        Snowing,
+        Heart,
+        Animal1,
+        Animal2,
+        Animal3,
+        Animal4,
+        //Honey,
+    };
+}
+namespace Animations {
+    enum ID {
+        Animal1,
+        Animal2,
+        Animal3,
+        Animal4,
     };
 }
 namespace SoundEffects {
     enum ID {
         Button,
-        Step,
-        Collison,
-        SpringTheme,
-        AutumnTheme,
-        WinterTheme
+        Hurt,
+        Die,
+        Heal,
     };
 }
 namespace Fonts {
@@ -85,7 +127,9 @@ namespace TypeMap{
     enum ID {
         Spring,
         Autumn,
-        Winter
+        Winter,
+        Atlantis,
+        Jura,
     };
 }
 
@@ -95,6 +139,8 @@ namespace Music
 	{
 		MenuTheme,
 		MissionTheme,
+        GameOverTheme,
+        CountDownTheme
 	};
 }
 // Forward declaration and a few type definitions

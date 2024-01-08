@@ -1,6 +1,9 @@
 #include <HighScoreState.hpp>
 #include <Utility.hpp>
 #include <ResourceHolder.hpp>
+#include <iostream>
+#include <MapState.hpp>
+#include <GameLevel.hpp>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
@@ -8,19 +11,22 @@ HighScoreState::HighScoreState(StateStack& stack, Context context)
 : State(stack, context)
 , mGUIContainer()
 {
+	loadScore();
 	//Example
+	/*
 	highScore[0].first = 234;
 	highScore[0].second = "Winter";
 	highScore[1].first = 220;
 	highScore[1].second = "Autumn";
 	highScore[2].first = 123;
 	highScore[2].second = "Spring";
+	*/
 
 	mBackgroundSprite.setTexture(context.textures->get(Textures::HighScore));
 	
 	auto scoreTop1 = std::make_shared<GUI::Button>(context);
 	scoreTop1->setPosition(650.f, 440.f);
-	scoreTop1->setText(toString(highScore[0].first), 40);
+	scoreTop1->setText(toString(highScore[0].first[0]), 40);
 	scoreTop1->setCallback([this]()
     {
     });
@@ -34,7 +40,7 @@ HighScoreState::HighScoreState(StateStack& stack, Context context)
 
 	auto scoreTop2 = std::make_shared<GUI::Button>(context);
 	scoreTop2->setPosition(650.f, 600.f);
-	scoreTop2->setText(toString(highScore[1].first), 40);
+	scoreTop2->setText(toString(highScore[1].first[0]), 40);
 	scoreTop2->setCallback([this]()
     {
     });
@@ -48,7 +54,7 @@ HighScoreState::HighScoreState(StateStack& stack, Context context)
 
 	auto scoreTop3 = std::make_shared<GUI::Button>(context);
 	scoreTop3->setPosition(650.f, 760.f);
-	scoreTop3->setText(toString(highScore[2].first), 40);
+	scoreTop3->setText(toString(highScore[2].first[0]), 40);
 	scoreTop3->setCallback([this]()
     {
     });
@@ -66,7 +72,6 @@ HighScoreState::HighScoreState(StateStack& stack, Context context)
 	backButton->setCallback([this]()
     {
         requestStackPop();
-        requestStackPush(States::Menu);
     });
 	mGUIContainer.pack(scoreTop1);
 	mGUIContainer.pack(mapTop1);
@@ -87,6 +92,8 @@ void HighScoreState::draw()
 
 bool HighScoreState::update(sf::Time)
 {
+	
+	loadScore();
 	return false;
 }
 
@@ -98,47 +105,29 @@ bool HighScoreState::handleEvent(const sf::Event& event)
 
 void HighScoreState::updateLabel()
 {
-	// Player& player = *getContext().player;
-
-	// for (std::size_t i = 0; i < Player::ActionCount; ++i)
-	// {
-	// 	sf::Keyboard::Key key = player.getAssignedKey(static_cast<Player::Action>(i));
-	// 	mBindingLabels[i]->setText(toString(key));
-	// }
 }
 
 void HighScoreState::addButtonLabel(Player::Action action, float y, const std::string& text, Context context)
 {
 }
 
-void HighScoreState::saveScore() {
-	std::ofstream out;
-	out.open(Constants::savePath);
-	for (int i=0;i<=2;i++) {
-		out<<highScore[i].first<<'\n';
-		out<<highScore[i].second<<'\n';
+std::string MapID2Name(TypeMap::ID typeMap) {
+	switch (typeMap) {
+		case TypeMap::ID::Spring: return "Spring";
+		case TypeMap::ID::Autumn: return "Autumn";
+		case TypeMap::ID::Winter: return "Winter";
+		case TypeMap::ID::Atlantis: return "Atlantis";
+		case TypeMap::ID::Jura: return "Jura";
+		default : throw "Invalid the type of map!";
 	}
-	out.close();
-}
-
-void HighScoreState::saveScore(double _score,std::string name) {
-    for (int i=0;i<=2;i++) {
-		if (name==highScore[i].second) {
-			if (_score>highScore[i].first) {
-				std::swap(_score,highScore[i].first);
-			}
-		}
-	}
-	saveScore();
 }
 
 void HighScoreState::loadScore() {
-	std::ifstream in;
-	in.open(Constants::savePath);
-	for (int i=0;i<=2;i++) {
-		in>>highScore[i].first;
-		getline(in,highScore[i].second);
-		std::getline(in,highScore[i].second);
+	for (int i = 0; i < 5; ++i) {
+		highScore[i].first = GameLevel::loadHighScore(TypeMap::ID(i));
+		highScore[i].second = MapID2Name(TypeMap::ID(i));
 	}
-	in.close();
+	sort(highScore.begin(), highScore.end(), [](const std::pair<std::vector<float>, std::string>& a, const std::pair<std::vector<float>, std::string>& b) {
+		return a.first[0] > b.first[0];
+	});
 }

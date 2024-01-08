@@ -38,6 +38,8 @@ public:
     bool collision(const sf::FloatRect& rect) const ;
     void checkNodeCollision(const sf::FloatRect& rect, std::set<SceneNode*>& collisionNodes);
 
+    void setDestroy();
+
     virtual bool isDestroyed() const;
     void removeWrecks();
 
@@ -56,6 +58,8 @@ protected:
 
     sf::Time killTime;
     bool killByTime = false;
+
+    bool isDestroyedFlag = false;
 
 private:
     virtual void updateCurrent(sf::Time dt);

@@ -22,7 +22,6 @@ public:
 
     enum MissionStatus {
         MissionRunning,
-        MissionSuccess,
 		MissionFailure
 	};
 

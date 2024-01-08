@@ -1,0 +1,6 @@
+234
+Winter
+220
+Autumn
+200
+Spring

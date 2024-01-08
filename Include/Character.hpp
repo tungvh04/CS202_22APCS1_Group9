@@ -5,6 +5,7 @@
 #include <ResourceIdentifiers.hpp>
 #include <Const.hpp>
 #include <Animation.hpp>
+#include <SoundPlayer.hpp>
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -29,27 +30,42 @@ public:
     void pathRequest(sf::Vector2f direction);
     virtual sf::FloatRect getBoundingRect() const;
     virtual bool isMarkedForRemoval() const;
-    void clearState();
-    void setWater();
-    void setIsland();
-    bool deadOnWater();
 
     void setWorldSceneGraph(SceneNode* worldSceneGraph);
     void destroy();
     virtual bool isDestroyed() const;
 
-    void setVelocity(sf::Vector2f v);
-    void setVelocity(float vx,float vy);
+    void setFreezing();
+    void notFreezing();
+    bool isFreezing();
+    bool isBurning();
 
-    void setSpeedMult(float speedMult);
-    
-    float speedMult = 1.0;
+    float getTemperature();
+    void shiftTemperature(float offset);
+    void setTemperature(float value);
+    void setDefaultTemperature(float value);
+    void updateTemperature(sf::Time dt);
+
+    float getSpeedMult();
+    void shiftSpeedMult(float offset);
+    void multSpeedMult(float offset);
+    void setSpeedMult(float value);
+    void setDefaultSpeedMult(float value);
+    void updateSpeedMult(sf::Time dt);
+
+    float getHealth();
+    void hurt(float x);
+    void updateHealth(sf::Time dt);
+
 private:
-    //State hell
-    
-    bool onWater;
-    bool onIsland;
 
+    bool isCold;
+
+    float temperature;
+    float defaultTemperature;
+
+    float speedMult = 1.0;
+    float defaultSpeedMult = 1.0;
 
     std::queue<sf::Vector2f> mPath;
     const float mStep = Constants::GridSize;
@@ -79,6 +95,9 @@ private:
         Right
     };
     Facing mFacing = Facing::Right;
+
+    float health;
+    SoundPlayer playerSoundController;
 };
 
 

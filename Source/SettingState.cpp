@@ -44,9 +44,7 @@ SettingState::SettingState(StateStack& stack, Context context)
 	backButton->setText("Back", 30);
 	backButton->setCallback([this]()
     {
-        // requestStackPop();
-		requestStateClear();
-        requestStackPush(States::Menu);
+        requestStackPop();
     });
 	mGUIContainer.pack(backButton);
 }
@@ -54,6 +52,7 @@ SettingState::SettingState(StateStack& stack, Context context)
 void SettingState::draw()
 {
 	sf::RenderWindow& window = *getContext().window;
+    window.setView(window.getDefaultView());
 
 	window.draw(mBackgroundSprite);
     if (isSettingSound == true){
@@ -68,7 +67,7 @@ void SettingState::draw()
 
 bool SettingState::update(sf::Time)
 {
-	return true;
+	return false;
 }
 
 bool SettingState::handleEvent(const sf::Event& event)
@@ -93,23 +92,32 @@ bool SettingState::handleEvent(const sf::Event& event)
         isSettingSound = true;
         mVolume.setPosition(500 + 76.8*volume - 23, 550);
         mVolume.setString(toString(10*volume) + "%");
+        MusicPlayer& myMusic = *getContext().music;
         if (event.type == sf::Event::KeyPressed){
             if (event.key.code == sf::Keyboard::Right)
             {
-                if (volume < 10) volume++;
-                //Change sound of system...
+                if (volume < 10)
+                {
+                    volume++;
+                    float newVol = myMusic.getVolume() + 4.f;
+                    myMusic.setVolume(newVol);
+                }
             }
             else if (event.key.code == sf::Keyboard::Left)
             {
-                if (volume >= 1) volume--;
-                //Change sound of system...
+                if (volume >= 1)
+                {
+                    volume--;
+                    float newVol = myMusic.getVolume() - 4.f;
+                    myMusic.setVolume(newVol);
+                }
             }
             else if (event.key.code == sf::Keyboard::Return){
                 mBindingButtons[Player::Sound]->deactivate();
                 mVolume.setString(toString(10*volume) + "%");
                 mVolume.setPosition(500.f, 615.f);
                 isSettingSound = false;
-                return true;
+                return false;
             }
             mVolume.setPosition(500 + 76.8*volume - 23, 550);
             mVolume.setString(toString(10*volume) + "%");

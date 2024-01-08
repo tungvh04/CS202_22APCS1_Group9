@@ -33,7 +33,6 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     restartButton->setText("Restart", 30);
     restartButton->setCallback([this]()
     {
-        // requestStackPop();
         gameLevel.restart();
         requestStateClear();
         requestStackPush(States::Game);
@@ -43,10 +42,7 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     settingButton->setText("Setting", 30);
     settingButton->setCallback([this]()
     {
-        // requestStackPop();
-        // Save later
-        requestStateClear();
-        requestStackPush(States::Menu);
+        gameLevel.save();
         requestStackPush(States::Setting);
     });
     auto saveAndquitButton = std::make_shared<GUI::Button>(context);
@@ -54,7 +50,8 @@ PauseState::PauseState(StateStack& stack, Context context) : State(stack, contex
     saveAndquitButton->setText("Save and Quit", 30);
     saveAndquitButton->setCallback([this]()
     {
-        requestStackPop();
+        gameLevel.save();
+        requestStateClear();
         requestStackPush(States::Saving);
     });
     auto menuButton = std::make_shared<GUI::Button>(context);
@@ -99,21 +96,6 @@ bool PauseState::update(sf::Time) {
 }
 
 bool PauseState::handleEvent(const sf::Event& event) {
-    /*if (event.type != sf::Event::KeyPressed)
-        return false;
-
-    if (event.key.code == sf::Keyboard::Escape) {
-        // Escape pressed, remove itself to return to the game
-        requestStackPop();
-    }
-
-    if (event.key.code == sf::Keyboard::BackSpace) {
-        // Escape pressed, remove itself to return to the game
-        requestStateClear();
-        requestStackPush(States::Menu);
-    }
-
-    return false;*/
     mGUIContainer.handleEvent(event);
     return false;
 }

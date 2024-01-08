@@ -56,7 +56,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
 	playButton->setCallback([this] ()
 	{
         gameLevel.restart();
-		requestStackPop();
+        requestStateClear();
 		requestStackPush(States::Character);
 	});
     auto loadButton = std::make_shared<GUI::Button>(context);
@@ -65,7 +65,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
 	loadButton->setCallback([this] ()
 	{
         gameLevel.load();
-		requestStackPop();
+        requestStateClear();
         requestStackPush(States::CountDown);
 	});
     auto scoreButton = std::make_shared<GUI::Button>(context);
@@ -73,7 +73,6 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     scoreButton->setText("High Score", 40);
     scoreButton->setCallback([this]()
     {
-        requestStackPop();
         requestStackPush(States::Score);
     });
     auto settingButton = std::make_shared<GUI::Button>(context);
@@ -81,7 +80,6 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     settingButton->setText("Setting", 40);
     settingButton->setCallback([this]()
     {
-        requestStackPop();
         requestStackPush(States::Setting);
     });
 
@@ -90,7 +88,6 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     creditButton->setText("Credit", 40);
     creditButton->setCallback([this]()
     {
-        requestStackPop();
         requestStackPush(States::Credit);
     });
 
@@ -99,7 +96,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     exitButton->setText("Exit", 40);
     exitButton->setCallback([this]()
     {
-        requestStackPop();
+        requestStateClear();
         requestStackPush(States::Exit);
     });
 

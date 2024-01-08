@@ -4,28 +4,112 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <CharacterState.hpp>
 
 #include <cmath>
 #include <iostream>
 #include <set>
 
-Textures::ID toTextureID(Character::Type type) {
+Textures::ID toTextureIDMoving(Character::Type type) {
     switch (type) {
-        case Character::Player:
-            return Textures::Player;
+        case Character::BlueDino:
+            return Textures::BlueDino;
+        case Character::RedDino:
+            return Textures::RedDino;
+        case Character::YellowDino:
+            return Textures::YellowDino;
+        case Character::GreenDino:
+            return Textures::GreenDino;
+        case Character::BlueFrog:
+            return Textures::BlueFrog;
+        case Character::GreenFrog:
+            return Textures::GreenFrog;
+        case Character::PinkFrog:
+            return Textures::PinkFrog;
+        case Character::YellowFrog:
+            return Textures::YellowFrog;
     }
     return Textures::Player;
 }
+Textures::ID toTextureIDDeath(Character::Type type) {
+    switch (type) {
+        case Character::BlueDino:
+            return Textures::BlueDinoDeath;
+        case Character::RedDino:
+            return Textures::RedDinoDeath;
+        case Character::YellowDino:
+            return Textures::YellowDinoDeath;
+        case Character::GreenDino:
+            return Textures::GreenDinoDeath;
+        case Character::BlueFrog:
+            return Textures::BlueFrogDeath;
+        case Character::GreenFrog:
+            return Textures::GreenFrogDeath;
+        case Character::PinkFrog:
+            return Textures::PinkFrogDeath;
+        case Character::YellowFrog:
+            return Textures::YellowFrogDeath;
+    }
+    return Textures::Player;
+}
+Character::Type setType(TypeCharacter::ID type){
+    switch (type) {
+        case TypeCharacter::BlueDino:
+            return Character::Type::BlueDino;
+        case TypeCharacter::RedDino:
+            return Character::Type::RedDino;
+        case TypeCharacter::GreenDino:
+            return Character::Type::GreenDino;
+        case TypeCharacter::YellowDino:
+            return Character::Type::YellowDino;
+        case TypeCharacter::BlueFrog:
+            return Character::Type::BlueFrog;
+        case TypeCharacter::GreenFrog:
+            return Character::Type::GreenFrog;
+        case TypeCharacter::YellowFrog:
+            return Character::Type::YellowFrog;
+        case TypeCharacter::PinkFrog:
+            return Character::Type::PinkFrog;
+        default:
+            throw "Not found type characrer";
+    }
+}
+int getSizeFrame(Character::Type type){
+    switch (type)
+    {
+    case Character::BlueDino:
+        return 24;
+    case Character::RedDino:
+        return 24;
+    case Character::YellowDino:
+        return 24;
+    case Character::GreenDino:
+        return 24;
+    case Character::BlueFrog:
+        return 16;
+    case Character::YellowFrog:
+        return 16;
+    case Character::PinkFrog:
+        return 16;
+    case Character:: GreenFrog:
+        return 16;
+    }
+    throw "Not found type characrer";
+}
+Character::Character(Type type, const TextureHolder& textures) : mSprite(textures.get(Textures::Player)) {
+    
+    mType = setType(typeCharacter);
+    mDeath.setTexture(textures.get(toTextureIDDeath(mType)));
+    mMoving.setTexture(textures.get(toTextureIDMoving(mType)));
 
-Character::Character(Type type, const TextureHolder& textures) : mType(type), mSprite(textures.get(toTextureID(type))) {
-    mDeath.setTexture(textures.get(Textures::Death));
-    mMoving.setTexture(textures.get(Textures::UpPlayer));
+    health=Constants::characterHealth;
 
-    mDeath.setFrameSize(sf::Vector2i(16, 16));
+    int framSize = getSizeFrame(mType);
+    mDeath.setFrameSize(sf::Vector2i(framSize, framSize));
     mDeath.setNumFrames(8);
     mDeath.setDuration(sf::seconds(1));
 
-    mMoving.setFrameSize(sf::Vector2i(16, 16));
+    mMoving.setFrameSize(sf::Vector2i(framSize, framSize));
     mMoving.setNumFrames(8);
     mMoving.setDuration(sf::seconds(0.2));
 
@@ -57,7 +141,7 @@ unsigned int Character::getCategory() const {
         case Player:
             return Category::PlayerCharacter;
         default:
-            return Category::Object;
+            return Category::PlayerCharacter;
     }
 }
 
@@ -123,6 +207,9 @@ void Character::updateCurrent(sf::Time dt) {
             move(movement);
         }
     }
+    updateTemperature(dt);
+    updateSpeedMult(dt);
+    updateHealth(dt);
 }
 sf::FloatRect Character::getBoundingRect() const
 {
@@ -175,6 +262,7 @@ bool Character::predictMovement(sf::Vector2f direction) {
 void Character::destroy() {
     // std::cout << "Character destroyed\n";
     if (!mIsDestroyed) {
+        playerSoundController.play(SoundEffects::Die);
         mIsDestroyed = true;
         mShowDeath = true;
         mDeath.restart();
@@ -182,37 +270,109 @@ void Character::destroy() {
 }
 
 bool Character::isDestroyed() const {
-    return mIsDestroyed;
+    return mIsDestroyed|isDestroyedFlag;
 }
 
-void Character::setWater() {
-    onWater=true;
-}
-
-void Character::setIsland() {
-    onIsland=true;
-}
-
-bool Character::deadOnWater() {
-    if (onWater&&!onIsland) return true;
-    return false;
-}
-
-void Character::clearState() {
-    onWater=false;
-    onIsland=false;
-}
 void Character::updateRollAnimation(){
 }
 
-void Character::setVelocity(sf::Vector2f velocity) {
-    Entity::setVelocity(velocity*speedMult);
+void Character::setFreezing() {
+    isCold=true;
 }
 
-void Character::setVelocity(float vx, float vy) {
-    Entity::setVelocity(vx*speedMult,vy*speedMult);
+void Character::notFreezing() {
+    isCold=false;
 }
 
-void Character::setSpeedMult(float x) {
-    speedMult=x;
+bool Character::isFreezing() {
+    return getTemperature()<Constants::freezeLimit;
+}
+
+bool Character::isBurning() {
+    return getTemperature()>Constants::burningLimit;
+}
+
+float Character::getTemperature() {
+    return temperature;
+}
+
+void Character::shiftTemperature(float offset) {
+    temperature+=offset;
+}
+
+void Character::setTemperature(float value) {
+    temperature=value;
+}
+
+void Character::setDefaultTemperature(float value) {
+    defaultTemperature=value;
+}
+
+void Character::updateTemperature(sf::Time dt) {
+    temperature-=(temperature-defaultTemperature)*(dt.asMilliseconds()/(dt.asMilliseconds()+Constants::TemperatureSlope));
+}
+
+float Character::getSpeedMult() {
+    return speedMult;
+}
+
+void Character::shiftSpeedMult(float offset) {
+    speedMult+=offset;
+}
+
+void Character::multSpeedMult(float offset) {
+    speedMult*=offset;
+}
+
+void Character::setSpeedMult(float value) {
+    speedMult=value;
+}
+
+void Character::setDefaultSpeedMult(float value) {
+    defaultSpeedMult=value;
+}
+
+void Character::updateSpeedMult(sf::Time dt) {
+    if (isFreezing()) {
+        setDefaultSpeedMult(Constants::FreezingDefaultSpeed);
+    }
+    else if (isBurning()) {
+        setDefaultSpeedMult(Constants::BurningDefaultSpeed);
+    }
+    else {
+        setDefaultSpeedMult(1);
+    }
+    speedMult-=(speedMult-defaultSpeedMult)*(dt.asMilliseconds()/(dt.asMilliseconds()+Constants::SpeedSlope));
+}
+
+float Character::getHealth() {
+    return health;
+}
+
+void Character::hurt(float x) {
+    if (x>0&&x==Constants::hurtAmountSmall) {
+        playerSoundController.play(SoundEffects::Hurt);
+    }
+    if (x>0&&x==Constants::hurtAmountLarge) {
+        playerSoundController.play(SoundEffects::Hurt);
+    }
+    if (x<0&&x==-Constants::healAmountSmall) {
+        playerSoundController.play(SoundEffects::Heal);
+    }
+    if (x<0&&x==-Constants::healAmountLarge) {
+        playerSoundController.play(SoundEffects::Heal);
+    }
+    health-=x;
+    if (health>Constants::characterHealth) {
+        health=Constants::characterHealth;
+    }
+}
+
+void Character::updateHealth(sf::Time dt) {
+    if (isFreezing()) {
+        hurt(Constants::FreezingHealthDrainPerSecond*dt.asSeconds());
+    }
+    if (isBurning()) {
+        hurt(Constants::BurningHealthDrainPerSecond*dt.asSeconds());
+    }
 }

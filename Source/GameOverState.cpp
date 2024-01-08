@@ -3,6 +3,7 @@
 #include <Player.hpp>
 #include <ResourceHolder.hpp>
 #include <GameLevel.hpp>
+#include <MusicPlayer.hpp>
 
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -20,12 +21,12 @@ GameOverState::GameOverState(StateStack& stack, Context context)
 	mGameOverText.setFont(font);
 	if (context.player->getMissionStatus() == Player::MissionFailure)
 		mGameOverText.setString("GAME OVER");
-	else
-		mGameOverText.setString("CONGRATULATIONS! YOU'VE PASSED THIS LEVEL");
 
 	mGameOverText.setCharacterSize(100);
 	centerOrigin(mGameOverText);
 	mGameOverText.setPosition(0.5f * windowSize.x, 0.4f * windowSize.y);
+
+	context.music->play(Music::GameOverTheme);
 }
 
 void GameOverState::draw()

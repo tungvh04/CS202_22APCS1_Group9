@@ -15,13 +15,14 @@ class MusicPlayer : private sf::NonCopyable
 {
 	public:
 		MusicPlayer();
+		void updateFilenames();
 
 		void play(Music::ID theme);
 		void stop();
 
 		void setPaused(bool paused);
 		void setVolume(float volume);
-
+		float getVolume();
 
 	private:
 		sf::Music mMusic;

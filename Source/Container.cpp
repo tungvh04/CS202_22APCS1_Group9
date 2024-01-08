@@ -52,6 +52,10 @@ void Container::handleEvent(const sf::Event& event)
 	}
 }
 
+void Container::clear() {
+	mChildren.clear();
+}
+
 void Container::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.transform *= getTransform();
