@@ -1,0 +1,67 @@
+\doxysection{Credit\+State.\+cpp}
+\hypertarget{CreditState_8cpp_source}{}\label{CreditState_8cpp_source}\index{Source/CreditState.cpp@{Source/CreditState.cpp}}
+\mbox{\hyperlink{CreditState_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <CreditState.hpp>}}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <Utility.hpp>}}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <ResourceHolder.hpp>}}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/RenderWindow.hpp>}}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00007}00007\ CreditState::CreditState(StateStack\&\ stack,\ Context\ context)}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00008}00008\ :\ State(stack,\ context)}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00009}00009\ ,\ mGUIContainer()}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00010}00010\ \{}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00011}00011\ \ \ \ \ mBackgroundSprite.setTexture(context.textures-\/>get(Textures::Credit));}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00013}00013\ \ \ \ \ \textcolor{comment}{//\ Create\ a\ text\ object\ for\ the\ introduction\ line}}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00014}00014\ \ \ \ \ mIntroductionText.setFont(context.fonts-\/>get(Fonts::Main));}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00015}00015\ \ \ \ \ mIntroductionText.setCharacterSize(60);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00016}00016\ \ \ \ \ mIntroductionText.setFillColor(sf::Color::Black);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00017}00017\ \ \ \ \ mIntroductionText.setString(\textcolor{stringliteral}{"{}Our\ Team"{}});}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00018}00018\ \ \ \ \ mIntroductionText.setPosition(850,\ 250);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00020}00020\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 5;\ i++)\{}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ mCredit[i].setFillColor(sf::Color::Black);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ mCredit[i].setFont(context.fonts-\/>get(Fonts::Main));}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ mCredit[i].setCharacterSize(40);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ mCredit[i].setPosition(800,\ 400\ +\ 100*i);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00025}00025\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00026}00026\ \ \ \ \ mCredit[0].setString(\textcolor{stringliteral}{"{}Ngo\ Hoang\ Bao\ Thach"{}});}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00027}00027\ \ \ \ \ mCredit[1].setString(\textcolor{stringliteral}{"{}Nguyen\ Minh\ Luan"{}});}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00028}00028\ \ \ \ \ mCredit[2].setString(\textcolor{stringliteral}{"{}Tran\ Nhat\ Thanh"{}});}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00029}00029\ \ \ \ \ mCredit[3].setString(\textcolor{stringliteral}{"{}Le\ Van\ Cuong"{}});}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00030}00030\ \ \ \ \ mCredit[4].setString(\textcolor{stringliteral}{"{}Vu\ Hoang\ Tung"{}});}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00032}00032\ \ \ \ \ \textcolor{keyword}{auto}\ backButton\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00033}00033\ \ \ \ \ backButton-\/>setPosition(70.f,\ 970.f);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00034}00034\ \ \ \ \ backButton-\/>setText(\textcolor{stringliteral}{"{}Back"{}},\ 40);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00035}00035\ \ \ \ \ backButton-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00036}00036\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ requestStackPop();}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00038}00038\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00039}00039\ \ \ \ \ mGUIContainer.pack(backButton);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00040}00040\ \}}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00042}00042\ \textcolor{keywordtype}{void}\ CreditState::draw()}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00043}00043\ \{}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00044}00044\ \ \ \ \ sf::RenderWindow\&\ window\ =\ *getContext().window;}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00046}00046\ \ \ \ \ window.draw(mBackgroundSprite);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00047}00047\ \ \ \ \ window.draw(mIntroductionText);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 5;\ i++)\ window.draw(mCredit[i]);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00049}00049\ \ \ \ \ window.draw(mGUIContainer);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00050}00050\ \}}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00052}00052\ \textcolor{keywordtype}{bool}\ CreditState::update(sf::Time)}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00053}00053\ \{}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00054}00054\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00055}00055\ \}}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00057}00057\ \textcolor{keywordtype}{bool}\ CreditState::handleEvent(\textcolor{keyword}{const}\ sf::Event\&\ event)}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00058}00058\ \{}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00059}00059\ \ \ \ \ mGUIContainer.handleEvent(event);}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{CreditState_8cpp_source_l00061}00061\ \}}
+
+\end{DoxyCode}

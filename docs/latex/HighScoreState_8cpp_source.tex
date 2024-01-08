@@ -1,0 +1,139 @@
+\doxysection{High\+Score\+State.\+cpp}
+\hypertarget{HighScoreState_8cpp_source}{}\label{HighScoreState_8cpp_source}\index{Source/HighScoreState.cpp@{Source/HighScoreState.cpp}}
+\mbox{\hyperlink{HighScoreState_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <HighScoreState.hpp>}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <Utility.hpp>}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <ResourceHolder.hpp>}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <MapState.hpp>}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <GameLevel.hpp>}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/RenderWindow.hpp>}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00010}00010\ HighScoreState::HighScoreState(StateStack\&\ stack,\ Context\ context)}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00011}00011\ :\ State(stack,\ context)}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00012}00012\ ,\ mGUIContainer()}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00013}00013\ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00014}00014\ \ \ \ \ loadScore();}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00015}00015\ \ \ \ \ \textcolor{comment}{//Example}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00016}00016\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00017}00017\ \textcolor{comment}{\ \ \ \ highScore[0].first\ =\ 234;}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00018}00018\ \textcolor{comment}{\ \ \ \ highScore[0].second\ =\ "{}Winter"{};}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00019}00019\ \textcolor{comment}{\ \ \ \ highScore[1].first\ =\ 220;}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00020}00020\ \textcolor{comment}{\ \ \ \ highScore[1].second\ =\ "{}Autumn"{};}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00021}00021\ \textcolor{comment}{\ \ \ \ highScore[2].first\ =\ 123;}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00022}00022\ \textcolor{comment}{\ \ \ \ highScore[2].second\ =\ "{}Spring"{};}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00023}00023\ \textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00025}00025\ \ \ \ \ mBackgroundSprite.setTexture(context.textures-\/>get(Textures::HighScore));}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00026}00026\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00027}00027\ \ \ \ \ \textcolor{keyword}{auto}\ scoreTop1\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00028}00028\ \ \ \ \ scoreTop1-\/>setPosition(650.f,\ 440.f);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00029}00029\ \ \ \ \ scoreTop1-\/>setText(toString(highScore[0].first[0]),\ 40);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00030}00030\ \ \ \ \ scoreTop1-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00031}00031\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00032}00032\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00034}00034\ \ \ \ \ \textcolor{keyword}{auto}\ mapTop1\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00035}00035\ \ \ \ \ mapTop1-\/>setPosition(1050.f,\ 440.f);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00036}00036\ \ \ \ \ mapTop1-\/>setText(highScore[0].second,\ 40);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00037}00037\ \ \ \ \ mapTop1-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00038}00038\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00039}00039\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00041}00041\ \ \ \ \ \textcolor{keyword}{auto}\ scoreTop2\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00042}00042\ \ \ \ \ scoreTop2-\/>setPosition(650.f,\ 600.f);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00043}00043\ \ \ \ \ scoreTop2-\/>setText(toString(highScore[1].first[0]),\ 40);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00044}00044\ \ \ \ \ scoreTop2-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00045}00045\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00046}00046\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{keyword}{auto}\ mapTop2\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00049}00049\ \ \ \ \ mapTop2-\/>setPosition(1050.f,\ 600.f);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00050}00050\ \ \ \ \ mapTop2-\/>setText(highScore[1].second,\ 40);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00051}00051\ \ \ \ \ mapTop2-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00052}00052\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00053}00053\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00055}00055\ \ \ \ \ \textcolor{keyword}{auto}\ scoreTop3\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00056}00056\ \ \ \ \ scoreTop3-\/>setPosition(650.f,\ 760.f);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00057}00057\ \ \ \ \ scoreTop3-\/>setText(toString(highScore[2].first[0]),\ 40);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00058}00058\ \ \ \ \ scoreTop3-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00059}00059\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00060}00060\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00062}00062\ \ \ \ \ \textcolor{keyword}{auto}\ mapTop3\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00063}00063\ \ \ \ \ mapTop3-\/>setPosition(1050.f,\ 760.f);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00064}00064\ \ \ \ \ mapTop3-\/>setText(highScore[2].second,\ 40);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00065}00065\ \ \ \ \ mapTop3-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00066}00066\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00067}00067\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00069}00069\ \ \ \ \ \textcolor{keyword}{auto}\ backButton\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00070}00070\ \ \ \ \ backButton-\/>setPosition(70.f,\ 950.f);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00071}00071\ \ \ \ \ backButton-\/>setText(\textcolor{stringliteral}{"{}Back"{}},\ 40);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00072}00072\ \ \ \ \ backButton-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00073}00073\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ requestStackPop();}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00075}00075\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00076}00076\ \ \ \ \ mGUIContainer.pack(scoreTop1);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00077}00077\ \ \ \ \ mGUIContainer.pack(mapTop1);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00078}00078\ \ \ \ \ mGUIContainer.pack(scoreTop2);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00079}00079\ \ \ \ \ mGUIContainer.pack(mapTop2);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00080}00080\ \ \ \ \ mGUIContainer.pack(scoreTop3);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00081}00081\ \ \ \ \ mGUIContainer.pack(mapTop3);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00082}00082\ \ \ \ \ mGUIContainer.pack(backButton);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00083}00083\ \}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00085}00085\ \textcolor{keywordtype}{void}\ HighScoreState::draw()}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00086}00086\ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00087}00087\ \ \ \ \ sf::RenderWindow\&\ window\ =\ *getContext().window;}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00089}00089\ \ \ \ \ window.draw(mBackgroundSprite);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00090}00090\ \ \ \ \ window.draw(mGUIContainer);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00091}00091\ \}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00093}00093\ \textcolor{keywordtype}{bool}\ HighScoreState::update(sf::Time)}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00094}00094\ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00095}00095\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00096}00096\ \ \ \ \ loadScore();}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00097}00097\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00098}00098\ \}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00100}00100\ \textcolor{keywordtype}{bool}\ HighScoreState::handleEvent(\textcolor{keyword}{const}\ sf::Event\&\ event)}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00101}00101\ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00102}00102\ \ \ \ \ mGUIContainer.handleEvent(event);}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00103}00103\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00104}00104\ \}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00106}00106\ \textcolor{keywordtype}{void}\ HighScoreState::updateLabel()}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00107}00107\ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00108}00108\ \}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00110}00110\ \textcolor{keywordtype}{void}\ HighScoreState::addButtonLabel(Player::Action\ action,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keyword}{const}\ std::string\&\ text,\ Context\ context)}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00111}00111\ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00112}00112\ \}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00114}\mbox{\hyperlink{HighScoreState_8cpp_a85d66cadf6d679ea03ac944a166f786f}{00114}}\ std::string\ \mbox{\hyperlink{HighScoreState_8cpp_a85d66cadf6d679ea03ac944a166f786f}{MapID2Name}}(TypeMap::ID\ typeMap)\ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00115}00115\ \ \ \ \ \textcolor{keywordflow}{switch}\ (typeMap)\ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TypeMap::ID::Spring:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Spring"{}};}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TypeMap::ID::Autumn:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Autumn"{}};}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TypeMap::ID::Winter:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Winter"{}};}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TypeMap::ID::Atlantis:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Atlantis"{}};}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ TypeMap::ID::Jura:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Jura"{}};}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ default\ :\ \textcolor{keywordflow}{throw}\ \textcolor{stringliteral}{"{}Invalid\ the\ type\ of\ map!"{}};}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00122}00122\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00123}00123\ \}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00125}00125\ \textcolor{keywordtype}{void}\ HighScoreState::loadScore()\ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00126}00126\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 5;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00127}00127\ \ \ \ \ \ \ \ \ highScore[i].first\ =\ GameLevel::loadHighScore(TypeMap::ID(i));}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00128}00128\ \ \ \ \ \ \ \ \ highScore[i].second\ =\ \mbox{\hyperlink{HighScoreState_8cpp_a85d66cadf6d679ea03ac944a166f786f}{MapID2Name}}(TypeMap::ID(i));}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00129}00129\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00130}00130\ \ \ \ \ sort(highScore.begin(),\ highScore.end(),\ [](\textcolor{keyword}{const}\ std::pair<std::vector<float>,\ std::string>\&\ a,\ \textcolor{keyword}{const}\ std::pair<std::vector<float>,\ std::string>\&\ b)\ \{}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00131}00131\ \ \ \ \ \ \ \ \ return\ a.first[0]\ >\ b.first[0];}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00132}00132\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{HighScoreState_8cpp_source_l00133}00133\ \}}
+
+\end{DoxyCode}

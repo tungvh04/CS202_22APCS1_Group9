@@ -1,0 +1,39 @@
+\doxysection{Parallel\+Task.\+cpp}
+\hypertarget{ParallelTask_8cpp_source}{}\label{ParallelTask_8cpp_source}\index{Source/ParallelTask.cpp@{Source/ParallelTask.cpp}}
+\mbox{\hyperlink{ParallelTask_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <ParallelTask.hpp>}}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00003}00003\ ParallelTask::ParallelTask()\ :\ mThread(\&ParallelTask::runTask,\ this),\ mFinished(false),\ mElapsedTime(),\ mMutex()\ \{\}}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00005}00005\ \textcolor{keywordtype}{void}\ ParallelTask::execute()\ \{}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00006}00006\ \ \ \ \ mFinished\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00007}00007\ \ \ \ \ mElapsedTime.restart();}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00008}00008\ \ \ \ \ mThread.launch();}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00009}00009\ \}}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00011}00011\ \textcolor{keywordtype}{bool}\ ParallelTask::isFinished()\ \{}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00012}00012\ \ \ \ \ sf::Lock\ lock(mMutex);}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00013}00013\ \ \ \ \ \textcolor{keywordflow}{return}\ mFinished;}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00014}00014\ \}}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00016}00016\ \textcolor{keywordtype}{float}\ ParallelTask::getCompletion()\ \{}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00017}00017\ \ \ \ \ sf::Lock\ lock(mMutex);}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00018}00018\ \ \ \ \ \textcolor{keywordflow}{return}\ mElapsedTime.getElapsedTime().asSeconds()\ /\ 10.f;}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00019}00019\ \}}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00021}00021\ \textcolor{keywordtype}{void}\ ParallelTask::runTask()\ \{}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00022}00022\ \ \ \ \ \textcolor{keywordtype}{bool}\ ended\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{keywordflow}{while}\ (!ended)\ \{}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ sf::Lock\ lock(mMutex);}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mElapsedTime.getElapsedTime().asSeconds()\ >=\ 10.f)\ \{}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ ended\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00028}00028\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00029}00029\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ sf::Lock\ lock(mMutex);}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ mFinished\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00032}00032\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ParallelTask_8cpp_source_l00033}00033\ \}}
+
+\end{DoxyCode}

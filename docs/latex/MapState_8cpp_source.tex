@@ -1,0 +1,95 @@
+\doxysection{Map\+State.\+cpp}
+\hypertarget{MapState_8cpp_source}{}\label{MapState_8cpp_source}\index{Source/MapState.cpp@{Source/MapState.cpp}}
+\mbox{\hyperlink{MapState_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <MapState.hpp>}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <Utility.hpp>}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <ResourceHolder.hpp>}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/RenderWindow.hpp>}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/Image.hpp>}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00008}\mbox{\hyperlink{MapState_8cpp_a48b38ada423b65ba5d0be0f59e6277af}{00008}}\ TypeMap::ID\ \mbox{\hyperlink{MapState_8cpp_a48b38ada423b65ba5d0be0f59e6277af}{typeOfMap}};}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00009}\mbox{\hyperlink{MapState_8cpp_a67e2b537ea6c8d76399cd905e0781aa4}{00009}}\ TypeMap::ID\ \mbox{\hyperlink{MapState_8cpp_a67e2b537ea6c8d76399cd905e0781aa4}{setTypeMap}}(\textcolor{keywordtype}{int}\ typeMap)\{}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00010}00010\ \ \ \ \ \textcolor{keywordflow}{switch}\ (typeMap)}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00011}00011\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00012}00012\ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TypeMap::Spring;}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00014}00014\ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TypeMap::Autumn;}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00016}00016\ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TypeMap::Winter;}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00018}00018\ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TypeMap::Atlantis;}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00020}00020\ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TypeMap::Jura;}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00022}00022\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \textcolor{stringliteral}{"{}Invalid\ the\ type\ of\ map!"{}};}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00024}00024\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00025}00025\ \}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00026}00026\ MapState::MapState(StateStack\ \&stack,\ Context\ context)}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00027}00027\ :\ State(stack,\ context)}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00028}00028\ ,\ mGUIContainer()}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00029}00029\ \{}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00030}00030\ \ \ \ \ mBackgroundSprite.setTexture(context.textures-\/>get(Textures::Map));}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00031}00031\ \ \ \ \ listMap[0].loadFromFile(\textcolor{stringliteral}{"{}Media/Textures/Spring.png"{}});}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00032}00032\ \ \ \ \ listMap[1].loadFromFile(\textcolor{stringliteral}{"{}Media/Textures/Autumn.png"{}});}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00033}00033\ \ \ \ \ listMap[2].loadFromFile(\textcolor{stringliteral}{"{}Media/Textures/Winter.png"{}});}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00034}00034\ \ \ \ \ listMap[3].loadFromFile(\textcolor{stringliteral}{"{}Media/Textures/Atlantis.png"{}});}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00035}00035\ \ \ \ \ listMap[4].loadFromFile(\textcolor{stringliteral}{"{}Media/Textures/Jura.png"{}});}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00037}00037\ \ \ \ \ mMap.setPosition(470,\ 100);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00038}00038\ \ \ \ \ mMap.setScale(0.8,\ 0.8);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00039}00039\ \ \ \ \ mMap.setTexture(listMap[0]);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00041}00041\ \ \ \ \ \textcolor{keyword}{auto}\ backButton\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00042}00042\ \ \ \ \ backButton-\/>setPosition(70.f,\ 950.f);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00043}00043\ \ \ \ \ backButton-\/>setText(\textcolor{stringliteral}{"{}Back"{}},\ 40);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00044}00044\ \ \ \ \ backButton-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00045}00045\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ requestStackPop();}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ requestStackPush(States::Character);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00048}00048\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00050}00050\ \ \ \ \ \textcolor{keyword}{auto}\ playButton\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00051}00051\ \ \ \ \ playButton-\/>setPosition(1540.f,\ 950.f);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00052}00052\ \ \ \ \ playButton-\/>setText(\textcolor{stringliteral}{"{}Play"{}},\ 40);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00053}00053\ \ \ \ \ playButton-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00054}00054\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ requestStackPop();}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ requestStackPush(States::Game);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00057}00057\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00058}00058\ \ \ \ \ mGUIContainer.pack(backButton);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00059}00059\ \ \ \ \ mGUIContainer.pack(playButton);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00060}00060\ \}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00061}00061\ \textcolor{keywordtype}{void}\ MapState::draw()\{}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00062}00062\ \ \ \ \ sf::RenderWindow\&\ window\ =\ *getContext().window;}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00063}00063\ \ \ \ \ window.setView(window.getDefaultView());}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00065}00065\ \ \ \ \ window.draw(mBackgroundSprite);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00066}00066\ \ \ \ \ window.draw(mMap);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00067}00067\ \ \ \ \ window.draw(mGUIContainer);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00068}00068\ \}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00069}00069\ \textcolor{keywordtype}{bool}\ MapState::handleEvent(\textcolor{keyword}{const}\ sf::Event\&\ event)\{}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00070}00070\ \ \ \ \ \textcolor{keywordflow}{if}\ (event.type\ ==\ sf::Event::KeyPressed)\{}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (event.key.code\ ==\ sf::Keyboard::D\ ||\ event.key.code\ ==\ sf::Keyboard::Right)\{}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (typeMap\ <\ listMap.size()\ -\/\ 1)\{}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ typeMap++;}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (event.key.code\ ==\ sf::Keyboard::A\ ||\ event.key.code\ ==\ sf::Keyboard::Left)\{}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (typeMap\ >\ 0)\{}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ typeMap-\/-\/;}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00081}00081\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00082}00082\ \ \ \ \ mGUIContainer.handleEvent(event);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00083}00083\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00084}00084\ \}}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00085}00085\ \textcolor{keywordtype}{bool}\ MapState::update(sf::Time\ dt)\{}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00086}00086\ \ \ \ \ mMap.setTexture(listMap[typeMap]);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00087}00087\ \ \ \ \ \mbox{\hyperlink{MapState_8cpp_a48b38ada423b65ba5d0be0f59e6277af}{typeOfMap}}\ =\ \mbox{\hyperlink{MapState_8cpp_a67e2b537ea6c8d76399cd905e0781aa4}{setTypeMap}}(typeMap);}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{MapState_8cpp_source_l00089}00089\ \}}
+
+\end{DoxyCode}

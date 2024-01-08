@@ -1,0 +1,150 @@
+\doxysection{Application.\+cpp}
+\hypertarget{Application_8cpp_source}{}\label{Application_8cpp_source}\index{Source/Application.cpp@{Source/Application.cpp}}
+\mbox{\hyperlink{Application_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <Application.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <Utility.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <State.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <StateIdentifiers.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <TitleState.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <CharacterState.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <MapState.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <GameState.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <MenuState.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <SettingState.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <HighScoreState.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <CreditState.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <PauseState.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <Const.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00017}00017\ \textcolor{preprocessor}{\#include\ <GameOverState.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00018}00018\ \textcolor{preprocessor}{\#include\ <CountDownState.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00019}00019\ \textcolor{preprocessor}{\#include\ <SavingState.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00021}00021\ \textcolor{preprocessor}{\#include\ <GameLevel.hpp>}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00022}00022\ \textcolor{keyword}{const}\ sf::Time\ Application::TimePerFrame\ =\ sf::seconds(1.f/60.f);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00024}00024\ Application::Application()\ :\ mWindow(sf::VideoMode(Constants::WindowWidth,\ Constants::WindowHeight),\ \textcolor{stringliteral}{"{}States"{}},\ sf::Style::Close),\ mTextures(),\ mFonts(),\ mPlayer(),\ mMusic(),\ mSounds(),\ mStateStack(State::Context(mWindow,\ mTextures,\ mFonts,\ mPlayer,\ mMusic,\ mSounds)),\ mStatisticsText(),\ mStatisticsUpdateTime(),\ mStatisticsNumFrames(0)\ \{}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00025}00025\ \ \ \ \ mWindow.setKeyRepeatEnabled(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00027}00027\ \ \ \ \ mFonts.load(Fonts::Main,\ \textcolor{stringliteral}{"{}Media/Fonts/Sansation.ttf"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00028}00028\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00029}00029\ \ \ \ \ mTextures.load(Textures::TitleScreen,\ \textcolor{stringliteral}{"{}Media/Textures/TitleScreen.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00030}00030\ \ \ \ \ mTextures.load(Textures::Background,\ \textcolor{stringliteral}{"{}Media/Textures/Background.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00031}00031\ \ \ \ \ mTextures.load(Textures::Title,\ \textcolor{stringliteral}{"{}Media/Textures/Title.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00032}00032\ \ \ \ \ mTextures.load(Textures::Cloud1,\ \textcolor{stringliteral}{"{}Media/Textures/Cloud1.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00033}00033\ \ \ \ \ mTextures.load(Textures::Cloud2,\ \textcolor{stringliteral}{"{}Media/Textures/Cloud2.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00034}00034\ \ \ \ \ mTextures.load(Textures::Cloud3,\ \textcolor{stringliteral}{"{}Media/Textures/Cloud3.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00035}00035\ \ \ \ \ mTextures.load(Textures::Cat,\ \textcolor{stringliteral}{"{}Media/Textures/Cat.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00036}00036\ \ \ \ \ mTextures.load(Textures::Button,\ \textcolor{stringliteral}{"{}Media/Textures/Button.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00037}00037\ \ \ \ \ mTextures.load(Textures::ButtonTouch,\ \textcolor{stringliteral}{"{}Media/Textures/ButtonTouch.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00038}00038\ \ \ \ \ mTextures.load(Textures::ButtonPressed,\ \textcolor{stringliteral}{"{}Media/Textures/ButtonPressed.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00039}00039\ \ \ \ \ mTextures.load(Textures::Key1,\ \textcolor{stringliteral}{"{}Media/Textures/Key1.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00040}00040\ \ \ \ \ mTextures.load(Textures::Key2,\ \textcolor{stringliteral}{"{}Media/Textures/Key2.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00041}00041\ \ \ \ \ mTextures.load(Textures::HighScore,\ \textcolor{stringliteral}{"{}Media/Textures/HighScore.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00042}00042\ \ \ \ \ mTextures.load(Textures::Character,\ \textcolor{stringliteral}{"{}Media/Textures/Character.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00043}00043\ \ \ \ \ mTextures.load(Textures::Countdown,\ \textcolor{stringliteral}{"{}Media/Textures/Countdown.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00044}00044\ \ \ \ \ mTextures.load(Textures::Map,\ \textcolor{stringliteral}{"{}Media/Textures/Map.png"{}});\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00045}00045\ \ \ \ \ mTextures.load(Textures::Credit,\textcolor{stringliteral}{"{}Media/Textures/Credit.png"{}});\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00046}00046\ \ \ \ \ mTextures.load(Textures::Sound1,\ \textcolor{stringliteral}{"{}Media/Textures/Sound1.png"{}});\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00047}00047\ \ \ \ \ mTextures.load(Textures::Sound2,\ \textcolor{stringliteral}{"{}Media/Textures/Sound2.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00048}00048\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00049}00049\ \ \ \ \ mTextures.load(Textures::Winter,\ \textcolor{stringliteral}{"{}Media/Textures/Winter.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00050}00050\ \ \ \ \ mTextures.load(Textures::Autumn,\ \textcolor{stringliteral}{"{}Media/Textures/Autumn.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00051}00051\ \ \ \ \ mTextures.load(Textures::Spring,\ \textcolor{stringliteral}{"{}Media/Textures/Spring.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00052}00052\ \ \ \ \ mTextures.load(Textures::Atlantis,\ \textcolor{stringliteral}{"{}Media/Textures/Atlantis.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00053}00053\ \ \ \ \ mTextures.load(Textures::Jura,\ \textcolor{stringliteral}{"{}Media/Textures/Jura.png"{}});}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00055}00055\ \ \ \ \ mStatisticsText.setFont(mFonts.get(Fonts::Main));}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00056}00056\ \ \ \ \ mStatisticsText.setPosition(5.f,\ 5.f);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00057}00057\ \ \ \ \ mStatisticsText.setCharacterSize(10u);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00059}00059\ \ \ \ \ registerStates();}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00060}00060\ \ \ \ \ mStateStack.pushState(States::Title);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00062}00062\ \ \ \ \ mMusic.setVolume(25.f);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00063}00063\ \}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00065}00065\ \textcolor{keywordtype}{void}\ Application::run()\ \{}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00066}00066\ \ \ \ \ sf::Clock\ clock;}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00067}00067\ \ \ \ \ sf::Time\ timeSinceLastUpdate\ =\ sf::Time::Zero;}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{while}\ (mWindow.isOpen())\ \{}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ sf::Time\ dt\ =\ clock.restart();}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ timeSinceLastUpdate\ +=\ dt;}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (timeSinceLastUpdate\ >\ TimePerFrame)\ \{}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ timeSinceLastUpdate\ -\/=\ TimePerFrame;}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ processInput();}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ update(TimePerFrame);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mStateStack.isEmpty())}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mWindow.close();}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ updateStatistics(dt);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ render();}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00084}00084\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00085}00085\ \}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00087}00087\ \textcolor{keywordtype}{void}\ Application::processInput()\ \{}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00088}00088\ \ \ \ \ sf::Event\ event;}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00089}00089\ \ \ \ \ \textcolor{keywordflow}{while}\ (mWindow.pollEvent(event))\ \{}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ mStateStack.handleEvent(event);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (event.type\ ==\ sf::Event::Closed)}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ mWindow.close();}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00094}00094\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00095}00095\ \}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00096}00096\ \textcolor{keywordtype}{void}\ Application::update(sf::Time\ dt)\ \{}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00097}00097\ \ \ \ \ mStateStack.update(dt);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00098}00098\ \}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00100}00100\ \textcolor{keywordtype}{void}\ Application::render()\ \{}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00101}00101\ \ \ \ \ mWindow.clear();}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00103}00103\ \ \ \ \ mStateStack.draw();}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00105}00105\ \ \ \ \ mWindow.setView(mWindow.getDefaultView());}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00106}00106\ \ \ \ \ mWindow.draw(mStatisticsText);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00108}00108\ \ \ \ \ \textcolor{comment}{//\ sf::Text\ text;}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00109}00109\ \ \ \ \ \textcolor{comment}{//\ text.setFont(mFonts.get(Fonts::Main));}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00110}00110\ \ \ \ \ \textcolor{comment}{//\ text.setPosition(10.f,\ 10.f);}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00111}00111\ \ \ \ \ \textcolor{comment}{//\ text.setCharacterSize(20u);}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00112}00112\ \ \ \ \ \textcolor{comment}{//\ text.setString("{}Level:\ "{}\ +\ std::to\_string(gameLevel.getLevel()));}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00114}00114\ \ \ \ \ \textcolor{comment}{//\ mWindow.draw(text);}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00116}00116\ \ \ \ \ mWindow.display();}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00117}00117\ \}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00119}00119\ \textcolor{keywordtype}{void}\ Application::updateStatistics(sf::Time\ dt)\ \{}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00120}00120\ \ \ \ \ mStatisticsUpdateTime\ +=\ dt;}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00121}00121\ \ \ \ \ mStatisticsNumFrames\ +=\ 1;}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00123}00123\ \ \ \ \ \textcolor{keywordflow}{if}\ (mStatisticsUpdateTime\ >=\ sf::seconds(1.0f))\ \{}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ mStatisticsText.setString(\textcolor{stringliteral}{"{}FPS:\ "{}}\ +\ toString(mStatisticsNumFrames));}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ mStatisticsUpdateTime\ -\/=\ sf::seconds(1.0f);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00127}00127\ \ \ \ \ \ \ \ \ mStatisticsNumFrames\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00128}00128\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00129}00129\ \}}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00131}00131\ \textcolor{keywordtype}{void}\ Application::registerStates()\ \{}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00132}00132\ \ \ \ \ mStateStack.registerState<TitleState>(States::Title);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00133}00133\ \ \ \ \ mStateStack.registerState<MenuState>(States::Menu);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00134}00134\ \ \ \ \ mStateStack.registerState<CharacterState>(States::Character);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00135}00135\ \ \ \ \ mStateStack.registerState<MapState>(States::Map);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00136}00136\ \ \ \ \ mStateStack.registerState<SettingState>(States::Setting);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00137}00137\ \ \ \ \ mStateStack.registerState<CreditState>(States::Credit);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00138}00138\ \ \ \ \ mStateStack.registerState<HighScoreState>(States::Score);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00139}00139\ \ \ \ \ mStateStack.registerState<GameState>(States::Game);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00140}00140\ \ \ \ \ mStateStack.registerState<PauseState>(States::Pause);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00141}00141\ \ \ \ \ mStateStack.registerState<GameOverState>(States::GameOver);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00142}00142\ \ \ \ \ mStateStack.registerState<CountDownState>(States::CountDown);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00143}00143\ \ \ \ \ mStateStack.registerState<SavingState>(States::Saving);}
+\DoxyCodeLine{\Hypertarget{Application_8cpp_source_l00144}00144\ \}}
+
+\end{DoxyCode}

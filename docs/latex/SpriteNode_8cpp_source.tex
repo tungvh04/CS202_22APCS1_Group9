@@ -1,0 +1,17 @@
+\doxysection{Sprite\+Node.\+cpp}
+\hypertarget{SpriteNode_8cpp_source}{}\label{SpriteNode_8cpp_source}\index{Source/SpriteNode.cpp@{Source/SpriteNode.cpp}}
+\mbox{\hyperlink{SpriteNode_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{SpriteNode_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <SpriteNode.hpp>}}
+\DoxyCodeLine{\Hypertarget{SpriteNode_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{SpriteNode_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/RenderTarget.hpp>}}
+\DoxyCodeLine{\Hypertarget{SpriteNode_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{SpriteNode_8cpp_source_l00005}00005\ SpriteNode::SpriteNode(\textcolor{keyword}{const}\ sf::Texture\&\ texture)\ :\ mSprite(texture)\ \{\}}
+\DoxyCodeLine{\Hypertarget{SpriteNode_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{SpriteNode_8cpp_source_l00007}00007\ SpriteNode::SpriteNode(\textcolor{keyword}{const}\ sf::Texture\&\ texture,\ \textcolor{keyword}{const}\ sf::IntRect\&\ textureRect)\ :\ mSprite(texture,\ textureRect)\ \{\}}
+\DoxyCodeLine{\Hypertarget{SpriteNode_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{SpriteNode_8cpp_source_l00009}00009\ \textcolor{keywordtype}{void}\ SpriteNode::drawCurrent(sf::RenderTarget\&\ target,\ sf::RenderStates\ states)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{SpriteNode_8cpp_source_l00010}00010\ \ \ \ \ target.draw(mSprite,\ states);}
+\DoxyCodeLine{\Hypertarget{SpriteNode_8cpp_source_l00011}00011\ \}}
+
+\end{DoxyCode}

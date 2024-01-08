@@ -1,0 +1,22 @@
+\doxysection{Command\+Queue.\+cpp}
+\hypertarget{CommandQueue_8cpp_source}{}\label{CommandQueue_8cpp_source}\index{Source/CommandQueue.cpp@{Source/CommandQueue.cpp}}
+\mbox{\hyperlink{CommandQueue_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <CommandQueue.hpp>}}
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <SceneNode.hpp>}}
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00004}00004\ \textcolor{keywordtype}{void}\ CommandQueue::push(\textcolor{keyword}{const}\ Command\&\ command)\ \{}
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00005}00005\ \ \ \ \ mQueue.push(command);}
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00006}00006\ \}}
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00008}00008\ Command\ CommandQueue::pop()\ \{}
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00009}00009\ \ \ \ \ Command\ command\ =\ mQueue.front();}
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00010}00010\ \ \ \ \ mQueue.pop();}
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00011}00011\ \ \ \ \ \textcolor{keywordflow}{return}\ command;}
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00012}00012\ \}}
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00014}00014\ \textcolor{keywordtype}{bool}\ CommandQueue::isEmpty()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00015}00015\ \ \ \ \ \textcolor{keywordflow}{return}\ mQueue.empty();}
+\DoxyCodeLine{\Hypertarget{CommandQueue_8cpp_source_l00016}00016\ \}}
+
+\end{DoxyCode}

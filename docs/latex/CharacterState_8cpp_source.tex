@@ -1,0 +1,200 @@
+\doxysection{Character\+State.\+cpp}
+\hypertarget{CharacterState_8cpp_source}{}\label{CharacterState_8cpp_source}\index{Source/CharacterState.cpp@{Source/CharacterState.cpp}}
+\mbox{\hyperlink{CharacterState_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <CharacterState.hpp>}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <Utility.hpp>}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <ResourceHolder.hpp>}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <Const.hpp>}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/RenderWindow.hpp>}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/Image.hpp>}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <SFML/System/Clock.hpp>}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <SFML/System/Time.hpp>}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00011}\mbox{\hyperlink{CharacterState_8cpp_a509fd19b503c0073c986b15a1c2bc871}{00011}}\ TypeCharacter::ID\ \mbox{\hyperlink{CharacterState_8cpp_a509fd19b503c0073c986b15a1c2bc871}{typeCharacter}};}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00013}\mbox{\hyperlink{CharacterState_8cpp_a0014bde27351c12ae756e4296e39157c}{00013}}\ TypeCharacter::ID\ \mbox{\hyperlink{CharacterState_8cpp_a0014bde27351c12ae756e4296e39157c}{setTypeCha}}(\textcolor{keywordtype}{int}\ type)\{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00014}00014\ \ \ \ \ \textcolor{keywordflow}{switch}\ (type)\ \{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00015}00015\ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TypeCharacter::BlueDino;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00017}00017\ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TypeCharacter::GreenDino;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00019}00019\ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TypeCharacter::YellowDino;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TypeCharacter::RedDino;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TypeCharacter::BlueFrog;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TypeCharacter::GreenFrog;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00027}00027\ \ \ \ \ \textcolor{keywordflow}{case}\ 6:}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TypeCharacter::YellowFrog;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00029}00029\ \ \ \ \ \textcolor{keywordflow}{case}\ 7:}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TypeCharacter::PinkFrog;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00031}00031\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \textcolor{stringliteral}{"{}Do\ not\ find\ corresponding\ character!"{}};}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00033}00033\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00034}00034\ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00035}00035\ CharacterState::CharacterState(StateStack\ \&stack,\ Context\ context)}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00036}00036\ :\ State(stack,\ context)}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00037}00037\ ,\ mGUIContainer()}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00038}00038\ \{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00039}00039\ \ \ \ \ mBackgroundSprite.setTexture(context.textures-\/>get(Textures::Character));}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00041}00041\ \ \ \ \ addCharacterTexture(\textcolor{stringliteral}{"{}Dinosaur"{}},\ \textcolor{stringliteral}{"{}Blue"{}},\ 24);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00042}00042\ \ \ \ \ addBackGroudCharacterTexture(\textcolor{stringliteral}{"{}Dinosaur"{}},\ \textcolor{stringliteral}{"{}Blue"{}});}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00044}00044\ \ \ \ \ addCharacterTexture(\textcolor{stringliteral}{"{}Dinosaur"{}},\ \textcolor{stringliteral}{"{}Green"{}},\ 24);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00045}00045\ \ \ \ \ addBackGroudCharacterTexture(\textcolor{stringliteral}{"{}Dinosaur"{}},\ \textcolor{stringliteral}{"{}Green"{}});}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00047}00047\ \ \ \ \ addCharacterTexture(\textcolor{stringliteral}{"{}Dinosaur"{}},\ \textcolor{stringliteral}{"{}Yellow"{}},\ 24);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00048}00048\ \ \ \ \ addBackGroudCharacterTexture(\textcolor{stringliteral}{"{}Dinosaur"{}},\ \textcolor{stringliteral}{"{}Yellow"{}});}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00049}00049\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00050}00050\ \ \ \ \ addCharacterTexture(\textcolor{stringliteral}{"{}Dinosaur"{}},\ \textcolor{stringliteral}{"{}Red"{}},\ 24);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00051}00051\ \ \ \ \ addBackGroudCharacterTexture(\textcolor{stringliteral}{"{}Dinosaur"{}},\ \textcolor{stringliteral}{"{}Red"{}});}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00053}00053\ \ \ \ \ addCharacterTexture(\textcolor{stringliteral}{"{}Frog"{}},\ \textcolor{stringliteral}{"{}Blue"{}},\ 11);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00054}00054\ \ \ \ \ addBackGroudCharacterTexture(\textcolor{stringliteral}{"{}Frog"{}},\ \textcolor{stringliteral}{"{}Blue"{}});}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00056}00056\ \ \ \ \ addCharacterTexture(\textcolor{stringliteral}{"{}Frog"{}},\ \textcolor{stringliteral}{"{}Green"{}},\ 11);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00057}00057\ \ \ \ \ addBackGroudCharacterTexture(\textcolor{stringliteral}{"{}Frog"{}},\ \textcolor{stringliteral}{"{}Green"{}});}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00059}00059\ \ \ \ \ addCharacterTexture(\textcolor{stringliteral}{"{}Frog"{}},\ \textcolor{stringliteral}{"{}Yellow"{}},\ 11);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00060}00060\ \ \ \ \ addBackGroudCharacterTexture(\textcolor{stringliteral}{"{}Frog"{}},\ \textcolor{stringliteral}{"{}Yellow"{}});}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00062}00062\ \ \ \ \ addCharacterTexture(\textcolor{stringliteral}{"{}Frog"{}},\ \textcolor{stringliteral}{"{}Pink"{}},\ 11);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00063}00063\ \ \ \ \ addBackGroudCharacterTexture(\textcolor{stringliteral}{"{}Frog"{}},\ \textcolor{stringliteral}{"{}Pink"{}});}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00065}00065\ \ \ \ \ mName.setFillColor(sf::Color::Black);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00066}00066\ \ \ \ \ mName.setCharacterSize(40);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00067}00067\ \ \ \ \ mName.setOutlineThickness(0.5);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00068}00068\ \ \ \ \ mName.setFont(context.fonts-\/>get(Fonts::Main));}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00069}00069\ \ \ \ \ mName.setPosition(830,\ 200);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00070}00070\ \ \ \ \ mName.setString(listName[0]);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00072}00072\ \ \ \ \ mCharacterSprite.setTexture(mCharacterTexture[0][0]);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00073}00073\ \ \ \ \ mCharacterSprite.setPosition(830,\ 500);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00075}00075\ \ \ \ \ mBackgroundSpriteCharacter.setTexture(mBackgroundTextureCharacter[0]);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00076}00076\ \ \ \ \ mBackgroundSpriteCharacter.setScale(0.9f,\ 0.9f);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00077}00077\ \ \ \ \ mBackgroundSpriteCharacter.setPosition(740,\ 175);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00079}00079\ \ \ \ \ \textcolor{keyword}{auto}\ backButton\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00080}00080\ \ \ \ \ backButton-\/>setPosition(70.f,\ 950.f);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00081}00081\ \ \ \ \ backButton-\/>setText(\textcolor{stringliteral}{"{}Back"{}},\ 40);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00082}00082\ \ \ \ \ backButton-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00083}00083\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ requestStackPop();}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00085}00085\ \ \ \ \ \ \ \ \ requestStackPush(States::Menu);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00086}00086\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00088}00088\ \ \ \ \ \textcolor{keyword}{auto}\ playButton\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00089}00089\ \ \ \ \ playButton-\/>setPosition(1540.f,\ 950.f);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00090}00090\ \ \ \ \ playButton-\/>setText(\textcolor{stringliteral}{"{}Next"{}},\ 40);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00091}00091\ \ \ \ \ playButton-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00092}00092\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ requestStackPop();}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ requestStackPush(States::Map);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00095}00095\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00096}00096\ \ \ \ \ mGUIContainer.pack(backButton);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00097}00097\ \ \ \ \ mGUIContainer.pack(playButton);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00098}00098\ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00099}00099\ \textcolor{keywordtype}{void}\ CharacterState::addCharacterTexture(\textcolor{keyword}{const}\ std::string\ \&nameCharacter,\ \textcolor{keyword}{const}\ std::string\ \&color,\ \textcolor{keywordtype}{int}\ numOfPicture)\{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00100}00100\ \ \ \ \ std::string\ nameFile\ =\ color\ +\ nameCharacter;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00101}00101\ \ \ \ \ listName.push\_back(color\ +\ \textcolor{stringliteral}{"{}\ "{}}\ +\ nameCharacter);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00102}00102\ \ \ \ \ std::vector<sf::Texture>\ frame;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00103}00103\ \ \ \ \ sf::Texture\ texture;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <=\ numOfPicture;\ i++)\{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!texture.loadFromFile(\textcolor{stringliteral}{"{}Media/Textures/Characters/"{}}\ +\ nameCharacter\ +\ \textcolor{stringliteral}{"{}/"{}}\ +\ nameFile\ +\ \textcolor{stringliteral}{"{}\_"{}}\ +\ std::to\_string(i)\ +\ \textcolor{stringliteral}{"{}.png"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ loading\ image\ frame"{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}.png"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ frame.push\_back(resizeTexture(texture,\ sf::Vector2u(240,\ 240)));}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00111}00111\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00112}00112\ \ \ \ \ mCharacterTexture.push\_back(frame);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00113}00113\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00114}00114\ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00115}00115\ \textcolor{keywordtype}{void}\ CharacterState::addBackGroudCharacterTexture(\textcolor{keyword}{const}\ std::string\ \&nameCharacter,\ \textcolor{keyword}{const}\ std::string\ \&color)\{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00116}00116\ \ \ \ \ std::string\ nameFile\ =\ color\ +\ nameCharacter;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00117}00117\ \ \ \ \ sf::Texture\ texture;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00118}00118\ \ \ \ \ \textcolor{keywordflow}{if}\ (!texture.loadFromFile(\textcolor{stringliteral}{"{}Media/Textures/Characters/"{}}\ +\ nameCharacter\ +\ \textcolor{stringliteral}{"{}/"{}}\ +\ nameFile\ +\ \textcolor{stringliteral}{"{}BG.png"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ loading\ BG\ image\ frame\ of\ "{}}\ <<\ nameFile\ <<\ \textcolor{stringliteral}{"{}.png"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00121}00121\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00122}00122\ \ \ \ \ mBackgroundTextureCharacter.push\_back(texture);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00123}00123\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00124}00124\ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00125}00125\ \textcolor{keywordtype}{void}\ CharacterState::draw()\{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00126}00126\ \ \ \ \ sf::RenderWindow\&\ window\ =\ *getContext().window;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00127}00127\ \ \ \ \ window.setView(window.getDefaultView());}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00129}00129\ \ \ \ \ window.draw(mBackgroundSprite);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00130}00130\ \ \ \ \ window.draw(mBackgroundSpriteCharacter);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00131}00131\ \ \ \ \ window.draw(mName);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00132}00132\ \ \ \ \ window.draw(mCharacterSprite);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00133}00133\ \ \ \ \ window.draw(mGUIContainer);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00134}00134\ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00135}00135\ \textcolor{keywordtype}{bool}\ CharacterState::handleEvent(\textcolor{keyword}{const}\ sf::Event\&\ event)\{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00136}00136\ \ \ \ \ \textcolor{keywordflow}{if}\ (event.type\ ==\ sf::Event::KeyPressed)\{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (event.key.code\ ==\ sf::Keyboard::D\ ||\ event.key.code\ ==\ sf::Keyboard::Right)\{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (currentType\ <\ mBackgroundTextureCharacter.size()\ -\/\ 1)\{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentType++;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00142}00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (event.key.code\ ==\ sf::Keyboard::A\ ||\ event.key.code\ ==\ sf::Keyboard::Left)\{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (currentType\ >\ 0)\{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentType-\/-\/;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00147}00147\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00148}00148\ \ \ \ \ mGUIContainer.handleEvent(event);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00149}00149\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00150}00150\ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00151}00151\ \textcolor{keywordtype}{bool}\ CharacterState::update(sf::Time\ dt)\{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00152}00152\ \ \ \ \ \textcolor{keywordflow}{if}\ (clock.getElapsedTime()\ >=\ frameTime)\{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ mName.setString(listName[currentType]);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ mCharacterSprite.setTexture(mCharacterTexture[currentType][currentFrame]);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (++currentFrame\ >=\ mCharacterTexture[currentType].size())\ currentFrame\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ clock.restart();}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00158}00158\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00159}00159\ \ \ \ \ mBackgroundSpriteCharacter.setTexture(mBackgroundTextureCharacter[currentType]);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00161}00161\ \ \ \ \ sf::FloatRect\ textBounds\ =\ mName.getLocalBounds();}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00162}00162\ \ \ \ \ mName.setOrigin(textBounds.left\ +\ textBounds.width\ /\ 2.0f,\ textBounds.top\ +\ textBounds.height\ /\ 2.0f);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00163}00163\ \ \ \ \ mName.setPosition(mBackgroundSpriteCharacter.getPosition().x\ +\ mBackgroundSpriteCharacter.getGlobalBounds().width\ /\ 2.0f,}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00164}00164\ \ \ \ \ mBackgroundSpriteCharacter.getPosition().y\ +\ mBackgroundSpriteCharacter.getGlobalBounds().height\ /\ 2.0f\ -\/\ 200);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00165}00165\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00166}00166\ \ \ \ \ \mbox{\hyperlink{CharacterState_8cpp_a509fd19b503c0073c986b15a1c2bc871}{typeCharacter}}\ =\ \mbox{\hyperlink{CharacterState_8cpp_a0014bde27351c12ae756e4296e39157c}{setTypeCha}}(currentType);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00168}00168\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00169}00169\ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00170}00170\ \textcolor{comment}{//Function\ resize\ the\ texture}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00171}00171\ sf::Texture\ CharacterState::resizeTexture(\textcolor{keyword}{const}\ sf::Texture\&\ originalTexture,\ \textcolor{keyword}{const}\ sf::Vector2u\&\ targetSize)\ \{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00173}00173\ \ \ \ \ sf::Image\ originalImage\ =\ originalTexture.copyToImage();}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00174}00174\ \ \ \ \ sf::Image\ resizedImage;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00175}00175\ \ \ \ \ resizedImage.create(targetSize.x,\ targetSize.y,\ sf::Color::Transparent);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00177}00177\ \ \ \ \ \textcolor{keywordtype}{float}\ xScale\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(targetSize.x)\ /\ originalImage.getSize().x;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00178}00178\ \ \ \ \ \textcolor{keywordtype}{float}\ yScale\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(targetSize.y)\ /\ originalImage.getSize().y;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00180}00180\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ x\ =\ 0;\ x\ <\ targetSize.x;\ ++x)\ \{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00181}00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ y\ =\ 0;\ y\ <\ targetSize.y;\ ++y)\ \{}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ origX\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(x\ /\ xScale);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ origY\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(y\ /\ yScale);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ sf::Color\ pixelColor\ =\ originalImage.getPixel(origX,\ origY);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ resizedImage.setPixel(x,\ y,\ pixelColor);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00187}00187\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00188}00188\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00190}00190\ \ \ \ \ sf::Texture\ resizedTexture;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00191}00191\ \ \ \ \ resizedTexture.loadFromImage(resizedImage);}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00192}00192\ \ \ \ \ resizedTexture.setSmooth(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00193}00193\ \ \ \ \ \textcolor{keywordflow}{return}\ resizedTexture;}
+\DoxyCodeLine{\Hypertarget{CharacterState_8cpp_source_l00194}00194\ \}}
+
+\end{DoxyCode}

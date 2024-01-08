@@ -1,0 +1,52 @@
+\doxysection{Entity.\+cpp}
+\hypertarget{Entity_8cpp_source}{}\label{Entity_8cpp_source}\index{Source/Entity.cpp@{Source/Entity.cpp}}
+\mbox{\hyperlink{Entity_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <Entity.hpp>}}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00003}00003\ \textcolor{keywordtype}{void}\ Entity::setVelocity(sf::Vector2f\ velocity)\ \{}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00004}00004\ \ \ \ \ mVelocity\ =\ velocity;}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00005}00005\ \}}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00007}00007\ \textcolor{keywordtype}{void}\ Entity::setVelocity(\textcolor{keywordtype}{float}\ vx,\ \textcolor{keywordtype}{float}\ vy)\ \{}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00008}00008\ \ \ \ \ mVelocity.x\ =\ vx;}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00009}00009\ \ \ \ \ mVelocity.y\ =\ vy;}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00010}00010\ \}}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00012}00012\ sf::Vector2f\ Entity::getVelocity()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00013}00013\ \ \ \ \ \textcolor{keywordflow}{return}\ mVelocity;}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00014}00014\ \}}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00016}00016\ \textcolor{keywordtype}{void}\ Entity::accelerate(sf::Vector2f\ velocity)\ \{}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00017}00017\ \ \ \ \ mVelocity\ +=\ velocity;}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00018}00018\ \}}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00020}00020\ \textcolor{keywordtype}{void}\ Entity::accelerate(\textcolor{keywordtype}{float}\ vx,\ \textcolor{keywordtype}{float}\ vy)\ \{}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00021}00021\ \ \ \ \ mVelocity.x\ +=\ vx;}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00022}00022\ \ \ \ \ mVelocity.y\ +=\ vy;}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00023}00023\ \}}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00025}00025\ \textcolor{keywordtype}{void}\ Entity::updateCurrent(sf::Time\ dt)\ \{}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00026}00026\ \ \ \ \ \textcolor{keywordflow}{if}\ (killByTime)\ \{}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ killTime-\/=dt;}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (killTime.asSeconds()<0)\ \{}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//kill\ here}}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00032}00032\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00033}00033\ \ \ \ \ move(mVelocity\ *\ dt.asSeconds());}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00034}00034\ \}}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00036}00036\ \textcolor{keywordtype}{void}\ Entity::updateCurrent(sf::Time\ dt,\ CommandQueue\&)}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00037}00037\ \{\ \ \ }
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00038}00038\ \ \ \ \ \textcolor{keywordflow}{if}\ (killByTime)\ \{}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ killTime-\/=dt;}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (killTime.asSeconds()<0)\ \{}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//kill\ here}}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00044}00044\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00045}00045\ \ \ \ \ move(mVelocity\ *\ dt.asSeconds());}
+\DoxyCodeLine{\Hypertarget{Entity_8cpp_source_l00046}00046\ \}}
+
+\end{DoxyCode}

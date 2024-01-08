@@ -1,0 +1,126 @@
+\doxysection{Count\+Down\+State.\+cpp}
+\hypertarget{CountDownState_8cpp_source}{}\label{CountDownState_8cpp_source}\index{Source/CountDownState.cpp@{Source/CountDownState.cpp}}
+\mbox{\hyperlink{CountDownState_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <CountDownState.hpp>}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <Utility.hpp>}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <ResourceHolder.hpp>}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <MusicPlayer.hpp>}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/RectangleShape.hpp>}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/RenderWindow.hpp>}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/View.hpp>}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00011}00011\ CountDownState::CountDownState(StateStack\&\ stack,\ Context\ context)}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00012}00012\ \ \ \ \ :\ State(stack,\ context)}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00013}00013\ \ \ \ \ ,\ mCountdownText()}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00014}00014\ \ \ \ \ ,\ mCountdownTime(sf::seconds(4))}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00015}00015\ \ \ \ \ ,\ mElapsedTime(sf::Time::Zero)}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00016}00016\ \{}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00017}00017\ \ \ \ \ mBackground.setTexture(context.textures-\/>get(Textures::Countdown));}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00019}00019\ \ \ \ \ sf::Font\&\ font\ =\ context.fonts-\/>get(Fonts::Main);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00020}00020\ \ \ \ \ sf::Vector2f\ windowSize(context.window-\/>getSize());}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00022}00022\ \ \ \ \ mCountdownText.setFont(font);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00023}00023\ \ \ \ \ mCountdownText.setCharacterSize(200);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{comment}{//\ Customize\ the\ appearance\ of\ the\ countdown\ text}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00026}00026\ \ \ \ \ mCountdownText.setFillColor(sf::Color::White);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00027}00027\ \ \ \ \ \mbox{\hyperlink{Utility_8cpp_add3ffea68d586813ee6765c3bc796d35}{centerOrigin}}(mCountdownText);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00028}00028\ \ \ \ \ mCountdownText.setPosition(0.48f\ *\ windowSize.x,\ 0.35f\ *\ windowSize.y);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00030}00030\ \ \ \ \ context.music-\/>play(Music::CountDownTheme);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00031}00031\ \}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00033}00033\ \textcolor{keywordtype}{bool}\ CountDownState::update(sf::Time\ dt)}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00034}00034\ \{}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00035}00035\ \ \ \ \ \textcolor{keywordflow}{if}\ (mCountdownTime\ >\ sf::Time::Zero)}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00036}00036\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ mCountdownTime\ -\/=\ dt;}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ updateCountdownUI();}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ countdown\ reaches\ zero,\ start\ the\ game}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mCountdownTime\ <=\ sf::Time::Zero)}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ requestStackPop();}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ requestStackPush(States::Game);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00046}00046\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00049}00049\ \}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00051}00051\ \textcolor{keywordtype}{void}\ CountDownState::draw()}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00052}00052\ \{}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00053}00053\ \ \ \ \ sf::RenderWindow\&\ window\ =\ *getContext().window;}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00054}00054\ \ \ \ \ window.setView(window.getDefaultView());}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00057}00057\ \ \ \ \ window.draw(mBackground);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00058}00058\ \ \ \ \ window.draw(mCountdownText);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00059}00059\ \}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00061}00061\ \textcolor{keywordtype}{bool}\ CountDownState::handleEvent(\textcolor{keyword}{const}\ sf::Event\&)}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00062}00062\ \{}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00063}00063\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00064}00064\ \}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00066}00066\ \textcolor{keywordtype}{void}\ CountDownState::updateCountdownUI()}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00067}00067\ \{}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00068}00068\ \ \ \ \ \textcolor{comment}{//\ Calculate\ the\ remaining\ seconds\ in\ the\ countdown}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00069}00069\ \ \ \ \ \textcolor{keywordtype}{int}\ seconds\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(std::ceil(mCountdownTime.asSeconds()));}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00071}00071\ \ \ \ \ \textcolor{comment}{//\ Update\ the\ UI\ to\ display\ the\ countdown}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00072}00072\ \ \ \ \ updateUIWithCountdown(seconds);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00073}00073\ \}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00075}00075\ \textcolor{keywordtype}{void}\ CountDownState::updateUIWithCountdown(\textcolor{keywordtype}{int}\ seconds)}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00076}00076\ \{}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00077}00077\ \ \ \ \ \textcolor{comment}{//\ Clear\ previous\ UI}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00078}00078\ \ \ \ \ clearUI();}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00080}00080\ \ \ \ \ \textcolor{comment}{//\ Display\ the\ countdown}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00081}00081\ \ \ \ \ \textcolor{keywordflow}{if}\ (seconds\ >\ 1)}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00082}00082\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ the\ countdown\ on\ the\ screen}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ drawCountdownText(seconds);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00085}00085\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00086}00086\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00087}00087\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Signal\ the\ start}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ updateUIForGo();}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00090}00090\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00091}00091\ \}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00093}00093\ \textcolor{keywordtype}{void}\ CountDownState::drawCountdownText(\textcolor{keywordtype}{int}\ seconds)}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00094}00094\ \{}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00095}00095\ \ \ \ \ \textcolor{comment}{//\ Set\ the\ text\ to\ display\ the\ countdown}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00096}00096\ \ \ \ \ mCountdownText.setString(std::to\_string(seconds-\/1));}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00097}00097\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00098}00098\ \ \ \ \ \textcolor{comment}{//\ Draw\ the\ countdown\ text}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00099}00099\ \ \ \ \ sf::RenderWindow\&\ window\ =\ *getContext().window;}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00100}00100\ \ \ \ \ window.draw(mCountdownText);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00101}00101\ \}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00103}00103\ \textcolor{keywordtype}{void}\ CountDownState::clearUI()}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00104}00104\ \{}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00105}00105\ \ \ \ \ sf::RenderWindow\&\ window\ =\ *getContext().window;}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00106}00106\ \ \ \ \ window.clear();}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00107}00107\ \}}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00109}00109\ \textcolor{keywordtype}{void}\ CountDownState::updateUIForGo()}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00110}00110\ \{}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00111}00111\ \ \ \ \ mCountdownText.setString(\textcolor{stringliteral}{"{}GO"{}});}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00112}00112\ \ \ \ \ \mbox{\hyperlink{Utility_8cpp_add3ffea68d586813ee6765c3bc796d35}{centerOrigin}}(mCountdownText);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00114}00114\ \ \ \ \ sf::Vector2f\ windowSize\ =\ getContext().window-\/>getView().getSize();}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00116}00116\ \ \ \ \ mCountdownText.setPosition(0.5f\ *\ windowSize.x,\ 0.48f\ *\ windowSize.y);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00118}00118\ \ \ \ \ sf::RenderWindow\&\ window\ =\ *getContext().window;}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00119}00119\ \ \ \ \ window.draw(mCountdownText);}
+\DoxyCodeLine{\Hypertarget{CountDownState_8cpp_source_l00120}00120\ \}}
+
+\end{DoxyCode}

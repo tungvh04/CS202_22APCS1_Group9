@@ -1,0 +1,37 @@
+\doxysection{Label.\+cpp}
+\hypertarget{Label_8cpp_source}{}\label{Label_8cpp_source}\index{Source/Label.cpp@{Source/Label.cpp}}
+\mbox{\hyperlink{Label_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <Label.h>}}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <Utility.hpp>}}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/RenderStates.hpp>}}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/RenderTarget.hpp>}}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00007}00007\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceGUI}{GUI}}\{}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00008}00008\ Label::Label(\textcolor{keyword}{const}\ std::string\ \&text,\ \textcolor{keyword}{const}\ FontHolder\ \&fonts)\ :\ mText(text,\ fonts.get(Fonts::Main),\ 40)}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00010}00010\ \}}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00011}00011\ \textcolor{keywordtype}{bool}\ Label::isSelectable()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00012}00012\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00013}00013\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00014}00014\ \}}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00015}00015\ \textcolor{keywordtype}{void}\ Label::handleEvent(\textcolor{keyword}{const}\ sf::Event\&)\{}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00017}00017\ \}}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00018}00018\ \textcolor{keywordtype}{void}\ Label::draw(sf::RenderTarget\ \&target,\ sf::RenderStates\ states)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00019}00019\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00020}00020\ \ \ \ \ states.transform\ *=\ getTransform();}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00021}00021\ \ \ \ \ target.draw(mText,\ states);\ }
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00022}00022\ \}}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00023}00023\ \textcolor{keywordtype}{void}\ Label::setText(\textcolor{keyword}{const}\ std::string\&\ text)}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00024}00024\ \{}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00025}00025\ \ \ \ \ mText.setString(text);}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00026}00026\ \}}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00027}00027\ \textcolor{keywordtype}{void}\ Label::setColor(\textcolor{keyword}{const}\ sf::Color\&\ color)}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00028}00028\ \{}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00029}00029\ \ \ \ \ mText.setFillColor(color);}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00030}00030\ \}}
+\DoxyCodeLine{\Hypertarget{Label_8cpp_source_l00031}00031\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,107 @@
+\doxysection{Pause\+State.\+cpp}
+\hypertarget{PauseState_8cpp_source}{}\label{PauseState_8cpp_source}\index{Source/PauseState.cpp@{Source/PauseState.cpp}}
+\mbox{\hyperlink{PauseState_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <PauseState.hpp>}}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <Utility.hpp>}}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <ResourceHolder.hpp>}}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <MusicPlayer.hpp>}}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/RectangleShape.hpp>}}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/RenderWindow.hpp>}}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/View.hpp>}}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <GameLevel.hpp>}}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00013}00013\ PauseState::PauseState(StateStack\&\ stack,\ Context\ context)\ :\ State(stack,\ context),\ mBackgroundSprite(),\ mPausedText(),\ mGUIContainer()\ \{}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00014}00014\ \ \ \ \ sf::Font\&\ font\ =\ context.fonts-\/>get(Fonts::Main);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00015}00015\ \ \ \ \ sf::Vector2f\ viewSize\ =\ context.window-\/>getView().getSize();}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00017}00017\ \ \ \ \ mPausedText.setFont(font);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00018}00018\ \ \ \ \ mPausedText.setString(\textcolor{stringliteral}{"{}Game\ Paused"{}});}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00019}00019\ \ \ \ \ mPausedText.setCharacterSize(70);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00020}00020\ \ \ \ \ \mbox{\hyperlink{Utility_8cpp_add3ffea68d586813ee6765c3bc796d35}{centerOrigin}}(mPausedText);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00021}00021\ \ \ \ \ mPausedText.setPosition(0.5f\ *\ viewSize.x,\ 0.2f\ *\ viewSize.y);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{comment}{//Pause\ Menu}}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00024}00024\ \ \ \ \ \textcolor{keyword}{auto}\ continueButton\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00025}00025\ \ \ \ \ continueButton-\/>setPosition(800,\ 300);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00026}00026\ \ \ \ \ continueButton-\/>setText(\textcolor{stringliteral}{"{}Continue"{}},\ 30);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00027}00027\ \ \ \ \ continueButton-\/>setCallback([\textcolor{keyword}{this}]\ ()}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00028}00028\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ requestStackPop();}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00030}00030\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00031}00031\ \ \ \ \ \textcolor{keyword}{auto}\ restartButton\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00032}00032\ \ \ \ \ restartButton-\/>setPosition(800,\ 400);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00033}00033\ \ \ \ \ restartButton-\/>setText(\textcolor{stringliteral}{"{}Restart"{}},\ 30);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00034}00034\ \ \ \ \ restartButton-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00035}00035\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{GameLevel_8cpp_af3b1fc16fa3bd832c00add97029d56c8}{gameLevel}}.restart();}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ requestStateClear();}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ requestStackPush(States::Game);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00039}00039\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00040}00040\ \ \ \ \ \textcolor{keyword}{auto}\ settingButton\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00041}00041\ \ \ \ \ settingButton-\/>setPosition(800,\ 500);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00042}00042\ \ \ \ \ settingButton-\/>setText(\textcolor{stringliteral}{"{}Setting"{}},\ 30);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00043}00043\ \ \ \ \ settingButton-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00044}00044\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{GameLevel_8cpp_af3b1fc16fa3bd832c00add97029d56c8}{gameLevel}}.save();}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ requestStackPush(States::Setting);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00047}00047\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{keyword}{auto}\ saveAndquitButton\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00049}00049\ \ \ \ \ saveAndquitButton-\/>setPosition(800,\ 600);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00050}00050\ \ \ \ \ saveAndquitButton-\/>setText(\textcolor{stringliteral}{"{}Save\ and\ Quit"{}},\ 30);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00051}00051\ \ \ \ \ saveAndquitButton-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00052}00052\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{GameLevel_8cpp_af3b1fc16fa3bd832c00add97029d56c8}{gameLevel}}.save();}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ requestStateClear();}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ requestStackPush(States::Saving);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00056}00056\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00057}00057\ \ \ \ \ \textcolor{keyword}{auto}\ menuButton\ =\ std::make\_shared<GUI::Button>(context);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00058}00058\ \ \ \ \ menuButton-\/>setPosition(800,\ 700);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00059}00059\ \ \ \ \ menuButton-\/>setText(\textcolor{stringliteral}{"{}Return\ to\ Main\ Menu"{}},\ 30);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00060}00060\ \ \ \ \ menuButton-\/>setCallback([\textcolor{keyword}{this}]()}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00061}00061\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{GameLevel_8cpp_af3b1fc16fa3bd832c00add97029d56c8}{gameLevel}}.save();}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ requestStateClear();}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ requestStackPush(States::Menu);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00065}00065\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00067}00067\ \ \ \ \ mGUIContainer.pack(continueButton);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00068}00068\ \ \ \ \ mGUIContainer.pack(restartButton);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00069}00069\ \ \ \ \ mGUIContainer.pack(settingButton);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00070}00070\ \ \ \ \ mGUIContainer.pack(saveAndquitButton);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00071}00071\ \ \ \ \ mGUIContainer.pack(menuButton);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00073}00073\ \ \ \ \ getContext().music-\/>setPaused(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00074}00074\ \}}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00076}00076\ PauseState::\string~PauseState()}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00077}00077\ \{}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00078}00078\ \ \ \ \ getContext().music-\/>setPaused(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00079}00079\ \}}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00081}00081\ \textcolor{keywordtype}{void}\ PauseState::draw()\ \{}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00082}00082\ \ \ \ \ sf::RenderWindow\&\ window\ =\ *getContext().window;}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00083}00083\ \ \ \ \ window.setView(window.getDefaultView());}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00085}00085\ \ \ \ \ sf::RectangleShape\ backgroundShape;}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00086}00086\ \ \ \ \ backgroundShape.setFillColor(sf::Color(0,\ 0,\ 0,\ 150));}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00087}00087\ \ \ \ \ backgroundShape.setSize(window.getView().getSize());}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00089}00089\ \ \ \ \ window.draw(backgroundShape);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00090}00090\ \ \ \ \ window.draw(mPausedText);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00091}00091\ \ \ \ \ window.draw(mGUIContainer);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00092}00092\ \}}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00094}00094\ \textcolor{keywordtype}{bool}\ PauseState::update(sf::Time)\ \{}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00095}00095\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00096}00096\ \}}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00098}00098\ \textcolor{keywordtype}{bool}\ PauseState::handleEvent(\textcolor{keyword}{const}\ sf::Event\&\ event)\ \{}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00099}00099\ \ \ \ \ mGUIContainer.handleEvent(event);}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{PauseState_8cpp_source_l00101}00101\ \}}
+
+\end{DoxyCode}

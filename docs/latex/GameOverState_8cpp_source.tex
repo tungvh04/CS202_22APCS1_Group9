@@ -1,0 +1,68 @@
+\doxysection{Game\+Over\+State.\+cpp}
+\hypertarget{GameOverState_8cpp_source}{}\label{GameOverState_8cpp_source}\index{Source/GameOverState.cpp@{Source/GameOverState.cpp}}
+\mbox{\hyperlink{GameOverState_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <GameOverState.hpp>}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <Utility.hpp>}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <Player.hpp>}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <ResourceHolder.hpp>}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <GameLevel.hpp>}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <MusicPlayer.hpp>}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/RectangleShape.hpp>}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/RenderWindow.hpp>}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <SFML/Graphics/View.hpp>}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00013}00013\ GameOverState::GameOverState(StateStack\&\ stack,\ Context\ context)}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00014}00014\ :\ State(stack,\ context)}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00015}00015\ ,\ mGameOverText()}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00016}00016\ ,\ mElapsedTime(sf::Time::Zero)}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00017}00017\ \{}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00018}00018\ \ \ \ \ sf::Font\&\ font\ =\ context.fonts-\/>get(Fonts::Main);}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00019}00019\ \ \ \ \ sf::Vector2f\ windowSize(context.window-\/>getSize());}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00021}00021\ \ \ \ \ mGameOverText.setFont(font);}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00022}00022\ \ \ \ \ \textcolor{keywordflow}{if}\ (context.player-\/>getMissionStatus()\ ==\ Player::MissionFailure)}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ mGameOverText.setString(\textcolor{stringliteral}{"{}GAME\ OVER"{}});}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00025}00025\ \ \ \ \ mGameOverText.setCharacterSize(100);}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00026}00026\ \ \ \ \ \mbox{\hyperlink{Utility_8cpp_add3ffea68d586813ee6765c3bc796d35}{centerOrigin}}(mGameOverText);}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00027}00027\ \ \ \ \ mGameOverText.setPosition(0.5f\ *\ windowSize.x,\ 0.4f\ *\ windowSize.y);}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00029}00029\ \ \ \ \ context.music-\/>play(Music::GameOverTheme);}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00030}00030\ \}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00032}00032\ \textcolor{keywordtype}{void}\ GameOverState::draw()}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00033}00033\ \{}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00034}00034\ \ \ \ \ sf::RenderWindow\&\ window\ =\ *getContext().window;}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00035}00035\ \ \ \ \ window.setView(window.getDefaultView());}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00037}00037\ \ \ \ \ \textcolor{comment}{//\ Create\ dark,\ semitransparent\ background}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00038}00038\ \ \ \ \ sf::RectangleShape\ backgroundShape;}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00039}00039\ \ \ \ \ backgroundShape.setFillColor(sf::Color(0,\ 0,\ 0,\ 150));}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00040}00040\ \ \ \ \ backgroundShape.setSize(window.getView().getSize());}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00042}00042\ \ \ \ \ window.draw(backgroundShape);}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00043}00043\ \ \ \ \ window.draw(mGameOverText);}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00044}00044\ \}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00046}00046\ \textcolor{keywordtype}{bool}\ GameOverState::update(sf::Time\ dt)}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00047}00047\ \{}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ Show\ state\ for\ 3\ seconds,\ after\ return\ to\ menu}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00049}00049\ \ \ \ \ mElapsedTime\ +=\ dt;}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{if}\ (mElapsedTime\ >\ sf::seconds(3))}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00051}00051\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{GameLevel_8cpp_af3b1fc16fa3bd832c00add97029d56c8}{gameLevel}}.restart();}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ requestStateClear();}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ requestStackPush(States::Menu);}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00055}00055\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00056}00056\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00057}00057\ \}}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00059}00059\ \textcolor{keywordtype}{bool}\ GameOverState::handleEvent(\textcolor{keyword}{const}\ sf::Event\&)}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00060}00060\ \{}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00061}00061\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{GameOverState_8cpp_source_l00062}00062\ \}}
+
+\end{DoxyCode}

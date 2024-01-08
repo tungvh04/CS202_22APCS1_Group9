@@ -1,0 +1,112 @@
+\doxysection{Player.\+cpp}
+\hypertarget{Player_8cpp_source}{}\label{Player_8cpp_source}\index{Source/Player.cpp@{Source/Player.cpp}}
+\mbox{\hyperlink{Player_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <Player.hpp>}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <CommandQueue.hpp>}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <Character.hpp>}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <Foreach.hpp>}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <Const.hpp>}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00011}\mbox{\hyperlink{structCharacterMover}{00011}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structCharacterMover}{CharacterMover}}\ \{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00012}\mbox{\hyperlink{structCharacterMover_a99e194e382cb9edcec1be4144b062a9a}{00012}}\ \ \ \ \ \mbox{\hyperlink{structCharacterMover_a99e194e382cb9edcec1be4144b062a9a}{CharacterMover}}(\textcolor{keywordtype}{float}\ vx,\ \textcolor{keywordtype}{float}\ vy)\ :\ \mbox{\hyperlink{structCharacterMover_a07e44b5c9e9ff842972abcd8f948e557}{velocity}}(vx,\ vy)\ \{\}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00014}\mbox{\hyperlink{structCharacterMover_ae272edf17b452f9d9fd2e8df5ac6ca31}{00014}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structCharacterMover_ae272edf17b452f9d9fd2e8df5ac6ca31}{operator()\ }}(Character\&\ character,\ sf::Time)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ character.pathRequest(\mbox{\hyperlink{structCharacterMover_a07e44b5c9e9ff842972abcd8f948e557}{velocity}});}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00016}00016\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00018}\mbox{\hyperlink{structCharacterMover_a07e44b5c9e9ff842972abcd8f948e557}{00018}}\ \ \ \ \ sf::Vector2f\ \mbox{\hyperlink{structCharacterMover_a07e44b5c9e9ff842972abcd8f948e557}{velocity}};}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00019}00019\ \};}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00021}00021\ Player::Player()\ \{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00022}00022\ \ \ \ \ \textcolor{comment}{//\ Set\ initial\ key\ bindings}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00023}00023\ \ \ \ \ mKeyBinding[sf::Keyboard::Left]\ =\ MoveLeft;}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00024}00024\ \ \ \ \ mKeyBinding[sf::Keyboard::Right]\ =\ MoveRight;}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00025}00025\ \ \ \ \ mKeyBinding[sf::Keyboard::Up]\ =\ MoveUp;}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00026}00026\ \ \ \ \ mKeyBinding[sf::Keyboard::Down]\ =\ MoveDown;}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00028}00028\ \ \ \ \ \textcolor{comment}{//\ Set\ initial\ action\ bindings}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00029}00029\ \ \ \ \ initializeActions();}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00031}00031\ \ \ \ \ \textcolor{comment}{//\ Assign\ all\ categories\ to\ player's\ character}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00032}00032\ \ \ \ \ FOREACH(\textcolor{keyword}{auto}\&\ pair,\ mActionBinding)}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ pair.second.category\ =\ Category::PlayerCharacter;}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00034}00034\ \}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00036}00036\ \textcolor{keywordtype}{void}\ Player::handleEvent(\textcolor{keyword}{const}\ sf::Event\&\ event,\ CommandQueue\&\ commands)\ \{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{if}\ (event.type\ ==\ sf::Event::KeyPressed)\ \{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ pressed\ key\ appears\ in\ key\ binding,\ trigger\ command\ if\ so}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ found\ =\ mKeyBinding.find(event.key.code);}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (found\ !=\ mKeyBinding.end()\ \&\&\ !isRealtimeAction(found-\/>second))}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ commands.push(mActionBinding[found-\/>second]);}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00042}00042\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00043}00043\ \}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00045}00045\ \textcolor{keywordtype}{void}\ Player::handleRealtimeInput(CommandQueue\&\ commands)\ \{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00046}00046\ \ \ \ \ \textcolor{comment}{//\ Traverse\ all\ assigned\ keys\ and\ check\ if\ they\ are\ pressed}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00047}00047\ \ \ \ \ FOREACH(\textcolor{keyword}{auto}\ pair,\ mKeyBinding)\ \{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ key\ is\ pressed,\ lookup\ action\ and\ trigger\ corresponding\ command}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sf::Keyboard::isKeyPressed(pair.first)\ \&\&\ isRealtimeAction(pair.second))}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ commands.push(mActionBinding[pair.second]);}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00052}00052\ \}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00054}00054\ \textcolor{keywordtype}{void}\ Player::assignKey(Action\ action,\ sf::Keyboard::Key\ key)\ \{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00055}00055\ \ \ \ \ \textcolor{comment}{//\ Remove\ all\ keys\ that\ already\ map\ to\ action}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00056}00056\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ itr\ =\ mKeyBinding.begin();\ itr\ !=\ mKeyBinding.end();\ )\ \{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (itr-\/>second\ ==\ action)}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ mKeyBinding.erase(itr++);}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ ++itr;}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00063}00063\ \ \ \ \ \textcolor{comment}{//\ Insert\ new\ binding}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00064}00064\ \ \ \ \ mKeyBinding[key]\ =\ action;}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00065}00065\ \}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00067}00067\ sf::Keyboard::Key\ Player::getAssignedKey(Action\ action)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00068}00068\ \ \ \ \ FOREACH(\textcolor{keyword}{auto}\ pair,\ mKeyBinding)\ \{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pair.second\ ==\ action)}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pair.first;}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00071}00071\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{return}\ sf::Keyboard::Unknown;}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00074}00074\ \}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00076}00076\ \textcolor{keywordtype}{void}\ Player::setMissionStatus(MissionStatus\ status)}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00077}00077\ \{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00078}00078\ \ \ \ \ mCurrentMissionStatus\ =\ status;}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00079}00079\ \}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00081}00081\ Player::MissionStatus\ Player::getMissionStatus()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00082}00082\ \textcolor{keyword}{}\{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00083}00083\ \ \ \ \ \textcolor{keywordflow}{return}\ mCurrentMissionStatus;}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00084}00084\ \}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00086}00086\ \textcolor{keywordtype}{void}\ Player::initializeActions()\ \{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00087}00087\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ playerSpeed\ =\ Constants::playerSpeed;}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00089}00089\ \ \ \ \ mActionBinding[MoveLeft].action\ =\ derivedAction<Character>(\mbox{\hyperlink{structCharacterMover}{CharacterMover}}(-\/playerSpeed,\ 0.f));}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00090}00090\ \ \ \ \ mActionBinding[MoveRight].action\ =\ derivedAction<Character>(\mbox{\hyperlink{structCharacterMover}{CharacterMover}}(+playerSpeed,\ 0.f));}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00091}00091\ \ \ \ \ mActionBinding[MoveUp].action\ =\ derivedAction<Character>(\mbox{\hyperlink{structCharacterMover}{CharacterMover}}(0.f,\ -\/playerSpeed));}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00092}00092\ \ \ \ \ mActionBinding[MoveDown].action\ =\ derivedAction<Character>(\mbox{\hyperlink{structCharacterMover}{CharacterMover}}(0.f,\ +playerSpeed));}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00093}00093\ \}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00095}00095\ \textcolor{keywordtype}{bool}\ Player::isRealtimeAction(Action\ action)\ \{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{switch}\ (action)\ \{}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ MoveLeft:}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ MoveRight:}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ MoveDown:}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ MoveUp:}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00105}00105\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{Player_8cpp_source_l00106}00106\ \}}
+
+\end{DoxyCode}

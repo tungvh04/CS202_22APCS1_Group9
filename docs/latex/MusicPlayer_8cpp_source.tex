@@ -1,0 +1,60 @@
+\doxysection{Music\+Player.\+cpp}
+\hypertarget{MusicPlayer_8cpp_source}{}\label{MusicPlayer_8cpp_source}\index{Source/MusicPlayer.cpp@{Source/MusicPlayer.cpp}}
+\mbox{\hyperlink{MusicPlayer_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <MusicPlayer.hpp>}}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <MapState.hpp>}}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <World.hpp>}}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00005}00005\ MusicPlayer::MusicPlayer()}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00006}00006\ :\ mMusic()}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00007}00007\ ,\ mFilenames()}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00008}00008\ ,\ mVolume(100.f)}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00009}00009\ \{\}}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00011}00011\ \textcolor{keywordtype}{void}\ MusicPlayer::updateFilenames()\ \{}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00012}00012\ \ \ \ \ std::string\ typeMap\ =\ \mbox{\hyperlink{World_8cpp_a6ac44d4d55edf3338ce992d7f9852b55}{IDtoString}}(\mbox{\hyperlink{MapState_8cpp_a48b38ada423b65ba5d0be0f59e6277af}{typeOfMap}});}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00014}00014\ \ \ \ \ mFilenames[Music::MenuTheme]\ \ \ \ =\ \textcolor{stringliteral}{"{}Media/Music/MenuTheme.mp3"{}};}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00015}00015\ \ \ \ \ mFilenames[Music::MissionTheme]\ =\ \textcolor{stringliteral}{"{}Media/Music/"{}}\ +\ typeMap\ +\ \textcolor{stringliteral}{"{}/MissionTheme.mp3"{}};}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00016}00016\ \ \ \ \ mFilenames[Music::GameOverTheme]\ =\ \textcolor{stringliteral}{"{}Media/Music/GameOverTheme.mp3"{}};}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00017}00017\ \ \ \ \ mFilenames[Music::CountDownTheme]\ =\ \textcolor{stringliteral}{"{}Media/Music/CountDownTheme.mp3"{}};}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00018}00018\ \}}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00020}00020\ \textcolor{keywordtype}{void}\ MusicPlayer::play(Music::ID\ theme)}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00021}00021\ \{}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00022}00022\ \ \ \ \ updateFilenames();}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00023}00023\ \ \ \ \ std::string\ filename\ =\ mFilenames[theme];}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{keywordflow}{if}\ (!mMusic.openFromFile(filename))}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Music\ "{}}\ +\ filename\ +\ \textcolor{stringliteral}{"{}\ could\ not\ be\ loaded."{}});}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00028}00028\ \ \ \ \ mMusic.setVolume(mVolume);}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00029}00029\ \ \ \ \ mMusic.setLoop(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00030}00030\ \ \ \ \ mMusic.play();}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00031}00031\ \}}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00033}00033\ \textcolor{keywordtype}{void}\ MusicPlayer::stop()}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00034}00034\ \{}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00035}00035\ \ \ \ \ mMusic.stop();}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00036}00036\ \}}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00038}00038\ \textcolor{keywordtype}{void}\ MusicPlayer::setVolume(\textcolor{keywordtype}{float}\ volume)}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00039}00039\ \{}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00040}00040\ \ \ \ \ mVolume\ =\ volume;}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00041}00041\ \}}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00043}00043\ \textcolor{keywordtype}{void}\ MusicPlayer::setPaused(\textcolor{keywordtype}{bool}\ paused)}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00044}00044\ \{}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00045}00045\ \ \ \ \ \textcolor{keywordflow}{if}\ (paused)}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ mMusic.pause();}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00047}00047\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ mMusic.play();}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00049}00049\ \}}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00051}00051\ \textcolor{keywordtype}{float}\ MusicPlayer::getVolume()}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00052}00052\ \{}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{return}\ mVolume;}
+\DoxyCodeLine{\Hypertarget{MusicPlayer_8cpp_source_l00054}00054\ \}}
+
+\end{DoxyCode}
