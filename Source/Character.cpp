@@ -260,8 +260,8 @@ bool Character::predictMovement(sf::Vector2f direction) {
 
 void Character::destroy() {
     // std::cout << "Character destroyed\n";
-    playerSoundController.play(SoundEffects::Die);
     if (!mIsDestroyed) {
+        playerSoundController.play(SoundEffects::Die);
         mIsDestroyed = true;
         mShowDeath = true;
         mDeath.restart();
