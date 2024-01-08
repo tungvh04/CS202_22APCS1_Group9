@@ -209,4 +209,7 @@ void HighScoreState::loadScore() {
 		highScore[i].first = GameLevel::loadHighScore(TypeMap::ID(i));
 		highScore[i].second = MapID2Name(TypeMap::ID(i));
 	}
+	sort(highScore.begin(), highScore.end(), [](const std::pair<std::vector<float>, std::string>& a, const std::pair<std::vector<float>, std::string>& b) {
+		return a.first[0] > b.first[0];
+	});
 }

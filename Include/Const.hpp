@@ -68,7 +68,7 @@ namespace Constants {
     constexpr static float hurtAmountLarge = 100.f;
     constexpr static float hurtAmountSmall = 50.f;
 
-    constexpr static float MaxNumSaveScore = 3;
+    constexpr static float MaxNumSaveScore = 1;
 }
 
 #endif // CONSTANTS_HPP
