@@ -31,8 +31,6 @@ add_executable(${PROJECT_NAME}  Source/Main.cpp
                                 Source/PauseState.cpp
                                 Source/TitleState.cpp
                                 Source/Application.cpp
-                                Source/CollisionBox.cpp 
-                                Source/Object.cpp
                                 Source/TextureHolder.cpp
                                 Source/MovingObject.cpp
                                 Source/Component.cpp

@@ -11,7 +11,6 @@
 // #include <TileSystem.hpp>
 #include <TileManagement.hpp>
 #include <GameObject.hpp>
-#include <Car.hpp>
 #include <CharacterState.hpp>
 #include <Animation.hpp>
 
@@ -70,21 +69,7 @@ private:
         LayerCount
     };
 
-    struct SpawnPoint {
-		SpawnPoint(Car::Type type, float x, float y): type(type), x(x), y(y){
-		
-        }
-
-		Car::Type type;
-		float x;
-		float y;
-	};
-
 private:
-    // TileBuilderRow tileManager;
-    // TileManager tileManager;
-    // TileManager mTileManager;
-    TileManager* mTileManager;
 
     sf::RenderWindow& mWindow;
     sf::View mWorldView;
@@ -103,10 +88,6 @@ private:
     std::vector<TextureHolder*> mTiles;
     sf::Vector2f mOriginGrid;
 
-    int tileCnt;
-
-    std::vector<SpawnPoint> mEnemySpawnPoints;
-	std::vector<Car*> mActiveEnemies;
 
     Animation screenEffect;
     int charState = 0;

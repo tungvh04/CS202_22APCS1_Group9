@@ -45,8 +45,6 @@ SettingState::SettingState(StateStack& stack, Context context)
 	backButton->setCallback([this]()
     {
         requestStackPop();
-		// requestStateClear();
-        // requestStackPush(States::Menu);
     });
 	mGUIContainer.pack(backButton);
 }

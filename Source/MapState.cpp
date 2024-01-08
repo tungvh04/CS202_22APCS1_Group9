@@ -84,7 +84,6 @@ bool MapState::handleEvent(const sf::Event& event){
 }
 bool MapState::update(sf::Time dt){
     mMap.setTexture(listMap[typeMap]);
-    //std::cout << typeMap << '\n';
     typeOfMap = setTypeMap(typeMap);
     return true;
 }

@@ -37,7 +37,6 @@ std::vector<float> GameLevel::loadHighScore(TypeMap::ID typeMap) {
     float score;
     std::vector<float> highScore;
     while (file >> score) {
-        // highScore.push_back(score);
         if (highScore.size() < Constants::MaxNumSaveScore) {
             highScore.push_back(score);
         }

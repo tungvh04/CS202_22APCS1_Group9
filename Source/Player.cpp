@@ -12,7 +12,6 @@ struct CharacterMover {
     CharacterMover(float vx, float vy) : velocity(vx, vy) {}
 
     void operator() (Character& character, sf::Time) const {
-        // character.accelerate(velocity);
         character.pathRequest(velocity);
     }
 
@@ -85,7 +84,6 @@ Player::MissionStatus Player::getMissionStatus() const
 }
 
 void Player::initializeActions() {
-    // const float playerSpeed = 200.f;
     const float playerSpeed = Constants::playerSpeed;
 
     mActionBinding[MoveLeft].action = derivedAction<Character>(CharacterMover(-playerSpeed, 0.f));
@@ -100,7 +98,6 @@ bool Player::isRealtimeAction(Action action) {
         case MoveRight:
         case MoveDown:
         case MoveUp:
-            //return true;
             return false;
 
         default:

@@ -11,7 +11,6 @@ GameState::GameState(StateStack& stack, Context context) : State(stack, context)
     mLevelText.setFont(context.fonts->get(Fonts::Main));
     mLevelText.setPosition(5.f, 20.f);
     mLevelText.setCharacterSize(50);
-    // mLevelText.setString("Level: " + std::to_string(gameLevel.getLevel()));
     context.music->play(Music::MissionTheme);
 }
 
@@ -20,8 +19,6 @@ void GameState::draw() {
     sf::RenderWindow& mWindow = *getContext().window;
     mWindow.setView(mWindow.getDefaultView());
     mWindow.draw(mLevelText);
-    // std::cout << "Drawn level: " << gameLevel.getLevel() << std::endl;
-    // std::cout << "String = " << mLevelText.getString().toAnsiString() << std::endl;
 }
 
 bool GameState::update(sf::Time dt) {
@@ -37,8 +34,6 @@ bool GameState::update(sf::Time dt) {
     CommandQueue& commands = mWorld.getCommandQueue();
     mPlayer.handleRealtimeInput(commands);
 
-    // int level = gameLevel.getLevel();
-    // std::string levelString = "Level: " + std::to_string(level);
     int level = gameLevel.getScore();
     std::string levelString = "Score: " + std::to_string(level);
     mLevelText.setString(levelString);

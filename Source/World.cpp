@@ -101,10 +101,6 @@ World::World(sf::RenderWindow& window) : lastWeatherState(0), mWindow(window), m
 }
 
 void World::update(sf::Time dt) {
-    //std::cout<<"Player speed: "<<mPlayerCharacter->getSpeedMult()<<'\n';
-    //std::cout<<"Player temperature: "<<mPlayerCharacter->getTemperature()<<'\n';
-
-    //std::cout<<"Weather: "<<weatherState<<'\n';
 
     if (typeOfMap==TypeMap::Spring) {
         clearWeather();
@@ -123,11 +119,6 @@ void World::update(sf::Time dt) {
         mPlayerCharacter->setDefaultTemperature(Constants::defaultTemperatureSpring);
     }
 
-    //std::cout<<mPlayerCharacter->getPosition().x<<' '<<mPlayerCharacter->getPosition().y<<'\n';
-    // Scroll the world, reset player velocity
-
-    //sf::Vector2i currentPos=stateController.getIndex(mPlayerCharacter->getPosition());
-    //std::cout<<currentPos.x<<' '<<currentPos.y<<'\n';
 
     if (!mPlayerCharacter->isDestroyed()) mWorldView.move(0.f, mScrollSpeed * dt.asSeconds() * gameLevel.getSpeedMultiplier());
     mPlayerCharacter->setVelocity(0.f, 0.f);
@@ -140,38 +131,6 @@ void World::update(sf::Time dt) {
 
     handleCollisions();
 
-    // if (mPlayerCharacter->isDestroyed()) {
-        // int scoreStateScore=gameLevel.getScore();
-	    // std::string scoreStateMapName=getMap();
-        // std::vector<std::pair<int,std::string>> highScore;
-        // highScore.resize(3);
-        // std::ifstream in;
-        // in.open(Constants::saveScorePath);
-        // for (int i=0;i<=2;i++) {
-            // in>>highScore[i].first;
-            // getline(in,highScore[i].second);
-            // std::getline(in,highScore[i].second);
-        // }
-        // in.close();
-        // for (int i=0;i<=2;i++) {
-            // if (scoreStateMapName==highScore[i].second) {
-                // if (scoreStateScore>highScore[i].first) {
-                    // std::swap(scoreStateScore,highScore[i].first);
-                // }
-                // else if (scoreStateScore==highScore[i].first) break;
-            // }
-        // }
-        // std::ofstream out;
-        // out.open(Constants::saveScorePath);
-        // for (int i=0;i<=2;i++) {
-            // out<<highScore[i].first<<'\n';
-            // out<<highScore[i].second<<'\n';
-            // //std::cout<<highScore[i].first<<'\n';
-            // //std::cout<<highScore[i].second<<'\n';
-        // }
-        // out.close();
-        // //std::cout<<"Huh: ? "<<scoreStateMapName<<' '<<scoreStateScore<<'\n';
-    // }
 
     // Regular update step, adapt position (correct if outside view)
     mSceneGraph.update(dt);
@@ -182,9 +141,6 @@ void World::update(sf::Time dt) {
 
     if (mPlayerCharacter->isBurning()) {
         if (!checkCState(CState::Type::burning)) {
-            //sf::Sprite overlay(mTextures.get(Textures::ID::Burning));
-            //overlay.setPosition(0,0);
-            //overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
             charState|=CState::Type::burning;
             screenEffect.setTexture(mTextures.get(Textures::ID::Burning));
             screenEffect.setNumFrames(20);
@@ -203,14 +159,10 @@ void World::update(sf::Time dt) {
 
     if (mPlayerCharacter->isFreezing()) {
         if (!checkCState(CState::Type::freezing)) {
-            //sf::Sprite overlay(mTextures.get(Textures::ID::Burning));
-            //overlay.setPosition(0,0);
-            //overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
             charState|=CState::Type::freezing;
             screenEffect.setTexture(mTextures.get(Textures::ID::Freezing));
             screenEffect.setNumFrames(20);
             screenEffect.setDuration(sf::seconds(3.f));
-            //screenEffect.setRepeating(true);
             screenEffect.setFrameSize(sf::Vector2i(320,180));
             screenEffect.setPosition(0,0);
             screenEffect.restart();
@@ -231,9 +183,6 @@ void World::update(sf::Time dt) {
 
     if (isWeather(Weather::Rain)) {
         if (!checkLastWeatherState(Weather::Rain)) {
-            //sf::Sprite overlay(mTextures.get(Textures::ID::Burning));
-            //overlay.setPosition(0,0);
-            //overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
             lastWeatherState=Weather::Rain;
             weatherEffect.setTexture(mTextures.get(Textures::ID::Raining));
             weatherEffect.setNumFrames(20);
@@ -248,14 +197,10 @@ void World::update(sf::Time dt) {
     }
     else if (isWeather(Weather::Snowing)) {
         if (!checkLastWeatherState(Weather::Snowing)) {
-            //sf::Sprite overlay(mTextures.get(Textures::ID::Burning));
-            //overlay.setPosition(0,0);
-            //overlay.setScale((Constants::WindowWidth)/(overlay.getGlobalBounds().width),(Constants::WindowHeight)/(overlay.getGlobalBounds().height));
             lastWeatherState=Weather::Snowing;
             weatherEffect.setTexture(mTextures.get(Textures::ID::Snowing));
             weatherEffect.setNumFrames(20);
             weatherEffect.setDuration(sf::seconds(10.f));
-            //weatherEffect.setRepeating(true);
             weatherEffect.setFrameSize(sf::Vector2i(320,180));
             weatherEffect.setPosition(0,0);
             weatherEffect.restart();
@@ -281,10 +226,8 @@ void World::update(sf::Time dt) {
         heartEffect.setRepeating(true);
         heartEffect.setFrameSize(sf::Vector2i(320,180));
         heartEffect.setPosition(Constants::WindowWidth-300,100);
-        //heartEffect.setPosition(0,0);
         heartEffect.restart();
         heartEffect.setScale(1,1);
-        //heartEffect.setScale((Constants::WindowWidth)/(heartEffect.getGlobalBounds().width),(Constants::WindowHeight)/(heartEffect.getGlobalBounds().height));
     }
 
     if (heartEffect.isBuilt()) heartEffect.update(dt);
@@ -296,18 +239,12 @@ void World::update(sf::Time dt) {
 
 void World::draw() { 
     mWindow.setView(mWorldView);
-    // mWindow.draw(tileManager);
-    // mWindow.draw(mTileManager);
     mWindow.draw(mSceneGraph);
-    //std::cout<<"Here\n";
-    //mWindow.setView();
     mWindow.setView(mWindow.getDefaultView());
     mWindow.draw(weatherEffect);
-    //if (weatherEffect.isShow()) std::cout<<"Wtf happened here\n";
     mWindow.setView(mWindow.getDefaultView());
     mWindow.draw(screenEffect);
     mWindow.setView(mWindow.getDefaultView());
-    //std::cout<<mPlayerCharacter->getHealth()<<'\n';
     if (mPlayerCharacter->getHealth()>0) {
         heartEffect.setPosition(Constants::WindowWidth-200,-50);
         mWindow.draw(heartEffect);
@@ -456,33 +393,13 @@ void World::buildScene() {
         mSceneGraph.attachChild(std::move(layer));
     }
 
-    /*
-    // Prepare the tiled background
-    sf::Texture& texture = mTextures.get(Textures::Background);
-    sf::IntRect textureRect(mWorldBounds);
-    texture.setRepeated(true);
-
-    
-    // Add the background sprite to the scene
-    std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
-    backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
-    mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
-    */
-
     // Grid making
-
-    // sf::Vector2f gridspawn = mSpawnPosition;
-    // gridspawn.y += Constants::initialShift * Constants::GridSize;
-    // SceneNode::Ptr grid(new TileManager(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures));
-    // mSceneLayers[Background]->attachChild(std::move(grid));
-
-
     sf::Vector2f gridspawn = mSpawnPosition;
     gridspawn.y += Constants::initialShift * Constants::GridSize;
-    // SceneNode::Ptr grid(GameObject(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures));
     SceneNode::Ptr grid(new GameObject(gridspawn, std::bind(&World::getBattlefieldBounds, this), &mTextures, mAnimation));
     mSceneLayers[Background]->attachChild(std::move(grid));
     mOriginGrid = mSpawnPosition;
+
     // Add player's character
 
     std::unique_ptr<Character> player(new Character(Character::Player, mTextures));
@@ -504,30 +421,11 @@ void World::adaptPlayerPosition() {
         return;
     }
     return;
-    // Keep player's position inside the screen bounds, at least borderDistance units from the border
-    sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
-    const float borderDistance = Constants::BorderDistance;
-
-    sf::Vector2f position = mPlayerCharacter->getPosition();
-    position.x = std::max(position.x, viewBounds.left + borderDistance);
-    position.x = std::min(position.x, viewBounds.left + viewBounds.width - borderDistance);
-    position.y = std::max(position.y, viewBounds.top + borderDistance);
-    position.y = std::min(position.y, viewBounds.top + viewBounds.height - borderDistance);
-    mPlayerCharacter->setPosition(position);
 }
 
 
 void World::adaptPlayerVelocity() {
     return;
-    sf::Vector2f velocity = mPlayerCharacter->getVelocity();
-
-    // If moving diagonally, reduce velocity (to have always same velocity)
-    if (velocity.x != 0.f && velocity.y != 0.f) {
-        mPlayerCharacter->setVelocity(velocity / std::sqrt(2.f));
-    }
-
-    // Add scrolling velocity
-    // mPlayerCharacter->accelerate(0.f, mScrollSpeed);
 }
 
 bool matchesCategories(SceneNode* node, Category::Type type) {
@@ -537,12 +435,8 @@ bool matchesCategories(SceneNode* node, Category::Type type) {
 void World::handleCollisions() {
     std::set<SceneNode*> playerCollidingNodes;
     mSceneGraph.checkNodeCollision(mPlayerCharacter->getBoundingRect(), playerCollidingNodes);
-    // mTileManager.checkNodeCollision(mPlayerCharacter->getBoundingRect(), playerCollidingNodes);
-    // std::cout << "Player bounding rect: " << mPlayerCharacter->getBoundingRect().left << ' ' << mPlayerCharacter->getBoundingRect().top << ' ' << mPlayerCharacter->getBoundingRect().width << ' ' << mPlayerCharacter->getBoundingRect().height << '\n';
-    // std::cout << "Number of colliding nodes: " << playerCollidingNodes.size() << '\n';
     for (auto node : playerCollidingNodes) {
         if (matchesCategories(node, Category::Obstacle)) {
-            //std::cout << "Colliding with obstacle\n";
             Command command;
             command.category = Category::PlayerCharacter;
             command.action = derivedAction<Character>([](Character& c, sf::Time) { c.destroy(); });
@@ -554,20 +448,6 @@ void World::handleCollisions() {
         if (matchesCategories(node, Category::Cold)) {
             mPlayerCharacter->shiftTemperature(Constants::ColdTemperatureShift);
         }
-        /*
-        if (matchesCategories(node, Category::Ice)) {
-            // setWater()
-        }
-        if (matchesCategories(node, Category::Island)) {
-            // setIsland()
-        }
-        if (matchesCategories(node, Category::Ice)) {
-            // setWater()
-        }
-        if (matchesCategories(node, Category::Island)) {
-            // setIsland()
-        }
-        */
         if (matchesCategories(node, Category::SpeedUp)) {
             mPlayerCharacter->multSpeedMult(Constants::SpeedUpMult);
         }
@@ -589,18 +469,6 @@ void World::handleCollisions() {
         if (matchesCategories(node, Category::PickUp)) {
             node->setDestroy();
         }
-        // if (matchesCategories(node, Category::Car)) {
-            // std::cout << "Colliding with car\n";
-        // }
-        // if (matchesCategories(node, Category::Grass)) {
-            // std::cout << "Colliding with grass\n";
-        // }
-        // else if (matchesCategories(node, Category::Ice)) {
-            // std::cout << "Colliding with ice\n";
-        // }
-        // else if (matchesCategories(node, Category::Sand)) {
-            // std::cout << "Colliding with sand\n";
-        // }
     }
 }
 sf::FloatRect World::getViewBounds() const
@@ -620,14 +488,10 @@ sf::FloatRect World::getBattlefieldBounds() const
 }
 
 void World::speedUp() {
-    //std::cout<<"Speeding ticket\n";
-    //mPlayerCharacter->setVelocity(mPlayerCharacter->getVelocity()*2.f);
     mPlayerCharacter->setSpeedMult(2.f);
 }
 
 void World::slowDown() {
-    //std::cout<<"Un-Speeding ticket\n";
-    //mPlayerCharacter->setVelocity(mPlayerCharacter->getVelocity()*0.5f);
     mPlayerCharacter->setSpeedMult(0.8f);
 }
 

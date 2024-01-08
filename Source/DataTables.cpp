@@ -102,7 +102,6 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Stone].minDistance = 6;
 	data[Obstacle::Type::Stone].maxDistance = 10;
 
-	//Tree
 	data[Obstacle::Type::Tree].scaleX = true;
 	data[Obstacle::Type::Tree].scaleY = true;
 	data[Obstacle::Type::Tree].texture = Textures::ID::Tree;
@@ -145,8 +144,6 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::Island].texture = Textures::ID::Island;
 	data[Obstacle::Type::Island].minDistance = 0;
 	data[Obstacle::Type::Island].maxDistance = 2;
-	//data[Obstacle::Type::Island].killByTime = true;
-	//data[Obstacle::Type::Island].killTime = sf::seconds(4);
 
 	data[Obstacle::Type::Train].speed = sf::Vector2f(Constants::trainSpeed, 0.f);
 	data[Obstacle::Type::Train].scaleX = false;
@@ -198,14 +195,6 @@ std::vector<ObstacleData> initializeObstacleData()
 	data[Obstacle::Type::IceCream].texture = Textures::ID::IceCream;
 	data[Obstacle::Type::IceCream].minDistance = 10;
 	data[Obstacle::Type::IceCream].maxDistance = 40;
-
-	/*
-	data[Obstacle::Type::Honey].scaleX = true;
-	data[Obstacle::Type::Honey].scaleY = true;
-	data[Obstacle::Type::Honey].texture = Textures::ID::Honey;
-	data[Obstacle::Type::Honey].minDistance = 10;
-	data[Obstacle::Type::Honey].maxDistance = 40;
-	*/
 
 	data[Obstacle::Type::Animal1].speed = sf::Vector2f(-Constants::carSpeed, 0.f);
 	data[Obstacle::Type::Animal1].scaleX = false;

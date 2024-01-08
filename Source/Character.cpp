@@ -273,31 +273,9 @@ bool Character::isDestroyed() const {
     return mIsDestroyed|isDestroyedFlag;
 }
 
-void Character::setWater() {
-    onWater=true;
-}
-
-void Character::setIsland() {
-    onIsland=true;
-}
-
-bool Character::deadOnWater() {
-    if (onWater&&!onIsland) return true;
-    return false;
-}
-
-void Character::clearState() {
-    onWater=false;
-    onIsland=false;
-}
 void Character::updateRollAnimation(){
 }
 
-/*
-void Character::setSpeedMult(float x) {
-    speedMult=x;
-}
-*/
 void Character::setFreezing() {
     isCold=true;
 }
