@@ -32,14 +32,20 @@ std::vector<float> GameLevel::loadHighScore(TypeMap::ID typeMap) {
     std::ifstream file;
     file.open(Constants::saveMapPath + "map" + std::to_string(typeMap) + ".txt");
     if (!file.is_open()) {
-        return {};
+        return std::vector<float> (Constants::MaxNumSaveScore, 0);
     }
     float score;
     std::vector<float> highScore;
     while (file >> score) {
-        highScore.push_back(score);
+        // highScore.push_back(score);
+        if (highScore.size() < Constants::MaxNumSaveScore) {
+            highScore.push_back(score);
+        }
     }
     file.close();
+    while (highScore.size() < Constants::MaxNumSaveScore) {
+        highScore.push_back(0);
+    }
     return highScore;
 }
 
