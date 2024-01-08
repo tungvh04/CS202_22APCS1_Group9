@@ -10,25 +10,6 @@ CreditState::CreditState(StateStack& stack, Context context)
 {
 	mBackgroundSprite.setTexture(context.textures->get(Textures::Credit));
 
-    // Create a text object for the introduction line
-    mIntroductionText.setFont(context.fonts->get(Fonts::Main));
-    mIntroductionText.setCharacterSize(60);
-    mIntroductionText.setFillColor(sf::Color::Black);
-    mIntroductionText.setString("Our Team");
-    mIntroductionText.setPosition(850, 250);
-
-    for (int i = 0; i < 5; i++){
-        mCredit[i].setFillColor(sf::Color::Black);
-        mCredit[i].setFont(context.fonts->get(Fonts::Main));
-        mCredit[i].setCharacterSize(40);
-        mCredit[i].setPosition(800, 400 + 100*i);
-    }
-    mCredit[0].setString("Ngo Hoang Bao Thach");
-    mCredit[1].setString("Nguyen Minh Luan");
-    mCredit[2].setString("Tran Nhat Thanh");
-    mCredit[3].setString("Le Van Cuong");
-    mCredit[4].setString("Vu Hoang Tung");
-
 	auto backButton = std::make_shared<GUI::Button>(context);
 	backButton->setPosition(70.f, 970.f);
 	backButton->setText("Back", 40);
@@ -44,8 +25,6 @@ void CreditState::draw()
 	sf::RenderWindow& window = *getContext().window;
 
 	window.draw(mBackgroundSprite);
-    window.draw(mIntroductionText);
-    for (int i = 0; i < 5; i++) window.draw(mCredit[i]);
 	window.draw(mGUIContainer);
 }
 
