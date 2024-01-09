@@ -97,7 +97,6 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack, context)
     exitButton->setCallback([this]()
     {
         requestStateClear();
-        requestStackPush(States::Exit);
     });
 
     mGUIContainer.pack(playButton);
