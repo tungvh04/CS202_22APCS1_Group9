@@ -26,8 +26,6 @@ void StateStack::draw() {
 }
 
 void StateStack::handleEvent(const sf::Event& event) {
-    // Iterate from top to bottom, stop as soon as handleEvent() returns false
-    // std::cout << "mStack size: " << mStack.size() << "\n";
     for (auto itr = mStack.rbegin(); itr != mStack.rend(); ++itr) {
         if (!(*itr)->handleEvent(event)) {
             break;
