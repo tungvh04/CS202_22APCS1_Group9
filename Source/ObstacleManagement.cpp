@@ -1,52 +1,14 @@
 #include <iostream>
-
 #include <ObstacleManagement.hpp>
 #include <DataTables.hpp>
-
-
 #include <GameLevel.hpp>
+
 namespace ObstacleDataTables {
     const std::vector<ObstacleData> data = initializeObstacleData();
-};
+}
 
 Textures::ID toTextureID(Obstacle::Type type) {
     return ObstacleDataTables::data[type].texture;
-    switch (type) {
-        case Obstacle::Car:
-            return Textures::Car;
-        case Obstacle::Oto:
-            return Textures::Oto;
-        case Obstacle::Train:
-            return Textures::Train;
-        case Obstacle::Island:
-            return Textures::Island;
-        case Obstacle::TrafficLightGreen:
-            return Textures::TrafficLightGreen;
-        case Obstacle::TrafficLightRed:
-            return Textures::TrafficLightRed;
-        case Obstacle::TrafficLightYellow:
-            return Textures::TrafficLightYellow;
-        case Obstacle::SlowDown:
-            return Textures::SlowDown;
-        case Obstacle::SpeedUp:
-            return Textures::SpeedUp;
-        case Obstacle::IceCream:
-            return Textures::IceCream;
-        case Obstacle::Tree:
-            return Textures::Tree;
-        case Obstacle::Tree1:
-            return Textures::Tree1;
-        case Obstacle::Tree2:
-            return Textures::Tree2;
-        case Obstacle::Tree3:
-            return Textures::Tree3;
-        case Obstacle::Tree4:
-            return Textures::Tree4;
-        case Obstacle::Tree5:
-            return Textures::Tree5;
-        default:
-            throw std::runtime_error("Invalid obstacle type");
-    }
 }
 
 unsigned int Obstacle::getCategory() const {
@@ -129,8 +91,37 @@ sf::FloatRect Obstacle::getBoundingRect() const {
     }
 }
 
+Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::FloatRect()> getBattlefieldBounds, std::map<Animations::ID, Animation>& animations)
+    : mType(type), MovingObject(textures.get(toTextureID(type))), getBattlefieldBounds(getBattlefieldBounds) {
+    initializeObstacle();
+}
 
-Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::FloatRect()> getBattlefieldBounds, std::map<Animations::ID, Animation>& animations) : mType(type), MovingObject(textures.get(toTextureID(type))), getBattlefieldBounds(getBattlefieldBounds) {
+void Obstacle::initializeObstacle() {
+    // ...
+}
+
+void Obstacle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
+    if (ObstacleDataTables::data[mType].hasAnimation) {
+        target.draw(mAnimation, states);
+    } else {
+        MovingObject::drawCurrent(target, states);
+    }
+}
+
+void Obstacle::updateCurrent(sf::Time dt) {
+    if (ObstacleDataTables::data[mType].hasAnimation) {
+        mAnimation.update(dt);
+    } else {
+        MovingObject::updateCurrent(dt);
+    }
+}
+
+ObstacleRow::ObstacleRow(std::vector<Obstacle::Type> types, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures, std::map<Animations::ID, Animation>& animation)
+    : getBattlefieldBounds(getBattlefieldBounds), mTextures(textures), mAnimations(animation) {
+    initializeObstacleRow(types);
+}
+
+void ObstacleRow::initializeObstacleRow(std::vector<Obstacle::Type> types) {
     if (ObstacleDataTables::data[type].hasAnimation) {
         mAnimation = animations[ObstacleDataTables::data[type].animation];
     }
@@ -158,70 +149,6 @@ Obstacle::Obstacle(Type type, const TextureHolder& textures, std::function<sf::F
     }
 }
 
-void Obstacle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
-    if (ObstacleDataTables::data[mType].hasAnimation) {
-        target.draw(mAnimation, states);
-    }
-    else {
-        MovingObject::drawCurrent(target, states);
-    }
-}
-
-void Obstacle::updateCurrent(sf::Time dt) {
-    if (ObstacleDataTables::data[mType].hasAnimation) {
-        mAnimation.update(dt);
-    }
-    else {
-        MovingObject::updateCurrent(dt);
-    }
-}
-
-Obstacle::~Obstacle() {
-}
-
-ObstacleRow::ObstacleRow(std::vector<Obstacle::Type> types, std::function<sf::FloatRect()> getBattlefieldBounds, TextureHolder* textures, std::map<Animations::ID, Animation>& animation) : getBattlefieldBounds(getBattlefieldBounds), mTextures(textures), mAnimations(animation) {
-    if (types.empty()) {
-        mType = Obstacle::Type::TypeCount;
-        return;
-    }
-    mType = types[rand() % types.size()];
-    groupSpawnSize = ObstacleDataTables::data[mType].groupSpawnAmount;
-    if (groupSpawnSize==0) {
-        groupSpawnSize=1;
-    }
-    groupSpawnLeft = groupSpawnSize;
-    sf::Time minTime = ObstacleDataTables::data[mType].minTime;
-    sf::Time maxTime = ObstacleDataTables::data[mType].maxTime;
-    if (minTime!=maxTime) {
-        sf::Time deltaTime = maxTime - minTime;
-        int randTime = rand() % (int)deltaTime.asMilliseconds();
-        sf::Time randomTime = sf::milliseconds(randTime);
-        randomTime += minTime;
-        randomTimeGroup = randomTime;
-    }
-    sf::Vector2f velocity = ObstacleDataTables::data[mType].speed;
-    velocity *= gameLevel.getSpeedMultiplier();
-    setVelocity(velocity);
-    generateRow();
-}
-
-void ObstacleRow::generateRow() {
-    if (mType == Obstacle::Type::TypeCount) {
-        return;
-    }
-    if (ObstacleDataTables::data[mType].maxDistance == 0 && ObstacleDataTables::data[mType].minDistance == 0) return;
-    int delta = rand() % ObstacleDataTables::data[mType].maxDistance;
-    for (int i = -Constants::TilesRenderedWide; i <= Constants::TilesRenderedWide; i++) {
-        if (delta == 0) {
-            SceneNode::Ptr obstacle(new Obstacle(mType, *mTextures, getBattlefieldBounds, mAnimations));
-            obstacle.get()->setPosition(i * Constants::GridSize, 0);
-            attachChild(std::move(obstacle));
-            delta = ObstacleDataTables::data[mType].minDistance + rand() % (ObstacleDataTables::data[mType].maxDistance - ObstacleDataTables::data[mType].minDistance);
-        }
-        else delta--;
-    }
-}
-
 sf::FloatRect ObstacleRow::getBoundingRect() const {
     sf::Vector2f position = getWorldPosition();
     position.x -= 1e9;
@@ -231,14 +158,30 @@ sf::FloatRect ObstacleRow::getBoundingRect() const {
 }
 
 bool ObstacleRow::isDestroyed() const {
-    return !getBattlefieldBounds().intersects(getBoundingRect())|isDestroyedFlag;
-}
-
-Obstacle::Type Obstacle::getType() {
-    return mType;
+    return !getBattlefieldBounds().intersects(getBoundingRect()) | isDestroyedFlag;
 }
 
 void ObstacleRow::updateCurrent(sf::Time dt) {
+    move(getVelocity() * dt.asSeconds());
+    for (int i = 0; i < mChildren.size(); i++) {
+        updateObstacleRowChildren(i, dt);
+    }
+    if (mType == Obstacle::Type::TypeCount) {
+        return;
+    }
+    updateObstacleRow(dt);
+}
+
+void ObstacleRow::updateObstacleRowChildren(int i, sf::Time dt) {
+    if (ObstacleDataTables::data[mType].hasAnimation) {
+        mAnimation.update(dt);
+    }
+    else {
+        MovingObject::updateCurrent(dt);
+    }
+}
+
+void ObstacleRow::updateObstacleRow(sf::Time dt) {
     move(getVelocity() * dt.asSeconds());
     for (int i=0;i<mChildren.size();i++) {
         if (dynamic_cast<Obstacle&>(*mChildren[i]).getType() == Obstacle::Type::TrafficLightGreen) {
