@@ -6,7 +6,6 @@ void ResourceHolder<Resource, Identifier>::load(Identifier id, const std::string
     if (!resource->loadFromFile(filename)) {
         throw std::runtime_error("ResourceHolder::load - Failed to load " + filename);
     }
-    std::cout<<"Load from file: "<<filename<<'\n';
     insertResource(id, std::move(resource));
 }
 template<typename Resource, typename Identifier>
